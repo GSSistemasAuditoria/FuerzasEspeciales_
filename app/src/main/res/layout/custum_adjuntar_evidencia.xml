@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textViewAdjuntarEvidenciaCAE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/text_label_adjuntar_evidencia_opcional"
+        android:textColor="@color/dark"
+        android:textStyle="bold" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="@color/gray1"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageViewDocumentoCAE"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_fs_documento_gris"
+                    android:contentDescription="@string/todo" />
+
+                <TextView
+                    android:id="@+id/textViewDocumentoCAE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/text_label_documentos"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imageViewVerDocumentoCAE"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/drawable_background_round_white"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_eye"
+                    android:contentDescription="@string/todo" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageViewCamaraCAE"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_fs_camara_gris"
+                    android:contentDescription="@string/todo" />
+
+                <TextView
+                    android:id="@+id/textViewCamaraCAE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/text_label_camara"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imageViewVerCamaraCAE"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/drawable_background_round_white"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_eye"
+                    android:contentDescription="@string/todo" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageViewGaleriaCAE"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/folder_image"
+                    android:contentDescription="@string/todo" />
+
+                <TextView
+                    android:id="@+id/textViewGaleriaCAE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/text_label_galeria"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imageViewVerGaleriaCAE"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/drawable_background_round_white"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_eye"
+                    android:contentDescription="@string/todo" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

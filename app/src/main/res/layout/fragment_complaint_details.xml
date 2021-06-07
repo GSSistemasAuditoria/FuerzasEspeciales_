@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.ui.inicio.faseProcesoDenuncia.detalleDenuncia.DetalleDelCasoFragment">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/custum_sub_titulo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/green_secondary"
+                    android:orientation="vertical">
+
+                    <!--<TextView
+                        android:id="@+id/textViewTituloDenunciaDDF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:text="Denuncia"
+                        android:textColor="@color/dark"
+                        android:textSize="18sp" />-->
+
+                    <!--<LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Folio:"
+                            android:textColor="@color/dark" />
+
+                        <TextView
+                            android:id="@+id/textViewFolioDenunciaDDF"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/text_label_id_invoice_example"
+                            android:textColor="@color/dark"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>-->
+
+                    <!--<TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Nombre de denuncia:"
+                        android:textColor="@color/dark" />-->
+
+                    <!-- <TextView
+                        android:id="@+id/textViewNombreDenunciaDDF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Robo a elektra"
+                        android:textColor="@color/green_secondary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />-->
+
+                    <!--<LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Registro:"
+                            android:textColor="@color/dark" />
+
+                        <TextView
+                            android:id="@+id/textViewFechaReporteDDF"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/text_label_report_date_exampe"
+                            android:textColor="@color/blueSecondary"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:text="Compromiso:"
+                            android:textColor="@color/dark" />
+
+                        <TextView
+                            android:id="@+id/textViewFechaCompromisoDDF"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/text_label_report_date_exampe"
+                            android:textColor="@color/green_secondary"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>-->
+
+                    <!--<TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Nombre del abogado:"
+                        android:textColor="@color/dark" />-->
+
+                    <!--<TextView
+                        android:id="@+id/textViewNombreAbogadoResponsableDDF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Peréz Gracía Gloria"
+                        android:textColor="@color/green_principal"
+                        android:textStyle="bold" />-->
+
+                    <!--<TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Unidad de negocio:"
+                        android:textColor="@color/dark" />-->
+
+                    <!--<TextView
+                        android:id="@+id/textViewNombreUnidadNegocioDDF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Unidad de negocio "
+                        android:textColor="@color/dark"
+                        android:textStyle="bold" />-->
+
+                    <!--<LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Ceco:"
+                            android:textColor="@color/dark" />
+
+                        <TextView
+                            android:id="@+id/textViewCecoUnidadNegocioDDF"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:text="1234560"
+                            android:textColor="@color/dark"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>-->
+
+                    <!--<TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Tipo de fraude:"
+                        android:textColor="@color/dark" />-->
+
+                    <!--<TextView
+                        android:id="@+id/textViewTipoFraudeDDF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/text_label_to_select"
+                        android:textColor="@color/dark"
+                        android:textStyle="bold" />-->
+
+                    <!--<LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Importe:"
+                            android:textColor="@color/dark" />
+
+                        <TextView
+                            android:id="@+id/textViewImporteDDF"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/text_lable_example_price"
+                            android:textColor="@color/blueSecondary"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:text="Recuperado:"
+                            android:textColor="@color/dark" />
+
+                        <TextView
+                            android:id="@+id/textViewMontoRecuperadoDDF"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/text_lable_example_price"
+                            android:textColor="@color/green_secondary"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>-->
+
+                    <!--<LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Zona:"
+                            android:textColor="@color/dark" />
+
+                        <TextView
+                            android:id="@+id/textViewZonaDDF"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Occidente"
+                            android:textColor="@color/dark"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Región:" />
+
+                        <TextView
+                            android:id="@+id/textViewRegionDDF"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Guadalajara"
+                            android:textColor="@color/dark"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>-->
+
+                    <!--<LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Etapa:"
+                            android:textColor="@color/dark" />
+
+                        <TextView
+                            android:id="@+id/textViewEtapaDenunciaDDF"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="En proceso"
+                            android:textColor="@color/dark" />
+
+                        <TextView
+                            android:id="@+id/textViewColorEtapaDenunciaDDF"
+                            android:layout_width="40dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="10dp" />
+
+                    </LinearLayout>-->
+
+                    <!--<LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Fase:"
+                            android:textColor="@color/dark" />
+
+                        <TextView
+                            android:id="@+id/textViewFaseDenunciaDDF"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Presentacion de denuncia"
+                            android:textColor="@color/dark"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textViewColorFaseDenunciaDDF"
+                            android:layout_width="40dp"
+                            android:layout_height="20dp" />
+
+                    </LinearLayout>-->
+
+
+                    <!--<LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Datos demanda:"
+                            android:textColor="@color/dark" />
+
+                        <TextView
+                            android:id="@+id/textViewDatosDemandaDDF"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="TextView"
+                            android:textColor="@color/dark"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>-->
+
+                    <!--<LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Datos departamanto:"
+                            android:textColor="@color/dark" />
+
+                        <TextView
+                            android:id="@+id/textViewDatosAgenciaDDF"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="TextView"
+                            android:textColor="@color/dark"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>-->
+
+                    <!--<TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Descripción:"
+                        android:textColor="@color/dark" />-->
+
+                    <!--<TextView
+                        android:id="@+id/textViewDescripcionDenunciaDDF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:paddingStart="5dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/text_lable_long_text_description"
+                        android:textColor="@color/dark"
+                        android:textStyle="bold" />-->
+
+
+                    <TextView
+                        android:id="@+id/textViewDenunciaDDF"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:gravity="center"
+                        android:text="Denuncia"
+                        android:textColor="@color/gray2"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/green_secondary"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewFasesDDF"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:gravity="center"
+                        android:text="Fases"
+                        android:textColor="@color/gray2"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/green_secondary"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewResponsablesDDF"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:gravity="center"
+                        android:text="@string/text_label_imputados"
+                        android:textColor="@color/gray2"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/green_secondary"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewDocumentoDDF"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:gravity="center"
+                        android:text="Documentos"
+                        android:textColor="@color/gray2"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <!--          <TextView
+                              android:id="@+id/txtViewResponsibleNameCDF"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_marginStart="10dp"
+                              android:layout_marginEnd="10dp"
+                              android:layout_marginBottom="10dp"
+                              android:background="@drawable/drawable_round_corners_gray"
+                              android:paddingStart="5dp"
+                              android:paddingTop="5dp"
+                              android:paddingEnd="5dp"
+                              android:paddingBottom="5dp"
+                              android:text="@string/text_label_to_select"
+                              android:textColor="@color/dark_gray02"
+                              android:textStyle="bold"
+                              android:visibility="gone" />-->
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

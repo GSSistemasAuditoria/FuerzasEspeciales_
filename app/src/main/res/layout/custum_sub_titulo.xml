@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textViewSubTiutuloCST"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/title_mis_denuncias"
+        android:textColor="@color/gray2"
+        android:textSize="16sp" />
+
+</LinearLayout>
+

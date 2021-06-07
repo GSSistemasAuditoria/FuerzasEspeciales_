@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path
+        name="my_images"
+        path="." />
+</paths>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>
+    <paths>
+        <external-files-path
+            name="my_images"
+            path="Android/data/com.example.package.name/files/Pictures" />
+    </paths>-->
+
+    <!--<?xml version="1.0" encoding="utf-8"?>
+    <paths >
+        <external-path path="." name="external_storage_root" />
+    </paths>-->

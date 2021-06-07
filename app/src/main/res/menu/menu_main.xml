@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.auditorias.fuerzasespeciales.MainActivity">
+
+    <!--<item
+        android:id="@+id/menu_action_notification"
+        android:actionLayout="@layout/badge_layout"
+        android:title="Notificaciones"
+        app:showAsAction="ifRoom" />-->
+
+    <item
+        android:id="@+id/menu_action_cerrar_session"
+        android:orderInCategory="100"
+        android:title="@string/action_cerrar_session"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_action_perfil"
+        android:icon="@drawable/ic_usuario"
+        android:orderInCategory="100"
+        android:title="@string/action_perfil"
+        app:showAsAction="ifRoom" />
+
+</menu>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/navigation_inicio_fragment"
+        android:icon="@drawable/ic_home_"
+        android:title="@string/title_beginning" />
+
+    <item
+        android:id="@+id/navigation_alta_nuevo_caso_fragment"
+        android:icon="@drawable/ic_complaint"
+        android:title="@string/title_denuncia" />
+
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/title_search" />
+
+    <item
+        android:id="@+id/navigation_finished"
+        android:icon="@drawable/ic_finished"
+        android:title="@string/title_finished"/>
+
+    <item
+        android:id="@+id/menu_action_notification"
+        android:icon="@drawable/ic_notifications"
+        app:actionLayout="@layout/badge_layout"
+        android:title="Alertas" />
+
+</menu>

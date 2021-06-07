@@ -1,0 +1,278 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="app_name">S. Fraudes</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Strings used for login -->
+
+    <string name="text_label_contraseña">Contraseña</string>
+    <string name="text_label_id_empleado_correo">Id empleado / Correo</string>
+
+
+    <string name="text_label_nombre_empleado_vacio">El campo nombre está vacío</string>
+    <string name="text_label_password_empty">Contraseña está vacío</string>
+    <string name="text_label_datos_demanda_vacio">Datos de demanda está vacía</string>
+    <string name="text_label_datos_demanda_menor_a_diez_caracteres">Datos de demanda es menor a 10 caracteres</string>
+    <string name="text_label_datos_agencia_vacio">Datos de agencia está vacía</string>
+    <string name="text_label_datos_agencia_menor_a_diez_caracteres">Datos de agencia es menor a 10 caracteres</string>
+    <string name="text_label_id_caso">El idCaso está vacío</string>
+    <string name="text_label_id_caso_face">El idCasoFase está vacío</string>
+    <string name="text_label_fecha_compromiso_esta_vacio">La fecha compromiso está vacía</string>
+    <string name="text_label_la_justificacion_esta_vacia">La justificación está vacía</string>
+    <string name="text_label_la_justificacion_es_menor_a_10_caracteres">La justificación es menor a 10 caracteres</string>
+
+    <!-- Strings used for menu main -->
+    <string name="title_activity_menu_main">MainActivity</string>
+    <string name="title_beginning">Inicio</string>
+    <string name="title_denuncia">Denuncia</string>
+    <string name="title_search">Búsqueda</string>
+    <string name="title_finished">Terminadas</string>
+
+    <string name="title_mis_denuncias">Mis denuncias</string>
+    <string name="title_general_date">Datos generales</string>
+    <string name="title_nuevas_denuncias">Nueva denuncia</string>
+    <string name="title_complaints_finished">Denuncias terminadas</string>
+    <string name="title_date_general">Datos generales</string>
+    <string name="title_proceso_del_caso">Proceso de la denuncia</string>
+    <string name="title_detalle_del_caso">Detalle de denuncia</string>
+    <string name="title_reprogramar_presentacion_de_denuncia">Reprogramación</string>
+    <string name="title_cierre">Cierre</string>
+
+    <!-- Strings used for menu actions for navigation -->
+    <string name="action_cerrar_session">Cerrar sesión</string>
+    <string name="action_perfil">Perfil</string>
+
+    <!-- Strings used for item in menu main -->
+    <string name="item_text_label_id_invoice">ID / Folio</string>
+    <string name="title_presentacion_de_denuncia">Presentación de denuncia</string>
+    <string name="title_fase_del_caso">Fase del caso</string>
+    <string name="item_text_label_abogado_respondable">Abogado responsable</string>
+    <string name="item_text_label_nombre_del_caso">Nombre de la denuncia</string>
+    <string name="item_text_label_business_unit">Unidad de negocio</string>
+    <string name="item_text_label_date">01 Oct 2020</string>
+
+    <!-- Strings used for dates general -->
+
+
+    <!-- Strings used for item in dates general -->
+    <string name="item_text_label_integrationitem_text_label_integration">Integración</string>
+    <string name="item_text_label_process_link">Vinculación a proceso</string>
+    <string name="item_text_label_arrest_warrant">Orden de aprehensión</string>
+    <string name="item_text_label_order_execution">Ejecución de orden</string>
+    <string name="item_text_label_judgment">Sentencia</string>
+    <string name="item_text_label_responsible_statuses">Estatus responsables</string>
+    <string name="item_text_label_reprogramar">Reprogramar</string>
+
+    <!-- Strings used for new complaint fragment -->
+    <string name="text_label_numeros">123456</string>
+    <string name="text_label_report_date">Fecha de reporte</string>
+    <string name="text_label_fecha_ejemplo">06 abr 2021</string>
+    <string name="text_label_to_select">Seleccionar</string>
+    <string name="text_label_type_of_fraud">Tipo de delito</string>
+    <string name="text_label_case_name">Nombre de la denuncia</string>
+    <string name="text_label_description">Descripción</string>
+    <string name="text_label_motivo_de_solicitud">Motivo de solicitud</string>
+    <string name="text_label_amount">Importe</string>
+    <string name="text_label_amount_recovered">Importe recuperado</string>
+    <string name="text_label_nombre_imputado">Nombre del imputado</string>
+    <string name="text_label_imputados">Imputados</string>
+    <string name="text_label_total_responsible">Total de responsables</string>
+    <string name="text_label_lorem_example">Lorem</string>
+    <string name="text_label_save">Guardar</string>
+    <string name="text_lable_signo_pesos">$</string>
+    <string name="text_lable_ceco">CECO</string>
+    <string name="text_lable_ceco_abogado">CECO Abogado: </string>
+    <string name="text_lable_ceco_udn">CECO Unidad de negocio: </string>
+    <string name="text_lable_zona">Zona</string>
+    <string name="text_lable_metro_sur">Metro sur</string>
+    <string name="text_lable_nuevo_ceco">Nuevo Centro de costos</string>
+    <string name="text_label_fecha_compromiso">Fecha Compromiso</string>
+    <string name="text_label_datos_de_denuncia">Datos de denuncia</string>
+    <string name="text_label_datos_de_agencia">Datos de agencia</string>
+    <string name="text_label_estatus">Estatus</string>
+    <string name="text_label_iniciar">Iniciar</string>
+    <string name="text_label_total_de_responsables">Total de imputados:</string>
+
+
+    <string name="text_lable_name_example">Juan Pérez</string>
+    <string name="text_lable_robo_a_elektra">Robo a elektra</string>
+    <string name="text_lable_auditorias">Auditorias</string>
+    <string name="text_lable_demandas_laborales">Demandas laborales</string>
+    <string name="text_lable_guadalajara">Guadalajara</string>
+    <string name="text_lable_long_text_example">Lorem ipsum id simply dummy</string>
+    <string name="text_lable_long_text_description">Lorem lpsum id simply dummy text of the printing and lypesetting industry</string>
+    <string name="text_lable_ejemplo_precio">$ 0.00</string>
+    <string name="text_label_empleado_interno">Empleados imputados</string>
+    <string name="text_label_empleado_esternos">Empleados externos</string>
+    <string name="text_label_empleado_interno_text">Ingrese numero o nombre del empleado que desee buscar.</string>
+    <string name="text_label_empleado_externo_text">Ingrese nombre que desee agregar a la lista de imputados.</string>
+    <string name="text_label_lista_de_responsables">Lista de imputados</string>
+    <string name="text_label_cargando" tools:ignore="TypographyEllipsis">Cagando...</string>
+    <string name="text_label_region_abogado">Región</string>
+    <string name="text_label_porcentaje_caso">0 %</string>
+    <string name="text_label_tipo_empleado">Interno</string>
+    <string name="text_label_cerrar">Cerrar</string>
+    <string name="text_label_numero_nombre_empleado">Número/Nombre empleado</string>
+    <string name="text_label_busqueda">Id auditoría, nombre, </string>
+
+    <string name="text_label_nombre_empleado">Nombre empleado</string>
+    <string name="text_label_agregar">Agregar</string>
+    <string name="text_label_eleminar_responsable">Eliminar responsable</string>
+
+    <string name="text_label_estas_seguro_de_eleminar_a">¿Estas seguro de eliminar a este responsable de la lista de resposables?</string>
+    <string name="text_label_si">Sí</string>
+    <string name="text_label_no">No</string>
+    <string name="text_label_pregunta_general">¿Realmente está seguro de realizar esta acción?</string>
+    <string name="text_label_nuevo_responsables">Nuevo respondable</string>
+    <string name="text_label_estas_segudo_de_agregar_a_la_lista_de_responsables">¿Estas seguro de agregar a este empleado a la lista de responsables?</string>
+    <string name="text_label_el_responsable_ya_existe_en_la_lista_de_responsables">El responsable ya existe en la lista de imputados.</string>
+    <string name="text_label_inicio_de_presentacion">Inicio de fase</string>
+    <string name="text_label_inicio_de_subfase">Inicio de subfase</string>
+    <string name="text_label_cierre_de_presentacion">Cierre de fase</string>
+    <string name="text_label_reprogramacion">Reprogramación</string>
+    <string name="text_label_estas_seguro_de_que_deseas_iniciar">¿Estás segudo de iniciar esta denuncia?</string>
+    <string name="text_label_fase_de_presentacion_de_denuncia">¿Estas seguro de cerrar la persentación de denuncia?</string>
+    <string name="text_label_estas_seguro_de_reprogramar_presentacion_de_denuncia">¿Estas seguro de reprogramar la persentación de denuncia?</string>
+    <string name="text_label_estas_seguro_de_cerrar_sesion">¿Estas seguro de cerrar sesión?</string>
+    <string name="text_label_titulo_cerrar_sesion">Cerrar sesión</string>
+
+    <string name="text_label_error_de_conexion">Se ha producido un error de comunicación.</string>
+    <string name="text_label_intentalo_mas_tarde">Inténtalo de nuevo más tarde.</string>
+    <string name="text_label_intentar_de_nuevo">Intentar de nuevo.</string>
+    <string name="text_label_error_la_fecha_reporte_esta_vacia">Especifique fecha de reporte.</string>
+    <string name="text_label_error_no_se_ha_selecionado_unidad_negocio">Selecciona una unidad de negocio</string>
+    <string name="text_label_error_el_nombre_del_empleado_exteno_esta_vacio">El nombre del empleado externo está vacío</string>
+    <string name="text_label_error_el_responsable_esta_en_la_lista">El imputado agregado ya existe en la lista.</string>
+    <string name="text_label_error">Error</string>
+    <string name="text_label_compromiso">Compromiso:</string>
+    <string name="text_label_registro">Registro:</string>
+    <string name="text_label_folio">Folio:</string>
+    <string name="text_label_x">X</string>
+    <string name="text_label_nombre_de_la_denuncia">Nombre de denuncia:</string>
+    <string name="text_label_etapa">Etapa:</string>
+    <string name="text_label_en_poceso">En proceso</string>
+    <string name="text_label_fase_dos_puntos">Fase:</string>
+    <string name="text_label_sub_fase_dos_puntos">Sub-faase:</string>
+    <string name="text_label_fase">Fase</string>
+    <string name="text_label_nombre_del_abogado">Nombre del abogado:</string>
+    <string name="text_label_unidad_de_negocio">Unidad de negocio:</string>
+    <string name="text_label_ceco_detalles">Ceco:</string>
+    <string name="text_label_tipo_de_faude_detalle">Tipo de delito:</string>
+    <string name="text_label_importe_detalle">Importe:</string>
+    <string name="text_label_recuperado_detalle">Recuperado:</string>
+    <string name="text_label_zona_detalle">Zona:</string>
+    <string name="text_label_region_detalle">Región:</string>
+    <string name="text_label_datos_demanda_detalle">Datos denuncia:</string>
+    <string name="text_label_demanda_detalle">Demanda</string>
+    <string name="text_label_datos_de_agencia_detalle">Datos agencia:</string>
+    <string name="text_label_departamento_detalle">Departamanto</string>
+    <string name="text_label_descripcion_detalle">Descripción:</string>
+    <string name="text_label_selecciona_un_tipo_de_fraude">Selecciona un tipo de fraude</string>
+    <string name="text_label_tamanio_excedido">Selecciona un tipo de fraude</string>
+    <string name="text_label_nombre_de_la_denuncia_esta_vacia">El nombre de la denuncia está vacía</string>
+    <string name="text_label_nombre_de_la_denuncia_ee_menor_a_diez_caracteres">El nombre de la denuncia es menor a 10 caracteres</string>
+    <string name="text_label_la_descripcio_de_la_denucnia_esta_vacia">La descripción de la denuncia está vacía</string>
+    <string name="text_label_la_descripcio_de_la_denucnia_es_menor_a_diez_caracteres">La descripción de la denuncia es menor a 10 caracteres</string>
+    <string name="text_label_el_importe_de_la_denuncia_esta_vacio">El importe de la denuncia está vacío</string>
+    <string name="text_label_monto_recuperado_esta_vacio">El monto recuperado está vacío</string>
+    <string name="text_label_monto_no_puede_ser_mayor">El monto no puede ser mayor al importe</string>
+    <string name="text_label_id_de_la_region_esta_vacia">El id de la región está vacío</string>
+    <string name="text_label_selecciona_un_imputado">Selecciona un imputado</string>
+    <string name="text_label_el_id_abogado_esta_vacio">No tiene id de abogado</string>
+    <string name="text_label_no_se_econtraron_resultados">No se han encontrado resultados</string>
+
+    <string name="text_label_nombre">Nombre</string>
+    <string name="text_label_ingrese_nombres">Ingresar nombre(s) correspondientes.</string>
+    <string name="text_label_buscar_nombre">Buscar empleado</string>
+    <string name="text_label_ingrese_empleado_a_buscar_nombre">Ingrese número/nombre de empleado a buscar</string>
+    <string name="text_label_tipo_de_empleado">Agregar imputado</string>
+    <string name="text_label_especifica_tipo_de_empleado">Específica el tipo.</string>
+    <string name="text_label_guardar_denucnai">Guardar denuncia</string>
+    <string name="text_label_selecciona_un_tipo_de_delito">Selecciona un tipo de delito</string>
+    <string name="text_label_agrega_imputado">Agrega imputado</string>
+
+    <!-- Strings usados en interface de login  -->
+    <string name="text_label_numero_de_empleado">Número de empleado</string>
+    <string name="text_label_ingresar">INGRESAR</string>
+    <string name="text_label_llave_maestra">Llave maestra</string>
+
+    <string name="text_label_el_numero_empleado_esta_vacio">El número de empleado está vacío</string>
+
+    <!-- Strings usados en interface de login  -->
+    <string name="text_label_total_imputados">Total de imputados</string>
+    <string name="text_label_no_se_encontraron_datos">No se encontraron datos</string>
+
+    <string name="item_text_label_autorizacion">Autorización</string>
+
+    <!-- Strings usados en interface de terminar fase   -->
+    <string name="text_label_fecha_comprimiso_puntos">Fecha compromiso:</string>
+
+    <!-- Strings usados en interface de evidencia de fotos   -->
+    <string name="text_label_liminar_evidencia">Eliminar evidencia</string>
+    <string name="text_label_liminar_documento">Eliminar documento</string>
+    <string name="text_label_falta_tomar_una_foto">Agregue al menos una foto</string>
+    <string name="text_label_no_se_creo_el_archivo_pdf">No se creo el archivo PDF</string>
+
+    <!-- Strings usados en interface de evidencia de fotos   -->
+    <string name="text_label_se_eleminara_la_evidencia_anterior">Se eliminará la envidencia anterior,</string>
+    <string name="text_label_evidencia">Evidencia</string>
+    <string name="text_label_aceptar">Aceptar</string>
+    <string name="text_label_guardado">Guardado</string>
+    <string name="text_label_se_ha_guardado_con_exito_la_nueva_denuncia">Se ha guardado con éxito la nueva denuncia.</string>
+    <string name="text_label_no_hay_contacto_valido_para_agregar">No hay un contacto válido para agregar</string>
+    <string name="text_label_porcentaje_ejemplo">10 %</string>
+    <string name="text_label_avance_de_la_denuncia">Avance de la denuncia:</string>
+    <string name="text_label_estatus_dos_puntos">Estatus:</string>
+    <string name="text_label_en_espera_ejemplo">En espera</string>
+    <string name="text_label_se_ha_iniciado_esta_fase_con_exito">Se ha iniciado esta fase con éxito.</string>
+    <string name="text_label_inicio">Inicio</string>
+    <string name="text_label_inicio_dos_puntos">Inicio:</string>
+    <string name="text_label_adjuntar_evidencia_opcional">Adjuntar evidencia (opcional)</string>
+    <string name="text_label_adjuntar_evidencia">Adjuntar evidencia</string>
+    <string name="text_label_documentos">Documentos</string>
+    <string name="text_label_camara">Cámara</string>
+    <string name="text_label_galeria">Galería</string>
+    <string name="text_label_tipo_delito">Tipo delito</string>
+    <string name="text_label_en_autorizacion_ejemplo">En autorizacion</string>
+    <string name="text_label_autorizacion">Autorizacion:</string>
+    <string name="text_label_se_ha_soliciatdo_reprogramacion_exitosamente_para_el_dia">Se ha solicitado reprogramación exitosamente para el día:</string>
+    <string name="text_label_se_ha_cerrado_esta_fase_exitosamente">Se ha cerrado esta fase correctamente</string>
+    <string name="text_label_se_ha_inciado_esta_subfase_exitosamente">Se ha iniciado esta subfase correctamente</string>
+    <string name="text_label_exito">Éxito</string>
+    <string name="text_label_procentaje">Porcentaje:</string>
+    <string name="text_label_cierre_dos_puntos">Cierre:</string>
+    <string name="text_label_reprogramaciones">Reprogramaciones</string>
+    <string name="text_label_sub_fases">Subfases</string>
+    <string name="text_label_mostrar">Mostrar</string>
+    <string name="text_label_ocultar">Ocultar</string>
+    <string name="text_label_tipo_de_documento">Tipo de documento</string>
+    <string name="text_label_seleccione_al_menos_un_tipo_de_documento">Seleccione almenos un tipo de documento</string>
+    <string name="text_label_lista_de_documento">Lista de documentos</string>
+    <string name="text_label_agrege_al_menos_un_de_documento">Agregue almenos un tipo de documento</string>
+    <string name="text_label_no_aplica">N/A</string>
+
+
+    <!-- Strings used for  -->
+    <string name="que_tipo_de_empledo_al_que_pertenece_el_resposable">¿Que tipo de empledo es al que pertenece el imputado?</string>
+    <string name="todo">TODO</string>
+
+
+    <string-array name="websites_array">
+        <item>Yahoo</item>
+        <item>Hotmail</item>
+        <item>Gmail</item>
+        <item>Facebook</item>
+        <item>Other</item>
+    </string-array>
+
+</resources>
