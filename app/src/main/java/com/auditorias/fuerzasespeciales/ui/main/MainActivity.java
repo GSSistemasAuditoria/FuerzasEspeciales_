@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewSpacioMA = findViewById(R.id.imageViewSpacioMA);
 
         setSupportActionBar(toolbar);
-        appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_inicio_fragment, R.id.navigation_alta_nuevo_caso_fragment, R.id.navigation_search, R.id.navigation_finished, R.id.menu_action_notification).build();
+        appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_inicio_fragment, R.id.navigation_alta_nuevo_caso_fragment, R.id.navigation_search, R.id.navigation_finished, R.id.navigation_notificaciones_fragment).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);

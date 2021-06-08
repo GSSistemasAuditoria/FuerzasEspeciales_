@@ -57,7 +57,7 @@ import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.StatusResponsableFaseModel;
 import com.auditorias.fuerzasespeciales.models.catalogos.etapa.EtapaCaso;
 import com.auditorias.fuerzasespeciales.request.ResponsablesResquest;
-import com.auditorias.fuerzasespeciales.ui.main.ui.inicio.faseProcesoDenuncia.faseProceso.iniciarFase.adapters.CatalogoArrayAdapter;
+import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.adapters.CatalogoArrayAdapter;
 import com.auditorias.fuerzasespeciales.webServicies.Constantes;
 import com.google.android.material.textfield.TextInputEditText;
 

@@ -24,7 +24,7 @@
         android:title="@string/title_finished"/>
 
     <item
-        android:id="@+id/menu_action_notification"
+        android:id="@+id/navigation_notificaciones_fragment"
         android:icon="@drawable/ic_notifications"
         app:actionLayout="@layout/badge_layout"
         android:title="Alertas" />

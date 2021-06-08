@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.ui.inicio.faseProcesoDenuncia.subFases.cerrarSubfases.CerrarSubFaseFragment">
+    tools:context=".ui.main.ui.carteraDeDenuncias.procesoDenuncia.subFases.cerrarSubfases.CerrarSubFaseFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

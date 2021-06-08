@@ -37,6 +37,7 @@
     <string name="title_denuncia">Denuncia</string>
     <string name="title_search">Búsqueda</string>
     <string name="title_finished">Terminadas</string>
+    <string name="title_notificaciones">Notificaciones</string>
 
     <string name="title_mis_denuncias">Mis denuncias</string>
     <string name="title_general_date">Datos generales</string>

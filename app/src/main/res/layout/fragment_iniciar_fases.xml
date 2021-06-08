@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:windowSoftInputMode="adjustResize"
-    tools:context=".ui.main.ui.inicio.faseProcesoDenuncia.faseProceso.iniciarFase.IniciarFaseFragment">
+    tools:context=".ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.IniciarFaseFragment">
 
     <include
         android:id="@+id/toolbar"

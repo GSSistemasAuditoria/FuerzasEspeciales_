@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_inicio_fragment"
-        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.inicio.InicioFragment"
+        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.InicioFragment"
         android:label="@string/title_beginning"
         tools:layout="@layout/fragment_inicio" />
 
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/navigation_alta_nuevo_caso_fragment"
-        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.nuevoCaso.NuevaDenunciaFragment"
+        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.NuevaDenunciaFragment"
         android:label="@string/title_denuncia"
         tools:layout="@layout/fragment_nueva_denuncia" />
 
@@ -38,13 +38,13 @@
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.search.BusquedaDenunciasFragment"
+        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.busqueda.BusquedaDenunciasFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_busqueda_denuncias" />
 
     <fragment
         android:id="@+id/navigation_finished"
-        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.finished.FinishedFragment"
+        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.terminadas.FinishedFragment"
         android:label="@string/title_finished"
         tools:layout="@layout/fragment_finished" >
 
@@ -60,7 +60,7 @@
 
     <fragment
         android:id="@+id/navigation_proceso_fase_denuncia_fragment"
-        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.inicio.faseProcesoDenuncia.ProcesoFaseDenunciaFragment"
+        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.ProcesoFaseDenunciaFragment"
         android:label="sf_fragment_general_data"
         tools:layout="@layout/fragment_proceso_fase_denuncia" />
 
@@ -106,13 +106,13 @@
 
     <fragment
         android:id="@+id/navigation_detalle_del_caso_fragment"
-        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.inicio.faseProcesoDenuncia.detalleDenuncia.DetalleDelCasoFragment"
+        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.detalleDenuncia.DetalleDelCasoFragment"
         android:label="fragment_complaint_details"
         tools:layout="@layout/fragment_complaint_details" />
 
     <fragment
         android:id="@+id/navigation_iniciar_fase_fragment"
-        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.inicio.faseProcesoDenuncia.faseProceso.iniciarFase.IniciarFaseFragment"
+        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.IniciarFaseFragment"
         android:label="fragment_reporgramadas"
         tools:layout="@layout/fragment_iniciar_fases" />
 
@@ -129,7 +129,7 @@
 
     <fragment
         android:id="@+id/navigation_reprogramar_fase_fragment"
-        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.inicio.faseProcesoDenuncia.faseProceso.reprogramarFase.ReprogramarFaseFragment"
+        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.reprogramarFase.ReprogramarFaseFragment"
         android:label="fragment_reprogramadas_prentacion_de_demanda"
         tools:layout="@layout/fragment_reprogramar_fase"/>
 
@@ -154,7 +154,7 @@
 
     <fragment
         android:id="@+id/navigation_terminar_presentacion_denuncia_fragment"
-        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.inicio.faseProcesoDenuncia.faseProceso.terminarFase.CerrarFaseFragment"
+        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.terminarFase.CerrarFaseFragment"
         android:label="fragment_terminar_presentacion_denuncia"
         tools:layout="@layout/fragment_cerrar_fase" />
 
@@ -218,7 +218,7 @@
 
     <fragment
         android:id="@+id/navigation_iniciar_sub_fases_fragment"
-        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.inicio.faseProcesoDenuncia.subFases.inicioSubFases.IniciarSubFasesFragment"
+        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.subFases.inicioSubFases.IniciarSubFasesFragment"
         android:label="IniciarSubFasesFragment"
         tools:layout="@layout/fragment_iniciar_fases" />
 
@@ -230,6 +230,11 @@
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 
+    <fragment
+        android:id="@+id/navigation_notificaciones_fragment"
+        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.notificaciones.notificacionesFragment"
+        android:label="fragment_notificaciones"
+        tools:layout="@layout/fragment_notificaciones" />
 
 
 </navigation>

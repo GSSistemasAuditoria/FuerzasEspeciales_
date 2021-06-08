@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayoutContainerRPDDF"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.ui.inicio.faseProcesoDenuncia.faseProceso.reprogramarFase.ReprogramarFaseFragment">
+    tools:context=".ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.reprogramarFase.ReprogramarFaseFragment">
 
     <include
         android:id="@+id/toolbar"

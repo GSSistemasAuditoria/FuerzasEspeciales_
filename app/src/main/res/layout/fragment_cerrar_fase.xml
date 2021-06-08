@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
     android:windowSoftInputMode="adjustResize"
-    tools:context=".ui.main.ui.inicio.faseProcesoDenuncia.faseProceso.terminarFase.CerrarFaseFragment">
+    tools:context=".ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.terminarFase.CerrarFaseFragment">
 
     <include
         android:id="@+id/toolbar"
