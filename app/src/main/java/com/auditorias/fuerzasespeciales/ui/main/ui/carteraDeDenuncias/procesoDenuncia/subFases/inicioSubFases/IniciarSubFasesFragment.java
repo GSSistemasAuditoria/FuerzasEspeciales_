@@ -48,14 +48,14 @@ import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
 import com.auditorias.fuerzasespeciales.models.Serial;
 import com.auditorias.fuerzasespeciales.models.catalogos.EstatusResponsableFase;
 import com.auditorias.fuerzasespeciales.models.catalogos.integracion.IntegracionDocData;
-import com.auditorias.fuerzasespeciales.models.denucia.DatosDenunciaResponsable;
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenunciaResponsable;
 import com.auditorias.fuerzasespeciales.request.DocumentoRequest;
 import com.auditorias.fuerzasespeciales.request.FaseRequest;
+import com.auditorias.fuerzasespeciales.request.ResponsablesPresentacionRequest;
 import com.auditorias.fuerzasespeciales.request.denuncia.DatosDenunciaRequest;
 import com.auditorias.fuerzasespeciales.request.envioRequest;
-import com.auditorias.fuerzasespeciales.request.ResponsablesPresentacionRequest;
+import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.cerrarFase.adapters.GaleriaFotosAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.IniciarFaseFragment;
-import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.terminarFase.adapters.GaleriaFotosAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.subFases.inicioSubFases.adapters.DocumentosInicioSubfaseAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.subFases.inicioSubFases.adapters.EstatusResponsablesInicioSubFaseAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.subFases.inicioSubFases.adapters.IntegracionDocArrayAdapter;
@@ -100,9 +100,9 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
 
 
     private DocumentosInicioSubfaseAdapter documentosInicioSubfaseAdapter;
-    //TODO:todas los adapters que se pueden utilizar en el fragmento
+
     private EstatusResponsablesInicioSubFaseAdapter estatusResponsablesInicioSubFaseAdapter;
-    //TODO:todas las variales que se pueden utilizar en el fragmento
+
     private String idCasoFase;
     private String idCaso;
     private String idSubFase;
@@ -164,6 +164,10 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
     private TextView textViewGaleriaCAE;
     private TextView textViewAdjuntarEvidenciaCAE;
     private TextView textViewListaDocumentosCDI;
+    private TextView textViewFaseEtapaCDF;
+    private TextView textViewFaseEtapaColorCDF;
+    private TextView textViewFechaCompromisoCDF;
+
     //TODO: todos los buttons de este fragment
     private Button buttonInicioFaseIFF;
     //TODO: todos los recyclerview de este fragment
@@ -186,6 +190,8 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
     private View custumDatosDenuciaAndDatosAgenciaIFF;
     private View custumCardViewAdjuntarDocumentosIFF;
     private View custumSpinnerSelectIFF;
+    private View custumCardViewDatosFaseIFF;
+    private View custumFechaCompromisoIFF;
     //TODO:todas las lista que se pueden utilizar en el fragmento
     private Context context;
     //TODO: todas las activity que se pueden utilizar en el fragmento
@@ -257,10 +263,10 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
             valorDeConfiguraciontipoAppMovil = args.getString("tipoAppMovil");
         }
 
-        if (idSubFase.equals("1")){
+        if (idSubFase.equals("1")) {
             getIntegracionDoc(activity);
             custumSpinnerSelectIFF.setVisibility(View.VISIBLE);
-        }else /*if (idSubFase.equals("2"))*/{
+        } else /*if (idSubFase.equals("2"))*/ {
             custumCardViewAdjuntarDocumentosIFF.setVisibility(View.VISIBLE);
         }
 
@@ -273,7 +279,7 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
         getObtenerConfiguracionPhotoNumber(activity);
 
         if (listDocumentosSelectos != null /*|| !listDocumentosSelectos.isEmpty()*/) {
-            documentosInicioSubfaseAdapter = new DocumentosInicioSubfaseAdapter(activity, listDocumentosSelectos, fragmentManager, new DocumentosInicioSubfaseAdapter.OnItemSelectedListener() {
+            documentosInicioSubfaseAdapter = new DocumentosInicioSubfaseAdapter(activity, listDocumentosSelectos,  new DocumentosInicioSubfaseAdapter.OnItemSelectedListener() {
                 @Override
                 public void onEliminarListener(DocumentoRequest documentoRequest, int position) {
                     showAlertDialogEliminarResponsable(activity, getString(R.string.text_label_liminar_documento), getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no), position);
@@ -332,8 +338,8 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
         textViewAutorizacionCDD = view.findViewById(R.id.textViewAutorizacionCDD);
 
         textViewFechaCompromisoCFC = view.findViewById(R.id.textViewFechaCompromisoCFC);
-        textViewAlertErrorCFC = view.findViewById(R.id.textViewAlertErrorCFC);
-        imageViewAlertErrorCFC = view.findViewById(R.id.imageViewAlertErrorCFC);
+        textViewAlertErrorCFC = view.findViewById(R.id.textViewFechaCompromisoAlertErrorCFC);
+        imageViewAlertErrorCFC = view.findViewById(R.id.imageViewFechaCompromisoAlertErrorCFC);
 
         textViewTextCSS = view.findViewById(R.id.textViewTextCSS);
         spinnerCSS = view.findViewById(R.id.spinnerCSS);
@@ -343,12 +349,14 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
         custumDatosDenuciaAndDatosAgenciaIFF = view.findViewById(R.id.custumDatosDenuciaAndDatosAgenciaIFF);
         custumCardViewAdjuntarDocumentosIFF = view.findViewById(R.id.custumCardViewAdjuntarDocumentosIFF);
         custumSpinnerSelectIFF = view.findViewById(R.id.custumSpinnerSelectIFF);
+        custumCardViewDatosFaseIFF = view.findViewById(R.id.custumCardViewDatosFaseIFF);
+        custumFechaCompromisoIFF = view.findViewById(R.id.custumFechaCompromisoIFF);
 
         textViewMostrarOcultarCLI = view.findViewById(R.id.textViewMostrarOcultarCLI);
         textViewMostrarOcultarCLI.setOnClickListener(this);
 
-        recyclerViewListaImputadosCLI = view.findViewById(R.id.recyclerViewListaImputadosCLI);
-        textViewTotalImputadosCLI = view.findViewById(R.id.textViewTotalImputadosCLI);
+        recyclerViewListaImputadosCLI = view.findViewById(R.id.recyclerViewListaResponsablesCLI);
+        textViewTotalImputadosCLI = view.findViewById(R.id.textViewTotalResponsablesCLI);
 
         buttonInicioFaseIFF = view.findViewById(R.id.buttonInicioFaseIFF);
         buttonInicioFaseIFF.setOnClickListener(this);
@@ -381,6 +389,9 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
 
         recyclerViewDocumentosCDI = view.findViewById(R.id.recyclerViewDocumentosCDI);
         textViewListaDocumentosCDI = view.findViewById(R.id.textViewListaDocumentosCDI);
+        textViewFaseEtapaCDF = view.findViewById(R.id.textViewFaseEtapaCDF);
+        textViewFaseEtapaColorCDF = view.findViewById(R.id.textViewFaseEtapaColorCDF);
+        textViewFechaCompromisoCDF = view.findViewById(R.id.textViewFechaCompromisoCDF);
 
 
     }
@@ -404,6 +415,7 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
         textViewListaDocumentosCDI.setVisibility(View.GONE);
         custumDatosDenuciaAndDatosAgenciaIFF.setVisibility(View.GONE);
         custumSpinnerSelectIFF.setVisibility(View.GONE);
+        custumFechaCompromisoIFF.setVisibility(View.GONE);
     }
 
     private void getDatosCasos(Activity activity, int idCaso) {
@@ -428,6 +440,11 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
                             } else {
                                 textViewSubTiutuloCST.setText(getString(R.string.text_label_inicio).concat(" - ").concat(serial.getDatosCasoModel().getFase()));
                             }
+                            textViewFaseEtapaCDF.setText(serial.getDatosCasoModel().getSubFase());
+                            textViewFaseEtapaColorCDF.setText(serial.getDatosCasoModel().getEtapaSubFase());
+                            textViewFaseEtapaColorCDF.setBackground(Utils.cambiarColorTextView(serial.getDatosCasoModel().getColorSubFase()));
+                            textViewFechaCompromisoCDF.setText(Utils.SetCambioFormatoFechaDiaMesAnio(String.valueOf(serial.getDatosCasoModel().getFechaCompromiso())));
+                            textViewFechaCompromisoCDF.setTextColor(activity.getColor(R.color.green_secondary));
 
                             linearLayoutColorEtapaDenunciaCDD.setBackgroundColor(Color.parseColor(serial.getDatosCasoModel().getColorEtapaCaso()));
                             textViewFolioDenunciaCDD.setText(serial.getDatosCasoModel().getFolio());
@@ -437,7 +454,6 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
                             textViewTipoDelitoCDD.setText(serial.getDatosCasoModel().getTipoFraude());
                             textViewFechaResgistroCDD.setText(Utils.SetCambioFormatoFechaDiaMesAnio(serial.getDatosCasoModel().getFechaRegistro()));
                             if (serial.getDatosCasoModel().getFechaCompromiso() != null) {
-
                                 textViewFechaCompromisoCFC.setText(Utils.SetCambioFormatoFechaDiaMesAnio(serial.getDatosCasoModel().getFechaCompromiso()));
                             } else {
                                 textViewFechaCompromisoCFC.setText("");
@@ -468,7 +484,7 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
                     public void executeInBackground(String result, String header) {
 
                     }
-                //}, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.ObtenerDatosCaso.concat(Constantes.signoInterrogacion).concat(Constantes.idCaso).concat(Constantes.signoIgual).concat(idCaso));
+                    //}, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.ObtenerDatosCaso.concat(Constantes.signoInterrogacion).concat(Constantes.idCaso).concat(Constantes.signoIgual).concat(idCaso));
                 }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.ObtenerDatosCaso, params);
             } else {
                 Utils.messageShort(activity, getString(R.string.text_label_error_de_conexion));
@@ -739,9 +755,9 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
         switch (v.getId()) {
             case R.id.imageViewDocumentoCAE:
             case R.id.textViewDocumentoCAE:
-                if (idSubFase.equals("1")){
+                if (idSubFase.equals("1")) {
                     cargarArchivo();
-                }else/* if (idSubFase.equals("2"))*/{
+                } else/* if (idSubFase.equals("2"))*/ {
                     if (stringBase64DocumentoImganen != null) {
                         showAlertDialogSeleccionarEvidencia(activity, getString(R.string.text_label_evidencia), getString(R.string.text_label_se_eleminara_la_evidencia_anterior).concat(getString(R.string.text_label_pregunta_general)), getString(R.string.text_label_si), getString(R.string.text_label_no), 2, v);
                     } else {
@@ -752,9 +768,9 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
 
             case R.id.imageViewGaleriaCAE:
             case R.id.textViewGaleriaCAE:
-                if (idSubFase.equals("1")){
+                if (idSubFase.equals("1")) {
                     cargarImagenGaleria("png");
-                }else /*if (idSubFase.equals("2"))*/{
+                } else /*if (idSubFase.equals("2"))*/ {
                     if (stringBase64DocumentoImganen != null) {
                         showAlertDialogSeleccionarEvidencia(activity, getString(R.string.text_label_evidencia), getString(R.string.text_label_se_eleminara_la_evidencia_anterior).concat(getString(R.string.text_label_pregunta_general)), getString(R.string.text_label_si), getString(R.string.text_label_no), 1, v);
                     } else {
@@ -765,9 +781,9 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
 
             case R.id.imageViewCamaraCAE:
             case R.id.textViewCamaraCAE:
-                if (idSubFase.equals("1")){
+                if (idSubFase.equals("1")) {
                     showDialogfotos(activity);
-                }else /*if (idSubFase.equals("2"))*/{
+                } else /*if (idSubFase.equals("2"))*/ {
                     if (stringBase64DocumentoImganen != null) {
                         showAlertDialogSeleccionarEvidencia(activity, getString(R.string.text_label_evidencia), getString(R.string.text_label_se_eleminara_la_evidencia_anterior).concat(getString(R.string.text_label_pregunta_general)), getString(R.string.text_label_si), getString(R.string.text_label_no), 3, v);
                     } else {
@@ -802,7 +818,7 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
                 break;
 
             case R.id.buttonInicioFaseIFF:
-                if (idSubFase.equals("1")){
+                if (idSubFase.equals("1")) {
                     if (idCaso.isEmpty()) {
                         Utils.messageShort(activity, getString(R.string.text_label_id_caso));
                     } else if (String.valueOf(idCasoFase).isEmpty()) {
@@ -822,7 +838,7 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
                             Utils.message(activity, getString(R.string.text_label_error_de_conexion));
                         }
                     }
-                }else /*if (idSubFase.equals("2"))*/{
+                } else /*if (idSubFase.equals("2"))*/ {
                     if (idCaso.isEmpty()) {
                         Utils.messageShort(activity, getString(R.string.text_label_id_caso));
                     } else if (String.valueOf(idCasoFase).isEmpty()) {
@@ -1119,11 +1135,11 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    if (idSubFase.equals("1")){
+                    if (idSubFase.equals("1")) {
                         textViewListaDocumentosCDI.setVisibility(View.VISIBLE);
                         recyclerViewDocumentosCDI.setVisibility(View.VISIBLE);
                         documentosInicioSubfaseAdapter.notifyDataSetChanged();
-                    }else /*if (idSubFase.equals("2"))*/{
+                    } else /*if (idSubFase.equals("2"))*/ {
                         imageViewVerGaleriaCAE.setVisibility(View.VISIBLE);
                         imageViewVerCamaraCAE.setVisibility(View.GONE);
                         imageViewVerDocumentoCAE.setVisibility(View.GONE);
@@ -1155,11 +1171,11 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        if (idSubFase.equals("1")){
+                        if (idSubFase.equals("1")) {
                             textViewListaDocumentosCDI.setVisibility(View.VISIBLE);
                             recyclerViewDocumentosCDI.setVisibility(View.VISIBLE);
                             documentosInicioSubfaseAdapter.notifyDataSetChanged();
-                        }else /*if (idSubFase.equals("2"))*/{
+                        } else /*if (idSubFase.equals("2"))*/ {
                             imageViewVerGaleriaCAE.setVisibility(View.GONE);
                             imageViewVerCamaraCAE.setVisibility(View.GONE);
                             imageViewVerDocumentoCAE.setVisibility(View.VISIBLE);
@@ -1235,14 +1251,14 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
         dialog.setContentView(R.layout.fragment_gelria_tomar_fotos);
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-        folderEmpty = dialog.findViewById(R.id.folderEmpty);
-        imagenfeo = dialog.findViewById(R.id.imagenfeo);
+        folderEmpty = dialog.findViewById(R.id.linearLayoutAdvertenciaFotosGTFF);
+        imagenfeo = dialog.findViewById(R.id.imagenViewAdvertenciaFotosGTFF);
 
         //TODO: son todos los botones del fragment
         ImageButton buttonAgregarFotoGTFF = dialog.findViewById(R.id.buttonAgregarFotoGTFF);
         buttonAgregarFotoGTFF.setOnClickListener(this);
 
-        ImageButton buttonSavePDFGTFF = dialog.findViewById(R.id.buttonSavePDFGTFF);
+        ImageButton buttonSavePDFGTFF = dialog.findViewById(R.id.buttonGuardarPDFGTFF);
         buttonSavePDFGTFF.setOnClickListener(this);
 
         RecyclerView recyclerViewGaleria = dialog.findViewById(R.id.recyclerViewGaleria);
@@ -1301,11 +1317,11 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
                     listDocumentosSelectos.add(new DocumentoRequest(nombreFoto, String.valueOf(idIntegracionDoc), extension, Integer.parseInt(tamanio), stringCompressDocumentoImagen, mPath, tipoDocumento));
                 }
                 listFotos.clear();
-                if (idSubFase.equals("1")){
+                if (idSubFase.equals("1")) {
                     textViewListaDocumentosCDI.setVisibility(View.VISIBLE);
                     recyclerViewDocumentosCDI.setVisibility(View.VISIBLE);
                     documentosInicioSubfaseAdapter.notifyDataSetChanged();
-                }else if (idSubFase.equals("2")){
+                } else if (idSubFase.equals("2")) {
                     imageViewVerGaleriaCAE.setVisibility(View.GONE);
                     imageViewVerCamaraCAE.setVisibility(View.VISIBLE);
                     imageViewVerDocumentoCAE.setVisibility(View.GONE);

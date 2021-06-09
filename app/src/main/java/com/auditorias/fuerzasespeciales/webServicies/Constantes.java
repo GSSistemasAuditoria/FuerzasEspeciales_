@@ -23,14 +23,15 @@ public class Constantes {
     //public static String BASE_URL_GETS = "http://10.112.57.102/SifraServicio.svc/";
     //public static String BASE_URL_GETS = "http://10.112.57.102/SifraServicio/SifraServicio.svc/";
     //public static String BASE_URL_GETS = "http://10.112.56.102/ServicioSIFRA/SifraServicio.svc/";
+
     public static String BASE_URL_GETS = "http://10.112.57.102/ServicioSIFRA/SifraServicio.svc/";
     //public static String BASE_URL_GETS = "http://10.63.50.108/ServicioSIFRA/SifraServicio.svc/";
     //public static String BASE_URL_GETS = "https://www.auditoriags.com/SifraServicio/SifraServicio.svc/";
 
-    //public static String BASE_URL_IMAGE = "http://10.63.50.108/ServicioSIFRA";
-    //public static String BASE_URL_IMAGE = "https://www.auditoriags.com/SifraServicio";
     //public static String BASE_URL_IMAGE = "http://10.112.56.102/ServicioSIFRA";
     public static String BASE_URL_IMAGE = "http://10.112.57.102/ServicioSIFRA";
+    //public static String BASE_URL_IMAGE = "http://10.63.50.108/ServicioSIFRA";
+    //public static String BASE_URL_IMAGE = "https://www.auditoriags.com/SifraServicio";
 
     public static String LOGIN_URL = "https://authns.desadsi.gs/nidp/oauth/nam/authz";
 

@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
-import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.terminarFase.adapters.GaleriaFotosAdapter;
+import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.cerrarFase.adapters.GaleriaFotosAdapter;
 import com.auditorias.fuerzasespeciales.utils.AsyncTaskGral;
 import com.auditorias.fuerzasespeciales.utils.Delegate;
 import com.auditorias.fuerzasespeciales.utils.Functions;
@@ -129,14 +129,14 @@ public class GaleriaFotosFragment extends Fragment implements View.OnClickListen
 
     public void setEnlaces(View view) {
 
-        folderEmpty = view.findViewById(R.id.folderEmpty);
-        imagenfeo = view.findViewById(R.id.imagenfeo);
+        folderEmpty = view.findViewById(R.id.linearLayoutAdvertenciaFotosGTFF);
+        imagenfeo = view.findViewById(R.id.imagenViewAdvertenciaFotosGTFF);
 
         //TODO: son todos los botones del fragment
         ImageButton buttonAgregarFotoGTFF = view.findViewById(R.id.buttonAgregarFotoGTFF);
         buttonAgregarFotoGTFF.setOnClickListener(this);
 
-        ImageButton buttonSavePDFGTFF = view.findViewById(R.id.buttonSavePDFGTFF);
+        ImageButton buttonSavePDFGTFF = view.findViewById(R.id.buttonGuardarPDFGTFF);
         buttonSavePDFGTFF.setOnClickListener(this);
 
         RecyclerView recyclerViewGaleria = view.findViewById(R.id.recyclerViewGaleria);
@@ -249,7 +249,7 @@ public class GaleriaFotosFragment extends Fragment implements View.OnClickListen
 
                 break;
 
-            case R.id.buttonSavePDFGTFF:
+            case R.id.buttonGuardarPDFGTFF:
                 if (listFotos.isEmpty() || listFotos == null) {
                     Utils.messageShort(activity, getString(R.string.text_label_falta_tomar_una_foto));
                 } else {

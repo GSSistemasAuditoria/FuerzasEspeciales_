@@ -24,57 +24,59 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewNumeroEmpledoImputadoCIE"
+                android:id="@+id/textViewNumeroEmpledoResponsableCIE"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="@string/text_label_numeros"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toTopOf="@+id/textViewNombreImputadoCIE"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/textViewNombreImputadoCIE"
+                android:id="@+id/textViewNombreResponsableCIE"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="@string/text_label_nombre_imputado"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toTopOf="@+id/textViewTipoImputadoCIE"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewNumeroEmpledoImputadoCIE" />
+                android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/textViewTipoImputadoCIE"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="@string/text_label_empleado_interno"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toTopOf="@+id/spinnerEstatusImputadoCIE"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewNombreImputadoCIE" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewTipoEmpleadoResponsableCIE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/text_label_empleado_interno"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/textViewTipoResponsableCIE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/text_label_empleado_interno"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
 
             <Spinner
-                android:id="@+id/spinnerEstatusImputadoCIE"
+                android:id="@+id/spinnerEstatusResponsableCIE"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTipoImputadoCIE" />
+                android:layout_marginBottom="10dp" />
 
         </LinearLayout>
 

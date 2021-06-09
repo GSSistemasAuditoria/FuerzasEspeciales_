@@ -1,4 +1,4 @@
-package com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.terminarFase.adapters;
+package com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.cerrarFase.adapters;
 
 import android.app.Activity;
 import android.os.Build;

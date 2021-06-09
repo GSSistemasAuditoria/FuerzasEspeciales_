@@ -1,4 +1,4 @@
-package com.auditorias.fuerzasespeciales.models.denucia;
+package com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -38,6 +38,9 @@ public class DatosDenunciaResponsable {
     @SerializedName("IdTipoEmpleado")
     @Expose
     private Integer idTipoEmpleado;
+    @SerializedName("IdTipoResponsable")
+    @Expose
+    private Integer idTipoResponsable;
     @SerializedName("Nombre")
     @Expose
     private String nombre;
@@ -50,6 +53,9 @@ public class DatosDenunciaResponsable {
     @SerializedName("TipoEmpleado")
     @Expose
     private String tipoEmpleado;
+    @SerializedName("TipoResponsable")
+    @Expose
+    private String tipoResponsable;
 
     public String getError() {
         return error;
@@ -169,5 +175,21 @@ public class DatosDenunciaResponsable {
 
     public void setTipoEmpleado(String tipoEmpleado) {
         this.tipoEmpleado = tipoEmpleado;
+    }
+
+    public String getTipoResponsable() {
+        return tipoResponsable;
+    }
+
+    public void setTipoResponsable(String tipoResponsable) {
+        this.tipoResponsable = tipoResponsable;
+    }
+
+    public Integer getIdTipoResponsable() {
+        return idTipoResponsable;
+    }
+
+    public void setIdTipoResponsable(Integer idTipoResponsable) {
+        this.idTipoResponsable = idTipoResponsable;
     }
 }

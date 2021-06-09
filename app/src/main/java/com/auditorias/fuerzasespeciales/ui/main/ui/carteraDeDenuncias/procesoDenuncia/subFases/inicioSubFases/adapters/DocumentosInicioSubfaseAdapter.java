@@ -23,11 +23,10 @@ public class DocumentosInicioSubfaseAdapter extends RecyclerView.Adapter<Documen
     private final List<DocumentoRequest> listResposablesCerrar;
     private final LayoutInflater inflater;
     private final OnItemSelectedListener itemSelectedListener;
-    private FragmentManager fm;
 
-    public DocumentosInicioSubfaseAdapter(Activity activity, List<DocumentoRequest> listResposablesCerrar, FragmentManager fm, OnItemSelectedListener itemSelectedListener) {
+    public DocumentosInicioSubfaseAdapter(Activity activity, List<DocumentoRequest> listResposablesCerrar, OnItemSelectedListener itemSelectedListener) {
         this.activity = activity;
-        this.fm = fm;
+
         this.listResposablesCerrar = listResposablesCerrar;
         this.itemSelectedListener = itemSelectedListener;
         inflater = LayoutInflater.from(activity);

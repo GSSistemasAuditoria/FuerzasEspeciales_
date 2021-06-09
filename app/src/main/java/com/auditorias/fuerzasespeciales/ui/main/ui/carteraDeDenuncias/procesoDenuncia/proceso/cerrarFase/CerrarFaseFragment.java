@@ -1,4 +1,4 @@
-package com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.terminarFase;
+package com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.cerrarFase;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -37,15 +37,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
 import com.auditorias.fuerzasespeciales.models.catalogos.EstatusResponsableFase;
-import com.auditorias.fuerzasespeciales.models.denucia.DatosDenuncia;
-import com.auditorias.fuerzasespeciales.models.denucia.DatosDenunciaResponsable;
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenuncia;
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenunciaResponsable;
 import com.auditorias.fuerzasespeciales.request.DocumentoRequest;
 import com.auditorias.fuerzasespeciales.request.FaseRequest;
 import com.auditorias.fuerzasespeciales.request.IniciaCasoRequest;
 import com.auditorias.fuerzasespeciales.request.ResponsablesPresentacionRequest;
 import com.auditorias.fuerzasespeciales.request.denuncia.DatosDenunciaRequest;
 import com.auditorias.fuerzasespeciales.request.envioRequest;
-import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.terminarFase.adapters.EstatusResponsableFaseCerrarAdapter;
+import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.cerrarFase.adapters.EstatusResponsablesCerrarAdapter;
 import com.auditorias.fuerzasespeciales.utils.AsyncTaskGral;
 import com.auditorias.fuerzasespeciales.utils.Delegate;
 import com.auditorias.fuerzasespeciales.utils.Functions;
@@ -72,19 +72,14 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
 
     //TODO:todas los listas que se pueden utilizar en el fragmento
     private final List<EstatusResponsableFase> listEstatusResponsableFase = new ArrayList<>();
-
-
     private final List<DocumentoRequest> listDocumentosSelectos = new ArrayList<>();
     private final List<ResponsablesPresentacionRequest> listNuevoEstatusResposables = new ArrayList<>();
-    int idFase;
+
     //TODO:todas los adapters que se pueden utilizar en el fragmento
-    private EstatusResponsableFaseCerrarAdapter estatusResponsableFaseCerrarAdapter;
+    private EstatusResponsablesCerrarAdapter estatusResponsablesCerrarAdapter;
+
     //TODO: variable estring para almacenar la variable de la direcciion de la foto que se tomo con la camara
-    private String mPath = "";
-    private String idCaso;
-    //private String nombreFase = "";
-    //private String fechaCompromiso;
-    private String idCasoFase = "";
+
     //TODO: son todos los textview del fragment
     private TextView textViewFolioDenunciaCDD;
     private TextView textViewNombreDenunciaCDD;
@@ -109,6 +104,11 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
     //private TextView textViewDatosAgenciaCDF;
     private TextView textViewAdjuntarEvidenciaCAE;
     private TextView textViewSubTiutuloCST;
+    private TextView textViewTipoDenunciaCDD;
+
+    private TextInputEditText textInputEditTextDatosDenunciaCDDDA;
+    private TextInputEditText textInputEditTextDatosAgenciaCDDDA;
+
     //TODO: son todos los Imageview del fragment
     private ImageView imageViewDocumentoCAE;
     private ImageView imageViewCamaraCAE;
@@ -116,56 +116,72 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
     private ImageView imageViewVerDocumentoCAE;
     private ImageView imageViewVerFotosCAE;
     private ImageView imageViewVerImagenesCAE;
+
     //TODO: son todos los botones del fragment
     private Button buttonCerraFaseCFF;
+
     //TODO: son todos los Linearlayout del fragment
     private LinearLayout linearLayoutColorEtapaDenunciaCDD;
+
     //TODO: son todos los recyclerview del fragment
     private RecyclerView recyclerViewListaImputadosCLI;
+
     //TODO: son todos los view del fragment
     private View view;
     private View custumDatosDenuciaAndDatosAgenciaIFF;
+
     //TODO: es el context del fragment
     private Context context;
+
     //TODO: es el activity del fragment
     private Activity activity;
+
     //TODO: es el fragmentmanager del fragment
     private FragmentManager fragmentManager;
+
     //TODO: todo referente a los dtaos de tranferencia de fragments
     private Bundle args;
+
     //TODO: son todas las varibles de datos
     private String stringBase64DocumentoImganen;
     private String stringCompressDocumentoImagen;
     private Bitmap bitmapImageFoto;
     private String extension = "";
-    private Uri uriImagenOrPdf;
     private String nombreDeArchivoFoto;
     //private String currentPhotoPath;
-    private Double valorDeConfiguracionFileMaxSize;
     private String descripcionConfiguracionFileMaxSize;
     private String nombrePDFFotos = "";
     private String tamanioPDFFotos = "";
     private String extenciionPDFFotos = "";
     private String stringBase64PDFFotos = "";
     private String uriStringPDFPDFFotos = "";
-    private String[] partsDocs;
     private String doc;
     private String docx;
     private String pdf;
-    private String[] partsImg;
     private String png;
     private String jpg;
     private String jpeg;
     private String valorDeConfiguracionFormatDocuments;
     private String descripcionConfiguracionFormatDocuments;
-    private int banderaFotos = 0;
     private String valorDeConfiguraciontipoAppMovil = "";
     private String descripcionConfiguraciontipoAppMovil;
     private String valorDeConfiguracionFormatImages;
     private String descripcionConfiguracionFormatImages;
+    private String mPath = "";
+    private String idCaso;
+    private String idCasoFase = "";
+    //private String nombreFase = "";
+    //private String fechaCompromiso;
+    private int idFase;
     private int mostrarListaImputados = 0;
-    private TextInputEditText textInputEditTextDatosDenunciaCDDDA;
-    private TextInputEditText textInputEditTextDatosAgenciaCDDDA;
+    private int banderaFotos = 0;
+
+    private Uri uriImagenOrPdf;
+
+    private String[] partsImg;
+    private String[] partsDocs;
+
+    private Double valorDeConfiguracionFileMaxSize;
 
     public CerrarFaseFragment() {
         // Required empty public constructor
@@ -300,16 +316,17 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
         textViewAutorizacionCDD = view.findViewById(R.id.textViewAutorizacionCDD);
         textViewAutorizacionTextCDD = view.findViewById(R.id.textViewAutorizacionTextCDD);
         textViewSubTiutuloCST = view.findViewById(R.id.textViewSubTiutuloCST);
-        recyclerViewListaImputadosCLI = view.findViewById(R.id.recyclerViewListaImputadosCLI);
-        textViewTotalImputadosCLI = view.findViewById(R.id.textViewTotalImputadosCLI);
+        recyclerViewListaImputadosCLI = view.findViewById(R.id.recyclerViewListaResponsablesCLI);
+        textViewTotalImputadosCLI = view.findViewById(R.id.textViewTotalResponsablesCLI);
         textViewAdjuntarEvidenciaCAE = view.findViewById(R.id.textViewAdjuntarEvidenciaCAE);
         textViewFaseEtapaCDF = view.findViewById(R.id.textViewFaseEtapaCDF);
         textViewFaseEtapaColorCDF = view.findViewById(R.id.textViewFaseEtapaColorCDF);
         textViewFechaCompromisoCDF = view.findViewById(R.id.textViewFechaCompromisoCDF);
+        textViewTipoDenunciaCDD = view.findViewById(R.id.textViewTipoDenunciaCDD);
 
         textInputEditTextDatosDenunciaCDDDA = view.findViewById(R.id.textInputEditTextDatosDenunciaCDDDA);
         textInputEditTextDatosAgenciaCDDDA = view.findViewById(R.id.textInputEditTextDatosAgenciaCDDDA);
-        custumDatosDenuciaAndDatosAgenciaIFF = view.findViewById(R.id.custumDatosDenuciaAndDatosAgenciaIFF);
+        custumDatosDenuciaAndDatosAgenciaIFF = view.findViewById(R.id.custumDatosDenuciaAndDatosAgenciaCFF);
 
         imageViewDocumentoCAE = view.findViewById(R.id.imageViewDocumentoCAE);
         imageViewDocumentoCAE.setOnClickListener(this);
@@ -404,15 +421,32 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
         linearLayoutColorEtapaDenunciaCDD.setBackgroundColor(Color.parseColor(datosDenuncia.getColorEtapaCaso()));
         textViewFolioDenunciaCDD.setText(datosDenuncia.getFolio());
         textViewNombreDenunciaCDD.setText(datosDenuncia.getNombre());
-        textViewUnidadNegocioCDD.setText(datosDenuncia.getUdN());
-        textViewZonaCDD.setText(datosDenuncia.getRegion());
+        textViewUnidadNegocioCDD.setText(datosDenuncia.getUdN().concat(" - ").concat(datosDenuncia.getUdNCeco()));
+        textViewZonaCDD.setText(datosDenuncia.getRegion().concat(" - ").concat(datosDenuncia.getZona()));
         textViewFechaResgistroCDD.setText(Utils.SetCambioFormatoFechaDiaMesAnio(String.valueOf(datosDenuncia.getFechaRegistro())));
+        textViewTipoDenunciaCDD.setText(datosDenuncia.getTipoDenuncia());
 
-        textViewFaseEtapaCDF.setText(datosDenuncia.getFase());
+        if (datosDenuncia.getSubFase() != null) {
+            textViewFaseEtapaCDF.setText(datosDenuncia.getSubFase());
+        } else {
+            textViewFaseEtapaCDF.setText(datosDenuncia.getFase());
+        }
+
+        if (datosDenuncia.getColorSubFase() != null) {
+            textViewFaseEtapaColorCDF.setBackground(Utils.cambiarColorTextView(datosDenuncia.getColorSubFase()));
+        } else {
+            textViewFaseEtapaColorCDF.setBackground(Utils.cambiarColorTextView(datosDenuncia.getColorFase()));
+        }
+
+        if (datosDenuncia.getEtapaSubFase() != null) {
+            textViewFaseEtapaColorCDF.setText(datosDenuncia.getEtapaSubFase());
+        } else {
+            textViewFaseEtapaColorCDF.setText(datosDenuncia.getEtapaFase());
+        }
+
         textViewFechaCompromisoCDF.setText(Utils.SetCambioFormatoFechaDiaMesAnio(String.valueOf(datosDenuncia.getFechaCompromiso())));
         textViewFechaCompromisoCDF.setTextColor(activity.getColor(R.color.green_secondary));
-        textViewFaseEtapaColorCDF.setBackground(Utils.cambiarColorTextView(datosDenuncia.getColorEtapaCaso()));
-        textViewFaseEtapaColorCDF.setText(datosDenuncia.getEtapaFase());
+
         textViewTotalImputadosCLI.setText(String.valueOf(datosDenuncia.getTotalResponsables()));
         textViewTipoDelitoCDD.setText(datosDenuncia.getTipoFraude());
         if (datosDenuncia.getIdFase().equals(2)) {
@@ -424,12 +458,12 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
             custumDatosDenuciaAndDatosAgenciaIFF.setVisibility(View.GONE);
         }
 
-        estatusResponsableFaseCerrarAdapter = new EstatusResponsableFaseCerrarAdapter(activity, datosDenuncia.getListResponsables(), fragmentManager, listEstatusResponsableFase, new EstatusResponsableFaseCerrarAdapter.OnItemSelectedListener() {
+        estatusResponsablesCerrarAdapter = new EstatusResponsablesCerrarAdapter(activity, datosDenuncia.getListResponsables(), /*fragmentManager, */listEstatusResponsableFase, new EstatusResponsablesCerrarAdapter.OnItemSelectedListener() {
             @Override
             public void onItemSelectedListener(DatosDenunciaResponsable datosDenunciaResponsable, int idCasoFase, int idCasoResponsable, int idStatusResponsable) {
                 if (idStatusResponsable != 0) {
                     listNuevoEstatusResposables.add(new ResponsablesPresentacionRequest(idCasoFase, idCasoResponsable, idStatusResponsable));
-                    //parametros para la lista que se envia                             IdCasoFase  IdCasoResponsable  IdStatusResponsable
+                    //                                                                  IdCasoFase  IdCasoResponsable  IdStatusResponsable
                 }
             }
         });
@@ -437,7 +471,7 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
         RecyclerView.LayoutManager layoutManagerCategory = new LinearLayoutManager(activity);
         recyclerViewListaImputadosCLI.setLayoutManager(layoutManagerCategory);
         recyclerViewListaImputadosCLI.setNestedScrollingEnabled(false);
-        recyclerViewListaImputadosCLI.setAdapter(estatusResponsableFaseCerrarAdapter);
+        recyclerViewListaImputadosCLI.setAdapter(estatusResponsablesCerrarAdapter);
     }
 
     //TODO: consumo de servicio de status de los responsables que estan dentro de la lista de resposales

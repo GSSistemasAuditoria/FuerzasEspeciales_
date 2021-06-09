@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.auditorias.fuerzasespeciales.R;
-import com.auditorias.fuerzasespeciales.models.Empleado;
+import com.auditorias.fuerzasespeciales.models.datosUsuario.Empleado;
 
 import java.util.List;
 

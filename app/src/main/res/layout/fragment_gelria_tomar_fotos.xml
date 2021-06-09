@@ -30,14 +30,14 @@
         android:layout_marginBottom="10dp" />
 
     <LinearLayout
-        android:id="@+id/folderEmpty"
+        android:id="@+id/linearLayoutAdvertenciaFotosGTFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/imagenfeo"
+            android:id="@+id/imagenViewAdvertenciaFotosGTFF"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
@@ -53,7 +53,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/buttonSavePDFGTFF"
+        android:id="@+id/buttonGuardarPDFGTFF"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
@@ -70,7 +70,7 @@
         android:id="@+id/buttonAgregarFotoGTFF"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignTop="@+id/buttonSavePDFGTFF"
+        android:layout_alignTop="@+id/buttonGuardarPDFGTFF"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="100dp"
         android:background="@drawable/drawable_background_round_green_"

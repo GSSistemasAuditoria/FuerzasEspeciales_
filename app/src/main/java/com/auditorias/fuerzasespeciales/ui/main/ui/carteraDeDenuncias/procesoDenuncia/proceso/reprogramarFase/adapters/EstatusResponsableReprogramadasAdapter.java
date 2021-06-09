@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.StatusResponsableFaseModel;
-import com.auditorias.fuerzasespeciales.models.denucia.DatosDenunciaResponsable;
-import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.terminarFase.adapters.EstatusResponsableFaseCerrarAdapter;
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenunciaResponsable;
+import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.cerrarFase.adapters.EstatusResponsablesCerrarAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +24,11 @@ public class EstatusResponsableReprogramadasAdapter extends RecyclerView.Adapter
     private final Activity activity;
     private final List<DatosDenunciaResponsable> listResposablesCerrar;
     private final LayoutInflater inflater;
-    private final EstatusResponsableFaseCerrarAdapter.OnItemSelectedListener itemSelectedListenerCerrar;
+    private final EstatusResponsablesCerrarAdapter.OnItemSelectedListener itemSelectedListenerCerrar;
     private FragmentManager fm;
     private List<StatusResponsableFaseModel> listEstatusDeResposablesSelecionar;
 
-    public EstatusResponsableReprogramadasAdapter(Activity activity, List<DatosDenunciaResponsable> listResposablesCerrar, FragmentManager fm, List<StatusResponsableFaseModel> listEstatusDeResposablesSelecionar, EstatusResponsableFaseCerrarAdapter.OnItemSelectedListener itemSelectedListenerCerrar) {
+    public EstatusResponsableReprogramadasAdapter(Activity activity, List<DatosDenunciaResponsable> listResposablesCerrar, FragmentManager fm, List<StatusResponsableFaseModel> listEstatusDeResposablesSelecionar, EstatusResponsablesCerrarAdapter.OnItemSelectedListener itemSelectedListenerCerrar) {
         this.activity = activity;
         this.fm = fm;
         this.listResposablesCerrar = listResposablesCerrar;
@@ -67,14 +67,14 @@ public class EstatusResponsableReprogramadasAdapter extends RecyclerView.Adapter
 
         EstatusResponsableReprogramadasViewHolder(View view) {
             super(view);
-            textViewNumeroEmpeadoTERCA = view.findViewById(R.id.textViewNumeroEmpledoImputadoCIE);
-            textViewNombreEmpeadoTERCA = view.findViewById(R.id.textViewNombreImputadoCIE);
-            textViewTipoEmpeadoTERCA = view.findViewById(R.id.textViewTipoImputadoCIE);
-            spinnerEstatusResponsable = view.findViewById(R.id.spinnerEstatusImputadoCIE);
+            textViewNumeroEmpeadoTERCA = view.findViewById(R.id.textViewNumeroEmpledoResponsableCTR);
+            textViewNombreEmpeadoTERCA = view.findViewById(R.id.textViewNombreResponsableCTR);
+            textViewTipoEmpeadoTERCA = view.findViewById(R.id.textViewTipoImputadoCTR);
+            spinnerEstatusResponsable = view.findViewById(R.id.spinnerEstatusResponsableCIE);
         }
 
         //TODO: llenado de los items que se encuentran dentro del recyclerview
-        public void bind(Activity activity, DatosDenunciaResponsable datosDenunciaResponsable, List<StatusResponsableFaseModel> listStatusResponsableFase, EstatusResponsableFaseCerrarAdapter.OnItemSelectedListener itemSelectedListener) {
+        public void bind(Activity activity, DatosDenunciaResponsable datosDenunciaResponsable, List<StatusResponsableFaseModel> listStatusResponsableFase, EstatusResponsablesCerrarAdapter.OnItemSelectedListener itemSelectedListener) {
             if (datosDenunciaResponsable.getIdEmpleado() == null /*|| String.valueOf(responsableModel.getIdEmpleado()).isEmpty() || responsableModel.getIdEmpleado().equals(0)*/) {
                 textViewNumeroEmpeadoTERCA.setVisibility(View.GONE);
                 textViewNumeroEmpeadoTERCA.setText(String.valueOf(datosDenunciaResponsable.getIdEmpleado()));

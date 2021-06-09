@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.catalogos.faseActiva.SubfaseActiva;
-import com.auditorias.fuerzasespeciales.models.denucia.DatosDenuncia;
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenuncia;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.subFases.holders.SubFaseViewHolder;
 
 import java.util.List;

@@ -154,7 +154,7 @@
 
     <fragment
         android:id="@+id/navigation_terminar_presentacion_denuncia_fragment"
-        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.terminarFase.CerrarFaseFragment"
+        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.cerrarFase.CerrarFaseFragment"
         android:label="fragment_terminar_presentacion_denuncia"
         tools:layout="@layout/fragment_cerrar_fase" />
 

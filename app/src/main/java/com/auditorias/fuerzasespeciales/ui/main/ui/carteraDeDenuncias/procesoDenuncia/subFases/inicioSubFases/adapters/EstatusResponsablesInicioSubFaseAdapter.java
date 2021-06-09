@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.catalogos.EstatusResponsableFase;
-import com.auditorias.fuerzasespeciales.models.denucia.DatosDenunciaResponsable;
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenunciaResponsable;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.adapters.EstatusImputadoArrayAdapter;
 
 import java.util.ArrayList;
@@ -69,10 +69,10 @@ public class EstatusResponsablesInicioSubFaseAdapter extends RecyclerView.Adapte
 
         EstatusResponsablesInicioSubFaseViewHolder(View view) {
             super(view);
-            textViewNumeroEmpeadoTERCA = view.findViewById(R.id.textViewNumeroEmpledoImputadoCIE);
-            textViewNombreEmpeadoTERCA = view.findViewById(R.id.textViewNombreImputadoCIE);
-            textViewTipoEmpeadoTERCA = view.findViewById(R.id.textViewTipoImputadoCIE);
-            spinnerEstatusResponsable = view.findViewById(R.id.spinnerEstatusImputadoCIE);
+            textViewNumeroEmpeadoTERCA = view.findViewById(R.id.textViewNumeroEmpledoResponsableCTR);
+            textViewNombreEmpeadoTERCA = view.findViewById(R.id.textViewNombreResponsableCTR);
+            textViewTipoEmpeadoTERCA = view.findViewById(R.id.textViewTipoImputadoCTR);
+            spinnerEstatusResponsable = view.findViewById(R.id.spinnerEstatusResponsableCIE);
         }
 
         //TODO: llenado de los items que se encuentran dentro del recyclerview

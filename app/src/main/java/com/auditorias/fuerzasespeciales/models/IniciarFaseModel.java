@@ -1,6 +1,6 @@
 package com.auditorias.fuerzasespeciales.models;
 
-import com.auditorias.fuerzasespeciales.models.denucia.DatosDenunciaResponsable;
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenunciaResponsable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

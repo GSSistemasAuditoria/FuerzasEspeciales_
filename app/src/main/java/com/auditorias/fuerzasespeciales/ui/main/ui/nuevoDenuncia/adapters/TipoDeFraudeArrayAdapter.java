@@ -9,17 +9,18 @@ import android.widget.TextView;
 
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.TipoFraudeModel;
+import com.auditorias.fuerzasespeciales.models.catalogos.tipoFraude.TipoFraude;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class TipoDeFraudeArrayAdapter extends ArrayAdapter<TipoFraudeModel> {
+public class TipoDeFraudeArrayAdapter extends ArrayAdapter<TipoFraude> {
 
-    private final List<TipoFraudeModel> list;
+    private final List<TipoFraude> list;
     private final Context context;
 
-    public TipoDeFraudeArrayAdapter(Context context, int resourceId, List<TipoFraudeModel> list) {
+    public TipoDeFraudeArrayAdapter(Context context, int resourceId, List<TipoFraude> list) {
         super(context, resourceId, list);
         this.list = list;
         this.context = context;

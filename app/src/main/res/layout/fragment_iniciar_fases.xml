@@ -58,8 +58,20 @@
                     android:orientation="vertical">
 
                     <include
+                        android:id="@+id/custumCardViewDatosFaseIFF"
+                        layout="@layout/custum_dastos_fase"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <include
                         android:id="@+id/custumFechaCompromisoIFF"
                         layout="@layout/custum_fecha_compromiso"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <include
+                        android:id="@+id/custumDatosDenuciaAndDatosAgenciaIFF"
+                        layout="@layout/custum_datos_denuncia_and_datos_agencia"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -82,13 +94,7 @@
                         android:layout_height="wrap_content" />
 
                     <include
-                        android:id="@+id/custumDatosDenuciaAndDatosAgenciaIFF"
-                        layout="@layout/custum_datos_denuncia_and_datos_agencia"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <include
-                        android:id="@+id/custumListaImputadosIFF"
+                        android:id="@+id/customListaResponsablesIFF"
                         layout="@layout/custum_lista_imputados"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />

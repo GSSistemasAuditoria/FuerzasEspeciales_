@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
     android:windowSoftInputMode="adjustResize"
-    tools:context=".ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.terminarFase.CerrarFaseFragment">
+    tools:context=".ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.cerrarFase.CerrarFaseFragment">
 
     <include
         android:id="@+id/toolbar"
@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content" />
 
                     <include
-                        android:id="@+id/custumDatosDenuciaAndDatosAgenciaIFF"
+                        android:id="@+id/custumDatosDenuciaAndDatosAgenciaCFF"
                         layout="@layout/custum_datos_denuncia_and_datos_agencia"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -73,7 +73,7 @@
                         android:layout_height="wrap_content" />
 
                     <include
-                        android:id="@+id/custumListaImputadosIFF"
+                        android:id="@+id/costomListaResponsablesIFF"
                         layout="@layout/custum_lista_imputados"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />

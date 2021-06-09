@@ -59,10 +59,10 @@ public class TotalEmpleadosAdapter extends RecyclerView.Adapter<TotalEmpleadosAd
 
         TotalEmpleadosViewHolder(View view) {
             super(view);
-            textViewNumeroEmpeadoTERC = view.findViewById(R.id.textViewNumeroEmpledoImputadoCIE);
-            textViewNombreEmpeadoTERC = view.findViewById(R.id.textViewNombreImputadoCIE);
-            textViewTipoEmpeadoTERC = view.findViewById(R.id.textViewTipoImputadoCIE);
-            imageViewDeleteTERC = view.findViewById(R.id.imageViewDeleteTERC);
+            textViewNumeroEmpeadoTERC = view.findViewById(R.id.textViewNumeroEmpledoResponsableCTR);
+            textViewNombreEmpeadoTERC = view.findViewById(R.id.textViewNombreResponsableCTR);
+            textViewTipoEmpeadoTERC = view.findViewById(R.id.textViewTipoImputadoCTR);
+            imageViewDeleteTERC = view.findViewById(R.id.imageViewDeleteCTR);
         }
 
         public void bind(final ResponsablesResquest responsablesResquest, final OnClickListener itemClickListener) {
