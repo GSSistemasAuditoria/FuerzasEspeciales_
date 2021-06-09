@@ -1,12 +1,10 @@
-package com.auditorias.fuerzasespeciales.models.denucia.cerrar;
+package com.auditorias.fuerzasespeciales.models.denucia;
 
-import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenunciaResponsable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+public class GuardarDenuncia {
 
-public class CerrarFase {
     @SerializedName("Error")
     @Expose
     private String error;
@@ -18,16 +16,16 @@ public class CerrarFase {
     private Boolean activaoUltima;
     @SerializedName("FechaCierre")
     @Expose
-    private Object fechaCierre;
+    private String fechaCierre;
     @SerializedName("FechaCompromiso")
     @Expose
-    private Object fechaCompromiso;
+    private String fechaCompromiso;
     @SerializedName("FechaInicio")
     @Expose
-    private Object fechaInicio;
+    private String fechaInicio;
     @SerializedName("FechaMod")
     @Expose
-    private Object fechaMod;
+    private String fechaMod;
     @SerializedName("FechaRegistro")
     @Expose
     private String fechaRegistro;
@@ -51,7 +49,7 @@ public class CerrarFase {
     private Integer idStatusAutorizacion;
     @SerializedName("IdSubFase")
     @Expose
-    private Object idSubFase;
+    private Integer idSubFase;
     @SerializedName("PorcentajeAvanceGeneral")
     @Expose
     private Integer porcentajeAvanceGeneral;
@@ -69,13 +67,19 @@ public class CerrarFase {
     private String casoNombre;
     @SerializedName("ColorEtapaCaso")
     @Expose
-    private Object colorEtapaCaso;
+    private String colorEtapaCaso;
     @SerializedName("ColorFase")
     @Expose
     private String colorFase;
+    @SerializedName("DatosAgencia")
+    @Expose
+    private String datosAgencia;
+    @SerializedName("DatosDemanda")
+    @Expose
+    private String datosDemanda;
     @SerializedName("EtapaCaso")
     @Expose
-    private Object etapaCaso;
+    private String etapaCaso;
     @SerializedName("EtapaFase")
     @Expose
     private String etapaFase;
@@ -88,6 +92,9 @@ public class CerrarFase {
     @SerializedName("IdEmpleado")
     @Expose
     private Integer idEmpleado;
+    @SerializedName("IdTipoDenuncia")
+    @Expose
+    private Integer idTipoDenuncia;
     @SerializedName("Importe")
     @Expose
     private Double importe;
@@ -99,10 +106,13 @@ public class CerrarFase {
     private String region;
     @SerializedName("Responsables")
     @Expose
-    private List<DatosDenunciaResponsable> listResponsables = null;
+    private Object responsables;
     @SerializedName("SubFase")
     @Expose
     private Object subFase;
+    @SerializedName("TipoDenuncia")
+    @Expose
+    private String tipoDenuncia;
     @SerializedName("TipoFraude")
     @Expose
     private String tipoFraude;
@@ -143,35 +153,35 @@ public class CerrarFase {
         this.activaoUltima = activaoUltima;
     }
 
-    public Object getFechaCierre() {
+    public String getFechaCierre() {
         return fechaCierre;
     }
 
-    public void setFechaCierre(Object fechaCierre) {
+    public void setFechaCierre(String fechaCierre) {
         this.fechaCierre = fechaCierre;
     }
 
-    public Object getFechaCompromiso() {
+    public String getFechaCompromiso() {
         return fechaCompromiso;
     }
 
-    public void setFechaCompromiso(Object fechaCompromiso) {
+    public void setFechaCompromiso(String fechaCompromiso) {
         this.fechaCompromiso = fechaCompromiso;
     }
 
-    public Object getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Object fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Object getFechaMod() {
+    public String getFechaMod() {
         return fechaMod;
     }
 
-    public void setFechaMod(Object fechaMod) {
+    public void setFechaMod(String fechaMod) {
         this.fechaMod = fechaMod;
     }
 
@@ -231,11 +241,11 @@ public class CerrarFase {
         this.idStatusAutorizacion = idStatusAutorizacion;
     }
 
-    public Object getIdSubFase() {
+    public Integer getIdSubFase() {
         return idSubFase;
     }
 
-    public void setIdSubFase(Object idSubFase) {
+    public void setIdSubFase(Integer idSubFase) {
         this.idSubFase = idSubFase;
     }
 
@@ -279,11 +289,11 @@ public class CerrarFase {
         this.casoNombre = casoNombre;
     }
 
-    public Object getColorEtapaCaso() {
+    public String getColorEtapaCaso() {
         return colorEtapaCaso;
     }
 
-    public void setColorEtapaCaso(Object colorEtapaCaso) {
+    public void setColorEtapaCaso(String colorEtapaCaso) {
         this.colorEtapaCaso = colorEtapaCaso;
     }
 
@@ -295,11 +305,27 @@ public class CerrarFase {
         this.colorFase = colorFase;
     }
 
-    public Object getEtapaCaso() {
+    public String getDatosAgencia() {
+        return datosAgencia;
+    }
+
+    public void setDatosAgencia(String datosAgencia) {
+        this.datosAgencia = datosAgencia;
+    }
+
+    public String getDatosDemanda() {
+        return datosDemanda;
+    }
+
+    public void setDatosDemanda(String datosDemanda) {
+        this.datosDemanda = datosDemanda;
+    }
+
+    public String getEtapaCaso() {
         return etapaCaso;
     }
 
-    public void setEtapaCaso(Object etapaCaso) {
+    public void setEtapaCaso(String etapaCaso) {
         this.etapaCaso = etapaCaso;
     }
 
@@ -335,6 +361,14 @@ public class CerrarFase {
         this.idEmpleado = idEmpleado;
     }
 
+    public Integer getIdTipoDenuncia() {
+        return idTipoDenuncia;
+    }
+
+    public void setIdTipoDenuncia(Integer idTipoDenuncia) {
+        this.idTipoDenuncia = idTipoDenuncia;
+    }
+
     public Double getImporte() {
         return importe;
     }
@@ -359,12 +393,12 @@ public class CerrarFase {
         this.region = region;
     }
 
-    public List<DatosDenunciaResponsable> getListResponsables() {
-        return listResponsables;
+    public Object getResponsables() {
+        return responsables;
     }
 
-    public void setListResponsables(List<DatosDenunciaResponsable> lisResponsables) {
-        this.listResponsables = listResponsables;
+    public void setResponsables(Object responsables) {
+        this.responsables = responsables;
     }
 
     public Object getSubFase() {
@@ -373,6 +407,14 @@ public class CerrarFase {
 
     public void setSubFase(Object subFase) {
         this.subFase = subFase;
+    }
+
+    public String getTipoDenuncia() {
+        return tipoDenuncia;
+    }
+
+    public void setTipoDenuncia(String tipoDenuncia) {
+        this.tipoDenuncia = tipoDenuncia;
     }
 
     public String getTipoFraude() {
@@ -414,4 +456,5 @@ public class CerrarFase {
     public void setZona(String zona) {
         this.zona = zona;
     }
+
 }

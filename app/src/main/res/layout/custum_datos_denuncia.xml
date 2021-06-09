@@ -7,6 +7,7 @@
     android:layout_marginStart="10dp"
     android:layout_marginTop="10dp"
     android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
     app:cardCornerRadius="5dp"
     app:cardElevation="5dp">
 
@@ -31,13 +32,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -45,8 +48,7 @@
                         android:id="@+id/textViewFolioDenunciaCDD"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="5dp"
                         android:text="@string/item_text_label_id_invoice"
                         android:textColor="@color/dark"
                         android:textStyle="bold" />
@@ -55,7 +57,6 @@
                         android:id="@+id/textViewNombreDenunciaCDD"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:text="@string/item_text_label_nombre_del_caso"
                         android:textColor="@color/green_secondary" />
 
@@ -65,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="30dp"
+                    android:layout_marginEnd="20dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -91,6 +92,15 @@
                 android:layout_marginEnd="10dp"
                 android:text="@string/text_label_tipo_delito"
                 android:textColor="@color/Red500" />
+
+            <TextView
+                android:id="@+id/textViewTipoDenunciaCDD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/text_label_tipo_denuncia"
+                android:textColor="@color/bluePrimary" />
 
             <TextView
                 android:id="@+id/textViewUnidadNegocioCDD"
@@ -126,7 +136,7 @@
                     android:textSize="13sp" />
 
                 <TextView
-                   android:id="@+id/textViewFechaCompromisoFaseTextCDD"
+                    android:id="@+id/textViewFechaCompromisoFaseTextCDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"

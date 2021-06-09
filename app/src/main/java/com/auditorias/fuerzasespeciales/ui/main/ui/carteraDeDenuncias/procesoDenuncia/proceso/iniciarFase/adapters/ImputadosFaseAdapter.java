@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.catalogos.EstatusResponsableFase;
-import com.auditorias.fuerzasespeciales.models.denucia.DatosDenunciaResponsable;
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenunciaResponsable;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.holders.ImputadosFaseViewHolder;
 
 import java.util.List;
@@ -19,16 +19,16 @@ import java.util.List;
 public class ImputadosFaseAdapter extends RecyclerView.Adapter<ImputadosFaseViewHolder> {
 
     private final Activity activity;
-    private final List<DatosDenunciaResponsable> listImputados;
+    private final List<DatosDenunciaResponsable> listDatosDenunciaResponsables;
     private final LayoutInflater inflater;
     private final OnItemSelectedListener itemSelectedListener;
     private FragmentManager fm;
     private List<EstatusResponsableFase> listEstatusDeResposablesSelecionar;
 
-    public ImputadosFaseAdapter(Activity activity, List<DatosDenunciaResponsable> listImputados, FragmentManager fm, List<EstatusResponsableFase> listEstatusDeResposablesSelecionar, OnItemSelectedListener itemSelectedListener) {
+    public ImputadosFaseAdapter(Activity activity, List<DatosDenunciaResponsable> listDatosDenunciaResponsables, FragmentManager fm, List<EstatusResponsableFase> listEstatusDeResposablesSelecionar, OnItemSelectedListener itemSelectedListener) {
         this.activity = activity;
         this.fm = fm;
-        this.listImputados = listImputados;
+        this.listDatosDenunciaResponsables = listDatosDenunciaResponsables;
         this.listEstatusDeResposablesSelecionar = listEstatusDeResposablesSelecionar;
         this.itemSelectedListener = itemSelectedListener;
         inflater = LayoutInflater.from(activity);
@@ -43,12 +43,12 @@ public class ImputadosFaseAdapter extends RecyclerView.Adapter<ImputadosFaseView
 
     @Override
     public void onBindViewHolder(@NonNull final ImputadosFaseViewHolder holder, final int position) {
-        holder.bind(activity, listImputados.get(position), listEstatusDeResposablesSelecionar, itemSelectedListener);
+        holder.bind(activity, listDatosDenunciaResponsables.get(position), listEstatusDeResposablesSelecionar, itemSelectedListener);
     }
 
     @Override
     public int getItemCount() {
-        return listImputados.size();
+        return listDatosDenunciaResponsables.size();
     }
 
     public interface OnItemSelectedListener {

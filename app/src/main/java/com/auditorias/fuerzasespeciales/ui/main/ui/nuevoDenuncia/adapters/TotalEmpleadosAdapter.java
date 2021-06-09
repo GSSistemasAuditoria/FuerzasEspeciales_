@@ -59,8 +59,8 @@ public class TotalEmpleadosAdapter extends RecyclerView.Adapter<TotalEmpleadosAd
 
         TotalEmpleadosViewHolder(View view) {
             super(view);
-            textViewNumeroEmpeadoTERC = view.findViewById(R.id.textViewNumeroEmpledoImputadoCIE);
-            textViewNombreEmpeadoTERC = view.findViewById(R.id.textViewNombreImputadoCIE);
+            textViewNumeroEmpeadoTERC = view.findViewById(R.id.textViewNumeroEmpledoResponsableCIE);
+            textViewNombreEmpeadoTERC = view.findViewById(R.id.textViewNombreResponsableCIE);
             textViewTipoEmpeadoTERC = view.findViewById(R.id.textViewTipoImputadoCIE);
             imageViewDeleteTERC = view.findViewById(R.id.imageViewDeleteTERC);
         }

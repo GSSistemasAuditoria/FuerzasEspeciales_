@@ -27,12 +27,12 @@ import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
 import com.auditorias.fuerzasespeciales.models.Serial;
 import com.auditorias.fuerzasespeciales.models.catalogos.EstatusResponsableFase;
-import com.auditorias.fuerzasespeciales.models.denucia.DatosDenunciaResponsable;
-import com.auditorias.fuerzasespeciales.request.FaseRequest;
-import com.auditorias.fuerzasespeciales.request.IniciaCasoRequest;
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenunciaResponsable;
 import com.auditorias.fuerzasespeciales.request.denuncia.DatosDenunciaRequest;
-import com.auditorias.fuerzasespeciales.request.envioRequest;
-import com.auditorias.fuerzasespeciales.request.ResponsablesPresentacionRequest;
+import com.auditorias.fuerzasespeciales.request.inicioFase.Denuncia;
+import com.auditorias.fuerzasespeciales.request.inicioFase.Fase;
+import com.auditorias.fuerzasespeciales.request.inicioFase.InicioFase;
+import com.auditorias.fuerzasespeciales.request.inicioFase.ResponsablesFase;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.adapters.ImputadosFaseAdapter;
 import com.auditorias.fuerzasespeciales.utils.AsyncTaskGral;
 import com.auditorias.fuerzasespeciales.utils.Delegate;
@@ -52,21 +52,16 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
 
     private static final String TAG = IniciarFaseFragment.class.getName();
 
-    //TODO: todas las lista que se pueden utilizar en el fragmento
     private final List<EstatusResponsableFase> listEstatusResponsableFase = new ArrayList<>();
 
-    private final List<ResponsablesPresentacionRequest> listResposablesPresentacion = new ArrayList<>();
+    private final List<ResponsablesFase> listResponsablesFase = new ArrayList<>();
 
-
-    //TODO:todas los adapters que se pueden utilizar en el fragmento
     private ImputadosFaseAdapter imputadosFaseAdapter;
 
-    //TODO:todas las variales que se pueden utilizar en el fragmento
     private String idCasoFase;
     private String idCaso;
     private String fechaCompromiso;
 
-    //TODO: son todos los textview del fragment
     private TextView textViewSubTiutuloCST;
     private TextView textViewFolioDenunciaCDD;
     private TextView textViewNombreDenunciaCDD;
@@ -83,39 +78,33 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
     private TextView textViewMostrarOcultarCLI;
     private TextView textViewTotalImputadosCLI;
     private TextView textViewAlertErrorCFC;
+    private TextView textViewTipoDenunciaCDD;
 
-    //TODO: todos los textInputLayout de este fragment
     private TextInputLayout textInputLayoutDatosDenunciaCDDDA;
     private TextInputLayout textInputLayputDatosAgenciaCDDDA;
 
-    //TODO: todos los textInputEditText de esta fragment
     private TextInputEditText textInputEditTextDatosDenunciaCDDDA;
     private TextInputEditText textInputEditTextDatosAgenciaCDDDA;
 
-    //TODO: todos los buttons de este fragment
     private Button buttonInicioFaseIFF;
 
-    //TODO: todos los recyclerview de este fragment
     private RecyclerView recyclerViewListaImputadosCLI;
 
-    //TODO: todos los ImageButton de este fragment
     private ImageView imageViewAlertErrorCFC;
 
-    //TODO:todos los linearLayout de este fragment
     private LinearLayout linearLayoutColorEtapaDenunciaCDD;
 
-    //TODO: todas los view que se pueden utilizar en el fragmento
     private View view;
     private View custumSpinnerSelectIFF;
     private View custumCardViewAdjuntarDocumentosIFF;
     private View custumDocumentosIntegracionIFF;
-    //TODO:todas las lista que se pueden utilizar en el fragmento
+
     private Context context;
-    //TODO: todas las activity que se pueden utilizar en el fragmento
+
     private Activity activity;
-    //TODO: todas las fragmentmanager que se pueden utilizar en el fragmento
+
     private FragmentManager fragmentManager;
-    //TODO: variables de argumentos para leer datos de otro fragment
+
     private Bundle args;
 
     private int mostrarListaImputados = 0;
@@ -161,6 +150,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
         textViewZonaCDD = view.findViewById(R.id.textViewZonaCDD);
         textViewAutorizacionTextCDD = view.findViewById(R.id.textViewAutorizacionTextCDD);
         textViewAutorizacionCDD = view.findViewById(R.id.textViewAutorizacionCDD);
+        textViewTipoDenunciaCDD = view.findViewById(R.id.textViewTipoDenunciaCDD);
 
         textViewFechaCompromisoCFC = view.findViewById(R.id.textViewFechaCompromisoCFC);
         textViewAlertErrorCFC = view.findViewById(R.id.textViewAlertErrorCFC);
@@ -209,7 +199,6 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                     @Override
                     public void getDelegate(String result) {
                         Gson gson = new Gson();
-                        //Serial serial = gson.fromJson(result, Serial.class);
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
 
                         if (respuestaGeneral.getDatosDenuncia().getExito().equals(Constantes.exitoTrue)) {
@@ -218,20 +207,19 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                             linearLayoutColorEtapaDenunciaCDD.setBackgroundColor(Color.parseColor(respuestaGeneral.getDatosDenuncia().getColorEtapaCaso()));
                             textViewFolioDenunciaCDD.setText(respuestaGeneral.getDatosDenuncia().getFolio());
                             textViewNombreDenunciaCDD.setText(respuestaGeneral.getDatosDenuncia().getNombre());
-                            textViewUnidadNegocioCDD.setText(respuestaGeneral.getDatosDenuncia().getUdN());
-                            textViewZonaCDD.setText(respuestaGeneral.getDatosDenuncia().getZona());
+                            textViewUnidadNegocioCDD.setText(respuestaGeneral.getDatosDenuncia().getUdN().concat(" - ").concat(respuestaGeneral.getDatosDenuncia().getUdNCeco()));
+                            textViewZonaCDD.setText(respuestaGeneral.getDatosDenuncia().getRegion().concat(" - ").concat(respuestaGeneral.getDatosDenuncia().getZona()));
                             textViewTipoDelitoCDD.setText(respuestaGeneral.getDatosDenuncia().getTipoFraude());
                             textViewFechaResgistroCDD.setText(Utils.SetCambioFormatoFechaDiaMesAnio(respuestaGeneral.getDatosDenuncia().getFechaRegistro()));
+                            textViewTipoDenunciaCDD.setText(respuestaGeneral.getDatosDenuncia().getTipoDenuncia());
+
                             if (respuestaGeneral.getDatosDenuncia().getFechaCompromiso() != null) {
-                                //fechaCompromiso = serial.getDatosCasoModel().getFechaCompromiso();
                                 try {
                                     fechaCompromiso = Utils.cambiarFechayyyyMMdd(respuestaGeneral.getDatosDenuncia().getFechaCompromiso());
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
-
                                 textViewFechaCompromisoCFC.setText(Utils.SetCambioFormatoFechaDiaMesAnio(respuestaGeneral.getDatosDenuncia().getFechaCompromiso()));
-                                //textViewFechaCompromisoCFC.setTextColor(activity.getColor(R.color.green_secondary));
                             } else {
                                 fechaCompromiso = "";
                                 textViewFechaCompromisoCFC.setText("");
@@ -243,8 +231,8 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                                 @Override
                                 public void onItemSelectedListener(DatosDenunciaResponsable datosDenunciaResponsable, int idCasoFase, int idCasoResponsable, int idStatusResponsable) {
                                     if (idStatusResponsable != 0) {
-                                        listResposablesPresentacion.add(new ResponsablesPresentacionRequest(idCasoFase, idCasoResponsable, idStatusResponsable));
-                                        //parametros para la lista que se envia                             IdCasoFase, IdCasoResponsable, IdStatusResponsable
+                                        listResponsablesFase.add(new ResponsablesFase(idCasoFase, idCasoResponsable, idStatusResponsable));
+                                        //parametros para la lista que se envia              IdCasoFase, IdCasoResponsable, IdStatusResponsable
                                     }
                                 }
                             });
@@ -262,7 +250,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                     public void executeInBackground(String result, String header) {
 
                     }
-                //}, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.ObtenerDatosCaso.concat(Constantes.signoInterrogacion).concat(Constantes.idCaso).concat(Constantes.signoIgual).concat(idCaso));
+                    //}, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.ObtenerDatosCaso.concat(Constantes.signoInterrogacion).concat(Constantes.idCaso).concat(Constantes.signoIgual).concat(idCaso));
                 }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.ObtenerDatosCaso, params);
             } else {
                 Utils.messageShort(activity, getString(R.string.text_label_error_de_conexion));
@@ -282,7 +270,6 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                         Gson gson = new Gson();
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
                         getEstatusImputadosList(respuestaGeneral.getLisEstatusResponsableFase());
-
                     }
 
                     @Override
@@ -308,7 +295,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.textViewMostrarOcultarCLI:
-                if (mostrarListaImputados == 0){
+                if (mostrarListaImputados == 0) {
                     textViewMostrarOcultarCLI.setText(getString(R.string.text_label_ocultar));
                     recyclerViewListaImputadosCLI.setVisibility(View.VISIBLE);
                     mostrarListaImputados = 1;
@@ -340,10 +327,11 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                     textInputEditTextDatosAgenciaCDDDA.requestFocus();
                 } else if (fechaCompromiso.isEmpty()) {
                     Utils.messageShort(activity, getString(R.string.text_label_fecha_compromiso_esta_vacio));
-                } else  {
+                } else {
                     if (Functions.isNetworkAvailable(activity)) {
                         showAlertDialogInicioPresentacion(activity, v, getString(R.string.text_label_inicio_de_presentacion), getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no),
-                                idCaso, Integer.parseInt(idCasoFase), datosDemanda, datosAgencia, fechaCompromiso, listResposablesPresentacion);
+                                Integer.parseInt(idCaso), Integer.parseInt(idCasoFase), datosDemanda, datosAgencia, fechaCompromiso, listResponsablesFase);
+                        //                       idCaso                    idCasoFase   datosDemanda  datosAgencia  fechaCompromiso  listResposablesPresentacion
                     } else {
                         Utils.message(activity, getString(R.string.text_label_error_de_conexion));
                     }
@@ -355,14 +343,15 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    public void showAlertDialogInicioPresentacion(Activity activity, View view, String titulo, String mensaje, String positivoMensaje, String negativoMensaje, String idCaso, int idCasoFase, String datosDemanda, String datosAgencia, String fechaCompromiso, List<ResponsablesPresentacionRequest> resposablesRequestList) {
+    public void showAlertDialogInicioPresentacion(Activity activity, View view, String titulo, String mensaje, String positivoMensaje, String negativoMensaje, int idCaso, int idCasoFase, String datosDemanda, String datosAgencia, String fechaCompromiso, List<ResponsablesFase> listResponsablesFase) {
         AlertDialog.Builder dialogo1 = new AlertDialog.Builder(activity);
         dialogo1.setTitle(titulo);
         dialogo1.setMessage(mensaje);
         dialogo1.setCancelable(false);
         dialogo1.setPositiveButton(positivoMensaje, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {
-                setIniciarFase(activity, view, idCaso, idCasoFase, datosDemanda, datosAgencia, fechaCompromiso, resposablesRequestList);
+                setIniciarFase(activity, view, idCaso, idCasoFase, datosDemanda, datosAgencia, fechaCompromiso, listResponsablesFase);
+                //                             idCaso  idCasoFase  datosDemanda  datosAgencia  fechaCompromiso  listResponsablesFase
             }
         });
 
@@ -374,11 +363,12 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
         dialogo1.show();
     }
 
-    public void setIniciarFase(Activity activity, View view, String idCaso, int idCasoFase, String datosDemanda, String datosAgencia, String fechaCompromiso, List<ResponsablesPresentacionRequest> resposablesRequestList) {
+    public void setIniciarFase(Activity activity, View view, int idCaso, int idCasoFase, String datosDemanda, String datosAgencia, String fechaCompromiso, List<ResponsablesFase> listRespondablesFase) {
         try {
             if (Functions.isNetworkAvailable(activity)) {
                 Gson gsonParams = new Gson();
-                String params = gsonParams.toJson(new envioRequest(new IniciaCasoRequest(Integer.parseInt(idCaso), datosDemanda, datosAgencia), new FaseRequest(idCasoFase, fechaCompromiso), resposablesRequestList));
+                String params = gsonParams.toJson(new InicioFase(new Denuncia(idCaso, datosDemanda, datosAgencia), new Fase(idCasoFase, fechaCompromiso), listRespondablesFase));
+                //                                                            idCaso  datosDemanda  datosAgencia            idCasoFase  fechaCompromiso   listRespondablesFase
                 new AsyncTaskGral(activity, new Delegate() {
                     @Override
                     public void getDelegate(String result) {
@@ -386,7 +376,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                         Serial serial = gson.fromJson(result, Serial.class);
 
                         if (serial.getIniciarFaseResult().getExito().equals(Constantes.exitoTrue)) {
-                            showDialogInicioFaseConExito(activity, view , getString(R.string.text_label_inicio), getString(R.string.text_label_se_ha_iniciado_esta_fase_con_exito), getString(R.string.text_label_aceptar), String.valueOf(serial.getIniciarFaseResult().getIdCaso()));
+                            showDialogInicioFaseConExito(activity, view, getString(R.string.text_label_inicio), getString(R.string.text_label_se_ha_iniciado_esta_fase_con_exito), getString(R.string.text_label_aceptar), String.valueOf(serial.getIniciarFaseResult().getIdCaso()));
                         } else {
                             Utils.message(activity, serial.getIniciarFaseResult().getError());
                         }
@@ -406,7 +396,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    public void showDialogInicioFaseConExito(Activity activity,View view, String titulo, String mensaje,  String butonText, String idCaso) {
+    public void showDialogInicioFaseConExito(Activity activity, View view, String titulo, String mensaje, String butonText, String idCaso) {
         Dialog dialog = new Dialog(activity, R.style.CustomDialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);

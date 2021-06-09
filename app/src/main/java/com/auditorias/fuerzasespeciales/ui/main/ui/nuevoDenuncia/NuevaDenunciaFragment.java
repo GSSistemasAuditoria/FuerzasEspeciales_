@@ -34,15 +34,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.SQLite.TableDataUser;
-import com.auditorias.fuerzasespeciales.models.Empleado;
 import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
-import com.auditorias.fuerzasespeciales.models.Serial;
-import com.auditorias.fuerzasespeciales.models.TipoDeEmpleadoModel;
-import com.auditorias.fuerzasespeciales.models.TipoFraudeModel;
-import com.auditorias.fuerzasespeciales.models.UnidaDeNegocioModel;
+import com.auditorias.fuerzasespeciales.models.catalogos.tipoEmpleado.TipoEmpleado;
+import com.auditorias.fuerzasespeciales.models.catalogos.tipoFraude.TipoFraude;
+import com.auditorias.fuerzasespeciales.models.catalogos.unidadDeNegocio.UnidadDeNegocio;
+import com.auditorias.fuerzasespeciales.models.datosUsuario.Empleado;
 import com.auditorias.fuerzasespeciales.request.CasoRequest;
 import com.auditorias.fuerzasespeciales.request.ResponsablesResquest;
-import com.auditorias.fuerzasespeciales.request.SendRequest;
+import com.auditorias.fuerzasespeciales.request.denuncia.NuevaDenuncia;
 import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters.AutocompleteAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters.TipoDeFraudeArrayAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters.TotalEmpleadosAdapter;
@@ -65,13 +64,13 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
 
     private static final String TAG = NuevaDenunciaFragment.class.getName();
 
-    //TODO: son todas las listas que se ocupan en este fragment
-    private final List<UnidaDeNegocioModel> listUnidadNegocio = new ArrayList<>();
-    private final List<TipoFraudeModel> listTipoFraude = new ArrayList<>();
-    private final List<ResponsablesResquest> listNombreResponsables = new ArrayList<>();
-    private final List<TipoDeEmpleadoModel> listTipoEmpleado = new ArrayList<>();
 
-    //TODO: son son todos los textView
+    private final List<UnidadDeNegocio> listUnidadNegocio = new ArrayList<>();
+    private final List<TipoFraude> listTipoFraude = new ArrayList<>();
+    private final List<ResponsablesResquest> listNombreResponsables = new ArrayList<>();
+    private final List<TipoEmpleado> listTipoEmpleado = new ArrayList<>();
+
+
     private TextView textViewSubTiutuloCST;
     private TextView textViewNombreAbogadoANCF;
     private TextView textViewCecoAbogadoANCF;
@@ -85,42 +84,39 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
     private TextView textViewAlertErrorCFC;
     private TextView textViewUNidadNegocioAlertErrorANCF;
     private TextView textViewAlertErrorTipoFraudeANCF;
-    private TextView textViewNombreResponsableAlertErrorANCF;
     private TextView textViewRegionANCF;
     private TextView textViewFechaCompromisoTextCFC;
+    private TextView textViewTipoDenunciaAlertErrorNDF;
+    private TextView textViewNombreResponsableTextCNR;
+    private TextView textViewNombreResponsableCNR;
+    private TextView textViewNombreResponsableAlertErrorCNR;
 
-    //TODO: son son todos los TextInputLayout
-
-    //TODO: son son todos los TextInputEditText
     private TextInputEditText textInputEditTextNombreCasoANCF;
     private TextInputEditText textInputEditTextDescripcionANCF;
     private TextInputEditText textInputEditTextImporteANCF;
     private TextInputEditText textInputEditTextImporteRecuperadoANCF;
 
-    //TODO: son son todos los ImageButton
     private ImageButton imageButtonFechaCompromisoCFC;
-    private ImageButton imageButtonNombreResponsableANCF;
+    private ImageButton imageButtonNombreResponsableCNR;
 
-    //TODO: son todas los imagevieew del fagment
     private ImageView imageViewAlertErrorCFC;
     private ImageView imageViewUnidadNegocioAlertErrorCFC;
     private ImageView imageViewAlertErrorTipoFraudeANCF;
-    private ImageView imageViewNombreResponsableAlertErrorANCF;
+    private ImageView imageViewTipoDenunciaAlertErrorNDF;
+    private ImageView imageViewNombreResponsableAlertErrorCNR;
 
-    //TODO: son son todos los Spinner
     private Spinner spinnerUnidadNegocioANCF;
     private Spinner spinnerTipoFraudeANCF;
 
     private RadioGroup radioGroupTipoDenunciaNDF;
 
-    //TODO: son son todos los Button
     private Button buttonGuardarCasoANCF;
 
-    //TODO: recyclerview
     private RecyclerView recyclerViewTotalRespondablesANCF;
 
-    //TODO: son son todos los Variables indispoensables de un fragment
     private View view;
+    private View customNuevosResponsables;
+
     private Context context;
     private Activity activity;
     private FragmentManager fragmentManager;
@@ -157,9 +153,9 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
             textViewZonaANCF.setText(TableDataUser.getZonaAbodago(activity));
             textViewRegionANCF.setText(TableDataUser.getRegionAbodago(activity));
         }*/
-        getObtenerDetalleUsuario(activity);
-        getTipoEmpleado(activity, view);
-        getObtenerCatalogoUdN(activity, view);
+        getObtenerDetalleUsuario(activity);//ya esta con respuesta general
+        getTipoEmpleado(activity, view);//ya esta con respuesta general
+        getObtenerCatalogoUdN(activity, view);//ya esta con respuesta general
         getObtenerCatalogoTipoFraude(activity, view);
         getTipoDenuncia(activity, view);
         recyclerViewTotalRespondablesANCF.setHasFixedSize(false);
@@ -188,8 +184,6 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         return view;
     }
 
-
-    //TODO: aqui se hace el elace con los elementos xml del fragment
     public void refereciasConInterface(View view) {
         textViewSubTiutuloCST = view.findViewById(R.id.textViewSubTiutuloCST);
         textViewNombreAbogadoANCF = view.findViewById(R.id.textViewNombreAbogadoANCF);
@@ -216,22 +210,30 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         imageViewUnidadNegocioAlertErrorCFC = view.findViewById(R.id.imageViewUnidadNegocioAlertErrorCFC);
         textViewAlertErrorTipoFraudeANCF = view.findViewById(R.id.textViewAlertErrorTipoFraudeANCF);
         imageViewAlertErrorTipoFraudeANCF = view.findViewById(R.id.imageViewAlertErrorTipoFraudeANCF);
-        imageViewNombreResponsableAlertErrorANCF = view.findViewById(R.id.imageViewNombreResponsableAlertErrorANCF);
-        textViewNombreResponsableAlertErrorANCF = view.findViewById(R.id.textViewNombreResponsableAlertErrorANCF);
+
+        textViewNombreResponsableAlertErrorCNR = view.findViewById(R.id.textViewNombreResponsableAlertErrorCNR);
+        imageViewNombreResponsableAlertErrorCNR = view.findViewById(R.id.imageViewNombreResponsableAlertErrorCNR);
+        customNuevosResponsables = view.findViewById(R.id.customNuevosResponsables);
+
         radioGroupTipoDenunciaNDF = view.findViewById(R.id.radioGroupTipoDenunciaNDF);
+        textViewTipoDenunciaAlertErrorNDF = view.findViewById(R.id.textViewTipoDenunciaAlertErrorNDF);
+        imageViewTipoDenunciaAlertErrorNDF = view.findViewById(R.id.imageViewTipoDenunciaAlertErrorNDF);
+        textViewNombreResponsableTextCNR = view.findViewById(R.id.textViewNombreResponsableTextCNR);
 
         imageButtonFechaCompromisoCFC = view.findViewById(R.id.imageButtonFechaCompromisoCFC);
         imageButtonFechaCompromisoCFC.setOnClickListener(this);
 
-        imageButtonNombreResponsableANCF = view.findViewById(R.id.imageButtonNombreResponsableANCF);
-        imageButtonNombreResponsableANCF.setOnClickListener(this);
+        textViewNombreResponsableCNR = view.findViewById(R.id.textViewNombreResponsableCNR);
+        textViewNombreResponsableCNR.setOnClickListener(this);
+
+        imageButtonNombreResponsableCNR = view.findViewById(R.id.imageButtonNombreResponsableCNR);
+        imageButtonNombreResponsableCNR.setOnClickListener(this);
 
         buttonGuardarCasoANCF = view.findViewById(R.id.buttonGuardarCasoANCF);
         buttonGuardarCasoANCF.setOnClickListener(this);
 
     }
 
-    //TODO: los elementos que se ocultan al iniciar el fragment
     public void ocultarElementos() {
         textViewCecoUnidadNegicioTextANCF.setVisibility(View.GONE);
         textViewCecoUnidadNegocioANCF.setVisibility(View.GONE);
@@ -244,12 +246,14 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         imageViewUnidadNegocioAlertErrorCFC.setVisibility(View.GONE);
         textViewAlertErrorTipoFraudeANCF.setVisibility(View.GONE);
         imageViewAlertErrorTipoFraudeANCF.setVisibility(View.GONE);
-        imageViewNombreResponsableAlertErrorANCF.setVisibility(View.GONE);
-        textViewNombreResponsableAlertErrorANCF.setVisibility(View.GONE);
+        textViewNombreResponsableAlertErrorCNR.setVisibility(View.GONE);
+        imageViewNombreResponsableAlertErrorCNR.setVisibility(View.GONE);
+        textViewTipoDenunciaAlertErrorNDF.setVisibility(View.GONE);
+        imageViewTipoDenunciaAlertErrorNDF.setVisibility(View.GONE);
+        //textViewNombreResponsableTextCNR.setVisibility(View.GONE);
+        customNuevosResponsables.setVisibility(View.GONE);
     }
 
-
-    //TODO: consumo de servicio para el llenado del informacion del empleado
     private void getObtenerDetalleUsuario(Activity activity) {
         if (Functions.isNetworkAvailable(activity)) {
             new AsyncTaskGral(activity, new Delegate() {
@@ -277,7 +281,6 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    //TODO: consumo de servicio para el llenado del spinner de tipo de empleado
     private void getTipoDenuncia(Activity activity, View view) {
         if (Functions.isNetworkAvailable(activity)) {
             new AsyncTaskGral(activity, new Delegate() {
@@ -298,12 +301,16 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                         RadioButton radioBtn = view.findViewById(checkedRadioButtonId);
                         if (String.valueOf(radioBtn.getId()).equals("1")) {
                             idTipoDenuncia = radioBtn.getId();
-                            //dialogTipoEmpleado.dismiss();
-                            //showDialogEmpleadoInterno(activity, radioBtn.getId());
+                            textViewTipoDenunciaAlertErrorNDF.setVisibility(View.GONE);
+                            imageViewTipoDenunciaAlertErrorNDF.setVisibility(View.GONE);
+                            customNuevosResponsables.setVisibility(View.VISIBLE);
+                            textViewNombreResponsableTextCNR.setText("Lista de imputados");
                         } else if (String.valueOf(radioBtn.getId()).equals("2")) {
                             idTipoDenuncia = radioBtn.getId();
-                            //dialogTipoEmpleado.dismiss();
-                            //showDialogEmpledoExterno(activity, radioBtn.getId());
+                            textViewTipoDenunciaAlertErrorNDF.setVisibility(View.GONE);
+                            imageViewTipoDenunciaAlertErrorNDF.setVisibility(View.GONE);
+                            customNuevosResponsables.setVisibility(View.VISIBLE);
+                            textViewNombreResponsableTextCNR.setText("Lista de defendidos");
                         }
                     });
 
@@ -320,16 +327,15 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    //TODO: consumo de servicio para el llenado del spinner de tipo de empleado
     private void getTipoEmpleado(Activity activity, View view) {
         if (Functions.isNetworkAvailable(activity)) {
             new AsyncTaskGral(activity, new Delegate() {
                 @Override
                 public void getDelegate(String result) {
                     Gson gson = new Gson();
-                    Serial serial = gson.fromJson(result, Serial.class);
-                    if (!serial.gettipoDeEmpleadoList().equals(null) || !serial.gettipoDeEmpleadoList().isEmpty()) {
-                        listTipoEmpleado.addAll(serial.gettipoDeEmpleadoList());
+                    RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
+                    if (!respuestaGeneral.getListTipoEmpleado().equals(null) || !respuestaGeneral.getListTipoEmpleado().isEmpty()) {
+                        listTipoEmpleado.addAll(respuestaGeneral.getListTipoEmpleado());
                     } else {
                         Utils.messageShort(activity, getString(R.string.text_label_no_se_encontraron_datos));
                     }
@@ -346,16 +352,15 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    //TODO: consumo de servicio para el llenado del spinner de la unidad de negocio
     private void getObtenerCatalogoUdN(Activity activity, View view) {
         if (Functions.isNetworkAvailable(activity)) {
             new AsyncTaskGral(activity, new Delegate() {
                 @Override
                 public void getDelegate(String result) {
                     Gson gson = new Gson();
-                    Serial serial = gson.fromJson(result, Serial.class);
-                    if (!serial.getUnidadDeNegocioList().equals(null) || !serial.getUnidadDeNegocioList().isEmpty()) {
-                        getUnidadDeNegocioList(activity, serial.getUnidadDeNegocioList());
+                    RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
+                    if (!respuestaGeneral.getListUnidadDeNegocio().equals(null) || !respuestaGeneral.getListUnidadDeNegocio().isEmpty()) {
+                        getUnidadDeNegocioList(activity, respuestaGeneral.getListUnidadDeNegocio());
                     } else {
                         getString(R.string.text_label_no_se_encontraron_datos);
                     }
@@ -372,13 +377,12 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    //TODO: llenado de lista de unidad de negocio y funcionalidad
-    public void getUnidadDeNegocioList(Activity activity, List<UnidaDeNegocioModel> list) {
+    public void getUnidadDeNegocioList(Activity activity, List<UnidadDeNegocio> list) {
         listUnidadNegocio.clear();
-        listUnidadNegocio.add(new UnidaDeNegocioModel(Constantes.selecionar, "", 0, 0, "", ""));
+        listUnidadNegocio.add(new UnidadDeNegocio(Constantes.selecionar, "", 0, 0, "", ""));
         listUnidadNegocio.addAll(list);
 
-        ArrayAdapter<UnidaDeNegocioModel> myAdapter = new UnidadDeNegocioArrayAdapter(activity, R.layout.cell_estatus_responsable_spinner_item, listUnidadNegocio);
+        ArrayAdapter<UnidadDeNegocio> myAdapter = new UnidadDeNegocioArrayAdapter(activity, R.layout.cell_estatus_responsable_spinner_item, listUnidadNegocio);
         spinnerUnidadNegocioANCF.setAdapter(myAdapter);
         spinnerUnidadNegocioANCF.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -407,16 +411,15 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         });
     }
 
-    //TODO: consumo de servicio para el llenado del spinner de tipo de fraude
     private void getObtenerCatalogoTipoFraude(Activity activity, View view) {
         if (Functions.isNetworkAvailable(activity)) {
             new AsyncTaskGral(activity, new Delegate() {
                 @Override
                 public void getDelegate(String result) {
                     Gson gson = new Gson();
-                    Serial serial = gson.fromJson(result, Serial.class);
-                    if (!serial.getTipoFraudeList().equals(null) || !serial.getTipoFraudeList().isEmpty()) {
-                        getTipoFraudeList(activity, serial.getTipoFraudeList());
+                    RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
+                    if (!respuestaGeneral.getListTipoFraude().equals(null) || !respuestaGeneral.getListTipoFraude().isEmpty()) {
+                        getTipoFraudeList(activity, respuestaGeneral.getListTipoFraude());
                     } else {
                         getString(R.string.text_label_no_se_encontraron_datos);
                     }
@@ -433,13 +436,12 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    //TODO: llenado de lista de tipo de fraude y funcionalidad
-    public void getTipoFraudeList(Activity activity, List<TipoFraudeModel> list) {
+    public void getTipoFraudeList(Activity activity, List<TipoFraude> list) {
         listTipoFraude.clear();
-        listTipoFraude.add(new TipoFraudeModel(Constantes.selecionar, "", 0, 0));
+        listTipoFraude.add(new TipoFraude(Constantes.selecionar, "", 0, 0));
         listTipoFraude.addAll(list);
 
-        ArrayAdapter<TipoFraudeModel> myAdapter = new TipoDeFraudeArrayAdapter(activity, R.layout.cell_estatus_responsable_spinner_item, listTipoFraude);
+        ArrayAdapter<TipoFraude> myAdapter = new TipoDeFraudeArrayAdapter(activity, R.layout.cell_estatus_responsable_spinner_item, listTipoFraude);
         spinnerTipoFraudeANCF.setAdapter(myAdapter);
         spinnerTipoFraudeANCF.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -490,6 +492,12 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                     textViewAlertErrorCFC.setText(getString(R.string.text_label_error_la_fecha_reporte_esta_vacia));
                     Utils.messageShort(context, getString(R.string.text_label_error_la_fecha_reporte_esta_vacia));
                     clearFocusEditText(activity);
+                } else if (String.valueOf(idTipoDenuncia).isEmpty() || idTipoDenuncia == 0) {
+                    textViewTipoDenunciaAlertErrorNDF.setVisibility(View.VISIBLE);
+                    imageViewTipoDenunciaAlertErrorNDF.setVisibility(View.VISIBLE);
+                    textViewTipoDenunciaAlertErrorNDF.setText(getString(R.string.text_label_error_no_se_ha_seleccionado_un_tipo_de_denuncia));
+                    Utils.messageShort(context, getString(R.string.text_label_error_no_se_ha_seleccionado_un_tipo_de_denuncia));
+                    clearFocusEditText(activity);
                 } else if (String.valueOf(idUdN).isEmpty() || idUdN == 0) {
                     textViewUNidadNegocioAlertErrorANCF.setVisibility(View.VISIBLE);
                     imageViewUnidadNegocioAlertErrorCFC.setVisibility(View.VISIBLE);
@@ -521,19 +529,20 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                 } else if (String.valueOf(idRegion).isEmpty()) {
                     Utils.messageShort(context, getString(R.string.text_label_id_de_la_region_esta_vacia));
                 } else if (listNombreResponsables.isEmpty()) {
-                    textViewNombreResponsableAlertErrorANCF.setVisibility(View.VISIBLE);
-                    imageViewNombreResponsableAlertErrorANCF.setVisibility(View.VISIBLE);
-                    textViewNombreResponsableAlertErrorANCF.setText(getString(R.string.text_label_selecciona_un_imputado));
+                    imageViewNombreResponsableAlertErrorCNR.setVisibility(View.VISIBLE);
+                    textViewNombreResponsableAlertErrorCNR.setVisibility(View.VISIBLE);
+                    textViewNombreResponsableAlertErrorCNR.setText(getString(R.string.text_label_selecciona_un_imputado));
                 } else {
                     clearFocusEditText(activity);
                     int idEtapaCaso = 1;
                     showAlertDialogNuevaDenuncia(activity, v, getString(R.string.text_label_guardar_denucnai), getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no),
-                            idUdN, idTipoFraude, idAbogado, idEtapaCaso, nombreCaso, descripcionCaso, Double.parseDouble(importe), Double.parseDouble(montoRecuperado), fechaReporte, idRegion, listNombreResponsables);
-                    //      IdUdN   IdTipoFraude  IdAbogado IdEtapaCaso     Nombre      Descripcion               Importe                      MontoRecuperado          FechaReporte  IdRegion  listaDeResponsables
+                            idTipoDenuncia, idUdN, idTipoFraude, idAbogado, idEtapaCaso, nombreCaso, descripcionCaso, Double.parseDouble(importe), Double.parseDouble(montoRecuperado), fechaReporte, idRegion, listNombreResponsables);
+                    //      idTipoDenuncia   IdUdN  IdTipoFraude  IdAbogado  IdEtapaCaso     Nombre      Descripcion               Importe                      MontoRecuperado          FechaReporte  IdRegion  listaDeResponsables
                 }
                 break;
 
-            case R.id.imageButtonNombreResponsableANCF:
+            case R.id.textViewNombreResponsableCNR:
+            case R.id.imageButtonNombreResponsableCNR:
                 //clearFocusEditText(activityNCF);
                 showDialogTipoEmpleado(activity, listTipoEmpleado, idTipoDenuncia);
                 break;
@@ -550,7 +559,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         Functions.hideTheKeyboard(activity, textInputEditTextImporteRecuperadoANCF);
     }
 
-    public void showDialogTipoEmpleado(Activity activity, List<TipoDeEmpleadoModel> getTipoDeEmpleadoList, int idTipoDenuncia) {
+    public void showDialogTipoEmpleado(Activity activity, List<TipoEmpleado> getTipoDeEmpleadoList, int idTipoDenuncia) {
         Dialog dialogTipoEmpleado = new Dialog(activity, R.style.CustomDialogTheme);
         dialogTipoEmpleado.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogTipoEmpleado.setCancelable(false);
@@ -560,9 +569,9 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         RadioGroup radioGroupTipoEmpleadoDTE = dialogTipoEmpleado.findViewById(R.id.radioGroupTipoEmpleadoDTE);
         TextView textViewCerrarDTE = dialogTipoEmpleado.findViewById(R.id.textViewCerrarDTE);
         TextView textViewTituloDTE = dialogTipoEmpleado.findViewById(R.id.textViewTituloDTE);
-        if (idTipoDenuncia == 1){
+        if (idTipoDenuncia == 1) {
             textViewTituloDTE.setText("Agregar tipo de defendidos");
-        }else {
+        } else {
             textViewTituloDTE.setText("Agregar tipo de imputados");
         }
 
@@ -633,9 +642,9 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                         @Override
                         public void getDelegate(String result) {
                             Gson gson = new Gson();
-                            Serial serial = gson.fromJson(result, Serial.class);
+                            RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
 
-                            listEmpleadosDEI.addAll(serial.getObtenerDatosEmpleadoDatosAuxiliaresResult());
+                            listEmpleadosDEI.addAll(respuestaGeneral.getListEmpleado());
                             listViewEmpleadosDEI.setVisibility(View.VISIBLE);
                             autocompleteAdapter = new AutocompleteAdapter(activity, listEmpleadosDEI);
                             listViewEmpleadosDEI.setAdapter(autocompleteAdapter);
@@ -661,8 +670,8 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                 Empleado empleado = autocompleteAdapter.getListEmpleados().get(position);
                 if (!empleado.getVista().contains(getString(R.string.text_label_no_se_econtraron_resultados))) {
                     if (!Utils.validaSiExisteResponsableInternoOExterno(totalEmpleadosAdapter.getResponsablesResquest(), empleado.getNombre())) {
-                        imageViewNombreResponsableAlertErrorANCF.setVisibility(View.GONE);
-                        textViewNombreResponsableAlertErrorANCF.setVisibility(View.GONE);
+                        textViewNombreResponsableAlertErrorCNR.setVisibility(View.GONE);
+                        imageViewNombreResponsableAlertErrorCNR.setVisibility(View.GONE);
                         totalEmpleadosAdapter.getResponsablesResquest().add(new ResponsablesResquest(empleado.getNombre(), tipoEmpleado, 1, Integer.parseInt(empleado.getNumEmpleado())));
                         //                                                                                 nombre         idTipoEmpleado  idStatusResposable             numeroEmpleado
                         totalEmpleadosAdapter.notifyDataSetChanged();
@@ -701,8 +710,8 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
 
                 if (!nombreEmpleado.equals("")) {
                     if (!Utils.validaSiExisteResponsableInternoOExterno(totalEmpleadosAdapter.getResponsablesResquest(), nombreEmpleado)) {
-                        imageViewNombreResponsableAlertErrorANCF.setVisibility(View.GONE);
-                        textViewNombreResponsableAlertErrorANCF.setVisibility(View.GONE);
+                        textViewNombreResponsableAlertErrorCNR.setVisibility(View.GONE);
+                        imageViewNombreResponsableAlertErrorCNR.setVisibility(View.GONE);
 
                         totalEmpleadosAdapter.getResponsablesResquest().add(new ResponsablesResquest(nombreEmpleado, tipoEmpleado, 1, null));
                         //                                                                                nombre    idTipoEmpleado  idStatusResposable       numeroEmpleado
@@ -732,6 +741,76 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         dialogEmpleadoExterno.show();
     }
 
+    public void showDialogErrorConeccion(Activity activity, View view, String titulo, String mensaje, String butonText, int bandera) {
+        Dialog dialogTipoEmpleado = new Dialog(activity, R.style.CustomDialogTheme);
+        dialogTipoEmpleado.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogTipoEmpleado.setCancelable(false);
+        dialogTipoEmpleado.setContentView(R.layout.dialog_error_conexion_internet);
+        Objects.requireNonNull(dialogTipoEmpleado.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        ImageView imageViewLogoDRCI = dialogTipoEmpleado.findViewById(R.id.imageViewLogoDRCI);
+        TextView textViewTituloDECI = dialogTipoEmpleado.findViewById(R.id.textViewTituloDECI);
+        textViewTituloDECI.setText(titulo);
+        TextView textViewMensageDECI = dialogTipoEmpleado.findViewById(R.id.textViewMensageDECI);
+        textViewMensageDECI.setText(mensaje);
+        Button buttonIntentarDECI = dialogTipoEmpleado.findViewById(R.id.buttonIntentarDECI);
+        buttonIntentarDECI.setText(butonText);
+
+        buttonIntentarDECI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogTipoEmpleado.dismiss();
+                if (bandera == 1) {
+                    getTipoEmpleado(activity, view);
+                } else if (bandera == 2) {
+                    getObtenerCatalogoUdN(activity, view);
+                } else if (bandera == 3) {
+                    getObtenerCatalogoTipoFraude(activity, view);
+                }
+            }
+        });
+
+        dialogTipoEmpleado.show();
+    }
+
+    public void showAlertDialogNuevaDenuncia(Activity activity, View view, String titulo, String mensage, String positivoMensage, String negativoMensage, int idTipoDenuncia, int idUdN, int idTipoFraude, int idAbogado, int idEtapaCaso, String nombre, String descripcion, double importe, double montoRecuperado, String fechaReporte, int idRegion, List<ResponsablesResquest> listResponsables) {
+        AlertDialog.Builder dialogo1 = new AlertDialog.Builder(activity);
+        dialogo1.setTitle(titulo);
+        dialogo1.setMessage(mensage);
+        dialogo1.setCancelable(false);
+        dialogo1.setPositiveButton(positivoMensage, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                Gson gsonParams = new Gson();
+                String params = gsonParams.toJson(new NuevaDenuncia(new CasoRequest(idTipoDenuncia, idUdN, idTipoFraude, idAbogado, idEtapaCaso, nombre, descripcion, importe, montoRecuperado, fechaReporte, idRegion), listResponsables));
+                //                                                                  idTipoDenuncia  IdUdN  IdTipoFraude  IdAbogado  IdEtapaCaso  Nombre  Descripcion  Importe  MontoRecuperado  FechaReporte  IdRegion   listResponsables
+                new AsyncTaskGral(activity, new Delegate() {
+                    @Override
+                    public void getDelegate(String result) {
+                        Gson gson = new Gson();
+                        RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
+                        if (respuestaGeneral.getGuardarDenuncia().getExito().equals(Constantes.exitoTrue)) {
+                            showDialogNuevaDenunciaConExito(activity, view, getString(R.string.text_label_guardado), getString(R.string.text_label_se_ha_guardado_con_exito_la_nueva_denuncia), getString(R.string.text_label_aceptar), String.valueOf(respuestaGeneral.getGuardarDenuncia().getIdCaso()));
+                        } else {
+                            Utils.message(context, respuestaGeneral.getGuardarDenuncia().getError());
+                        }
+                    }
+
+                    @Override
+                    public void executeInBackground(String result, String header) {
+
+                    }
+                }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.guardaCatalogoCaso, params);
+            }
+        });
+
+        dialogo1.setNegativeButton(negativoMensage, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+
+            }
+        });
+        dialogo1.show();
+    }
+
     public void showDialogNuevaDenunciaConExito(Activity activity, View view, String titulo, String mensaje, String butonText, String idCaso) {
         Dialog dialogTipoEmpleado = new Dialog(activity, R.style.CustomDialogTheme);
         dialogTipoEmpleado.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -758,76 +837,6 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         });
 
         dialogTipoEmpleado.show();
-    }
-
-    public void showDialogErrorConeccion(Activity activity, View view, String titulo, String mensaje, String butonText, int bandera) {
-        Dialog dialogTipoEmpleado = new Dialog(activity, R.style.CustomDialogTheme);
-        dialogTipoEmpleado.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogTipoEmpleado.setCancelable(false);
-        dialogTipoEmpleado.setContentView(R.layout.dialog_error_conexion_internet);
-        Objects.requireNonNull(dialogTipoEmpleado.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-        ImageView imageViewLogoDRCI = dialogTipoEmpleado.findViewById(R.id.imageViewLogoDRCI);
-        TextView textViewTituloDECI = dialogTipoEmpleado.findViewById(R.id.textViewTituloDECI);
-        textViewTituloDECI.setText(titulo);
-        TextView textViewMensageDECI = dialogTipoEmpleado.findViewById(R.id.textViewMensageDECI);
-        textViewMensageDECI.setText(mensaje);
-        Button buttonIntentarDECI = dialogTipoEmpleado.findViewById(R.id.buttonIntentarDECI);
-        buttonIntentarDECI.setText(butonText);
-
-        buttonIntentarDECI.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogTipoEmpleado.dismiss();
-                if (bandera == 1){
-                    getTipoEmpleado(activity, view);
-                }else if (bandera ==2){
-                    getObtenerCatalogoUdN(activity, view);
-                }else if (bandera ==3){
-                    getObtenerCatalogoTipoFraude(activity, view);
-                }
-            }
-        });
-
-        dialogTipoEmpleado.show();
-    }
-
-    public void showAlertDialogNuevaDenuncia(Activity activity, View view, String titulo, String mensage, String positivoMensage, String negativoMensage, int idUdN, int idTipoFraude, int idAbogado, int idEtapaCaso, String nombre, String descripcion, double importe, double montoRecuperado, String fechaReporte, int idRegion, List<ResponsablesResquest> listResponsables) {
-        AlertDialog.Builder dialogo1 = new AlertDialog.Builder(activity);
-        dialogo1.setTitle(titulo);
-        dialogo1.setMessage(mensage);
-        dialogo1.setCancelable(false);
-        dialogo1.setPositiveButton(positivoMensage, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogo1, int id) {
-                Gson gsonParams = new Gson();
-                String params = gsonParams.toJson(new SendRequest(new CasoRequest(idUdN, idTipoFraude, idAbogado, idEtapaCaso, nombre, descripcion, importe, montoRecuperado, fechaReporte, idRegion), listResponsables));
-                //                                                                IdUdN  IdTipoFraude  IdAbogado  IdEtapaCaso  Nombre  Descripcion  Importe  MontoRecuperado  FechaReporte  IdRegion   listResponsables
-                new AsyncTaskGral(activity, new Delegate() {
-                    @Override
-                    public void getDelegate(String result) {
-                        Gson gson = new Gson();
-                        Serial serial = gson.fromJson(result, Serial.class);
-                        if (serial.getGuardaCatalogoCasoResult().getExito().equals(Constantes.exitoTrue)) {
-                            showDialogNuevaDenunciaConExito(activity, view, getString(R.string.text_label_guardado), getString(R.string.text_label_se_ha_guardado_con_exito_la_nueva_denuncia), getString(R.string.text_label_aceptar), String.valueOf(serial.getGuardaCatalogoCasoResult().getIdCaso()));
-                        } else {
-                            Utils.message(context, serial.getGuardaCatalogoCasoResult().getError());
-                        }
-                    }
-
-                    @Override
-                    public void executeInBackground(String result, String header) {
-
-                    }
-                }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.guardaCatalogoCaso, params);
-            }
-        });
-
-        dialogo1.setNegativeButton(negativoMensage, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogo1, int id) {
-
-            }
-        });
-        dialogo1.show();
     }
 
     public void showAlertDialogEliminarResponsable(Activity activity, String titulo, String mensage, String positivoMensage, String negativoMensage, int position) {

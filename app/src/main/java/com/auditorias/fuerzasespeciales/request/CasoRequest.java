@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
 import java.io.File;
 
 public class CasoRequest {
-    //IdUdN   IdTipoFraude IdAbogado   IdEtapaCaso Nombre  Descripcion  Importe  MontoRecuperado   FechaReporte  IdRegion
 
-    public CasoRequest(Integer idUdN, Integer idTipoFraude, Integer idAbogado, Integer idEtapaCaso, String nombre, String descripcion, double importe, double montoRecuperado, String fechaReporte, Integer idRegion) {
+    public CasoRequest(Integer idTipoDenuncia, Integer idUdN, Integer idTipoFraude, Integer idAbogado, Integer idEtapaCaso, String nombre, String descripcion, double importe, double montoRecuperado, String fechaReporte, Integer idRegion) {
+        this.idTipoDenuncia = idTipoDenuncia;
         this.idUdN = idUdN;
         this.idTipoFraude = idTipoFraude;
         this.idAbogado = idAbogado;
@@ -21,6 +21,10 @@ public class CasoRequest {
         this.idRegion = idRegion;
     }
 
+
+    @SerializedName("IdTipoDenuncia")
+    @Expose
+    private Integer idTipoDenuncia;
     @SerializedName("IdUdN")
     @Expose
     private Integer idUdN;
@@ -51,6 +55,14 @@ public class CasoRequest {
     @SerializedName("IdRegion")
     @Expose
     private Integer idRegion;
+
+    public Integer getIdTipoDenuncia() {
+        return idTipoDenuncia;
+    }
+
+    public void setIdTipoDenuncia(Integer idTipoDenuncia) {
+        idTipoDenuncia = idTipoDenuncia;
+    }
 
     public Integer getIdUdN() {
         return idUdN;
@@ -131,4 +143,5 @@ public class CasoRequest {
     public void setIdRegion(Integer idRegion) {
         this.idRegion = idRegion;
     }
+
 }

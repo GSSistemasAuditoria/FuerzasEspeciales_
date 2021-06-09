@@ -7,10 +7,15 @@ import com.auditorias.fuerzasespeciales.models.catalogos.etapa.EtapaCaso;
 import com.auditorias.fuerzasespeciales.models.catalogos.faseActiva.FaseActiva;
 import com.auditorias.fuerzasespeciales.models.catalogos.statusAutorizacion.StatusAutorizacion;
 import com.auditorias.fuerzasespeciales.models.catalogos.tipoDenuncia.TipoDenuncia;
+import com.auditorias.fuerzasespeciales.models.catalogos.tipoEmpleado.TipoEmpleado;
+import com.auditorias.fuerzasespeciales.models.catalogos.tipoFraude.TipoFraude;
+import com.auditorias.fuerzasespeciales.models.catalogos.unidadDeNegocio.UnidadDeNegocio;
 import com.auditorias.fuerzasespeciales.models.configuraciones.Configuraciones;
 import com.auditorias.fuerzasespeciales.models.configuraciones.ConfiguracionesData;
 import com.auditorias.fuerzasespeciales.models.datosUsuario.DetalleUsuario;
-import com.auditorias.fuerzasespeciales.models.denucia.DatosDenuncia;
+import com.auditorias.fuerzasespeciales.models.datosUsuario.Empleado;
+import com.auditorias.fuerzasespeciales.models.denucia.GuardarDenuncia;
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenuncia;
 import com.auditorias.fuerzasespeciales.models.denucia.cerrar.CerrarFase;
 import com.auditorias.fuerzasespeciales.models.denunciaTerminada.CasosTerminados;
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenuncia;
@@ -248,5 +253,65 @@ public class RespuestaGeneral {
         this.tipoDenuncia = tipoDenuncia;
     }
 
+    @SerializedName("GuardaCatalogoCasoResult")
+    @Expose
+    private GuardarDenuncia guardarDenuncia;
+
+    public GuardarDenuncia getGuardarDenuncia() {
+        return guardarDenuncia;
+    }
+
+    public void setGuardarDenuncia(GuardarDenuncia guardarDenuncia) {
+        this.guardarDenuncia = guardarDenuncia;
+    }
+
+    @SerializedName("ObtenerCatalogoTipoEmpleadoResult")
+    @Expose
+    private List<TipoEmpleado> listTipoEmpleado = null;
+
+    public List<TipoEmpleado> getListTipoEmpleado() {
+        return listTipoEmpleado;
+    }
+
+    public void setListTipoEmpleado(List<TipoEmpleado> listTipoEmpleado) {
+        this.listTipoEmpleado = listTipoEmpleado;
+    }
+
+
+    @SerializedName("ObtenerCatalogoUdNResult")
+    @Expose
+    private List<UnidadDeNegocio> listUnidadDeNegocio = null;
+
+    public List<UnidadDeNegocio> getListUnidadDeNegocio() {
+        return listUnidadDeNegocio;
+    }
+
+    public void setListUnidadDeNegocio(List<UnidadDeNegocio> listUnidadDeNegocio) {
+        this.listUnidadDeNegocio = listUnidadDeNegocio;
+    }
+
+    @SerializedName("ObtenerCatalogoTipoFraudeResult")
+    @Expose
+    private List<TipoFraude> listTipoFraude = null;
+
+    public List<TipoFraude> getListTipoFraude() {
+        return listTipoFraude;
+    }
+
+    public void setListTipoFraude(List<TipoFraude> listTipoFraude) {
+        this.listTipoFraude = listTipoFraude;
+    }
+
+    @SerializedName("ObtenerDatosEmpleadoDatosAuxiliaresResult")
+    @Expose
+    private List<Empleado> listEmpleado = null;
+
+    public List<Empleado> getListEmpleado() {
+        return listEmpleado;
+    }
+
+    public void setListEmpleado(List<Empleado> listEmpleado) {
+        this.listEmpleado = listEmpleado;
+    }
 
 }

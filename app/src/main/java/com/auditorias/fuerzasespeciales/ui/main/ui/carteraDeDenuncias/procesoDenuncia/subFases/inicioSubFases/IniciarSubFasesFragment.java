@@ -48,7 +48,7 @@ import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
 import com.auditorias.fuerzasespeciales.models.Serial;
 import com.auditorias.fuerzasespeciales.models.catalogos.EstatusResponsableFase;
 import com.auditorias.fuerzasespeciales.models.catalogos.integracion.IntegracionDocData;
-import com.auditorias.fuerzasespeciales.models.denucia.DatosDenunciaResponsable;
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenunciaResponsable;
 import com.auditorias.fuerzasespeciales.request.DocumentoRequest;
 import com.auditorias.fuerzasespeciales.request.FaseRequest;
 import com.auditorias.fuerzasespeciales.request.denuncia.DatosDenunciaRequest;

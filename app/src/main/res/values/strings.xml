@@ -152,6 +152,7 @@
     <string name="text_label_intentar_de_nuevo">Intentar de nuevo.</string>
     <string name="text_label_error_la_fecha_reporte_esta_vacia">Especifique fecha de reporte.</string>
     <string name="text_label_error_no_se_ha_selecionado_unidad_negocio">Selecciona una unidad de negocio</string>
+    <string name="text_label_error_no_se_ha_seleccionado_un_tipo_de_denuncia">Selecciona un tipo de denuncia</string>
     <string name="text_label_error_el_nombre_del_empleado_exteno_esta_vacio">El nombre del empleado externo está vacío</string>
     <string name="text_label_error_el_responsable_esta_en_la_lista">El imputado agregado ya existe en la lista.</string>
     <string name="text_label_error">Error</string>
@@ -244,6 +245,7 @@
     <string name="text_label_camara">Cámara</string>
     <string name="text_label_galeria">Galería</string>
     <string name="text_label_tipo_delito">Tipo delito</string>
+    <string name="text_label_tipo_denuncia">Tipo denuncia</string>
     <string name="text_label_en_autorizacion_ejemplo">En autorizacion</string>
     <string name="text_label_autorizacion">Autorizacion:</string>
     <string name="text_label_se_ha_soliciatdo_reprogramacion_exitosamente_para_el_dia">Se ha solicitado reprogramación exitosamente para el día:</string>

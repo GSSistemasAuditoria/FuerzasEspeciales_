@@ -80,8 +80,8 @@ public class TotalEmpleadosResponsablesDCAadpter extends RecyclerView.Adapter<To
 
         TotalEmpleadosResponsablesViewHolder(View view) {
             super(view);
-            textViewNumeroEmpeadoTERCA = view.findViewById(R.id.textViewNumeroEmpledoImputadoCIE);
-            textViewNombreEmpeadoTERCA = view.findViewById(R.id.textViewNombreImputadoCIE);
+            textViewNumeroEmpeadoTERCA = view.findViewById(R.id.textViewNumeroEmpledoResponsableCIE);
+            textViewNombreEmpeadoTERCA = view.findViewById(R.id.textViewNombreResponsableCIE);
             textViewTipoEmpeadoTERCA = view.findViewById(R.id.textViewTipoImputadoCIE);
         }
     }

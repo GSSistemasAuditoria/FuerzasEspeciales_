@@ -1,4 +1,4 @@
-package com.auditorias.fuerzasespeciales.models.denucia;
+package com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -121,6 +121,9 @@ public class DatosDenuncia {
     @SerializedName("FechaSolicitud")
     @Expose
     private String fechaSolicitud;
+    @SerializedName("IdCambioFecha")
+    @Expose
+    private Integer idCambioFecha;
     @SerializedName("IdCasoFase")
     @Expose
     private Integer idCasoFase;
@@ -139,6 +142,12 @@ public class DatosDenuncia {
     @SerializedName("IdSubFase")
     @Expose
     private Integer idSubFase;
+    @SerializedName("ImagenFase")
+    @Expose
+    private String imagenFase;
+    @SerializedName("ImagenSubfase")
+    @Expose
+    private String imagenSubfase;
     @SerializedName("Region")
     @Expose
     private String region;
@@ -148,9 +157,15 @@ public class DatosDenuncia {
     @SerializedName("StatusAutorizacion")
     @Expose
     private String statusAutorizacion;
+    @SerializedName("StatusSentencia")
+    @Expose
+    private Object statusSentencia;
     @SerializedName("SubFase")
     @Expose
     private String subFase;
+    @SerializedName("TipoDenuncia")
+    @Expose
+    private String tipoDenuncia;
     @SerializedName("TipoFraude")
     @Expose
     private String tipoFraude;
@@ -578,5 +593,45 @@ public class DatosDenuncia {
 
     public void setZona(String zona) {
         this.zona = zona;
+    }
+
+    public Integer getIdCambioFecha() {
+        return idCambioFecha;
+    }
+
+    public void setIdCambioFecha(Integer idCambioFecha) {
+        this.idCambioFecha = idCambioFecha;
+    }
+
+    public String getImagenFase() {
+        return imagenFase;
+    }
+
+    public void setImagenFase(String imagenFase) {
+        this.imagenFase = imagenFase;
+    }
+
+    public String getImagenSubfase() {
+        return imagenSubfase;
+    }
+
+    public void setImagenSubfase(String imagenSubfase) {
+        this.imagenSubfase = imagenSubfase;
+    }
+
+    public Object getStatusSentencia() {
+        return statusSentencia;
+    }
+
+    public void setStatusSentencia(Object statusSentencia) {
+        this.statusSentencia = statusSentencia;
+    }
+
+    public String getTipoDenuncia() {
+        return tipoDenuncia;
+    }
+
+    public void setTipoDenuncia(String tipoDenuncia) {
+        this.tipoDenuncia = tipoDenuncia;
     }
 }

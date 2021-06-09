@@ -5,7 +5,8 @@ import android.os.Parcelable;
 
 import com.auditorias.fuerzasespeciales.models.catalogos.usuario.PerfilUsuarioModel;
 import com.auditorias.fuerzasespeciales.models.catalogos.faseActiva.FaseActiva;
-import com.auditorias.fuerzasespeciales.models.denucia.DatosDenuncia;
+import com.auditorias.fuerzasespeciales.models.datosUsuario.Empleado;
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenuncia;
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenuncia;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

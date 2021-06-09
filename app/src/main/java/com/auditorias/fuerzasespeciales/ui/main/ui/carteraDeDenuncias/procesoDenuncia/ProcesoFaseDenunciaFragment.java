@@ -21,7 +21,7 @@ import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.SQLite.TableDataUser;
 import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
 import com.auditorias.fuerzasespeciales.models.catalogos.faseActiva.FaseActivaDatos;
-import com.auditorias.fuerzasespeciales.models.denucia.DatosDenuncia;
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenuncia;
 import com.auditorias.fuerzasespeciales.request.denuncia.DatosDenunciaRequest;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.faseAdapters.FasesAdapter;
 import com.auditorias.fuerzasespeciales.utils.AsyncTaskGral;
@@ -44,7 +44,7 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
     private TextView textViewFechaCompromisoFaseCDD;
     private TextView textViewFechaCompromisoFaseTextCDD;
     private TextView textViewUnidadNegocioCDD;
-    //private TextView textViewFechaCompromisoTextCVG;
+    private TextView textViewTipoDenunciaCDD;
     private TextView textViewZonaCDD;
     private TextView textViewPorcentajeGeneralDenunciaCDD;
     private TextView textViewFechaRegistroTextCDD;
@@ -134,6 +134,7 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
         textViewAutorizacionCDD = view.findViewById(R.id.textViewAutorizacionCDD);
         textViewTipoDelitoCDD = view.findViewById(R.id.textViewTipoDelitoCDD);
         recyclerViewFacesDenunciaPFDF = view.findViewById(R.id.recyclerViewFacesDenunciaPFDF);
+        textViewTipoDenunciaCDD = view.findViewById(R.id.textViewTipoDenunciaCDD);
 
         linearLayoutDenunciaCCD = view.findViewById(R.id.linearLayoutDenunciaCCD);
         linearLayoutDenunciaCCD.setOnClickListener(this);
@@ -153,20 +154,11 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
     private void getServices(Activity activity, String idCaso) {
         if (Functions.isNetworkAvailable(activity)) {
             getDatosDelCaso(activity, Integer.parseInt(idCaso));
-            getCatalogoFaseActiva(activity, idCaso);
+            getCatalogoFaseActiva(activity, Integer.parseInt(idCaso));
         } else {
             Utils.message(activity, getString(R.string.text_label_error_de_conexion));
         }
     }
-
-    /*private void getServices(Activity activity) {
-        if (Functions.isNetworkAvailable(activity)) {
-            getDatosDelCaso(activity);
-            getCatalogoFaseActiva(activity, idCaso);
-        } else {
-            Utils.message(activity, getString(R.string.text_label_error_de_conexion));
-        }
-    }*/
 
     public void getDatosDelCaso(Activity activity, int idCaso) {
         try {
@@ -181,7 +173,7 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
 
                         if (respuestaGeneral.getDatosDenuncia() != null || !respuestaGeneral.getDatosDenuncia().toString().isEmpty()) {
-                            idCasoGeneral = String.valueOf(respuestaGeneral.getDatosDenuncia().getId());
+                            //idCasoGeneral = String.valueOf(respuestaGeneral.getDatosDenuncia().getId());
                             statusAutorizacion = respuestaGeneral.getDatosDenuncia().getStatusAutorizacion();
                             datosDenuncia = respuestaGeneral.getDatosDenuncia();
 
@@ -197,8 +189,9 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
                                 textViewFechaCompromisoFaseTextCDD.setVisibility(View.GONE);
                                 //textViewFechaCompromisoFaseCDD.setText("");
                             }
-                            textViewUnidadNegocioCDD.setText(respuestaGeneral.getDatosDenuncia().getUdN());
-                            textViewZonaCDD.setText(respuestaGeneral.getDatosDenuncia().getZona());
+                            textViewTipoDenunciaCDD.setText(respuestaGeneral.getDatosDenuncia().getTipoDenuncia());
+                            textViewUnidadNegocioCDD.setText(respuestaGeneral.getDatosDenuncia().getUdN().concat(" - ").concat(respuestaGeneral.getDatosDenuncia().getUdNCeco()));
+                            textViewZonaCDD.setText(respuestaGeneral.getDatosDenuncia().getRegion().concat(" - ").concat(respuestaGeneral.getDatosDenuncia().getZona()));
                             textViewFechaResgistroCDD.setText(Utils.SetCambioFormatoFechaDiaMesAnio(String.valueOf(respuestaGeneral.getDatosDenuncia().getFechaRegistro())));
                             if (respuestaGeneral.getDatosDenuncia().getIdStatusAutorizacion() == 1){
                                 textViewAutorizacionCDD.setVisibility(View.GONE);
@@ -237,9 +230,12 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
         }
     }
 
-    public void getCatalogoFaseActiva(Activity activity, String idCaso) {
+    public void getCatalogoFaseActiva(Activity activity, int idCaso) {
         try {
             if (Functions.isNetworkAvailable(activity)) {
+                Gson gsonParams = new Gson();
+                String params = gsonParams.toJson(new DatosDenunciaRequest(idCaso));
+                //                                                         idCaso
                 new AsyncTaskGral(activity, new Delegate() {
                     @Override
                     public void getDelegate(String result) {
@@ -247,27 +243,27 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
                         fasesAdapter = new FasesAdapter(activity, fragmentManager, respuestaGeneral.getFaseActiva().getListData(), datosDenuncia, new FasesAdapter.OnItemClickListener() {
                             @Override
-                            public void onIniciarFase(FaseActivaDatos faseActivaDatos, int position) {
+                            public void onIniciarFase(FaseActivaDatos faseActivaDatos,DatosDenuncia datosDenuncia,  int position) {
                                 Bundle bundle = new Bundle();
-                                bundle.putString("idCaso", idCaso);
+                                bundle.putString("idCaso", String.valueOf(datosDenuncia.getId()));
                                 bundle.putString("idCasoFase", String.valueOf(faseActivaDatos.getIdCasoFase()));
                                 Navigation.findNavController(view).navigate(R.id.action_navigation_proceso_fase_denuncia_fragment_to_navigation_iniciar_fase_fragment, bundle);
                             }
 
                             @Override
-                            public void onReprogramarFase(FaseActivaDatos faseActivaDatos, int position) {
+                            public void onReprogramarFase(FaseActivaDatos faseActivaDatos,DatosDenuncia datosDenuncia,  int position) {
                                 Bundle bundle = new Bundle();
-                                bundle.putString("idCaso", idCaso);
+                                bundle.putString("idCaso", String.valueOf(datosDenuncia.getId()));
                                 bundle.putString("idCasoFase", String.valueOf(faseActivaDatos.getIdCasoFase()));
                                 bundle.putString("IdStatusAutorizacion", String.valueOf(faseActivaDatos.getIdStatusAutorizacion()));
                                 Navigation.findNavController(view).navigate(R.id.action_navigation_proceso_fase_denuncia_fragment_to_navigation_reprogramar_fase_fragment, bundle);
                             }
 
                             @Override
-                            public void onCerrarFase(FaseActivaDatos faseActivaDatos, int position) {
+                            public void onCerrarFase(FaseActivaDatos faseActivaDatos,DatosDenuncia datosDenuncia, int position) {
                                 //navigation_terminar_presentacion_denuncia_fragment
                                 Bundle bundle = new Bundle();
-                                bundle.putString("idCaso", idCaso);
+                                bundle.putString("idCaso", String.valueOf(datosDenuncia.getId()));
                                 bundle.putString("idCasoFase", String.valueOf(faseActivaDatos.getIdCasoFase()));
                                 Navigation.findNavController(view).navigate(R.id.action_navigation_proceso_fase_del_caso_fragment_to_navigation_terminar_presentacion_denuncia_fragment, bundle);
 
@@ -286,7 +282,8 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
                     public void executeInBackground(String result, String header) {
                         TableDataUser.updateJWT(activity, header);
                     }
-                }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.obtenerCatalogoFaseActiva.concat("?").concat(Constantes.idCaso).concat("=").concat(idCaso));
+                    // }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.obtenerCatalogoFaseActiva.concat("?").concat(Constantes.idCaso).concat("=").concat(idCaso));
+                }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.obtenerCatalogoFaseActiva, params);
             } else {
                 Utils.message(activity, getString(R.string.text_label_error_de_conexion));
             }
@@ -302,7 +299,7 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
                 Bundle bundle = new Bundle();
                 //bundle.putParcelable("guardaCatalogoCasoModel", guardaCatalogoCasoModel);
                 //bundle.putParcelable("serialDatosCaso", serialDatosCaso);
-                bundle.putString("idCaso", idCasoGeneral);
+                bundle.putString("idCaso", String.valueOf(datosDenuncia.getId()));
                 Navigation.findNavController(v).navigate(R.id.action_estatus_del_caso_fragment_to_navigation_detalle_del_caso_fragment, bundle);
                 break;
 
@@ -314,7 +311,7 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
     @Override
     public void onRefresh() {
         if (Utils.isNetworkAvailable(activity)) {
-            getServices(activity, idCasoGeneral);
+            getServices(activity, String.valueOf(datosDenuncia.getId()));
         } else {
             Utils.messageShort(activity, getString(R.string.text_label_error_de_conexion));
         }

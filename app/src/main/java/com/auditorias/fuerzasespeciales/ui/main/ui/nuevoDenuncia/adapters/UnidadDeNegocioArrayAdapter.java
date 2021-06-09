@@ -9,17 +9,18 @@ import android.widget.TextView;
 
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.UnidaDeNegocioModel;
+import com.auditorias.fuerzasespeciales.models.catalogos.unidadDeNegocio.UnidadDeNegocio;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class UnidadDeNegocioArrayAdapter extends ArrayAdapter<UnidaDeNegocioModel> {
+public class UnidadDeNegocioArrayAdapter extends ArrayAdapter<UnidadDeNegocio> {
 
-    private final List<UnidaDeNegocioModel> list;
+    private final List<UnidadDeNegocio> list;
     private final Context context;
 
-    public UnidadDeNegocioArrayAdapter(Context context, int resourceId, List<UnidaDeNegocioModel> list) {
+    public UnidadDeNegocioArrayAdapter(Context context, int resourceId, List<UnidadDeNegocio> list) {
         super(context, resourceId, list);
         this.list = list;
         this.context = context;

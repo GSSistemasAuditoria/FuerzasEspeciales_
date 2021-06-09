@@ -1,4 +1,4 @@
-package com.auditorias.fuerzasespeciales.models;
+package com.auditorias.fuerzasespeciales.models.datosUsuario;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

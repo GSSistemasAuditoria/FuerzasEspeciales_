@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.catalogos.faseActiva.FaseActivaDatos;
 import com.auditorias.fuerzasespeciales.models.catalogos.faseActiva.SubfaseActiva;
-import com.auditorias.fuerzasespeciales.models.denucia.DatosDenuncia;
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenuncia;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.faseAdapters.FasesAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.subFases.adapters.SubFaseAdapter;
 import com.auditorias.fuerzasespeciales.utils.Utils;
@@ -52,7 +52,7 @@ public class FasesViewHolder extends RecyclerView.ViewHolder {
         if (faseActivaDatos.getImagenUrl() != null) {
             Picasso.get().load(faseActivaDatos.getImagenUrl().replace("/..", Constantes.BASE_URL_IMAGE)).into(imageViewIconoFaseCFI);
         } else {
-
+            imageViewIconoFaseCFI.setImageDrawable(activity.getDrawable(R.drawable.sifra_1));
         }
 
         recyclerViewSubFaceCFI.setVisibility(View.GONE);
@@ -139,7 +139,7 @@ public class FasesViewHolder extends RecyclerView.ViewHolder {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onReprogramarFase(faseActivaDatos, getAdapterPosition());
+                listener.onReprogramarFase(faseActivaDatos,datosDenuncia, getAdapterPosition());
             }
         });
         //TODO: validacion de autorizacion de reenevio
@@ -151,7 +151,7 @@ public class FasesViewHolder extends RecyclerView.ViewHolder {
                     //textView.setText("Reprogramar");
                     textView.setText(datosDenuncia.getStatusAutorizacion());
                 } else {
-                    cerraFase(cardView, faseActivaDatos, listener);
+                    cerraFase(cardView, faseActivaDatos, datosDenuncia, listener);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -179,7 +179,7 @@ public class FasesViewHolder extends RecyclerView.ViewHolder {
                 if (Utils.isValidDate(Utils.cambiarFechayyyyMMdd(datosDenuncia.getFechaCompromiso()))) {
                     reprogramacionAntesDeIniciarFase(textView, imageView, cardView, faseActivaDatos, datosDenuncia, listener);
                 } else {
-                    iniciarFase(cardView, faseActivaDatos, listener);
+                    iniciarFase(cardView, faseActivaDatos, datosDenuncia, listener);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -191,7 +191,7 @@ public class FasesViewHolder extends RecyclerView.ViewHolder {
                 if (Utils.isValidDate(Utils.cambiarFechayyyyMMdd(datosDenuncia.getFechaCompromiso()))) {
                     reprogramacionAntesDeIniciarFase(textView, imageView, cardView, faseActivaDatos, datosDenuncia, listener);
                 } else {
-                    cerraFase(cardView, faseActivaDatos, listener);
+                    cerraFase(cardView, faseActivaDatos, datosDenuncia, listener);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -202,20 +202,20 @@ public class FasesViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public void iniciarFase(CardView cardView, FaseActivaDatos faseActivaDatos, final FasesAdapter.OnItemClickListener listener) {
+    public void iniciarFase(CardView cardView, FaseActivaDatos faseActivaDatos, DatosDenuncia datosDenuncia, final FasesAdapter.OnItemClickListener listener) {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onIniciarFase(faseActivaDatos, getAdapterPosition());
+                listener.onIniciarFase(faseActivaDatos, datosDenuncia, getAdapterPosition());
             }
         });
     }
 
-    public void cerraFase(CardView cardView, FaseActivaDatos faseActivaDatos, final FasesAdapter.OnItemClickListener listener) {
+    public void cerraFase(CardView cardView, FaseActivaDatos faseActivaDatos, DatosDenuncia datosDenuncia, final FasesAdapter.OnItemClickListener listener) {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onCerrarFase(faseActivaDatos, getAdapterPosition());
+                listener.onCerrarFase(faseActivaDatos, datosDenuncia, getAdapterPosition());
             }
         });
     }
