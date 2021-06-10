@@ -1,4 +1,4 @@
-package com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia;
+package com.auditorias.fuerzasespeciales.models.denucia;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -58,9 +58,6 @@ public class DatosDenuncia {
     @SerializedName("IdStatusSentencia")
     @Expose
     private Integer idStatusSentencia;
-    @SerializedName("IdTipoDenuncia")
-    @Expose
-    private Integer idTipoDenuncia;
     @SerializedName("IdTipoFraude")
     @Expose
     private Integer idTipoFraude;

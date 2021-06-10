@@ -74,7 +74,7 @@ public class EstatusResponsableReprogramadasAdapter extends RecyclerView.Adapter
         }
 
         //TODO: llenado de los items que se encuentran dentro del recyclerview
-        public void bind(Activity activity, DatosDenunciaResponsable datosDenunciaResponsable, List<StatusResponsableFaseModel> listStatusResponsableFase, EstatusResponsablesCerrarAdapter.OnItemSelectedListener itemSelectedListener) {
+        public void bind(Activity activity, DatosDenunciaResponsable datosDenunciaResponsable, List<StatusResponsableFaseModel> listStatusResponsableFase, EstatusResponsableFaseCerrarAdapter.OnItemSelectedListener itemSelectedListener) {
             if (datosDenunciaResponsable.getIdEmpleado() == null /*|| String.valueOf(responsableModel.getIdEmpleado()).isEmpty() || responsableModel.getIdEmpleado().equals(0)*/) {
                 textViewNumeroEmpeadoTERCA.setVisibility(View.GONE);
                 textViewNumeroEmpeadoTERCA.setText(String.valueOf(datosDenunciaResponsable.getIdEmpleado()));
