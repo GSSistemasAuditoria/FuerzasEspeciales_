@@ -45,14 +45,14 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textViewNombreAbogadoTextANCF"
+                        android:id="@+id/textViewNombreAbogadoTextNDF"
                         style="@style/TextviewDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/item_text_label_abogado_respondable" />
 
                     <TextView
-                        android:id="@+id/textViewNombreAbogadoANCF"
+                        android:id="@+id/textViewNombreAbogadoNDF"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -75,7 +75,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textViewCecoAbogadoTextANCF"
+                            android:id="@+id/textViewCecoAbogadoTextNDF"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
@@ -85,7 +85,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/textViewCecoAbogadoANCF"
+                            android:id="@+id/textViewCecoAbogadoNDF"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/drawable_round_corners_gray"
@@ -105,7 +105,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textViewRegionTextANCF"
+                            android:id="@+id/textViewRegionAbogadoTextNDF"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -118,7 +118,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/textViewZonaTextANCF"
+                            android:id="@+id/textViewZonaAbogadoTextNDF"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -138,7 +138,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textViewRegionANCF"
+                            android:id="@+id/textViewRegionAbogadoNDF"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -154,7 +154,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/textViewZonaANCF"
+                            android:id="@+id/textViewZonaAbogadoNDF"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -172,68 +172,20 @@
                     </LinearLayout>
 
                     <include
-                        android:id="@+id/custumFechaCompromisoIFF"
+                        android:id="@+id/custumFechaCompromisoNDF"
                         layout="@layout/custum_fecha_compromiso"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:id="@+id/textViewTipoDenunciaTextANCF"
-                        style="@style/TextviewDark"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tipo de denuncia" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <RadioGroup
-                            android:id="@+id/radioGroupTipoDenunciaNDF"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="20dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/imageViewTipoDenunciaAlertErrorNDF"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="25dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:contentDescription="@string/todo"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/textViewTipoDenunciaAlertErrorNDF"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/radioGroupTipoDenunciaNDF"
-                            app:srcCompat="@drawable/alert_" />
-
-                        <TextView
-                            android:id="@+id/textViewTipoDenunciaAlertErrorNDF"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="5dp"
-                            android:gravity="start|end"
-                            android:text="@string/text_label_error"
-                            android:textColor="@color/Red500"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/imageViewTipoDenunciaAlertErrorNDF"
-                            app:layout_constraintTop_toBottomOf="@+id/radioGroupTipoDenunciaNDF" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <include
+                        android:id="@+id/custumSpinnerSelectTipoDenunciaNDF"
+                        layout="@layout/custum_spinner_selected"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textViewUnidadNegocioTextANCF"
+                        android:id="@+id/textViewUnidadNegocioTextNDF"
                         style="@style/TextviewDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -244,7 +196,7 @@
                         android:layout_height="wrap_content">
 
                         <Spinner
-                            android:id="@+id/spinnerUnidadNegocioANCF"
+                            android:id="@+id/spinnerUnidadNegocioNDF"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -254,7 +206,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/textViewUNidadNegocioAlertErrorANCF"
+                            android:id="@+id/textViewUnidadNegocioAlertaErrorNDF"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -265,12 +217,12 @@
                             android:text="@string/text_label_error"
                             android:textColor="@color/Red500"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/imageViewUnidadNegocioAlertErrorCFC"
+                            app:layout_constraintEnd_toStartOf="@+id/imageViewUnidadNegocioAlertaErrorNDF"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
-                            android:id="@+id/imageViewUnidadNegocioAlertErrorCFC"
+                            android:id="@+id/imageViewUnidadNegocioAlertaErrorNDF"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="45dp"
@@ -291,7 +243,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textViewCecoUnidadNegicioTextANCF"
+                            android:id="@+id/textViewCecoUnidadNegicioTextNDF"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -304,7 +256,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/textViewCecoUnidadNegocioANCF"
+                            android:id="@+id/textViewCecoUnidadNegocioNDF"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -321,7 +273,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textViewTipoFraudeTextANCF"
+                        android:id="@+id/textViewTipoFraudeTextNDF"
                         style="@style/TextviewDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -332,7 +284,7 @@
                         android:layout_height="wrap_content">
 
                         <Spinner
-                            android:id="@+id/spinnerTipoFraudeANCF"
+                            android:id="@+id/spinnerTipoFraudeNDF"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -344,7 +296,7 @@
                             tools:visibility="visible" />
 
                         <TextView
-                            android:id="@+id/textViewAlertErrorTipoFraudeANCF"
+                            android:id="@+id/textViewTipoFraudeAlertErrorNDF"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -354,12 +306,12 @@
                             android:text="@string/text_label_error"
                             android:textColor="@color/Red500"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/imageViewAlertErrorTipoFraudeANCF"
+                            app:layout_constraintEnd_toStartOf="@+id/imageViewTipoFraudeAlertaErrorNDF"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
-                            android:id="@+id/imageViewAlertErrorTipoFraudeANCF"
+                            android:id="@+id/imageViewTipoFraudeAlertaErrorNDF"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="45dp"
@@ -374,14 +326,14 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:id="@+id/textViewNombreCasoANCF"
+                        android:id="@+id/textViewNombreDenunciaNDF"
                         style="@style/TextviewDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/text_label_case_name" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayoutNombreCasoANCF"
+                        android:id="@+id/textInputLayoutNombreDenunciaNDF"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -392,27 +344,27 @@
                         app:counterMaxLength="20">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/textInputEditTextNombreCasoANCF"
+                            android:id="@+id/textInputEditTextNombreDenunciaNDF"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:digits="QWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm1234567890áéíóúü "
                             android:imeOptions="actionNext"
                             android:inputType="text"
                             android:maxLength="20"
-                            android:nextFocusDown="@+id/textInputEditTextDescripcionANCF"
+                            android:nextFocusDown="@+id/textInputEditTextDescripcionNDF"
                             android:singleLine="true" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
-                        android:id="@+id/textViwDescripcionANCF"
+                        android:id="@+id/textViwDescripcionNDF"
                         style="@style/TextviewDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/text_label_description" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayoutDescripcionANCF"
+                        android:id="@+id/textInputLayoutDescripcionNDF"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -423,14 +375,14 @@
                         app:counterMaxLength="50">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/textInputEditTextDescripcionANCF"
+                            android:id="@+id/textInputEditTextDescripcionNDF"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:digits="QWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm1234567890áéíóúü "
                             android:imeOptions="actionNext"
                             android:inputType="text"
                             android:maxLength="50"
-                            android:nextFocusDown="@+id/textInputEditTextImporteANCF"
+                            android:nextFocusDown="@+id/textInputEditTextImporteNDF"
                             android:singleLine="true" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -443,7 +395,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textViewImporteTextANCF"
+                            android:id="@+id/textViewImporteTextNDF"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
@@ -454,7 +406,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/textViewImporteRecuperadoTextANCF"
+                            android:id="@+id/textViewRecuperadoTextNDF"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -475,29 +427,29 @@
                         android:orientation="horizontal">
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/textInputLayoutImporteANCF"
+                            android:id="@+id/textInputLayoutImporteNDF"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
                             android:layout_weight="1"
-                            android:nextFocusDown="@+id/textInputLayoutDescripcionANCF">
+                            android:nextFocusDown="@+id/textInputLayoutDescripcionNDF">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/textInputEditTextImporteANCF"
+                                android:id="@+id/textInputEditTextImporteNDF"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:digits="1234567890."
                                 android:hint="@string/text_lable_ejemplo_precio"
                                 android:imeOptions="actionNext"
                                 android:inputType="number|numberDecimal"
-                                android:nextFocusDown="@+id/textInputEditTextImporteRecuperadoANCF"
+                                android:nextFocusDown="@+id/textInputEditTextRecuperadoNDF"
                                 android:singleLine="true" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/textInputLayoutImporteRecuperadoANCF"
+                            android:id="@+id/textInputLayoutRecuperadoNDF"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -505,7 +457,7 @@
                             android:layout_weight="1">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/textInputEditTextImporteRecuperadoANCF"
+                                android:id="@+id/textInputEditTextRecuperadoNDF"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:digits="1234567890."
@@ -526,19 +478,19 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textViewListaResponsablesTextANCF"
+                        android:id="@+id/textViewListaResponsablesNDF"
                         style="@style/TextviewDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/text_label_lista_de_responsables" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewTotalRespondablesANCF"
+                        android:id="@+id/recyclerViewListaRespondablesNDF"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
                     <TextView
-                        android:id="@+id/textViewTotalResponsablesTextANCF"
+                        android:id="@+id/textViewTotalResponsablesTextNDF"
                         style="@style/TextviewDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -546,14 +498,14 @@
 
 
                     <TextView
-                        android:id="@+id/textViewTotalResponsablesANCF"
+                        android:id="@+id/textViewTotalResponsablesNDF"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:text="@string/text_label_numeros" />
 
                     <Button
-                        android:id="@+id/buttonGuardarCasoANCF"
+                        android:id="@+id/buttonGuardarDenunciaNDF"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"

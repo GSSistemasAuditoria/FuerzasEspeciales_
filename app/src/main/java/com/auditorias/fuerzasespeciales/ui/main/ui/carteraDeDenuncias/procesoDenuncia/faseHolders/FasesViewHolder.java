@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.catalogos.faseActiva.FaseActivaDatos;
 import com.auditorias.fuerzasespeciales.models.catalogos.faseActiva.SubfaseActiva;
-import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenuncia;
+import com.auditorias.fuerzasespeciales.models.denucia.DatosDenuncia;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.faseAdapters.FasesAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.subFases.adapters.SubFaseAdapter;
 import com.auditorias.fuerzasespeciales.utils.Utils;
@@ -139,7 +139,7 @@ public class FasesViewHolder extends RecyclerView.ViewHolder {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onReprogramarFase(faseActivaDatos,datosDenuncia, getAdapterPosition());
+                listener.onReprogramarFase(faseActivaDatos, datosDenuncia, getAdapterPosition());
             }
         });
         //TODO: validacion de autorizacion de reenevio

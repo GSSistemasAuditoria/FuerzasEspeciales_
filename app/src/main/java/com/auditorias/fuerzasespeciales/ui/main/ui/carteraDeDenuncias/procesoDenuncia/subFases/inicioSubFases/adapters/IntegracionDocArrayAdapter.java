@@ -37,8 +37,8 @@ public class IntegracionDocArrayAdapter extends ArrayAdapter<IntegracionDocData>
 
     public View getCustomView(int position, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.cell_estatus_responsable_spinner_item, parent, false);
-        TextView label = row.findViewById(R.id.textViewEstatusCERS);
+        View row = inflater.inflate(R.layout.cell_spinner_item, parent, false);
+        TextView label = row.findViewById(R.id.textViewTextoCSI);
         label.setText(list.get(position).getDescripcion());
         return row;
     }

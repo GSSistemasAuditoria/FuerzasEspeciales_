@@ -17,9 +17,6 @@ public class ResponsablesResquest {
     @SerializedName("IdEmpleado")
     @Expose
     private Integer idEmpleado;
-    @SerializedName("Ceco")
-    @Expose
-    private Integer ceco;
 
     public ResponsablesResquest(String nombre, Integer idTipoEmpleado, Integer idStatusResponsable, Integer idEmpleado) {
         this.nombre = nombre;
@@ -27,12 +24,6 @@ public class ResponsablesResquest {
         this.idStatusResponsable = idStatusResponsable;
         this.idEmpleado = idEmpleado;
 
-    }
-
-    public ResponsablesResquest(String nombre, Integer idTipoEmpleado, Integer idStatusResponsable) {
-        this.nombre = nombre;
-        this.idTipoEmpleado = idTipoEmpleado;
-        this.idStatusResponsable = idStatusResponsable;
     }
 
     public String getNombre() {
@@ -67,15 +58,4 @@ public class ResponsablesResquest {
         this.idEmpleado = idEmpleado;
     }
 
-    public Integer getCeco() {
-        return ceco;
-    }
-
-    public void setCeco(Integer ceco) {
-        this.ceco = ceco;
-    }
-
-    public ResponsablesResquest() {
-
-    }
 }

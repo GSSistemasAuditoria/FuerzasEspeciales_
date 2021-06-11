@@ -54,6 +54,7 @@ import com.auditorias.fuerzasespeciales.request.FaseRequest;
 import com.auditorias.fuerzasespeciales.request.ResponsablesPresentacionRequest;
 import com.auditorias.fuerzasespeciales.request.denuncia.DatosDenunciaRequest;
 import com.auditorias.fuerzasespeciales.request.envioRequest;
+import com.auditorias.fuerzasespeciales.request.inicioSubFase.Documentos;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.cerrarFase.adapters.GaleriaFotosAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.IniciarFaseFragment;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.subFases.inicioSubFases.adapters.DocumentosInicioSubfaseAdapter;
@@ -96,7 +97,7 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
     private final List<EstatusResponsableFase> listStatusResponsableFase = new ArrayList<>();
     private final List<IntegracionDocData> listIntegracionDoc = new ArrayList<>();
     private final List<String> listFotos = new ArrayList<>();
-    private final ArrayList<DocumentoRequest> listDocumentosSelectos = new ArrayList<>();
+    private final ArrayList<Documentos> listDocumentosSelectos = new ArrayList<>();
 
 
     private DocumentosInicioSubfaseAdapter documentosInicioSubfaseAdapter;
@@ -281,12 +282,12 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
         if (listDocumentosSelectos != null /*|| !listDocumentosSelectos.isEmpty()*/) {
             documentosInicioSubfaseAdapter = new DocumentosInicioSubfaseAdapter(activity, listDocumentosSelectos,  new DocumentosInicioSubfaseAdapter.OnItemSelectedListener() {
                 @Override
-                public void onEliminarListener(DocumentoRequest documentoRequest, int position) {
+                public void onEliminarListener(Documentos documentoRequest, int position) {
                     showAlertDialogEliminarResponsable(activity, getString(R.string.text_label_liminar_documento), getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no), position);
                 }
 
                 @Override
-                public void onVerListener(DocumentoRequest documentoRequest, int position) {
+                public void onVerListener(Documentos documentoRequest, int position) {
                     if (/*extension.equals(doc) || extension.equals(docx)*/ documentoRequest.getTipoArchivo().equals(".docx") || documentoRequest.getTipoArchivo().equals("docx") || documentoRequest.getTipoArchivo().equals(".doc") || documentoRequest.getTipoArchivo().equals("doc")) {
                         //verDocumentos(activityTPDF, mPath);
                         File file = new File(documentoRequest.getmPath());
@@ -552,7 +553,7 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
         listIntegracionDoc.add(new IntegracionDocData(Constantes.selecionar, "", 0, 0));
         listIntegracionDoc.addAll(integracionDocList);
 
-        ArrayAdapter<IntegracionDocData> myAdapter = new IntegracionDocArrayAdapter(activity, R.layout.cell_estatus_responsable_spinner_item, listIntegracionDoc);
+        ArrayAdapter<IntegracionDocData> myAdapter = new IntegracionDocArrayAdapter(activity, R.layout.cell_spinner_item, listIntegracionDoc);
         spinnerCSS.setAdapter(myAdapter);
         spinnerCSS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -899,7 +900,7 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
         listDocumentosSelectos.clear();
     }
 
-    public void showAlertDialogInicioSubFase(Activity activity, String titulo, String mensaje, String positivoMensaje, String negativoMensaje, String tipoApp, int idCasoFase, List<DocumentoRequest> documentos, List<ResponsablesPresentacionRequest> listResposablesPresentacion) {
+    public void showAlertDialogInicioSubFase(Activity activity, String titulo, String mensaje, String positivoMensaje, String negativoMensaje, String tipoApp, int idCasoFase, List<Documentos> documentos, List<ResponsablesPresentacionRequest> listResposablesPresentacion) {
         androidx.appcompat.app.AlertDialog.Builder dialogo1 = new androidx.appcompat.app.AlertDialog.Builder(activity);
         dialogo1.setTitle(titulo);
         dialogo1.setMessage(mensaje);
@@ -918,7 +919,7 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
         dialogo1.show();
     }
 
-    public void setIniciarSubFase(Activity activity, String tipoApp, int idCasoFase, List<DocumentoRequest> documentos, List<ResponsablesPresentacionRequest> listResposablesPresentacion) {
+    public void setIniciarSubFase(Activity activity, String tipoApp, int idCasoFase, List<Documentos> documentos, List<ResponsablesPresentacionRequest> listResposablesPresentacion) {
         try {
             if (Functions.isNetworkAvailable(activity)) {
                 Gson gsonParams = new Gson();
@@ -1128,9 +1129,9 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
                         stringBase64DocumentoImganen = Utils.bitmapToBase64(bitmapImageFoto, extension);
                         stringCompressDocumentoImagen = Utils.compressBase64(stringBase64DocumentoImganen);
                         if (valorDeConfiguraciontipoAppMovil.equals("1")) {
-                            listDocumentosSelectos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), String.valueOf(idIntegracionDoc), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64DocumentoImganen, mPath, tipoDocumento));
+                            listDocumentosSelectos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), String.valueOf(idIntegracionDoc), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64DocumentoImganen, mPath, tipoDocumento));
                         } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
-                            listDocumentosSelectos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), String.valueOf(idIntegracionDoc), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumentoImagen, mPath, tipoDocumento));
+                            listDocumentosSelectos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), String.valueOf(idIntegracionDoc), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumentoImagen, mPath, tipoDocumento));
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -1164,9 +1165,9 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
                             stringCompressDocumentoImagen = Utils.compressBase64(stringBase64DocumentoImganen);
 
                             if (valorDeConfiguraciontipoAppMovil.equals("1")) {
-                                listDocumentosSelectos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), String.valueOf(idIntegracionDoc), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64DocumentoImganen, mPath, tipoDocumento));
+                                listDocumentosSelectos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), String.valueOf(idIntegracionDoc), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64DocumentoImganen, mPath, tipoDocumento));
                             } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
-                                listDocumentosSelectos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), String.valueOf(idIntegracionDoc), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumentoImagen, mPath, tipoDocumento));
+                                listDocumentosSelectos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), String.valueOf(idIntegracionDoc), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumentoImagen, mPath, tipoDocumento));
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -1312,9 +1313,9 @@ public class IniciarSubFasesFragment extends Fragment implements View.OnClickLis
                 stringBase64DocumentoImganen = Utils.fileToBase64(activity, Uri.fromFile(file));
                 stringCompressDocumentoImagen = Utils.compressBase64(stringBase64DocumentoImganen);
                 if (valorDeConfiguraciontipoAppMovil.equals("1")) {
-                    listDocumentosSelectos.add(new DocumentoRequest(nombreFoto, String.valueOf(idIntegracionDoc), extension, Integer.parseInt(tamanio), stringBase64DocumentoImganen, mPath, tipoDocumento));
+                    listDocumentosSelectos.add(new Documentos(nombreFoto, String.valueOf(idIntegracionDoc), extension, Integer.parseInt(tamanio), stringBase64DocumentoImganen, mPath, tipoDocumento));
                 } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
-                    listDocumentosSelectos.add(new DocumentoRequest(nombreFoto, String.valueOf(idIntegracionDoc), extension, Integer.parseInt(tamanio), stringCompressDocumentoImagen, mPath, tipoDocumento));
+                    listDocumentosSelectos.add(new Documentos(nombreFoto, String.valueOf(idIntegracionDoc), extension, Integer.parseInt(tamanio), stringCompressDocumentoImagen, mPath, tipoDocumento));
                 }
                 listFotos.clear();
                 if (idSubFase.equals("1")) {

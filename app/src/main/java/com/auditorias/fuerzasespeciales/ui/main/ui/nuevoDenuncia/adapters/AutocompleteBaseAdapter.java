@@ -14,12 +14,12 @@ import com.auditorias.fuerzasespeciales.models.datosUsuario.Empleado;
 
 import java.util.List;
 
-public class AutocompleteAdapter extends BaseAdapter {
+public class AutocompleteBaseAdapter extends BaseAdapter {
 
     private Activity activity;
     private List<Empleado> listEmpleados;
 
-    public AutocompleteAdapter(Activity activity,List<Empleado> listEmpleados){
+    public AutocompleteBaseAdapter(Activity activity, List<Empleado> listEmpleados){
         this.activity = activity;
         this.listEmpleados = listEmpleados;
     }

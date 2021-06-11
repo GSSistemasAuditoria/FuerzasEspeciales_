@@ -33,6 +33,9 @@ import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenunciaFa
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenunciaResponsables;
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenunciaSubFase;
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDocumento;
+import com.auditorias.fuerzasespeciales.request.CasoRequest;
+import com.auditorias.fuerzasespeciales.request.denuncia.NuevaDenuncia;
+import com.auditorias.fuerzasespeciales.request.documentos.ObtenerDocumentos;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.detalleDenuncia.adapters.DetalleDenunciaDocumentosAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.detalleDenuncia.adapters.DetalleDenunciaFasesAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.detalleDenuncia.adapters.DetalleDenunciaReprogramadasAdapter;
@@ -73,6 +76,8 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
     private TextView textViewDocumentoDDF;
     private TextView textViewFasesDDF;
     private String idCaso;
+    private String valorDeConfiguraciontipoAppMovil;
+    private String descripcionConfiguraciontipoAppMovil;
 
     public DetalleDelCasoFragment() {
         // Required empty public constructor
@@ -95,6 +100,7 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
             idCaso = args.getString("idCaso");
             if (idCaso != null) {
                 getDetalleCaso(activity, idCaso);
+                getObtenerConfiguracionTipoAppMovil(activity);
             } //else/* if (serialDatosCaso != null) {
             //    getDetalleCaso(activityCDF, serialDatosCaso.getDatosCasoModel().getFolio());
             //} else*/ //if (guardaCatalogoCasoModel != null) {
@@ -168,9 +174,40 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
         }
     }
 
-    public void getObtenerDocumento(Activity activity, int idDocumento) {
+    private void getObtenerConfiguracionTipoAppMovil(Activity activity) {
         try {
             if (Functions.isNetworkAvailable(activity)) {
+                new AsyncTaskGral(activity, new Delegate() {
+                    @Override
+                    public void getDelegate(String result) {
+                        Gson gson = new Gson();
+                        RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
+                        if (respuestaGeneral.getConfiguracionData() != null || !respuestaGeneral.getConfiguracionData().toString().isEmpty()) {
+                            valorDeConfiguraciontipoAppMovil = respuestaGeneral.getConfiguracionData().getValor();
+                            descripcionConfiguraciontipoAppMovil = respuestaGeneral.getConfiguracionData().getDescripcion();
+                        }
+                    }
+
+                    @Override
+                    public void executeInBackground(String result, String header) {
+
+                    }
+                }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.obtenerConfiguracion.concat(Constantes.signoInterrogacion).concat(Constantes.clave).concat(Constantes.signoIgual).concat(Constantes.tipoAppMovil));
+            } else {
+                Utils.messageShort(activity, getString(R.string.text_label_error_de_conexion));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getObtenerDocumento(Activity activity, int idDocumento, int valorDeConfiguraciontipoAppMovil) {
+        try {
+            if (Functions.isNetworkAvailable(activity)) {
+                Gson gsonParams = new Gson();
+                String params = gsonParams.toJson(new ObtenerDocumentos(idDocumento,valorDeConfiguraciontipoAppMovil ));
+                //                                                                  idTipoDenuncia  IdUdN  IdTipoFraude  IdAbogado  IdEtapaCaso  Nombre  Descripcion  Importe  MontoRecuperado  FechaReporte  IdRegion   listResponsables
+
                 new AsyncTaskGral(this.activity, new Delegate() {
                     @Override
                     public void getDelegate(String result) {
@@ -194,8 +231,8 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
                     public void executeInBackground(String result, String header) {
 
                     }
-                }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.obtenerDocumento.concat(Constantes.signoInterrogacion)
-                        .concat(Constantes.idDocumento).concat(Constantes.signoIgual).concat(String.valueOf(idDocumento)).concat(Constantes.signoAnd).concat(Constantes.idTipoApp).concat(Constantes.signoIgual).concat("2"));
+                }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.obtenerDocumento, params);//.concat(Constantes.signoInterrogacion)
+                      //  .concat(Constantes.idDocumento).concat(Constantes.signoIgual).concat(String.valueOf(idDocumento)).concat(Constantes.signoAnd).concat(Constantes.idTipoApp).concat(Constantes.signoIgual).concat("2"));
 
             } else {
                 Utils.message(activity, getString(R.string.text_label_error_de_conexion));
@@ -523,7 +560,7 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
             public void onItemClick(DetalleDenunciaFaseReprogramaciones detalleDenunciaFaseReprogramaciones, int position) {
                 if (detalleDenunciaFaseReprogramaciones.getIdDocAdjunto() != null) {
                     if (!detalleDenunciaFaseReprogramaciones.getIdDocAdjunto().equals(0)) {
-                        getObtenerDocumento(activity, detalleDenunciaFaseReprogramaciones.getIdDocAdjunto());
+                        getObtenerDocumento(activity, detalleDenunciaFaseReprogramaciones.getIdDocAdjunto(), Integer.parseInt(valorDeConfiguraciontipoAppMovil));
                     } else {
                         Utils.messageShort(DetalleDelCasoFragment.this.activity, "Esta respogramación no cuenta con documento");
                     }
@@ -593,7 +630,7 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
             @Override
             public void onItemClick(DetalleDocumento detalleDocumento, int position, String imagenString, String tipoArchivo) {
                 //dialogDetalleResponsables.dismiss();
-                getObtenerDocumento(activity, detalleDocumento.getId());
+                getObtenerDocumento(activity, detalleDocumento.getId(), Integer.parseInt(valorDeConfiguraciontipoAppMovil));
             }
         });
         recyclerViewResponsablesDDDF.setHasFixedSize(false);

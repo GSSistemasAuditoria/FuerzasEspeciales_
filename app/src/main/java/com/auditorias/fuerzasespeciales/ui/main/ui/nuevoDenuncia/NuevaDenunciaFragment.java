@@ -35,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.SQLite.TableDataUser;
 import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
+import com.auditorias.fuerzasespeciales.models.catalogos.tipoDenuncia.DataTipoDenuncia;
 import com.auditorias.fuerzasespeciales.models.catalogos.tipoEmpleado.TipoEmpleado;
 import com.auditorias.fuerzasespeciales.models.catalogos.tipoFraude.TipoFraude;
 import com.auditorias.fuerzasespeciales.models.catalogos.unidadDeNegocio.UnidadDeNegocio;
@@ -42,10 +43,11 @@ import com.auditorias.fuerzasespeciales.models.datosUsuario.Empleado;
 import com.auditorias.fuerzasespeciales.request.CasoRequest;
 import com.auditorias.fuerzasespeciales.request.ResponsablesResquest;
 import com.auditorias.fuerzasespeciales.request.denuncia.NuevaDenuncia;
-import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters.AutocompleteAdapter;
-import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters.TipoDeFraudeArrayAdapter;
+import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters.AutocompleteBaseAdapter;
+import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters.TipoDelitoArrayAdapter;
+import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters.TipoDenunciaArrayAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters.TotalEmpleadosAdapter;
-import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters.UnidadDeNegocioArrayAdapter;
+import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters.UnidadNegocioArrayAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.dialogs.DatePickerDialogFragment;
 import com.auditorias.fuerzasespeciales.utils.AsyncTaskGral;
 import com.auditorias.fuerzasespeciales.utils.Delegate;
@@ -64,58 +66,62 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
 
     private static final String TAG = NuevaDenunciaFragment.class.getName();
 
-
     private final List<UnidadDeNegocio> listUnidadNegocio = new ArrayList<>();
     private final List<TipoFraude> listTipoFraude = new ArrayList<>();
     private final List<ResponsablesResquest> listNombreResponsables = new ArrayList<>();
     private final List<TipoEmpleado> listTipoEmpleado = new ArrayList<>();
 
+    private final List<DataTipoDenuncia> listTipoDenuncia = new ArrayList<>();
 
     private TextView textViewSubTiutuloCST;
-    private TextView textViewNombreAbogadoANCF;
-    private TextView textViewCecoAbogadoANCF;
-    private TextView textViewZonaANCF;
-    private TextView textViewFechaCompromisoCFC;
-    private TextView textViewCecoUnidadNegicioTextANCF;
-    private TextView textViewCecoUnidadNegocioANCF;
-    private TextView textViewListaResponsablesTextANCF;
-    private TextView textViewTotalResponsablesANCF;
-    private TextView textViewTotalResponsablesTextANCF;
-    private TextView textViewAlertErrorCFC;
-    private TextView textViewUNidadNegocioAlertErrorANCF;
-    private TextView textViewAlertErrorTipoFraudeANCF;
-    private TextView textViewRegionANCF;
+
+    private TextView textViewNombreAbogadoNDF;
+    private TextView textViewCecoAbogadoNDF;
+    private TextView textViewRegionAbogadoNDF;
+    private TextView textViewZonaAbogadoNDF;
+
     private TextView textViewFechaCompromisoTextCFC;
-    private TextView textViewTipoDenunciaAlertErrorNDF;
-    private TextView textViewNombreResponsableTextCNR;
-    private TextView textViewNombreResponsableCNR;
-    private TextView textViewNombreResponsableAlertErrorCNR;
-
-    private TextInputEditText textInputEditTextNombreCasoANCF;
-    private TextInputEditText textInputEditTextDescripcionANCF;
-    private TextInputEditText textInputEditTextImporteANCF;
-    private TextInputEditText textInputEditTextImporteRecuperadoANCF;
-
+    private TextView textViewFechaCompromisoCFC;
     private ImageButton imageButtonFechaCompromisoCFC;
-    private ImageButton imageButtonNombreResponsableCNR;
+    private TextView textViewFechaCompromisoAlertErrorCFC;
+    private ImageView imageViewFechaCompromisoAlertErrorCFC;
 
-    private ImageView imageViewAlertErrorCFC;
-    private ImageView imageViewUnidadNegocioAlertErrorCFC;
-    private ImageView imageViewAlertErrorTipoFraudeANCF;
-    private ImageView imageViewTipoDenunciaAlertErrorNDF;
-    private ImageView imageViewNombreResponsableAlertErrorCNR;
+    private TextView textViewTextCSS;
+    private Spinner spinnerTipoDenunciaCSS;
+    private TextView textViewTipoDenunciaAlertErrorCSS;
+    private ImageView imageViewTipoDenunciaAlertErrorCSS;
 
-    private Spinner spinnerUnidadNegocioANCF;
-    private Spinner spinnerTipoFraudeANCF;
+    private Spinner spinnerUnidadNegocioNDF;
+    private TextView textViewUnidadNegocioAlertaErrorNDF;
+    private ImageView imageViewUnidadNegocioAlertaErrorNDF;
+    private TextView textViewCecoUnidadNegicioTextNDF;
+    private TextView textViewCecoUnidadNegocioNDF;
 
-    private RadioGroup radioGroupTipoDenunciaNDF;
+    private Spinner spinnerTipoFraudeNDF;
+    private TextView textViewTipoFraudeAlertErrorNDF;
+    private ImageView imageViewTipoFraudeAlertaErrorNDF;
 
-    private Button buttonGuardarCasoANCF;
+    private TextInputEditText textInputEditTextNombreDenunciaNDF;
+    private TextInputEditText textInputEditTextDescripcionNDF;
 
-    private RecyclerView recyclerViewTotalRespondablesANCF;
+    private TextInputEditText textInputEditTextImporteNDF;
+    private TextInputEditText textInputEditTextRecuperadoNDF;
+
+    private TextView textViewResponsablesTextCNR;
+    private TextView textViewResponsableCNR;
+    private ImageButton imageButtonResponsableCNR;
+    private TextView textViewResponsableAlertErrorCNR;
+    private ImageView imageViewResponsableAlertErrorCNR;
+
+    private TextView textViewListaResponsablesNDF;
+    private RecyclerView recyclerViewListaRespondablesNDF;
+
+    private TextView textViewTotalResponsablesTextNDF;
+    private TextView textViewTotalResponsablesNDF;
+
+    private Button buttonGuardarDenunciaNDF;
 
     private View view;
-    private View customNuevosResponsables;
 
     private Context context;
     private Activity activity;
@@ -124,10 +130,16 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
     private DatePickerDialogFragment datePickerDialogFragment;
 
     private TotalEmpleadosAdapter totalEmpleadosAdapter;
-    private AutocompleteAdapter autocompleteAdapter;
+    private AutocompleteBaseAdapter autocompleteBaseAdapter;
     private int idUdN;
     private int idTipoFraude;
     private int idTipoDenuncia;
+    private String etiquetaResponsables;
+    private String tipoResponsable;
+    private int idUsuario;
+    private int idRegion;
+    private String valorDeConfiguracionFaseInicialCaso;
+    private String descripcionConfiguracionFaseInicialCaso;
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -144,26 +156,118 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
 
         refereciasConInterface(view);
         ocultarElementos();
+
         textViewSubTiutuloCST.setText(getString(R.string.title_nuevas_denuncias));
         textViewFechaCompromisoTextCFC.setText(getString(R.string.text_label_report_date));
+        textViewTextCSS.setText("Tipo de denuncia");
 
-        /*if (!TableDataUser.getNombreAbodago(activity).isEmpty()) {
-            textViewNombreAbogadoANCF.setText(TableDataUser.getNombreAbodago(activity));
-            textViewCecoAbogadoANCF.setText(TableDataUser.getCecoAbodago(activity));
-            textViewZonaANCF.setText(TableDataUser.getZonaAbodago(activity));
-            textViewRegionANCF.setText(TableDataUser.getRegionAbodago(activity));
-        }*/
-        getObtenerDetalleUsuario(activity);//ya esta con respuesta general
+        servicios(activity, view);
+        cargarRecyclerView(activity, listNombreResponsables );
+
+        textInputEditTextImporteNDF.addTextChangedListener(Utils.amount(activity, textInputEditTextImporteNDF));
+        textInputEditTextRecuperadoNDF.addTextChangedListener(Utils.amount(activity, textInputEditTextRecuperadoNDF));
+
+        return view;
+    }
+
+    public void refereciasConInterface(View view) {
+        textViewSubTiutuloCST = view.findViewById(R.id.textViewSubTiutuloCST);
+
+        textViewNombreAbogadoNDF = view.findViewById(R.id.textViewNombreAbogadoNDF);
+        textViewCecoAbogadoNDF = view.findViewById(R.id.textViewCecoAbogadoNDF);
+        textViewRegionAbogadoNDF = view.findViewById(R.id.textViewRegionAbogadoNDF);
+        textViewZonaAbogadoNDF = view.findViewById(R.id.textViewZonaAbogadoNDF);
+
+        textViewFechaCompromisoTextCFC = view.findViewById(R.id.textViewFechaCompromisoTextCFC);
+        textViewFechaCompromisoCFC = view.findViewById(R.id.textViewFechaCompromisoCFC);
+        textViewFechaCompromisoCFC.setOnClickListener(this);
+        imageButtonFechaCompromisoCFC = view.findViewById(R.id.imageButtonFechaCompromisoCFC);
+        imageButtonFechaCompromisoCFC.setOnClickListener(this);
+        textViewFechaCompromisoAlertErrorCFC = view.findViewById(R.id.textViewFechaCompromisoAlertErrorCFC);
+        imageViewFechaCompromisoAlertErrorCFC = view.findViewById(R.id.imageViewFechaCompromisoAlertErrorCFC);
+
+        textViewTextCSS = view.findViewById(R.id.textViewTextCSS);
+        spinnerTipoDenunciaCSS = view.findViewById(R.id.spinnerCSS);
+        textViewTipoDenunciaAlertErrorCSS = view.findViewById(R.id.textViewAlertErrorCSS);
+        imageViewTipoDenunciaAlertErrorCSS = view.findViewById(R.id.imageViewAlertErrorCSS);
+
+        spinnerUnidadNegocioNDF = view.findViewById(R.id.spinnerUnidadNegocioNDF);
+        textViewUnidadNegocioAlertaErrorNDF = view.findViewById(R.id.textViewUnidadNegocioAlertaErrorNDF);
+        imageViewUnidadNegocioAlertaErrorNDF = view.findViewById(R.id.imageViewUnidadNegocioAlertaErrorNDF);
+        textViewCecoUnidadNegicioTextNDF = view.findViewById(R.id.textViewCecoUnidadNegicioTextNDF);
+        textViewCecoUnidadNegocioNDF = view.findViewById(R.id.textViewCecoUnidadNegocioNDF);
+
+        spinnerTipoFraudeNDF = view.findViewById(R.id.spinnerTipoFraudeNDF);
+        textViewTipoFraudeAlertErrorNDF = view.findViewById(R.id.textViewTipoFraudeAlertErrorNDF);
+        imageViewTipoFraudeAlertaErrorNDF = view.findViewById(R.id.imageViewTipoFraudeAlertaErrorNDF);
+
+        textInputEditTextNombreDenunciaNDF = view.findViewById(R.id.textInputEditTextNombreDenunciaNDF);
+        textInputEditTextDescripcionNDF = view.findViewById(R.id.textInputEditTextDescripcionNDF);
+
+        textInputEditTextImporteNDF = view.findViewById(R.id.textInputEditTextImporteNDF);
+        textInputEditTextRecuperadoNDF = view.findViewById(R.id.textInputEditTextRecuperadoNDF);
+
+        textViewResponsablesTextCNR = view.findViewById(R.id.textViewResponsablesTextCNR);
+        textViewResponsableCNR = view.findViewById(R.id.textViewResponsableCNR);
+        textViewResponsableCNR.setOnClickListener(this);
+        imageButtonResponsableCNR = view.findViewById(R.id.imageButtonResponsableCNR);
+        imageButtonResponsableCNR.setOnClickListener(this);
+        textViewResponsableAlertErrorCNR = view.findViewById(R.id.textViewResponsableAlertErrorCNR);
+        imageViewResponsableAlertErrorCNR = view.findViewById(R.id.imageViewResponsableAlertErrorCNR);
+
+        textViewListaResponsablesNDF = view.findViewById(R.id.textViewListaResponsablesNDF);
+        recyclerViewListaRespondablesNDF = view.findViewById(R.id.recyclerViewListaRespondablesNDF);
+
+        textViewTotalResponsablesTextNDF = view.findViewById(R.id.textViewTotalResponsablesTextNDF);
+        textViewTotalResponsablesNDF = view.findViewById(R.id.textViewTotalResponsablesNDF);
+
+        buttonGuardarDenunciaNDF = view.findViewById(R.id.buttonGuardarDenunciaNDF);
+        buttonGuardarDenunciaNDF.setOnClickListener(this);
+
+    }
+
+    public void ocultarElementos() {
+        textViewFechaCompromisoAlertErrorCFC.setVisibility(View.GONE);
+        imageViewFechaCompromisoAlertErrorCFC.setVisibility(View.GONE);
+
+        textViewTipoDenunciaAlertErrorCSS.setVisibility(View.GONE);
+        imageViewTipoDenunciaAlertErrorCSS.setVisibility(View.GONE);
+
+        textViewUnidadNegocioAlertaErrorNDF.setVisibility(View.GONE);
+        imageViewUnidadNegocioAlertaErrorNDF.setVisibility(View.GONE);
+        textViewCecoUnidadNegicioTextNDF.setVisibility(View.GONE);
+        textViewCecoUnidadNegocioNDF.setVisibility(View.GONE);
+
+        textViewTipoFraudeAlertErrorNDF.setVisibility(View.GONE);
+        imageViewTipoFraudeAlertaErrorNDF.setVisibility(View.GONE);
+
+        textViewResponsableCNR.setVisibility(View.GONE);
+        imageButtonResponsableCNR.setVisibility(View.GONE);
+        textViewResponsableAlertErrorCNR.setVisibility(View.GONE);
+        imageViewResponsableAlertErrorCNR.setVisibility(View.GONE);
+
+        textViewListaResponsablesNDF.setVisibility(View.GONE);
+
+        textViewTotalResponsablesTextNDF.setVisibility(View.GONE);
+        textViewTotalResponsablesNDF.setVisibility(View.GONE);
+    }
+
+    private void servicios(Activity activity, View view){
+        getObtenerDetalleUsuario(activity, view);//ya esta con respuesta general
         getTipoEmpleado(activity, view);//ya esta con respuesta general
         getObtenerCatalogoUdN(activity, view);//ya esta con respuesta general
         getObtenerCatalogoTipoFraude(activity, view);
         getTipoDenuncia(activity, view);
-        recyclerViewTotalRespondablesANCF.setHasFixedSize(false);
-        RecyclerView.LayoutManager layoutManagerCategory = new LinearLayoutManager(activity);
-        recyclerViewTotalRespondablesANCF.setLayoutManager(layoutManagerCategory);
-        recyclerViewTotalRespondablesANCF.setNestedScrollingEnabled(false);
+        getObtenerConfiguracionFaseInicialCaso(activity);
+    }
 
-        totalEmpleadosAdapter = new TotalEmpleadosAdapter(activity, listNombreResponsables, new TotalEmpleadosAdapter.OnClickListener() {
+    public void cargarRecyclerView(Activity activity, List<ResponsablesResquest> list){
+        recyclerViewListaRespondablesNDF.setHasFixedSize(false);
+        RecyclerView.LayoutManager layoutManagerCategory = new LinearLayoutManager(activity);
+        recyclerViewListaRespondablesNDF.setLayoutManager(layoutManagerCategory);
+        recyclerViewListaRespondablesNDF.setNestedScrollingEnabled(false);
+
+        totalEmpleadosAdapter = new TotalEmpleadosAdapter(activity, list, new TotalEmpleadosAdapter.OnClickListener() {
             @Override
             public void onItemClick(ResponsablesResquest responsablesResquest, int position) {
 
@@ -174,87 +278,10 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                 showAlertDialogEliminarResponsable(activity, getString(R.string.text_label_eleminar_responsable), getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no), position);
             }
         });
-        recyclerViewTotalRespondablesANCF.setAdapter(totalEmpleadosAdapter);
-
-        //Utils.setCaracteresEntreDiezAndVeinte(activityNCF, textInputEditTextNombreCasoANCF);
-        //Utils.setCaracteresEntreDiezAndCincuenta(activityNCF, textInputEditTextDescripcionANCF);
-        textInputEditTextImporteANCF.addTextChangedListener(Utils.amount(activity, textInputEditTextImporteANCF));
-        textInputEditTextImporteRecuperadoANCF.addTextChangedListener(Utils.amount(activity, textInputEditTextImporteRecuperadoANCF));
-
-        return view;
+        recyclerViewListaRespondablesNDF.setAdapter(totalEmpleadosAdapter);
     }
 
-    public void refereciasConInterface(View view) {
-        textViewSubTiutuloCST = view.findViewById(R.id.textViewSubTiutuloCST);
-        textViewNombreAbogadoANCF = view.findViewById(R.id.textViewNombreAbogadoANCF);
-        textViewCecoAbogadoANCF = view.findViewById(R.id.textViewCecoAbogadoANCF);
-        textViewZonaANCF = view.findViewById(R.id.textViewZonaANCF);
-        textViewRegionANCF = view.findViewById(R.id.textViewRegionANCF);
-        textViewFechaCompromisoTextCFC = view.findViewById(R.id.textViewFechaCompromisoTextCFC);
-        textViewFechaCompromisoCFC = view.findViewById(R.id.textViewFechaCompromisoCFC);
-        spinnerUnidadNegocioANCF = view.findViewById(R.id.spinnerUnidadNegocioANCF);
-        textViewCecoUnidadNegicioTextANCF = view.findViewById(R.id.textViewCecoUnidadNegicioTextANCF);
-        textViewCecoUnidadNegocioANCF = view.findViewById(R.id.textViewCecoUnidadNegocioANCF);
-        spinnerTipoFraudeANCF = view.findViewById(R.id.spinnerTipoFraudeANCF);
-        textInputEditTextNombreCasoANCF = view.findViewById(R.id.textInputEditTextNombreCasoANCF);
-        textInputEditTextDescripcionANCF = view.findViewById(R.id.textInputEditTextDescripcionANCF);
-        textInputEditTextImporteANCF = view.findViewById(R.id.textInputEditTextImporteANCF);
-        textInputEditTextImporteRecuperadoANCF = view.findViewById(R.id.textInputEditTextImporteRecuperadoANCF);
-        textViewListaResponsablesTextANCF = view.findViewById(R.id.textViewListaResponsablesTextANCF);
-        recyclerViewTotalRespondablesANCF = view.findViewById(R.id.recyclerViewTotalRespondablesANCF);
-        textViewTotalResponsablesTextANCF = view.findViewById(R.id.textViewTotalResponsablesTextANCF);
-        textViewTotalResponsablesANCF = view.findViewById(R.id.textViewTotalResponsablesANCF);
-        textViewAlertErrorCFC = view.findViewById(R.id.textViewFechaCompromisoAlertErrorCFC);
-        imageViewAlertErrorCFC = view.findViewById(R.id.imageViewFechaCompromisoAlertErrorCFC);
-        textViewUNidadNegocioAlertErrorANCF = view.findViewById(R.id.textViewUNidadNegocioAlertErrorANCF);
-        imageViewUnidadNegocioAlertErrorCFC = view.findViewById(R.id.imageViewUnidadNegocioAlertErrorCFC);
-        textViewAlertErrorTipoFraudeANCF = view.findViewById(R.id.textViewAlertErrorTipoFraudeANCF);
-        imageViewAlertErrorTipoFraudeANCF = view.findViewById(R.id.imageViewAlertErrorTipoFraudeANCF);
-
-        textViewNombreResponsableAlertErrorCNR = view.findViewById(R.id.textViewNombreResponsableAlertErrorCNR);
-        imageViewNombreResponsableAlertErrorCNR = view.findViewById(R.id.imageViewNombreResponsableAlertErrorCNR);
-        customNuevosResponsables = view.findViewById(R.id.customNuevosResponsables);
-
-        radioGroupTipoDenunciaNDF = view.findViewById(R.id.radioGroupTipoDenunciaNDF);
-        textViewTipoDenunciaAlertErrorNDF = view.findViewById(R.id.textViewTipoDenunciaAlertErrorNDF);
-        imageViewTipoDenunciaAlertErrorNDF = view.findViewById(R.id.imageViewTipoDenunciaAlertErrorNDF);
-        textViewNombreResponsableTextCNR = view.findViewById(R.id.textViewNombreResponsableTextCNR);
-
-        imageButtonFechaCompromisoCFC = view.findViewById(R.id.imageButtonFechaCompromisoCFC);
-        imageButtonFechaCompromisoCFC.setOnClickListener(this);
-
-        textViewNombreResponsableCNR = view.findViewById(R.id.textViewNombreResponsableCNR);
-        textViewNombreResponsableCNR.setOnClickListener(this);
-
-        imageButtonNombreResponsableCNR = view.findViewById(R.id.imageButtonNombreResponsableCNR);
-        imageButtonNombreResponsableCNR.setOnClickListener(this);
-
-        buttonGuardarCasoANCF = view.findViewById(R.id.buttonGuardarCasoANCF);
-        buttonGuardarCasoANCF.setOnClickListener(this);
-
-    }
-
-    public void ocultarElementos() {
-        textViewCecoUnidadNegicioTextANCF.setVisibility(View.GONE);
-        textViewCecoUnidadNegocioANCF.setVisibility(View.GONE);
-        textViewListaResponsablesTextANCF.setVisibility(View.GONE);
-        textViewTotalResponsablesTextANCF.setVisibility(View.GONE);
-        textViewTotalResponsablesANCF.setVisibility(View.GONE);
-        textViewAlertErrorCFC.setVisibility(View.GONE);
-        imageViewAlertErrorCFC.setVisibility(View.GONE);
-        textViewUNidadNegocioAlertErrorANCF.setVisibility(View.GONE);
-        imageViewUnidadNegocioAlertErrorCFC.setVisibility(View.GONE);
-        textViewAlertErrorTipoFraudeANCF.setVisibility(View.GONE);
-        imageViewAlertErrorTipoFraudeANCF.setVisibility(View.GONE);
-        textViewNombreResponsableAlertErrorCNR.setVisibility(View.GONE);
-        imageViewNombreResponsableAlertErrorCNR.setVisibility(View.GONE);
-        textViewTipoDenunciaAlertErrorNDF.setVisibility(View.GONE);
-        imageViewTipoDenunciaAlertErrorNDF.setVisibility(View.GONE);
-        //textViewNombreResponsableTextCNR.setVisibility(View.GONE);
-        customNuevosResponsables.setVisibility(View.GONE);
-    }
-
-    private void getObtenerDetalleUsuario(Activity activity) {
+    private void getObtenerDetalleUsuario(Activity activity, View view) {
         if (Functions.isNetworkAvailable(activity)) {
             new AsyncTaskGral(activity, new Delegate() {
                 @Override
@@ -262,11 +289,12 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                     Gson gson = new Gson();
                     RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
                     for (int x = 0; x < respuestaGeneral.getDetalleUsuario().size(); x++) {
-                        //showDialogDetallePerfil(activity, "Abogado", respuestaGeneral.getDetalleUsuario().get(x));
-                        textViewNombreAbogadoANCF.setText(respuestaGeneral.getDetalleUsuario().get(x).getNombre());
-                        textViewCecoAbogadoANCF.setText(respuestaGeneral.getDetalleUsuario().get(x).getCeco());
-                        textViewZonaANCF.setText(respuestaGeneral.getDetalleUsuario().get(x).getZona());
-                        textViewRegionANCF.setText(respuestaGeneral.getDetalleUsuario().get(x).getRegion());
+                        idUsuario = Integer.parseInt(respuestaGeneral.getDetalleUsuario().get(x).getIdUsuario());
+                        idRegion = respuestaGeneral.getDetalleUsuario().get(x).getIdRegion();
+                        textViewNombreAbogadoNDF.setText(respuestaGeneral.getDetalleUsuario().get(x).getNombre());
+                        textViewCecoAbogadoNDF.setText(respuestaGeneral.getDetalleUsuario().get(x).getCeco());
+                        textViewRegionAbogadoNDF.setText(respuestaGeneral.getDetalleUsuario().get(x).getRegion());
+                        textViewZonaAbogadoNDF.setText(respuestaGeneral.getDetalleUsuario().get(x).getZona());
                     }
                 }
 
@@ -276,8 +304,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                 }
             }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.obtenerDetalleUsuario.concat(Constantes.signoInterrogacion).concat(Constantes.idUsuario).concat(Constantes.signoIgual).concat(TableDataUser.getIdEmpleado(activity)));
         } else {
-            //showDialogErrorConeccion(activity, view, getString(R.string.text_label_error_de_conexion), getString(R.string.text_label_intentalo_mas_tarde), getString(R.string.text_label_intentar_de_nuevo), 1);
-            //Utils.message(activity, getString(R.string.text_label_error_de_conexion));
+            showDialogErrorConeccion(activity, view, getString(R.string.text_label_error_de_conexion), getString(R.string.text_label_intentalo_mas_tarde), getString(R.string.text_label_intentar_de_nuevo), 1);
         }
     }
 
@@ -289,31 +316,11 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                     Gson gson = new Gson();
                     RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
 
-                    for (int x = 0; x < respuestaGeneral.getTipoDenuncia().getLisTipoDenuncia().size(); x++) {
-                        RadioButton radioButton = new RadioButton(getContext());
-                        radioButton.setText(respuestaGeneral.getTipoDenuncia().getLisTipoDenuncia().get(x).getDescripcion());
-                        radioButton.setId(respuestaGeneral.getTipoDenuncia().getLisTipoDenuncia().get(x).getId());
-                        radioGroupTipoDenunciaNDF.addView(radioButton);
+                    if (respuestaGeneral.getTipoDenuncia().getExito().equals(Constantes.exitoTrue)) {
+                        getTipoDenunciaList(activity, respuestaGeneral.getTipoDenuncia().getLisTipoDenuncia());
+                    } else {
+                        Utils.messageShort(activity, respuestaGeneral.getTipoDenuncia().getError());
                     }
-
-                    radioGroupTipoDenunciaNDF.setOnCheckedChangeListener((group, checkedId) -> {
-                        int checkedRadioButtonId = radioGroupTipoDenunciaNDF.getCheckedRadioButtonId();
-                        RadioButton radioBtn = view.findViewById(checkedRadioButtonId);
-                        if (String.valueOf(radioBtn.getId()).equals("1")) {
-                            idTipoDenuncia = radioBtn.getId();
-                            textViewTipoDenunciaAlertErrorNDF.setVisibility(View.GONE);
-                            imageViewTipoDenunciaAlertErrorNDF.setVisibility(View.GONE);
-                            customNuevosResponsables.setVisibility(View.VISIBLE);
-                            textViewNombreResponsableTextCNR.setText("Lista de imputados");
-                        } else if (String.valueOf(radioBtn.getId()).equals("2")) {
-                            idTipoDenuncia = radioBtn.getId();
-                            textViewTipoDenunciaAlertErrorNDF.setVisibility(View.GONE);
-                            imageViewTipoDenunciaAlertErrorNDF.setVisibility(View.GONE);
-                            customNuevosResponsables.setVisibility(View.VISIBLE);
-                            textViewNombreResponsableTextCNR.setText("Lista de defendidos");
-                        }
-                    });
-
                 }
 
                 @Override
@@ -322,9 +329,45 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                 }
             }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.obtenerTipoDenuncia, "");
         } else {
-            showDialogErrorConeccion(activity, view, getString(R.string.text_label_error_de_conexion), getString(R.string.text_label_intentalo_mas_tarde), getString(R.string.text_label_intentar_de_nuevo), 1);
-            //Utils.message(activity, getString(R.string.text_label_error_de_conexion));
+            showDialogErrorConeccion(activity, view, getString(R.string.text_label_error_de_conexion), getString(R.string.text_label_intentalo_mas_tarde), getString(R.string.text_label_intentar_de_nuevo), 2);
         }
+    }
+
+    public void getTipoDenunciaList(Activity activity, List<DataTipoDenuncia> list) {
+        listTipoDenuncia.clear();
+        listTipoDenuncia.add(new DataTipoDenuncia(Constantes.selecionar, "", 0, 0, "", 0, ""));
+        listTipoDenuncia.addAll(list);
+
+        ArrayAdapter<DataTipoDenuncia> tipoDenunciaArrayAdapter = new TipoDenunciaArrayAdapter(activity, R.layout.cell_spinner_item, listTipoDenuncia);
+        spinnerTipoDenunciaCSS.setAdapter(tipoDenunciaArrayAdapter);
+        spinnerTipoDenunciaCSS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (listTipoDenuncia.get(position).getId() == 0) {
+                    idTipoDenuncia = listTipoDenuncia.get(position).getId();
+                    etiquetaResponsables = listTipoDenuncia.get(position).getEtiquetaResponsables();
+                    textViewTipoDenunciaAlertErrorCSS.setVisibility(View.GONE);
+                    imageViewTipoDenunciaAlertErrorCSS.setVisibility(View.GONE);
+                    textViewResponsablesTextCNR.setVisibility(View.GONE);
+                    textViewResponsableCNR.setVisibility(View.GONE);
+                    imageButtonResponsableCNR.setVisibility(View.GONE);
+                } else if (listTipoDenuncia.get(position).getId() >= 1) {
+                    idTipoDenuncia = listTipoDenuncia.get(position).getId();
+                    etiquetaResponsables = listTipoDenuncia.get(position).getEtiquetaResponsables();
+                    textViewTipoDenunciaAlertErrorCSS.setVisibility(View.GONE);
+                    imageViewTipoDenunciaAlertErrorCSS.setVisibility(View.GONE);
+                    textViewResponsablesTextCNR.setText("Agregue ".concat(etiquetaResponsables));
+                    textViewResponsablesTextCNR.setVisibility(View.VISIBLE);
+                    textViewResponsableCNR.setVisibility(View.VISIBLE);
+                    imageButtonResponsableCNR.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void getTipoEmpleado(Activity activity, View view) {
@@ -347,8 +390,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                 }
             }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.obtenerCatalogoTipoEmpleado);
         } else {
-            showDialogErrorConeccion(activity, view, getString(R.string.text_label_error_de_conexion), getString(R.string.text_label_intentalo_mas_tarde), getString(R.string.text_label_intentar_de_nuevo), 1);
-            //Utils.message(activity, getString(R.string.text_label_error_de_conexion));
+            showDialogErrorConeccion(activity, view, getString(R.string.text_label_error_de_conexion), getString(R.string.text_label_intentalo_mas_tarde), getString(R.string.text_label_intentar_de_nuevo), 3);
         }
     }
 
@@ -372,8 +414,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                 }
             }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.obtenerCatalogoUdN);
         } else {
-            //Utils.messageShort(activity, getString(R.string.text_label_error_de_conexion));
-            showDialogErrorConeccion(activity, view, getString(R.string.text_label_error_de_conexion), getString(R.string.text_label_intentalo_mas_tarde), getString(R.string.text_label_intentar_de_nuevo), 2);
+            showDialogErrorConeccion(activity, view, getString(R.string.text_label_error_de_conexion), getString(R.string.text_label_intentalo_mas_tarde), getString(R.string.text_label_intentar_de_nuevo), 4);
         }
     }
 
@@ -382,25 +423,24 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         listUnidadNegocio.add(new UnidadDeNegocio(Constantes.selecionar, "", 0, 0, "", ""));
         listUnidadNegocio.addAll(list);
 
-        ArrayAdapter<UnidadDeNegocio> myAdapter = new UnidadDeNegocioArrayAdapter(activity, R.layout.cell_estatus_responsable_spinner_item, listUnidadNegocio);
-        spinnerUnidadNegocioANCF.setAdapter(myAdapter);
-        spinnerUnidadNegocioANCF.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ArrayAdapter<UnidadDeNegocio> myAdapter = new UnidadNegocioArrayAdapter(activity, R.layout.cell_spinner_item, listUnidadNegocio);
+        spinnerUnidadNegocioNDF.setAdapter(myAdapter);
+        spinnerUnidadNegocioNDF.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (listUnidadNegocio.get(position).getId() == 0) {
                     idUdN = listUnidadNegocio.get(position).getId();
-                    textViewCecoUnidadNegicioTextANCF.setVisibility(View.GONE);
-                    textViewCecoUnidadNegocioANCF.setVisibility(View.GONE);
-                    textViewUNidadNegocioAlertErrorANCF.setVisibility(View.GONE);
-                    imageViewUnidadNegocioAlertErrorCFC.setVisibility(View.GONE);
-                    textViewCecoUnidadNegocioANCF.setText("");
+                    textViewCecoUnidadNegicioTextNDF.setVisibility(View.GONE);
+                    textViewCecoUnidadNegocioNDF.setVisibility(View.GONE);
+                    textViewUnidadNegocioAlertaErrorNDF.setVisibility(View.GONE);
+                    imageViewUnidadNegocioAlertaErrorNDF.setVisibility(View.GONE);
                 } else if (listUnidadNegocio.get(position).getId() >= 1) {
-                    textViewUNidadNegocioAlertErrorANCF.setVisibility(View.GONE);
-                    imageViewUnidadNegocioAlertErrorCFC.setVisibility(View.GONE);
+                    textViewUnidadNegocioAlertaErrorNDF.setVisibility(View.GONE);
+                    imageViewUnidadNegocioAlertaErrorNDF.setVisibility(View.GONE);
                     idUdN = listUnidadNegocio.get(position).getId();
-                    textViewCecoUnidadNegicioTextANCF.setVisibility(View.VISIBLE);
-                    textViewCecoUnidadNegocioANCF.setText(listUnidadNegocio.get(position).getCeco());
-                    textViewCecoUnidadNegocioANCF.setVisibility(View.VISIBLE);
+                    textViewCecoUnidadNegicioTextNDF.setVisibility(View.VISIBLE);
+                    textViewCecoUnidadNegocioNDF.setText(listUnidadNegocio.get(position).getCeco());
+                    textViewCecoUnidadNegocioNDF.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -431,8 +471,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                 }
             }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.obtenerCatalogoTipoFraude);
         } else {
-            //Utils.message(activity, getString(R.string.text_label_error_de_conexion));
-            showDialogErrorConeccion(activity, view, getString(R.string.text_label_error_de_conexion), getString(R.string.text_label_intentalo_mas_tarde), getString(R.string.text_label_intentar_de_nuevo), 3);
+            showDialogErrorConeccion(activity, view, getString(R.string.text_label_error_de_conexion), getString(R.string.text_label_intentalo_mas_tarde), getString(R.string.text_label_intentar_de_nuevo), 5);
         }
     }
 
@@ -441,18 +480,18 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         listTipoFraude.add(new TipoFraude(Constantes.selecionar, "", 0, 0));
         listTipoFraude.addAll(list);
 
-        ArrayAdapter<TipoFraude> myAdapter = new TipoDeFraudeArrayAdapter(activity, R.layout.cell_estatus_responsable_spinner_item, listTipoFraude);
-        spinnerTipoFraudeANCF.setAdapter(myAdapter);
-        spinnerTipoFraudeANCF.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ArrayAdapter<TipoFraude> myAdapter = new TipoDelitoArrayAdapter(activity, R.layout.cell_spinner_item, listTipoFraude);
+        spinnerTipoFraudeNDF.setAdapter(myAdapter);
+        spinnerTipoFraudeNDF.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (listTipoFraude.get(position).getId() == 0) {
-                    textViewAlertErrorTipoFraudeANCF.setVisibility(View.GONE);
-                    imageViewAlertErrorTipoFraudeANCF.setVisibility(View.GONE);
+                    textViewTipoFraudeAlertErrorNDF.setVisibility(View.GONE);
+                    imageViewTipoFraudeAlertaErrorNDF.setVisibility(View.GONE);
                     idTipoFraude = listTipoFraude.get(position).getId();
                 } else if (listTipoFraude.get(position).getId() >= 1) {
-                    textViewAlertErrorTipoFraudeANCF.setVisibility(View.GONE);
-                    imageViewAlertErrorTipoFraudeANCF.setVisibility(View.GONE);
+                    textViewTipoFraudeAlertErrorNDF.setVisibility(View.GONE);
+                    imageViewTipoFraudeAlertaErrorNDF.setVisibility(View.GONE);
                     idTipoFraude = listTipoFraude.get(position).getId();
                 }
             }
@@ -464,87 +503,114 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         });
     }
 
+    private void getObtenerConfiguracionFaseInicialCaso(Activity activity) {
+        try {
+            if (Functions.isNetworkAvailable(activity)) {
+                new AsyncTaskGral(activity, new Delegate() {
+                    @Override
+                    public void getDelegate(String result) {
+                        Gson gson = new Gson();
+                        RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
+                        if (respuestaGeneral.getConfiguracionData() != null || !respuestaGeneral.getConfiguracionData().toString().isEmpty()) {
+                            valorDeConfiguracionFaseInicialCaso = respuestaGeneral.getConfiguracionData().getValor();
+                            descripcionConfiguracionFaseInicialCaso = respuestaGeneral.getConfiguracionData().getDescripcion();
+                        }
+                    }
+
+                    @Override
+                    public void executeInBackground(String result, String header) {
+
+                    }
+                }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.obtenerConfiguracion.concat(Constantes.signoInterrogacion).concat(Constantes.clave).concat(Constantes.signoIgual).concat(Constantes.faseInicialCaso));
+            } else {
+                Utils.messageShort(activity, getString(R.string.text_label_error_de_conexion));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.textViewFechaCompromisoCFC:
             case R.id.imageButtonFechaCompromisoCFC:
                 datePickerDialogFragment.setTargetFragment(NuevaDenunciaFragment.this, 0);
                 datePickerDialogFragment.show(fragmentManager, "editText");
-                textViewAlertErrorCFC.setVisibility(View.GONE);
-                imageViewAlertErrorCFC.setVisibility(View.GONE);
+                textViewFechaCompromisoAlertErrorCFC.setVisibility(View.GONE);
+                imageViewFechaCompromisoAlertErrorCFC.setVisibility(View.GONE);
                 break;
 
-            case R.id.buttonGuardarCasoANCF:
+            case R.id.buttonGuardarDenunciaNDF:
                 clearFocusEditText(activity);
-                int idAbogado = Integer.parseInt(Functions.getIdUser(activity));
-                int idRegion = Integer.parseInt(Functions.getIdRegion(activity));
-                String nombreCaso = Objects.requireNonNull(textInputEditTextNombreCasoANCF.getText()).toString().trim();
-                String descripcionCaso = Objects.requireNonNull(textInputEditTextDescripcionANCF.getText()).toString().trim();
-                String importe = textInputEditTextImporteANCF.getText().toString().trim().replace("$", "").replace(" ", "").replace(",", "");
-                String montoRecuperado = textInputEditTextImporteRecuperadoANCF.getText().toString().trim().replace("$", "").replace(" ", "").replace(",", "");
+                String nombreCaso = Objects.requireNonNull(textInputEditTextNombreDenunciaNDF.getText()).toString().trim();
+                String descripcionCaso = Objects.requireNonNull(textInputEditTextDescripcionNDF.getText()).toString().trim();
+                String importe = textInputEditTextImporteNDF.getText().toString().trim().replace("$", "").replace(" ", "").replace(",", "");
+                String montoRecuperado = textInputEditTextRecuperadoNDF.getText().toString().trim().replace("$", "").replace(" ", "").replace(",", "");
 
                 String fechaReporte = textViewFechaCompromisoCFC.getText().toString().trim();
 
                 if (fechaReporte.isEmpty()) {
-                    textViewAlertErrorCFC.setVisibility(View.VISIBLE);
-                    imageViewAlertErrorCFC.setVisibility(View.VISIBLE);
-                    textViewAlertErrorCFC.setText(getString(R.string.text_label_error_la_fecha_reporte_esta_vacia));
+                    textViewFechaCompromisoAlertErrorCFC.setVisibility(View.VISIBLE);
+                    imageViewFechaCompromisoAlertErrorCFC.setVisibility(View.VISIBLE);
+                    textViewFechaCompromisoAlertErrorCFC.setText(getString(R.string.text_label_error_la_fecha_reporte_esta_vacia));
                     Utils.messageShort(context, getString(R.string.text_label_error_la_fecha_reporte_esta_vacia));
                     clearFocusEditText(activity);
                 } else if (String.valueOf(idTipoDenuncia).isEmpty() || idTipoDenuncia == 0) {
-                    textViewTipoDenunciaAlertErrorNDF.setVisibility(View.VISIBLE);
-                    imageViewTipoDenunciaAlertErrorNDF.setVisibility(View.VISIBLE);
-                    textViewTipoDenunciaAlertErrorNDF.setText(getString(R.string.text_label_error_no_se_ha_seleccionado_un_tipo_de_denuncia));
+                    textViewTipoDenunciaAlertErrorCSS.setVisibility(View.VISIBLE);
+                    imageViewTipoDenunciaAlertErrorCSS.setVisibility(View.VISIBLE);
+                    textViewTipoDenunciaAlertErrorCSS.setText(getString(R.string.text_label_error_no_se_ha_seleccionado_un_tipo_de_denuncia));
                     Utils.messageShort(context, getString(R.string.text_label_error_no_se_ha_seleccionado_un_tipo_de_denuncia));
                     clearFocusEditText(activity);
                 } else if (String.valueOf(idUdN).isEmpty() || idUdN == 0) {
-                    textViewUNidadNegocioAlertErrorANCF.setVisibility(View.VISIBLE);
-                    imageViewUnidadNegocioAlertErrorCFC.setVisibility(View.VISIBLE);
-                    textViewUNidadNegocioAlertErrorANCF.setText(getString(R.string.text_label_error_no_se_ha_selecionado_unidad_negocio));
+                    textViewUnidadNegocioAlertaErrorNDF.setVisibility(View.VISIBLE);
+                    imageViewUnidadNegocioAlertaErrorNDF.setVisibility(View.VISIBLE);
+                    textViewUnidadNegocioAlertaErrorNDF.setText(getString(R.string.text_label_error_no_se_ha_selecionado_unidad_negocio));
                     Utils.messageShort(context, getString(R.string.text_label_error_no_se_ha_selecionado_unidad_negocio));
                     clearFocusEditText(activity);
                 } else if (String.valueOf(idTipoFraude).isEmpty() || idTipoFraude == 0) {
-                    textViewAlertErrorTipoFraudeANCF.setVisibility(View.VISIBLE);
-                    imageViewAlertErrorTipoFraudeANCF.setVisibility(View.VISIBLE);
-                    textViewAlertErrorTipoFraudeANCF.setText(getString(R.string.text_label_selecciona_un_tipo_de_delito));
+                    textViewTipoFraudeAlertErrorNDF.setVisibility(View.VISIBLE);
+                    imageViewTipoFraudeAlertaErrorNDF.setVisibility(View.VISIBLE);
+                    textViewTipoFraudeAlertErrorNDF.setText(getString(R.string.text_label_selecciona_un_tipo_de_delito));
                     Utils.messageShort(context, getString(R.string.text_label_selecciona_un_tipo_de_delito));
                     clearFocusEditText(activity);
                 } else if (nombreCaso.isEmpty()) {
-                    Utils.errorEditText(textInputEditTextNombreCasoANCF, getString(R.string.text_label_nombre_de_la_denuncia_esta_vacia));
+                    Utils.errorEditText(textInputEditTextNombreDenunciaNDF, getString(R.string.text_label_nombre_de_la_denuncia_esta_vacia));
                 } else if (nombreCaso.length() <= 9) {
-                    Utils.errorEditText(textInputEditTextNombreCasoANCF, getString(R.string.text_label_nombre_de_la_denuncia_ee_menor_a_diez_caracteres));
+                    Utils.errorEditText(textInputEditTextNombreDenunciaNDF, getString(R.string.text_label_nombre_de_la_denuncia_ee_menor_a_diez_caracteres));
                 } else if (descripcionCaso.isEmpty()) {
-                    Utils.errorEditText(textInputEditTextDescripcionANCF, getString(R.string.text_label_la_descripcio_de_la_denucnia_esta_vacia));
+                    Utils.errorEditText(textInputEditTextDescripcionNDF, getString(R.string.text_label_la_descripcio_de_la_denucnia_esta_vacia));
                 } else if (descripcionCaso.length() <= 9) {
-                    Utils.errorEditText(textInputEditTextDescripcionANCF, getString(R.string.text_label_la_descripcio_de_la_denucnia_es_menor_a_diez_caracteres));
+                    Utils.errorEditText(textInputEditTextDescripcionNDF, getString(R.string.text_label_la_descripcio_de_la_denucnia_es_menor_a_diez_caracteres));
                 } else if (importe.isEmpty()) {
-                    Utils.errorEditText(textInputEditTextImporteANCF, getString(R.string.text_label_el_importe_de_la_denuncia_esta_vacio));
+                    Utils.errorEditText(textInputEditTextImporteNDF, getString(R.string.text_label_el_importe_de_la_denuncia_esta_vacio));
                 } else if (montoRecuperado.isEmpty()) {
-                    Utils.errorEditText(textInputEditTextImporteRecuperadoANCF, getString(R.string.text_label_monto_recuperado_esta_vacio));
+                    Utils.errorEditText(textInputEditTextRecuperadoNDF, getString(R.string.text_label_monto_recuperado_esta_vacio));
                 } else if (Double.parseDouble(montoRecuperado) > Double.parseDouble(importe)) {
                     Utils.message(context, getString(R.string.text_label_monto_no_puede_ser_mayor));
-                } else if (String.valueOf(idAbogado).isEmpty()) {
+                } else if (String.valueOf(idUsuario).isEmpty()) {
                     Utils.messageShort(context, getString(R.string.text_label_el_id_abogado_esta_vacio));
                 } else if (String.valueOf(idRegion).isEmpty()) {
                     Utils.messageShort(context, getString(R.string.text_label_id_de_la_region_esta_vacia));
+                } else if (String.valueOf(valorDeConfiguracionFaseInicialCaso).isEmpty()) {
+                    Utils.messageShort(context, descripcionConfiguracionFaseInicialCaso.concat(" es incorrecto"));
                 } else if (listNombreResponsables.isEmpty()) {
-                    imageViewNombreResponsableAlertErrorCNR.setVisibility(View.VISIBLE);
-                    textViewNombreResponsableAlertErrorCNR.setVisibility(View.VISIBLE);
-                    textViewNombreResponsableAlertErrorCNR.setText(getString(R.string.text_label_selecciona_un_imputado));
+                    imageViewResponsableAlertErrorCNR.setVisibility(View.VISIBLE);
+                    textViewResponsableAlertErrorCNR.setVisibility(View.VISIBLE);
+                    textViewResponsableAlertErrorCNR.setText(getString(R.string.text_label_selecciona_un_imputado));
                 } else {
                     clearFocusEditText(activity);
-                    int idEtapaCaso = 1;
                     showAlertDialogNuevaDenuncia(activity, v, getString(R.string.text_label_guardar_denucnai), getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no),
-                            idTipoDenuncia, idUdN, idTipoFraude, idAbogado, idEtapaCaso, nombreCaso, descripcionCaso, Double.parseDouble(importe), Double.parseDouble(montoRecuperado), fechaReporte, idRegion, listNombreResponsables);
-                    //      idTipoDenuncia   IdUdN  IdTipoFraude  IdAbogado  IdEtapaCaso     Nombre      Descripcion               Importe                      MontoRecuperado          FechaReporte  IdRegion  listaDeResponsables
+                            idTipoDenuncia, idUdN, idTipoFraude, idUsuario, Integer.parseInt(valorDeConfiguracionFaseInicialCaso), nombreCaso, descripcionCaso, Double.parseDouble(importe), Double.parseDouble(montoRecuperado), fechaReporte, idRegion, listNombreResponsables);
+                    //      idTipoDenuncia  IdUdN  IdTipoFraude  IdAbogado                         IdEtapaCaso                     Nombre      Descripcion               Importe                      MontoRecuperado             FechaReporte  IdRegion  listaDeResponsables
                 }
                 break;
 
-            case R.id.textViewNombreResponsableCNR:
-            case R.id.imageButtonNombreResponsableCNR:
+            case R.id.textViewResponsableCNR:
+            case R.id.imageButtonResponsableCNR:
                 //clearFocusEditText(activityNCF);
-                showDialogTipoEmpleado(activity, listTipoEmpleado, idTipoDenuncia);
+                showDialogTipoEmpleado(activity, listTipoEmpleado, etiquetaResponsables);
                 break;
 
             default:
@@ -553,13 +619,13 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
     }
 
     public void clearFocusEditText(Activity activity) {
-        Functions.hideTheKeyboard(activity, textInputEditTextNombreCasoANCF);
-        Functions.hideTheKeyboard(activity, textInputEditTextDescripcionANCF);
-        Functions.hideTheKeyboard(activity, textInputEditTextImporteANCF);
-        Functions.hideTheKeyboard(activity, textInputEditTextImporteRecuperadoANCF);
+        Functions.hideTheKeyboard(activity, textInputEditTextNombreDenunciaNDF);
+        Functions.hideTheKeyboard(activity, textInputEditTextDescripcionNDF);
+        Functions.hideTheKeyboard(activity, textInputEditTextImporteNDF);
+        Functions.hideTheKeyboard(activity, textInputEditTextRecuperadoNDF);
     }
 
-    public void showDialogTipoEmpleado(Activity activity, List<TipoEmpleado> getTipoDeEmpleadoList, int idTipoDenuncia) {
+    public void showDialogTipoEmpleado(Activity activity, List<TipoEmpleado> getTipoDeEmpleadoList, String etiquetaResponsables) {
         Dialog dialogTipoEmpleado = new Dialog(activity, R.style.CustomDialogTheme);
         dialogTipoEmpleado.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogTipoEmpleado.setCancelable(false);
@@ -569,11 +635,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         RadioGroup radioGroupTipoEmpleadoDTE = dialogTipoEmpleado.findViewById(R.id.radioGroupTipoEmpleadoDTE);
         TextView textViewCerrarDTE = dialogTipoEmpleado.findViewById(R.id.textViewCerrarDTE);
         TextView textViewTituloDTE = dialogTipoEmpleado.findViewById(R.id.textViewTituloDTE);
-        if (idTipoDenuncia == 1) {
-            textViewTituloDTE.setText("Agregar tipo de defendidos");
-        } else {
-            textViewTituloDTE.setText("Agregar tipo de imputados");
-        }
+        textViewTituloDTE.setText("Agregar tipo de ".concat(etiquetaResponsables));
 
         textViewCerrarDTE.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -589,22 +651,25 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
             radioGroupTipoEmpleadoDTE.addView(radioButton);
         }
 
-        radioGroupTipoEmpleadoDTE.setOnCheckedChangeListener((group, checkedId) -> {
-            int checkedRadioButtonId = radioGroupTipoEmpleadoDTE.getCheckedRadioButtonId();
-            RadioButton radioBtn = dialogTipoEmpleado.findViewById(checkedRadioButtonId);
-            if (String.valueOf(radioBtn.getId()).equals("1")) {
-                dialogTipoEmpleado.dismiss();
-                showDialogEmpleadoInterno(activity, radioBtn.getId());
-            } else if (String.valueOf(radioBtn.getId()).equals("2")) {
-                dialogTipoEmpleado.dismiss();
-                showDialogEmpledoExterno(activity, radioBtn.getId());
+        radioGroupTipoEmpleadoDTE.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int checkedRadioButtonId = radioGroupTipoEmpleadoDTE.getCheckedRadioButtonId();
+                RadioButton radioBtn = dialogTipoEmpleado.findViewById(checkedRadioButtonId);
+                if (String.valueOf(radioBtn.getId()).equals("1")) {
+                    dialogTipoEmpleado.dismiss();
+                    showDialogEmpleadoInterno(activity, radioBtn.getId()/*, radioBtn.getText().toString()*/);
+                } else if (String.valueOf(radioBtn.getId()).equals("2")) {
+                    dialogTipoEmpleado.dismiss();
+                    showDialogEmpledoExterno(activity, radioBtn.getId());
+                }
             }
         });
 
         dialogTipoEmpleado.show();
     }
 
-    public void showDialogEmpleadoInterno(Activity activity, int tipoEmpleado) {
+    public void showDialogEmpleadoInterno(Activity activity, int tipoEmpleado/*, String tipoResponsable*/) {
         Dialog dialogEmpleadoInterno = new Dialog(activity, R.style.CustomDialogTheme);
         dialogEmpleadoInterno.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogEmpleadoInterno.setCancelable(false);
@@ -618,14 +683,14 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         listViewEmpleadosDEI.setVisibility(View.GONE);
 
         List<Empleado> listEmpleadosDEI = new ArrayList<>();
-        autocompleteAdapter = new AutocompleteAdapter(activity, listEmpleadosDEI);
-        listViewEmpleadosDEI.setAdapter(autocompleteAdapter);
+        autocompleteBaseAdapter = new AutocompleteBaseAdapter(activity, listEmpleadosDEI);
+        listViewEmpleadosDEI.setAdapter(autocompleteBaseAdapter);
 
         textViewCerrarCerrarDEI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialogEmpleadoInterno.dismiss();
-                showDialogTipoEmpleado(activity, listTipoEmpleado, idTipoDenuncia);
+                showDialogTipoEmpleado(activity, listTipoEmpleado, etiquetaResponsables);
             }
         });
 
@@ -646,8 +711,8 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
 
                             listEmpleadosDEI.addAll(respuestaGeneral.getListEmpleado());
                             listViewEmpleadosDEI.setVisibility(View.VISIBLE);
-                            autocompleteAdapter = new AutocompleteAdapter(activity, listEmpleadosDEI);
-                            listViewEmpleadosDEI.setAdapter(autocompleteAdapter);
+                            autocompleteBaseAdapter = new AutocompleteBaseAdapter(activity, listEmpleadosDEI);
+                            listViewEmpleadosDEI.setAdapter(autocompleteBaseAdapter);
                         }
 
                         @Override
@@ -666,16 +731,16 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                autocompleteAdapter = (AutocompleteAdapter) listViewEmpleadosDEI.getAdapter();
-                Empleado empleado = autocompleteAdapter.getListEmpleados().get(position);
+                autocompleteBaseAdapter = (AutocompleteBaseAdapter) listViewEmpleadosDEI.getAdapter();
+                Empleado empleado = autocompleteBaseAdapter.getListEmpleados().get(position);
                 if (!empleado.getVista().contains(getString(R.string.text_label_no_se_econtraron_resultados))) {
                     if (!Utils.validaSiExisteResponsableInternoOExterno(totalEmpleadosAdapter.getResponsablesResquest(), empleado.getNombre())) {
-                        textViewNombreResponsableAlertErrorCNR.setVisibility(View.GONE);
-                        imageViewNombreResponsableAlertErrorCNR.setVisibility(View.GONE);
+                        textViewResponsableAlertErrorCNR.setVisibility(View.GONE);
+                        imageViewResponsableAlertErrorCNR.setVisibility(View.GONE);
                         totalEmpleadosAdapter.getResponsablesResquest().add(new ResponsablesResquest(empleado.getNombre(), tipoEmpleado, 1, Integer.parseInt(empleado.getNumEmpleado())));
                         //                                                                                 nombre         idTipoEmpleado  idStatusResposable             numeroEmpleado
                         totalEmpleadosAdapter.notifyDataSetChanged();
-                        textViewListaResponsablesTextANCF.setVisibility(View.VISIBLE);
+                        textViewListaResponsablesNDF.setVisibility(View.VISIBLE);
                         dialogEmpleadoInterno.dismiss();
                     } else {
                         Utils.message(context, getString(R.string.text_label_error_el_responsable_esta_en_la_lista));
@@ -710,13 +775,13 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
 
                 if (!nombreEmpleado.equals("")) {
                     if (!Utils.validaSiExisteResponsableInternoOExterno(totalEmpleadosAdapter.getResponsablesResquest(), nombreEmpleado)) {
-                        textViewNombreResponsableAlertErrorCNR.setVisibility(View.GONE);
-                        imageViewNombreResponsableAlertErrorCNR.setVisibility(View.GONE);
+                        textViewResponsableAlertErrorCNR.setVisibility(View.GONE);
+                        imageViewResponsableAlertErrorCNR.setVisibility(View.GONE);
 
                         totalEmpleadosAdapter.getResponsablesResquest().add(new ResponsablesResquest(nombreEmpleado, tipoEmpleado, 1, null));
                         //                                                                                nombre    idTipoEmpleado  idStatusResposable       numeroEmpleado
                         totalEmpleadosAdapter.notifyDataSetChanged();
-                        textViewListaResponsablesTextANCF.setVisibility(View.VISIBLE);
+                        textViewListaResponsablesNDF.setVisibility(View.VISIBLE);
                         dialogEmpleadoExterno.dismiss();
 
                     } else {
@@ -734,7 +799,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 dialogEmpleadoExterno.dismiss();
-                showDialogTipoEmpleado(activity, listTipoEmpleado, idTipoDenuncia);
+                showDialogTipoEmpleado(activity, listTipoEmpleado, etiquetaResponsables);
             }
         });
 
@@ -761,10 +826,14 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
             public void onClick(View v) {
                 dialogTipoEmpleado.dismiss();
                 if (bandera == 1) {
-                    getTipoEmpleado(activity, view);
+                    getObtenerDetalleUsuario(activity, view);
                 } else if (bandera == 2) {
-                    getObtenerCatalogoUdN(activity, view);
+                    getTipoDenuncia(activity, view);
                 } else if (bandera == 3) {
+                    getTipoEmpleado(activity, view);
+                } else if (bandera == 4) {
+                    getObtenerCatalogoUdN(activity, view);
+                } else if (bandera == 5) {
                     getObtenerCatalogoTipoFraude(activity, view);
                 }
             }
@@ -851,10 +920,10 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                     listNombreResponsables.remove(position);
                     totalEmpleadosAdapter.notifyDataSetChanged();
                 } else {
-                    textViewTotalResponsablesANCF.setVisibility(View.GONE);
-                    textViewListaResponsablesTextANCF.setVisibility(View.GONE);
-                    textViewTotalResponsablesTextANCF.setVisibility(View.GONE);
-                    recyclerViewTotalRespondablesANCF.setVisibility(View.GONE);
+                    textViewTotalResponsablesNDF.setVisibility(View.GONE);
+                    textViewListaResponsablesNDF.setVisibility(View.GONE);
+                    textViewTotalResponsablesTextNDF.setVisibility(View.GONE);
+                    recyclerViewListaRespondablesNDF.setVisibility(View.GONE);
                 }
             }
         });

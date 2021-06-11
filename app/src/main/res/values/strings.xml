@@ -230,7 +230,7 @@
     <string name="text_label_evidencia">Evidencia</string>
     <string name="text_label_aceptar">Aceptar</string>
     <string name="text_label_guardado">Guardado</string>
-    <string name="text_label_se_ha_guardado_con_exito_la_nueva_denuncia">Se ha guardado con éxito la nueva denuncia.</string>
+    <string name="text_label_se_ha_guardado_con_exito_la_nueva_denuncia">Se ha guardado con éxito esta nueva denuncia.</string>
     <string name="text_label_no_hay_contacto_valido_para_agregar">No hay un contacto válido para agregar</string>
     <string name="text_label_porcentaje_ejemplo">10 %</string>
     <string name="text_label_avance_de_la_denuncia">Avance de la denuncia:</string>

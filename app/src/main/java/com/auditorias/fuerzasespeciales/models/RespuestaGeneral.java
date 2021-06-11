@@ -14,9 +14,10 @@ import com.auditorias.fuerzasespeciales.models.configuraciones.Configuraciones;
 import com.auditorias.fuerzasespeciales.models.configuraciones.ConfiguracionesData;
 import com.auditorias.fuerzasespeciales.models.datosUsuario.DetalleUsuario;
 import com.auditorias.fuerzasespeciales.models.datosUsuario.Empleado;
+import com.auditorias.fuerzasespeciales.models.denucia.DatosDenuncia;
 import com.auditorias.fuerzasespeciales.models.denucia.GuardarDenuncia;
-import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenuncia;
 import com.auditorias.fuerzasespeciales.models.denucia.cerrar.CerrarFase;
+import com.auditorias.fuerzasespeciales.models.denucia.inicio.InicioFase;
 import com.auditorias.fuerzasespeciales.models.denunciaTerminada.CasosTerminados;
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenuncia;
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDocumento;
@@ -314,4 +315,16 @@ public class RespuestaGeneral {
         this.listEmpleado = listEmpleado;
     }
 
+
+    @SerializedName("IniciarFaseResult")
+    @Expose
+    private InicioFase iniciarFase;
+
+    public InicioFase getIniciarFase() {
+        return iniciarFase;
+    }
+
+    public void setIniciarFase(InicioFase iniciarFase) {
+        this.iniciarFase = iniciarFase;
+    }
 }

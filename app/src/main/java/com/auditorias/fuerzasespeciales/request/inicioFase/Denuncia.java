@@ -21,6 +21,11 @@ public class Denuncia {
         this.datosAgencia = datosAgencia;
     }
 
+    public Denuncia(String datosDemanda, String datosAgencia) {
+        this.datosDemanda = datosDemanda;
+        this.datosAgencia = datosAgencia;
+    }
+
     public Integer getId() {
         return id;
     }

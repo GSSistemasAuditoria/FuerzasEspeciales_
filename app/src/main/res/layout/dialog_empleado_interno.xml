@@ -35,19 +35,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/buttonCerrarDEI"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@android:color/transparent"
-                android:text="@string/text_label_x"
-                android:textColor="@color/gray20"
-                android:textSize="20sp"
-                android:visibility="gone" />
-
             <TextView
                 android:id="@+id/textViewTituloDEI"
                 android:layout_width="match_parent"
@@ -107,16 +94,6 @@
                             android:singleLine="true" />
 
                     </com.google.android.material.textfield.TextInputLayout>
-
-                    <!--<androidx.cardview.widget.CardView
-            android:id="@+id/cardViewBusqueda"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="4dp">-->
 
                     <ImageView
                         android:id="@+id/imageViewBusquedaEmpleadoDEI"

@@ -1,4 +1,4 @@
-package com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.adapters;
+package com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,20 +8,20 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.auditorias.fuerzasespeciales.R;
-import com.auditorias.fuerzasespeciales.models.catalogos.EstatusResponsableFase;
+import com.auditorias.fuerzasespeciales.models.catalogos.tipoFraude.TipoFraude;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class EstatusImputadoArrayAdapter extends ArrayAdapter<EstatusResponsableFase> {
+public class TipoDelitoArrayAdapter extends ArrayAdapter<TipoFraude> {
 
-    private final List<EstatusResponsableFase> listEstatusImputados;
+    private final List<TipoFraude> list;
     private final Context context;
 
-    public EstatusImputadoArrayAdapter(Context context, int resourceId, List<EstatusResponsableFase> listEstatusImputados) {
-        super(context, resourceId, listEstatusImputados);
-        this.listEstatusImputados = listEstatusImputados;
+    public TipoDelitoArrayAdapter(Context context, int resourceId, List<TipoFraude> list) {
+        super(context, resourceId, list);
+        this.list = list;
         this.context = context;
     }
 
@@ -39,7 +39,7 @@ public class EstatusImputadoArrayAdapter extends ArrayAdapter<EstatusResponsable
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inflater.inflate(R.layout.cell_spinner_item, parent, false);
         TextView label = row.findViewById(R.id.textViewTextoCSI);
-        label.setText(listEstatusImputados.get(position).getDescripcion());
+        label.setText(list.get(position).getDescripcion());
         return row;
     }
 

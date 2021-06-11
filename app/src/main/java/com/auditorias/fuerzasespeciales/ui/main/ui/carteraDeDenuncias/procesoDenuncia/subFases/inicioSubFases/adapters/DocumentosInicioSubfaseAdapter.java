@@ -14,17 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.request.DocumentoRequest;
+import com.auditorias.fuerzasespeciales.request.inicioSubFase.Documentos;
 
 import java.util.List;
 
 public class DocumentosInicioSubfaseAdapter extends RecyclerView.Adapter<DocumentosInicioSubfaseAdapter.DocumentosInicioSubfaseViewHolder> {
 
     private final Activity activity;
-    private final List<DocumentoRequest> listResposablesCerrar;
+    private final List<Documentos> listResposablesCerrar;
     private final LayoutInflater inflater;
     private final OnItemSelectedListener itemSelectedListener;
 
-    public DocumentosInicioSubfaseAdapter(Activity activity, List<DocumentoRequest> listResposablesCerrar, OnItemSelectedListener itemSelectedListener) {
+    public DocumentosInicioSubfaseAdapter(Activity activity, List<Documentos> listResposablesCerrar, OnItemSelectedListener itemSelectedListener) {
         this.activity = activity;
 
         this.listResposablesCerrar = listResposablesCerrar;
@@ -49,14 +50,14 @@ public class DocumentosInicioSubfaseAdapter extends RecyclerView.Adapter<Documen
         return listResposablesCerrar.size();
     }
 
-    public List<DocumentoRequest> getResponsablesResquest() {
+    public List<Documentos> getResponsablesResquest() {
         return listResposablesCerrar;
     }
 
     public interface OnItemSelectedListener {
-        void onEliminarListener(DocumentoRequest datosDenunciaResponsable, int position);
+        void onEliminarListener(Documentos datosDenunciaResponsable, int position);
 
-        void onVerListener(DocumentoRequest datosDenunciaResponsable, int position);
+        void onVerListener(Documentos datosDenunciaResponsable, int position);
     }
 
     static class DocumentosInicioSubfaseViewHolder extends RecyclerView.ViewHolder {
@@ -81,7 +82,7 @@ public class DocumentosInicioSubfaseAdapter extends RecyclerView.Adapter<Documen
         }
 
         //TODO: llenado de los items que se encuentran dentro del recyclerview
-        public void bind(Activity activity, DocumentoRequest documentoRequest, OnItemSelectedListener itemSelectedListener) {
+        public void bind(Activity activity, Documentos documentoRequest, OnItemSelectedListener itemSelectedListener) {
             textViewNombreDocumentoInicioFase.setText(documentoRequest.getDescripcion());
             textViewExtensionDocumentoInicioSubfae.setText(documentoRequest.getTipoArchivo());
             textViewTamanioDocumentoInicioSubfase.setText(String.valueOf(documentoRequest.getTamArhivo()));

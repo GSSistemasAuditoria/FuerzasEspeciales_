@@ -37,14 +37,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
 import com.auditorias.fuerzasespeciales.models.catalogos.EstatusResponsableFase;
-import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenuncia;
+import com.auditorias.fuerzasespeciales.models.denucia.DatosDenuncia;
 import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenunciaResponsable;
-import com.auditorias.fuerzasespeciales.request.DocumentoRequest;
-import com.auditorias.fuerzasespeciales.request.FaseRequest;
-import com.auditorias.fuerzasespeciales.request.IniciaCasoRequest;
-import com.auditorias.fuerzasespeciales.request.ResponsablesPresentacionRequest;
+import com.auditorias.fuerzasespeciales.request.cierreFase.CerrarFase;
 import com.auditorias.fuerzasespeciales.request.denuncia.DatosDenunciaRequest;
-import com.auditorias.fuerzasespeciales.request.envioRequest;
+import com.auditorias.fuerzasespeciales.request.inicioFase.Denuncia;
+import com.auditorias.fuerzasespeciales.request.inicioFase.Fase;
+import com.auditorias.fuerzasespeciales.request.inicioFase.ResponsablesFase;
+import com.auditorias.fuerzasespeciales.request.inicioSubFase.Documentos;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.cerrarFase.adapters.EstatusResponsablesCerrarAdapter;
 import com.auditorias.fuerzasespeciales.utils.AsyncTaskGral;
 import com.auditorias.fuerzasespeciales.utils.Delegate;
@@ -72,8 +72,8 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
 
     //TODO:todas los listas que se pueden utilizar en el fragmento
     private final List<EstatusResponsableFase> listEstatusResponsableFase = new ArrayList<>();
-    private final List<DocumentoRequest> listDocumentosSelectos = new ArrayList<>();
-    private final List<ResponsablesPresentacionRequest> listNuevoEstatusResposables = new ArrayList<>();
+    private final List<Documentos> listDocumentosSelectos = new ArrayList<>();
+    private final List<ResponsablesFase> listNuevoEstatusResposables = new ArrayList<>();
 
     //TODO:todas los adapters que se pueden utilizar en el fragmento
     private EstatusResponsablesCerrarAdapter estatusResponsablesCerrarAdapter;
@@ -169,6 +169,7 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
     private String descripcionConfiguracionFormatImages;
     private String mPath = "";
     private String idCaso;
+    private String idSubFase;
     private String idCasoFase = "";
     //private String nombreFase = "";
     //private String fechaCompromiso;
@@ -262,9 +263,9 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
                 stringBase64DocumentoImganen = Utils.fileToBase64(activity, Uri.fromFile(file));
                 stringCompressDocumentoImagen = Utils.compressBase64(stringBase64DocumentoImganen);
                 if (valorDeConfiguraciontipoAppMovil.equals("1")) {
-                    listDocumentosSelectos.add(new DocumentoRequest(nombreDeArchivoFoto, extension, Integer.parseInt(tamanioPDFFotos), stringBase64DocumentoImganen));
+                    listDocumentosSelectos.add(new Documentos(nombreDeArchivoFoto, extension, Integer.parseInt(tamanioPDFFotos), stringBase64DocumentoImganen));
                 } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
-                    listDocumentosSelectos.add(new DocumentoRequest(nombreDeArchivoFoto, extension, Integer.parseInt(tamanioPDFFotos), stringCompressDocumentoImagen));
+                    listDocumentosSelectos.add(new Documentos(nombreDeArchivoFoto, extension, Integer.parseInt(tamanioPDFFotos), stringCompressDocumentoImagen));
                 }
 
             } catch (IOException e) {
@@ -398,7 +399,7 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
                     public void executeInBackground(String result, String header) {
 
                     }
-                //}, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.ObtenerDatosCaso.concat(Constantes.signoInterrogacion).concat(Constantes.idCaso).concat(Constantes.signoIgual).concat(idCaso));
+                    //}, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.ObtenerDatosCaso.concat(Constantes.signoInterrogacion).concat(Constantes.idCaso).concat(Constantes.signoIgual).concat(idCaso));
                 }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.ObtenerDatosCaso, params);
             } else {
                 Utils.message(activity, getString(R.string.text_label_error_de_conexion));
@@ -409,10 +410,25 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
     }
 
     private void datosDenuncia(DatosDenuncia datosDenuncia) {
-        idCaso = String.valueOf(datosDenuncia.getId());
-        idCasoFase = String.valueOf(datosDenuncia.getIdCasoFase());
+        if (datosDenuncia.getId() != null){
+            idCaso = String.valueOf(datosDenuncia.getId());
+        }else {
+            idCaso = null;
+        }
 
-        if (datosDenuncia.getIdSubFase() != null) {
+        if (datosDenuncia.getIdSubFase() != null){
+            idSubFase = String.valueOf(datosDenuncia.getIdSubFase());
+        }else {
+            idSubFase = null;
+        }
+
+        if (datosDenuncia.getIdCasoFase() != null){
+            idCasoFase = String.valueOf(datosDenuncia.getIdCasoFase());
+        }else {
+            idCasoFase = null;
+        }
+
+        if (datosDenuncia.getSubFase() != null) {
             textViewSubTiutuloCST.setText(getString(R.string.title_cierre).concat(" - ").concat(datosDenuncia.getSubFase()));
         } else {
             textViewSubTiutuloCST.setText(getString(R.string.title_cierre).concat(" - ").concat(datosDenuncia.getFase()));
@@ -462,8 +478,8 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
             @Override
             public void onItemSelectedListener(DatosDenunciaResponsable datosDenunciaResponsable, int idCasoFase, int idCasoResponsable, int idStatusResponsable) {
                 if (idStatusResponsable != 0) {
-                    listNuevoEstatusResposables.add(new ResponsablesPresentacionRequest(idCasoFase, idCasoResponsable, idStatusResponsable));
-                    //                                                                  IdCasoFase  IdCasoResponsable  IdStatusResponsable
+                    listNuevoEstatusResposables.add(new ResponsablesFase(idCasoFase, idCasoResponsable, idStatusResponsable));
+                    //                                                   IdCasoFase  IdCasoResponsable  IdStatusResponsable
                 }
             }
         });
@@ -702,51 +718,71 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
                 break;
 
             case R.id.buttonCerraFaseCFF:
-                String datosDenuncia = Objects.requireNonNull(textInputEditTextDatosDenunciaCDDDA.getText()).toString().trim();
-                String datosAgencia = Objects.requireNonNull(textInputEditTextDatosAgenciaCDDDA.getText()).toString().trim();
-                if (idFase == 2) {
+                if (idSubFase !=null){
                     if (idCaso.isEmpty()) {
                         Utils.messageShort(activity, "El idCaso esta vacío");
                     } else if (String.valueOf(idCasoFase).isEmpty()) {
                         Utils.messageShort(activity, "El idCasoFase esta vacío");
-                    } else if (datosDenuncia.isEmpty()) {
-                        textInputEditTextDatosDenunciaCDDDA.setError(getString(R.string.text_label_datos_demanda_vacio));
-                        textInputEditTextDatosDenunciaCDDDA.requestFocus();
-                    } else if (datosDenuncia.length() <= 9) {
-                        textInputEditTextDatosDenunciaCDDDA.setError(getString(R.string.text_label_datos_demanda_menor_a_diez_caracteres));
-                        textInputEditTextDatosDenunciaCDDDA.requestFocus();
-                    } else if (datosAgencia.isEmpty()) {
-                        textInputEditTextDatosAgenciaCDDDA.setError(getString(R.string.text_label_datos_agencia_vacio));
-                        textInputEditTextDatosAgenciaCDDDA.requestFocus();
-                    } else if (datosAgencia.length() <= 9) {
-                        textInputEditTextDatosAgenciaCDDDA.setError(getString(R.string.text_label_datos_agencia_menor_a_diez_caracteres));
-                        textInputEditTextDatosAgenciaCDDDA.requestFocus();
                     } else if (listDocumentosSelectos.isEmpty() || listDocumentosSelectos == null) {
                         Utils.messageShort(activity, "Agregue al menos una evidencia");
                     } else {
                         if (Functions.isNetworkAvailable(activity)) {
-                            showAlertDialogCierrePresentacion(activity, getString(R.string.text_label_cierre_de_presentacion), getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no),
-                                    valorDeConfiguraciontipoAppMovil, datosDenuncia, datosAgencia, idFase, Integer.parseInt(idCasoFase), listDocumentosSelectos, listNuevoEstatusResposables);
+                            showAlertDialogCierreFase(activity, getString(R.string.text_label_cierre_de_presentacion), getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no),
+                                    valorDeConfiguraciontipoAppMovil, null, null, idFase, Integer.parseInt(idCasoFase), idSubFase, listDocumentosSelectos, listNuevoEstatusResposables);
+                            //                              tipoApp       datosDenuncia    datosAgencia  idFase              idCasoFase        idSubFase          documentos            listResposables
                         } else {
                             Utils.message(activity, getString(R.string.text_label_error_de_conexion));
                         }
                     }
-                } else {
-                    if (idCaso.isEmpty()) {
-                        Utils.messageShort(activity, "El idCaso esta vacío");
-                    } else if (String.valueOf(idCasoFase).isEmpty()) {
-                        Utils.messageShort(activity, "El idCasoFase esta vacío");
-                    } else if (listDocumentosSelectos.isEmpty() || listDocumentosSelectos == null) {
-                        Utils.messageShort(activity, "Agregue al menos una evidencia");
-                    } else {
-                        if (Functions.isNetworkAvailable(activity)) {
-                            showAlertDialogCierrePresentacion(activity, getString(R.string.text_label_cierre_de_presentacion), getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no),
-                                    valorDeConfiguraciontipoAppMovil, datosDenuncia, datosAgencia, idFase, Integer.parseInt(idCasoFase), listDocumentosSelectos, listNuevoEstatusResposables);
+                }else {
+                    String datosDenuncia = Objects.requireNonNull(textInputEditTextDatosDenunciaCDDDA.getText()).toString().trim();
+                    String datosAgencia = Objects.requireNonNull(textInputEditTextDatosAgenciaCDDDA.getText()).toString().trim();
+                    if (idFase == 2) {
+                        if (idCaso.isEmpty()) {
+                            Utils.messageShort(activity, "El idCaso esta vacío");
+                        } else if (String.valueOf(idCasoFase).isEmpty()) {
+                            Utils.messageShort(activity, "El idCasoFase esta vacío");
+                        } else if (datosDenuncia.isEmpty()) {
+                            textInputEditTextDatosDenunciaCDDDA.setError(getString(R.string.text_label_datos_demanda_vacio));
+                            textInputEditTextDatosDenunciaCDDDA.requestFocus();
+                        } else if (datosDenuncia.length() <= 9) {
+                            textInputEditTextDatosDenunciaCDDDA.setError(getString(R.string.text_label_datos_demanda_menor_a_diez_caracteres));
+                            textInputEditTextDatosDenunciaCDDDA.requestFocus();
+                        } else if (datosAgencia.isEmpty()) {
+                            textInputEditTextDatosAgenciaCDDDA.setError(getString(R.string.text_label_datos_agencia_vacio));
+                            textInputEditTextDatosAgenciaCDDDA.requestFocus();
+                        } else if (datosAgencia.length() <= 9) {
+                            textInputEditTextDatosAgenciaCDDDA.setError(getString(R.string.text_label_datos_agencia_menor_a_diez_caracteres));
+                            textInputEditTextDatosAgenciaCDDDA.requestFocus();
+                        } else if (listDocumentosSelectos.isEmpty() || listDocumentosSelectos == null) {
+                            Utils.messageShort(activity, "Agregue al menos una evidencia");
                         } else {
-                            Utils.message(activity, getString(R.string.text_label_error_de_conexion));
+                            if (Functions.isNetworkAvailable(activity)) {
+                                showAlertDialogCierreFase(activity, getString(R.string.text_label_cierre_de_presentacion), getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no),
+                                        valorDeConfiguraciontipoAppMovil, datosDenuncia, datosAgencia, idFase, Integer.parseInt(idCasoFase), idSubFase, listDocumentosSelectos, listNuevoEstatusResposables);
+                                //                              tipoApp   datosDenuncia  datosAgencia  idFase              idCasoFase        idSubFase          documentos            listResposables
+                            } else {
+                                Utils.message(activity, getString(R.string.text_label_error_de_conexion));
+                            }
                         }
+                    } else {
+                        /*if (idCaso.isEmpty()) {
+                            Utils.messageShort(activity, "El idCaso esta vacío");
+                        } else if (String.valueOf(idCasoFase).isEmpty()) {
+                            Utils.messageShort(activity, "El idCasoFase esta vacío");
+                        } else if (listDocumentosSelectos.isEmpty() || listDocumentosSelectos == null) {
+                            Utils.messageShort(activity, "Agregue al menos una evidencia");
+                        } else {
+                            if (Functions.isNetworkAvailable(activity)) {
+                                showAlertDialogCierrePresentacion(activity, getString(R.string.text_label_cierre_de_presentacion), getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no),
+                                        valorDeConfiguraciontipoAppMovil, datosDenuncia, datosAgencia, idFase, Integer.parseInt(idCasoFase), listDocumentosSelectos, listNuevoEstatusResposables);
+                            } else {
+                                Utils.message(activity, getString(R.string.text_label_error_de_conexion));
+                            }
+                        }*/
                     }
                 }
+
 
                 break;
 
@@ -785,15 +821,16 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
         dialogo1.show();
     }
 
-    public void showAlertDialogCierrePresentacion(Activity activity, String titulo, String mensaje, String positivoMensaje, String negativoMensaje,
-                                                  String tipoApp, String datosDenuncia, String datosAgencia, int idFase, int idCasoFase, List<DocumentoRequest> documentos, List<ResponsablesPresentacionRequest> listResposablesPresentacion) {
+    public void showAlertDialogCierreFase(Activity activity, String titulo, String mensaje, String positivoMensaje, String negativoMensaje,
+                                          String tipoApp, String datosDenuncia, String datosAgencia, int idFase, int idCasoFase, String idSubFase, List<Documentos> documentos, List<ResponsablesFase> listResposables) {
         AlertDialog.Builder dialogo1 = new androidx.appcompat.app.AlertDialog.Builder(activity);
         dialogo1.setTitle(titulo);
         dialogo1.setMessage(mensaje);
         dialogo1.setCancelable(false);
         dialogo1.setPositiveButton(positivoMensaje, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {
-                setAlertDialogTerminarFase(activity, tipoApp, datosDenuncia, datosAgencia,idFase, idCasoFase, documentos, listResposablesPresentacion);
+                setCerrarFase(activity, tipoApp, datosDenuncia, datosAgencia, idFase, idCasoFase, idSubFase, documentos, listResposables);
+                //                      tipoApp  datosDenuncia  datosAgencia  idFase  idCasoFase  idSubFase  documentos  listResposables
             }
         });
 
@@ -805,15 +842,18 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
         dialogo1.show();
     }
 
-    public void setAlertDialogTerminarFase(Activity activity, String tipoApp, String datosDenuncia, String datosAgencia, int idFase, int idCasoFase, List<DocumentoRequest> documentos, List<ResponsablesPresentacionRequest> listResposablesPresentacion) {
+    public void setCerrarFase(Activity activity, String tipoApp, String datosDenuncia, String datosAgencia, int idFase, int idCasoFase, String idSubFase, List<Documentos> documentos, List<ResponsablesFase> listResposables) {
         try {
             if (Functions.isNetworkAvailable(activity)) {
                 Gson gsonParams = new Gson();
-                String params;
-                if (idFase == 2){
-                     params = gsonParams.toJson(new envioRequest(new IniciaCasoRequest(datosDenuncia, datosAgencia), Integer.parseInt(tipoApp), new FaseRequest(idCasoFase), listResposablesPresentacion, documentos));
+                String params = null;
+
+                if (idFase == 2) {
+                    params = gsonParams.toJson(new CerrarFase(new Denuncia(datosDenuncia, datosAgencia), new Fase(idCasoFase), Integer.parseInt(tipoApp), listResposables, documentos));
+                    //                                                     datosDenuncia  datosAgencia            idCasoFase                    tipoApp   listResposables  documentos
                 } else {
-                    params = gsonParams.toJson(new envioRequest(Integer.parseInt(tipoApp), new FaseRequest(idCasoFase), listResposablesPresentacion, documentos));
+                    params = gsonParams.toJson(new CerrarFase(Integer.parseInt(tipoApp), new Fase(idCasoFase), listResposables, documentos));
+                    //                                                         tipoApp            idCasoFase   listResposables  documentos
                 }
                 //Log.d("estosSonLosParamsQueSe", "setTerminarFase: " + params);
                 new AsyncTaskGral(activity, new Delegate() {
@@ -1012,10 +1052,10 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
                         stringCompressDocumentoImagen = Utils.compressBase64(stringBase64DocumentoImganen);
                         if (valorDeConfiguraciontipoAppMovil.equals("1")) {
                             //listDocumentosSelectos.add(new DocumentoRequest(nombrePDFFotos, extension, Integer.parseInt(tamanioPDFFotos), stringBase64DocumentoImganen));
-                            listDocumentosSelectos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64DocumentoImganen));
+                            listDocumentosSelectos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64DocumentoImganen));
                         } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
                             //listDocumentosSelectos.add(new DocumentoRequest(nombrePDFFotos, extension, Integer.parseInt(tamanioPDFFotos), stringCompressDocumentoImagen));
-                            listDocumentosSelectos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumentoImagen));
+                            listDocumentosSelectos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)),/*"nose" */stringCompressDocumentoImagen));
                         }
                         //listDocumentosSelectos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activityTPDF, uriImagenOrPdf)), stringCompressDocumentoImagen));
                     } catch (IOException e) {
@@ -1048,10 +1088,10 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
 
                             if (valorDeConfiguraciontipoAppMovil.equals("1")) {
                                 //listDocumentosSelectos.add(new DocumentoRequest(nombrePDFFotos, extension, Integer.parseInt(tamanioPDFFotos), stringBase64DocumentoImganen));
-                                listDocumentosSelectos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64DocumentoImganen));
+                                listDocumentosSelectos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64DocumentoImganen));
                             } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
                                 //listDocumentosSelectos.add(new DocumentoRequest(nombrePDFFotos, extension, Integer.parseInt(tamanioPDFFotos), stringCompressDocumentoImagen));
-                                listDocumentosSelectos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumentoImagen));
+                                listDocumentosSelectos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumentoImagen));
                             }
                             //listDocumentosSelectos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activityTPDF, uriImagenOrPdf)), stringCompressDocumentoImagen));
                         } catch (IOException e) {

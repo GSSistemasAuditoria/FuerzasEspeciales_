@@ -2,6 +2,7 @@ package com.auditorias.fuerzasespeciales.request;
 
 import android.content.Intent;
 
+import com.auditorias.fuerzasespeciales.request.inicioSubFase.Documentos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class envioRequest {
 
-    public envioRequest(FaseRequest fase, List<ResponsablesPresentacionRequest> responsables, List<DocumentoRequest> documentos) {
+    public envioRequest(FaseRequest fase, List<ResponsablesPresentacionRequest> responsables, List<Documentos> documentos) {
         this.fase = fase;
         this.responsables = responsables;
         this.documentos = documentos;
@@ -21,14 +22,14 @@ public class envioRequest {
         this.fase = fase;
     }
 
-    public envioRequest(Integer idTipoApp, FaseRequest fase, List<ResponsablesPresentacionRequest> responsables, List<DocumentoRequest> documentos) {
+    public envioRequest(Integer idTipoApp, FaseRequest fase, List<ResponsablesPresentacionRequest> responsables, List<Documentos> documentos) {
         this.idTipoApp = idTipoApp;
         this.fase = fase;
         this.responsables = responsables;
         this.documentos = documentos;
     }
 
-    public envioRequest(IniciaCasoRequest caso,Integer idTipoApp, FaseRequest fase, List<ResponsablesPresentacionRequest> responsables, List<DocumentoRequest> documentos) {
+    public envioRequest(IniciaCasoRequest caso,Integer idTipoApp, FaseRequest fase, List<ResponsablesPresentacionRequest> responsables, List<Documentos> documentos) {
         this.documentos = documentos;
         this.fase = fase;
         this.caso = caso;
@@ -42,7 +43,7 @@ public class envioRequest {
         this.responsables = responsables;
     }
 
-    public envioRequest(Integer idTipoApp, SolicitudRequest solicitud, List<DocumentoRequest> documentos) {
+    public envioRequest(Integer idTipoApp, SolicitudRequest solicitud, List<Documentos> documentos) {
         this.documentos = documentos;
         this.idTipoApp = idTipoApp;
         this.solicitud = solicitud;
@@ -70,7 +71,7 @@ public class envioRequest {
     private List<ResponsablesPresentacionRequest> responsables = null;
     @SerializedName("documentos")
     @Expose
-    private List<DocumentoRequest> documentos = null;
+    private List<Documentos> documentos = null;
     @SerializedName("solicitud")
     @Expose
     private SolicitudRequest solicitud;
@@ -129,11 +130,11 @@ public class envioRequest {
         this.responsables = responsables;
     }
 
-    public List<DocumentoRequest> getDocumentos() {
+    public List<Documentos> getDocumentos() {
         return documentos;
     }
 
-    public void setDocumentos(List<DocumentoRequest> documentos) {
+    public void setDocumentos(List<Documentos> documentos) {
         this.documentos = documentos;
     }
 

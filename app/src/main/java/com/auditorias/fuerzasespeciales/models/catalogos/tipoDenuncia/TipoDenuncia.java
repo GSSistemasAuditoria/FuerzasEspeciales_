@@ -15,7 +15,7 @@ public class TipoDenuncia {
     private String exito;
     @SerializedName("Data")
     @Expose
-    private List<dataTipoDenuncia> lisTipoDenuncia = null;
+    private List<DataTipoDenuncia> lisTipoDenuncia = null;
 
     public String getError() {
         return error;
@@ -33,11 +33,11 @@ public class TipoDenuncia {
         this.exito = exito;
     }
 
-    public List<dataTipoDenuncia> getLisTipoDenuncia() {
+    public List<DataTipoDenuncia> getLisTipoDenuncia() {
         return lisTipoDenuncia;
     }
 
-    public void setLisTipoDenuncia(List<dataTipoDenuncia> lisTipoDenuncia) {
+    public void setLisTipoDenuncia(List<DataTipoDenuncia> lisTipoDenuncia) {
         this.lisTipoDenuncia = lisTipoDenuncia;
     }
 

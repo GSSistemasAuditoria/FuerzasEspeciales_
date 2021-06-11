@@ -69,9 +69,9 @@ public class EstatusResponsablesInicioSubFaseAdapter extends RecyclerView.Adapte
 
         EstatusResponsablesInicioSubFaseViewHolder(View view) {
             super(view);
-            textViewNumeroEmpeadoTERCA = view.findViewById(R.id.textViewNumeroEmpledoResponsableCTR);
-            textViewNombreEmpeadoTERCA = view.findViewById(R.id.textViewNombreResponsableCTR);
-            textViewTipoEmpeadoTERCA = view.findViewById(R.id.textViewTipoImputadoCTR);
+            textViewNumeroEmpeadoTERCA = view.findViewById(R.id.textViewNumeroEmpledoResponsablesCTRI);
+            textViewNombreEmpeadoTERCA = view.findViewById(R.id.textViewNombreResponsablesCTRI);
+            textViewTipoEmpeadoTERCA = view.findViewById(R.id.textViewTipoEmpleadoResponsableCIE);
             spinnerEstatusResponsable = view.findViewById(R.id.spinnerEstatusResponsableCIE);
         }
 
@@ -101,7 +101,7 @@ public class EstatusResponsablesInicioSubFaseAdapter extends RecyclerView.Adapte
 
         //TODO: llenado del spinner de status de cada uno de los responsables dentro de la lista de responsables
         public void getStatusResponsableFaseList(Activity activity, DatosDenunciaResponsable datosDenunciaResponsable, List<EstatusResponsableFase> statusResponsableFaseList, Spinner spinner, OnItemSelectedListener itemSelectedListener) {
-            ArrayAdapter<EstatusResponsableFase> myAdapter = new EstatusImputadoArrayAdapter(activity, R.layout.cell_estatus_responsable_spinner_item, statusResponsableFaseList);
+            ArrayAdapter<EstatusResponsableFase> myAdapter = new EstatusImputadoArrayAdapter(activity, R.layout.cell_spinner_item, statusResponsableFaseList);
             spinner.setAdapter(myAdapter);
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override

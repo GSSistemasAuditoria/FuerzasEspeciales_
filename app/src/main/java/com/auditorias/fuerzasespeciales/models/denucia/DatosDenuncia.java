@@ -1,5 +1,6 @@
 package com.auditorias.fuerzasespeciales.models.denucia;
 
+import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenunciaResponsable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -58,6 +59,9 @@ public class DatosDenuncia {
     @SerializedName("IdStatusSentencia")
     @Expose
     private Integer idStatusSentencia;
+    @SerializedName("IdTipoDenuncia")
+    @Expose
+    private Integer idTipoDenuncia;
     @SerializedName("IdTipoFraude")
     @Expose
     private Integer idTipoFraude;
@@ -106,6 +110,9 @@ public class DatosDenuncia {
     @SerializedName("EtapaSubFase")
     @Expose
     private String etapaSubFase;
+    @SerializedName("EtiquetaResponsables")
+    @Expose
+    private String etiquetaResponsables;
     @SerializedName("Fase")
     @Expose
     private String fase;
@@ -132,7 +139,7 @@ public class DatosDenuncia {
     private Integer idEtapaFase;
     @SerializedName("IdEtapaSubFase")
     @Expose
-    private Object idEtapaSubFase;
+    private Integer idEtapaSubFase;
     @SerializedName("IdFase")
     @Expose
     private Integer idFase;
@@ -159,7 +166,7 @@ public class DatosDenuncia {
     private String statusAutorizacion;
     @SerializedName("StatusSentencia")
     @Expose
-    private Object statusSentencia;
+    private String statusSentencia;
     @SerializedName("SubFase")
     @Expose
     private String subFase;
@@ -313,6 +320,14 @@ public class DatosDenuncia {
 
     public void setIdStatusSentencia(Integer idStatusSentencia) {
         this.idStatusSentencia = idStatusSentencia;
+    }
+
+    public Integer getIdTipoDenuncia() {
+        return idTipoDenuncia;
+    }
+
+    public void setIdTipoDenuncia(Integer idTipoDenuncia) {
+        this.idTipoDenuncia = idTipoDenuncia;
     }
 
     public Integer getIdTipoFraude() {
@@ -483,6 +498,14 @@ public class DatosDenuncia {
         this.fechaSolicitud = fechaSolicitud;
     }
 
+    public Integer getIdCambioFecha() {
+        return idCambioFecha;
+    }
+
+    public void setIdCambioFecha(Integer idCambioFecha) {
+        this.idCambioFecha = idCambioFecha;
+    }
+
     public Integer getIdCasoFase() {
         return idCasoFase;
     }
@@ -499,11 +522,11 @@ public class DatosDenuncia {
         this.idEtapaFase = idEtapaFase;
     }
 
-    public Object getIdEtapaSubFase() {
+    public Integer getIdEtapaSubFase() {
         return idEtapaSubFase;
     }
 
-    public void setIdEtapaSubFase(Object idEtapaSubFase) {
+    public void setIdEtapaSubFase(Integer idEtapaSubFase) {
         this.idEtapaSubFase = idEtapaSubFase;
     }
 
@@ -531,6 +554,22 @@ public class DatosDenuncia {
         this.idSubFase = idSubFase;
     }
 
+    public String getImagenFase() {
+        return imagenFase;
+    }
+
+    public void setImagenFase(String imagenFase) {
+        this.imagenFase = imagenFase;
+    }
+
+    public String getImagenSubfase() {
+        return imagenSubfase;
+    }
+
+    public void setImagenSubfase(String imagenSubfase) {
+        this.imagenSubfase = imagenSubfase;
+    }
+
     public String getRegion() {
         return region;
     }
@@ -555,12 +594,28 @@ public class DatosDenuncia {
         this.statusAutorizacion = statusAutorizacion;
     }
 
+    public String getStatusSentencia() {
+        return statusSentencia;
+    }
+
+    public void setStatusSentencia(String statusSentencia) {
+        this.statusSentencia = statusSentencia;
+    }
+
     public String getSubFase() {
         return subFase;
     }
 
     public void setSubFase(String subFase) {
         this.subFase = subFase;
+    }
+
+    public String getTipoDenuncia() {
+        return tipoDenuncia;
+    }
+
+    public void setTipoDenuncia(String tipoDenuncia) {
+        this.tipoDenuncia = tipoDenuncia;
     }
 
     public String getTipoFraude() {
@@ -595,51 +650,11 @@ public class DatosDenuncia {
         this.zona = zona;
     }
 
-    public Integer getIdCambioFecha() {
-        return idCambioFecha;
+    public String getEtiquetaResponsables() {
+        return etiquetaResponsables;
     }
 
-    public void setIdCambioFecha(Integer idCambioFecha) {
-        this.idCambioFecha = idCambioFecha;
-    }
-
-    public String getImagenFase() {
-        return imagenFase;
-    }
-
-    public void setImagenFase(String imagenFase) {
-        this.imagenFase = imagenFase;
-    }
-
-    public String getImagenSubfase() {
-        return imagenSubfase;
-    }
-
-    public void setImagenSubfase(String imagenSubfase) {
-        this.imagenSubfase = imagenSubfase;
-    }
-
-    public Object getStatusSentencia() {
-        return statusSentencia;
-    }
-
-    public void setStatusSentencia(Object statusSentencia) {
-        this.statusSentencia = statusSentencia;
-    }
-
-    public String getTipoDenuncia() {
-        return tipoDenuncia;
-    }
-
-    public void setTipoDenuncia(String tipoDenuncia) {
-        this.tipoDenuncia = tipoDenuncia;
-    }
-
-    public Integer getIdTipoDenuncia() {
-        return idTipoDenuncia;
-    }
-
-    public void setIdTipoDenuncia(Integer idTipoDenuncia) {
-        this.idTipoDenuncia = idTipoDenuncia;
+    public void setEtiquetaResponsables(String etiquetaResponsables) {
+        this.etiquetaResponsables = etiquetaResponsables;
     }
 }

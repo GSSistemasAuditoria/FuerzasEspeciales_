@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.auditorias.fuerzasespeciales.models.catalogos.faseActiva.FaseActivaDatos;
-import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenuncia;
+import com.auditorias.fuerzasespeciales.models.denucia.DatosDenuncia;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.faseHolders.FasesViewHolder;
 
 import java.util.List;
@@ -54,11 +54,11 @@ public class FasesAdapter extends RecyclerView.Adapter<FasesViewHolder> {
 
     public interface OnItemClickListener {
 
-        void onIniciarFase(FaseActivaDatos faseActivaDatos,DatosDenuncia datosDenuncia, int position);
+        void onIniciarFase(FaseActivaDatos faseActivaDatos, DatosDenuncia datosDenuncia, int position);
 
-        void onReprogramarFase(FaseActivaDatos faseActivaDatos,DatosDenuncia datosDenuncia, int position);
+        void onReprogramarFase(FaseActivaDatos faseActivaDatos, DatosDenuncia datosDenuncia, int position);
 
-        void onCerrarFase(FaseActivaDatos faseActivaDatos, DatosDenuncia datosDenuncia,  int position);
+        void onCerrarFase(FaseActivaDatos faseActivaDatos, DatosDenuncia datosDenuncia, int position);
 
     }
 }

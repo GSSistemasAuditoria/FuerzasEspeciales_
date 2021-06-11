@@ -3,7 +3,7 @@ package com.auditorias.fuerzasespeciales.models.catalogos.tipoDenuncia;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class dataTipoDenuncia {
+public class DataTipoDenuncia {
 
     @SerializedName("Error")
     @Expose
@@ -23,6 +23,25 @@ public class dataTipoDenuncia {
     @SerializedName("IdStatus")
     @Expose
     private Integer idStatus;
+    @SerializedName("EtiquetaResponsables")
+    @Expose
+    private String etiquetaResponsables;
+    @SerializedName("IdTipoResponsable")
+    @Expose
+    private Integer idTipoResponsable;
+    @SerializedName("TipoResponsable")
+    @Expose
+    private String tipoResponsable;
+
+    public DataTipoDenuncia(String descripcion, String fechaMod, Integer id, Integer idStatus, String etiquetaResponsables, Integer idTipoResponsable, String tipoResponsable) {
+        this.descripcion = descripcion;
+        this.fechaMod = fechaMod;
+        this.id = id;
+        this.idStatus = idStatus;
+        this.etiquetaResponsables = etiquetaResponsables;
+        this.idTipoResponsable = idTipoResponsable;
+        this.tipoResponsable = tipoResponsable;
+    }
 
     public String getError() {
         return error;
@@ -72,4 +91,29 @@ public class dataTipoDenuncia {
         this.idStatus = idStatus;
     }
 
+    public String getEtiquetaResponsables() {
+        return etiquetaResponsables;
+    }
+
+    public void setEtiquetaResponsables(String etiquetaResponsables) {
+        this.etiquetaResponsables = etiquetaResponsables;
+    }
+
+    public Integer getIdTipoResponsable() {
+        return idTipoResponsable;
+    }
+
+    public void setIdTipoResponsable(Integer idTipoResponsable) {
+        this.idTipoResponsable = idTipoResponsable;
+    }
+
+    public String getTipoResponsable() {
+        return tipoResponsable;
+    }
+
+    public void setTipoResponsable(String tipoResponsable) {
+        this.tipoResponsable = tipoResponsable;
+    }
+
 }
+

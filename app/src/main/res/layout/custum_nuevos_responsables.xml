@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textViewNombreResponsableTextCNR"
+        android:id="@+id/textViewResponsablesTextCNR"
         style="@style/TextviewDark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/textViewNombreResponsableCNR"
+            android:id="@+id/textViewResponsableCNR"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
@@ -27,13 +27,13 @@
             android:gravity="center|start"
             android:paddingStart="10dp"
             android:paddingEnd="0dp"
-            app:layout_constraintEnd_toStartOf="@+id/imageButtonNombreResponsableCNR"
+            app:layout_constraintEnd_toStartOf="@+id/imageButtonResponsableCNR"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
 
         <ImageButton
-            android:id="@+id/imageButtonNombreResponsableCNR"
+            android:id="@+id/imageButtonResponsableCNR"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
@@ -42,11 +42,11 @@
             android:contentDescription="@string/todo"
             android:src="@drawable/ic_complaint"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textViewNombreResponsableCNR"
+            app:layout_constraintStart_toEndOf="@+id/textViewResponsableCNR"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewNombreResponsableAlertErrorCNR"
+            android:id="@+id/textViewResponsableAlertErrorCNR"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -56,12 +56,12 @@
             android:text="@string/text_label_error"
             android:textColor="@color/Red500"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageViewNombreResponsableAlertErrorCNR"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewResponsableAlertErrorCNR"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageViewNombreResponsableAlertErrorCNR"
+            android:id="@+id/imageViewResponsableAlertErrorCNR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"

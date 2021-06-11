@@ -153,6 +153,7 @@ public class Constantes {
     public static String fileMaxSize = "FileMaxSize";
     public static String formatDocuments = "FormatDocuments";
     public static String tipoAppMovil = "TipoAppMovil";
+    public static String faseInicialCaso = "FaseInicialCaso";
     public static String formatImages = "FormatImages";
     public static String photoNumber = "PhotoNumber";
     public static String idIntegracionDoc = "IdIntegracionDoc";

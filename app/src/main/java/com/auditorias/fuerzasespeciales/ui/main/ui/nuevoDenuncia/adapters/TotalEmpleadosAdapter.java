@@ -4,29 +4,26 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.request.ResponsablesResquest;
+import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.holders.TotalEmpleadosViewHolder;
 
 import java.util.List;
 
-public class TotalEmpleadosAdapter extends RecyclerView.Adapter<TotalEmpleadosAdapter.TotalEmpleadosViewHolder> {
+public class TotalEmpleadosAdapter extends RecyclerView.Adapter<TotalEmpleadosViewHolder> {
 
-    private final Activity activityCA;
     private final List<ResponsablesResquest> listCA;
     private final LayoutInflater inflater;
-    private OnClickListener itemClickListener;
+    private final OnClickListener itemClickListener;
 
-    public TotalEmpleadosAdapter(Activity activityCA, List<ResponsablesResquest> listCA, OnClickListener itemClickListener) {
-        this.activityCA = activityCA;
+    public TotalEmpleadosAdapter(Activity activity, List<ResponsablesResquest> listCA, OnClickListener itemClickListener) {
         this.listCA = listCA;
-        this.itemClickListener  = itemClickListener;
-        inflater = LayoutInflater.from(activityCA);
+        this.itemClickListener = itemClickListener;
+        inflater = LayoutInflater.from(activity);
     }
 
     public List<ResponsablesResquest> getResponsablesResquest() {
@@ -36,7 +33,7 @@ public class TotalEmpleadosAdapter extends RecyclerView.Adapter<TotalEmpleadosAd
     @NonNull
     @Override
     public TotalEmpleadosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.cell_total_empleados_responsables_detalle_caso_adapter, parent, false);
+        View view = inflater.inflate(R.layout.cell_total_responsables_item, parent, false);
         return new TotalEmpleadosViewHolder(view);
     }
 
@@ -50,55 +47,10 @@ public class TotalEmpleadosAdapter extends RecyclerView.Adapter<TotalEmpleadosAd
         return listCA.size();
     }
 
-    class TotalEmpleadosViewHolder extends RecyclerView.ViewHolder {
-
-        TextView textViewNumeroEmpeadoTERC;
-        TextView textViewNombreEmpeadoTERC;
-        TextView textViewTipoEmpeadoTERC;
-        ImageView imageViewDeleteTERC;
-
-        TotalEmpleadosViewHolder(View view) {
-            super(view);
-            textViewNumeroEmpeadoTERC = view.findViewById(R.id.textViewNumeroEmpledoResponsableCTR);
-            textViewNombreEmpeadoTERC = view.findViewById(R.id.textViewNombreResponsableCTR);
-            textViewTipoEmpeadoTERC = view.findViewById(R.id.textViewTipoImputadoCTR);
-            imageViewDeleteTERC = view.findViewById(R.id.imageViewDeleteCTR);
-        }
-
-        public void bind(final ResponsablesResquest responsablesResquest, final OnClickListener itemClickListener) {
-            textViewNumeroEmpeadoTERC.setText(String.valueOf(responsablesResquest.getIdEmpleado()));
-            textViewNombreEmpeadoTERC.setText(responsablesResquest.getNombre());
-
-            if (String.valueOf(responsablesResquest.getIdEmpleado()).isEmpty() || responsablesResquest.getIdEmpleado() == null) {
-                textViewNumeroEmpeadoTERC.setVisibility(View.GONE);
-                if (responsablesResquest.getIdTipoEmpleado() == 1) {
-                    textViewTipoEmpeadoTERC.setText("Interno");
-                } else if (responsablesResquest.getIdTipoEmpleado() == 2) {
-                    textViewTipoEmpeadoTERC.setText("Externo");
-                }
-            } else {
-                textViewNumeroEmpeadoTERC.setVisibility(View.VISIBLE);
-                textViewTipoEmpeadoTERC.setVisibility(View.VISIBLE);
-                if (responsablesResquest.getIdTipoEmpleado() == 1) {
-                    textViewTipoEmpeadoTERC.setText("Interno");
-                } else if (responsablesResquest.getIdTipoEmpleado() == 2) {
-                    textViewTipoEmpeadoTERC.setText("Externo");
-                }
-            }
-
-            imageViewDeleteTERC.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    itemClickListener.onClickDelete(responsablesResquest, getAdapterPosition());
-                }
-            });
-        }
-
-
-    }
-
     public interface OnClickListener {
         void onItemClick(ResponsablesResquest responsablesResquest, int position);
+
         void onClickDelete(ResponsablesResquest responsablesResquest, int position);
     }
+
 }

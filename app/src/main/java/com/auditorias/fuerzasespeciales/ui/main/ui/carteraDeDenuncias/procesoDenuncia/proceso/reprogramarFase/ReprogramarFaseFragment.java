@@ -40,6 +40,7 @@ import com.auditorias.fuerzasespeciales.request.DocumentoRequest;
 import com.auditorias.fuerzasespeciales.request.SolicitudRequest;
 import com.auditorias.fuerzasespeciales.request.denuncia.DatosDenunciaRequest;
 import com.auditorias.fuerzasespeciales.request.envioRequest;
+import com.auditorias.fuerzasespeciales.request.inicioSubFase.Documentos;
 import com.auditorias.fuerzasespeciales.request.reprogramacion.CalculoFechaCompromiso;
 import com.auditorias.fuerzasespeciales.utils.AsyncTaskGral;
 import com.auditorias.fuerzasespeciales.utils.Delegate;
@@ -65,7 +66,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class ReprogramarFaseFragment extends Fragment implements View.OnClickListener {
 
     //TODO:todas los listas que se pueden utilizar en el fragmento
-    private final List<DocumentoRequest> documentos = new ArrayList<>();
+    private final List<Documentos> documentos = new ArrayList<>();
 
     private String[] parts;
     private String doc;
@@ -179,9 +180,9 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
                 stringBase64DocumentoImganen = Utils.fileToBase64(activity, Uri.fromFile(file));
                 stringCompressDocumentoImagen = Utils.compressBase64(stringBase64DocumentoImganen);
                 if (valorDeConfiguraciontipoAppMovil.equals("1")) {
-                    documentos.add(new DocumentoRequest(nombreDeArchivoFoto, extension, Integer.parseInt(tamanioPDFFotos), stringBase64DocumentoImganen));
+                    documentos.add(new Documentos(nombreDeArchivoFoto, extension, Integer.parseInt(tamanioPDFFotos), stringBase64DocumentoImganen));
                 } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
-                    documentos.add(new DocumentoRequest(nombreDeArchivoFoto, extension, Integer.parseInt(tamanioPDFFotos), stringCompressDocumentoImagen));
+                    documentos.add(new Documentos(nombreDeArchivoFoto, extension, Integer.parseInt(tamanioPDFFotos), stringCompressDocumentoImagen));
                 }
 
             } catch (IOException e) {
@@ -571,7 +572,7 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
     }
 
     public void showAlertDialogReprogramcionPresentacion(Activity activity, String titulo, String mensaje, String positivoMensaje, String negativoMensaje,
-                                                         String idCaso, int idFase, int idCasoFase, String tipoApp, String fechaCompromiso, String justificacion, List<DocumentoRequest> documentos) {
+                                                         String idCaso, int idFase, int idCasoFase, String tipoApp, String fechaCompromiso, String justificacion, List<Documentos> documentos) {
         androidx.appcompat.app.AlertDialog.Builder dialogo1 = new androidx.appcompat.app.AlertDialog.Builder(activity);
         dialogo1.setTitle(titulo);
         dialogo1.setMessage(mensaje);
@@ -590,7 +591,7 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
         dialogo1.show();
     }
 
-    public void setCalculaFechaCompromiso(Activity activity, String idCaso, int idFase, int idCasoFase, String tipoApp, String fechaCompromiso, String justificacion, List<DocumentoRequest> documentos) {
+    public void setCalculaFechaCompromiso(Activity activity, String idCaso, int idFase, int idCasoFase, String tipoApp, String fechaCompromiso, String justificacion, List<Documentos> documentos) {
 
         if (Functions.isNetworkAvailable(activity)) {
             Gson gsonParams = new Gson();
@@ -623,7 +624,7 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
         }
     }
 
-    public void setReprogramarDenuncia(Activity activity, String idCaso, int idCasoFase, String tipoApp, String justificacion, String nuevaFechaCompromiso, List<DocumentoRequest> documentos) {
+    public void setReprogramarDenuncia(Activity activity, String idCaso, int idCasoFase, String tipoApp, String justificacion, String nuevaFechaCompromiso, List<Documentos> documentos) {
         try {
             if (Functions.isNetworkAvailable(activity)) {
                 Gson gsonParams = new Gson();
@@ -839,9 +840,9 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
                             stringCompressDocumentoImagen = Utils.compressBase64(stringBase64DocumentoImganen);
 
                             if (valorDeConfiguraciontipoAppMovil.equals("1")) {
-                                documentos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64DocumentoImganen));
+                                documentos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64DocumentoImganen));
                             } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
-                                documentos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumentoImagen));
+                                documentos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumentoImagen));
                             }
                             //documentos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activityRPDDF, uriImagenOrPdf)), stringBase64DocumentoImganen));
                         } catch (IOException e) {
@@ -885,9 +886,9 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
                             stringBase64DocumentoImganen = Utils.fileToBase64(activity, uriImagenOrPdf);
                             stringCompressDocumentoImagen = Utils.compressBase64(stringBase64DocumentoImganen);
                             if (valorDeConfiguraciontipoAppMovil.equals("1")) {
-                                documentos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64DocumentoImganen));
+                                documentos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64DocumentoImganen));
                             } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
-                                documentos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumentoImagen));
+                                documentos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumentoImagen));
                             }
                             //documentos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activityRPDDF, uriImagenOrPdf)), stringBase64DocumentoImganen));
                         } catch (IOException e) {

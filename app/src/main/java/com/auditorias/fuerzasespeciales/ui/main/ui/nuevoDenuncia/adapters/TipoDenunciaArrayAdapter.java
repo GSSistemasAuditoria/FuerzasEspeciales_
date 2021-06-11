@@ -8,19 +8,18 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.auditorias.fuerzasespeciales.R;
-import com.auditorias.fuerzasespeciales.models.UnidaDeNegocioModel;
-import com.auditorias.fuerzasespeciales.models.catalogos.unidadDeNegocio.UnidadDeNegocio;
+import com.auditorias.fuerzasespeciales.models.catalogos.tipoDenuncia.DataTipoDenuncia;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class UnidadDeNegocioArrayAdapter extends ArrayAdapter<UnidadDeNegocio> {
+public class TipoDenunciaArrayAdapter extends ArrayAdapter<DataTipoDenuncia> {
 
-    private final List<UnidadDeNegocio> list;
+    private final List<DataTipoDenuncia> list;
     private final Context context;
 
-    public UnidadDeNegocioArrayAdapter(Context context, int resourceId, List<UnidadDeNegocio> list) {
+    public TipoDenunciaArrayAdapter(Context context, int resourceId, List<DataTipoDenuncia> list) {
         super(context, resourceId, list);
         this.list = list;
         this.context = context;
@@ -38,10 +37,9 @@ public class UnidadDeNegocioArrayAdapter extends ArrayAdapter<UnidadDeNegocio> {
 
     public View getCustomView(int position, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.cell_estatus_responsable_spinner_item, parent, false);
-        TextView label = row.findViewById(R.id.textViewEstatusCERS);
+        View row = inflater.inflate(R.layout.cell_spinner_item, parent, false);
+        TextView label = row.findViewById(R.id.textViewTextoCSI);
         label.setText(list.get(position).getDescripcion());
         return row;
     }
-
 }

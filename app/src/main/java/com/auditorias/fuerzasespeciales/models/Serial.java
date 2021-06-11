@@ -3,10 +3,10 @@ package com.auditorias.fuerzasespeciales.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.auditorias.fuerzasespeciales.models.catalogos.usuario.PerfilUsuarioModel;
 import com.auditorias.fuerzasespeciales.models.catalogos.faseActiva.FaseActiva;
+import com.auditorias.fuerzasespeciales.models.catalogos.usuario.PerfilUsuarioModel;
 import com.auditorias.fuerzasespeciales.models.datosUsuario.Empleado;
-import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenuncia;
+import com.auditorias.fuerzasespeciales.models.denucia.DatosDenuncia;
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenuncia;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -92,8 +92,6 @@ public class Serial implements Parcelable {
     private CerrarFaseModel cerrarFaseResult;
 
 
-
-
     @SerializedName("ObtenerCatalogoPerfilResult")
     @Expose
     private List<PerfilUsuarioModel> listPerfilUsuarios = null;
@@ -107,6 +105,16 @@ public class Serial implements Parcelable {
     @Expose
     private NuevaSolicitudCambioFechaModel nuevaSolicitudCambioFechaModel;
 
+    public Serial() {
+    }
+
+    protected Serial(Parcel in) {
+        casosAbogadoList = in.createTypedArrayList(CasosModel.CREATOR);
+        guardaCatalogoCasoResult = in.readParcelable(GuardaCatalogoCasoModel.class.getClassLoader());
+        catalogoFaseList = in.createTypedArrayList(CatalogoFaseModel.CREATOR);
+        obtenerDatosCasoResult = in.readParcelable(DatosDenuncia.class.getClassLoader());
+    }
+
     public NuevaSolicitudCambioFechaModel getNuevaSolicitudCambioFechaModel() {
         return nuevaSolicitudCambioFechaModel;
     }
@@ -114,7 +122,6 @@ public class Serial implements Parcelable {
     public void setNuevaSolicitudCambioFechaModel(NuevaSolicitudCambioFechaModel nuevaSolicitudCambioFechaModel) {
         this.nuevaSolicitudCambioFechaModel = nuevaSolicitudCambioFechaModel;
     }
-
 
     public CalculaFechaCompromisoModel getCalculaFechaCompromisoModel() {
         return calculaFechaCompromisoModel;
@@ -131,18 +138,6 @@ public class Serial implements Parcelable {
     public void setListPerfilUsuarios(List<PerfilUsuarioModel> listPerfilUsuarios) {
         this.listPerfilUsuarios = listPerfilUsuarios;
     }
-
-
-    public Serial() {
-    }
-
-    protected Serial(Parcel in) {
-        casosAbogadoList = in.createTypedArrayList(CasosModel.CREATOR);
-        guardaCatalogoCasoResult = in.readParcelable(GuardaCatalogoCasoModel.class.getClassLoader());
-        catalogoFaseList = in.createTypedArrayList(CatalogoFaseModel.CREATOR);
-        obtenerDatosCasoResult = in.readParcelable(DatosDenuncia.class.getClassLoader());
-    }
-
 
     public List<EtapaCasoModel> getEtapaCasoList() {
         return etapaCasoList;
@@ -264,7 +259,6 @@ public class Serial implements Parcelable {
     public void setCerrarFaseResult(CerrarFaseModel cerrarFaseResult) {
         this.cerrarFaseResult = cerrarFaseResult;
     }
-
 
 
     @Override

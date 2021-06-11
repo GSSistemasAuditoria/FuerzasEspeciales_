@@ -21,7 +21,7 @@ import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.SQLite.TableDataUser;
 import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
 import com.auditorias.fuerzasespeciales.models.catalogos.faseActiva.FaseActivaDatos;
-import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenuncia;
+import com.auditorias.fuerzasespeciales.models.denucia.DatosDenuncia;
 import com.auditorias.fuerzasespeciales.request.denuncia.DatosDenunciaRequest;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.faseAdapters.FasesAdapter;
 import com.auditorias.fuerzasespeciales.utils.AsyncTaskGral;
@@ -35,10 +35,8 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
 
     private static final String TAG = ProcesoFaseDenunciaFragment.class.getName();
 
-    //TODO: son todas las lista del fragment
-
-    //TODO: son todos los textview del fragment
     private TextView textViewSubTiutuloCST;
+
     private TextView textViewFolioDenunciaCDD;
     private TextView textViewNombreDenunciaCDD;
     private TextView textViewFechaCompromisoFaseCDD;
@@ -47,7 +45,7 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
     private TextView textViewTipoDenunciaCDD;
     private TextView textViewZonaCDD;
     private TextView textViewPorcentajeGeneralDenunciaCDD;
-    private TextView textViewFechaRegistroTextCDD;
+    //private TextView textViewFechaRegistroTextCDD;
     private TextView textViewFechaResgistroCDD;
     private TextView textViewAutorizacionCDD;
     private TextView textViewAutorizacionTextCDD;
@@ -126,7 +124,7 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
         textViewUnidadNegocioCDD = view.findViewById(R.id.textViewUnidadNegocioCDD);
         textViewZonaCDD = view.findViewById(R.id.textViewZonaCDD);
         linearLayoutColorEtapaDenunciaCDD = view.findViewById(R.id.linearLayoutColorEtapaDenunciaCDD);
-        textViewFechaRegistroTextCDD = view.findViewById(R.id.textViewFechaRegistroTextCDD);
+        //textViewFechaRegistroTextCDD = view.findViewById(R.id.textViewFechaRegistroTextCDD);
         textViewFechaResgistroCDD = view.findViewById(R.id.textViewFechaResgistroCDD);
         textViewFechaCompromisoFaseCDD = view.findViewById(R.id.textViewFechaCompromisoFaseCDD);
         textViewFechaCompromisoFaseTextCDD = view.findViewById(R.id.textViewFechaCompromisoFaseTextCDD);
@@ -172,47 +170,13 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
                         Gson gson = new Gson();
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
 
-                        if (respuestaGeneral.getDatosDenuncia() != null || !respuestaGeneral.getDatosDenuncia().toString().isEmpty()) {
-                            //idCasoGeneral = String.valueOf(respuestaGeneral.getDatosDenuncia().getId());
-                            statusAutorizacion = respuestaGeneral.getDatosDenuncia().getStatusAutorizacion();
-                            datosDenuncia = respuestaGeneral.getDatosDenuncia();
-
-                            linearLayoutColorEtapaDenunciaCDD.setBackgroundColor(Color.parseColor(respuestaGeneral.getDatosDenuncia().getColorEtapaCaso()));
-                            textViewFolioDenunciaCDD.setText(respuestaGeneral.getDatosDenuncia().getFolio());
-                            textViewNombreDenunciaCDD.setText(respuestaGeneral.getDatosDenuncia().getNombre());
-                            textViewPorcentajeGeneralDenunciaCDD.setText(Utils.setFormatoNumeroEnteroPorcentaje(respuestaGeneral.getDatosDenuncia().getAvanceCaso()));
-                            textViewTipoDelitoCDD.setText(respuestaGeneral.getDatosDenuncia().getTipoFraude());
-                            if (respuestaGeneral.getDatosDenuncia().getFechaCompromiso() != null) {
-                                textViewFechaCompromisoFaseCDD.setText(Utils.SetCambioFormatoFechaDiaMesAnio(String.valueOf(respuestaGeneral.getDatosDenuncia().getFechaCompromiso())));
-                            } else {
-                                textViewFechaCompromisoFaseCDD.setVisibility(View.GONE);
-                                textViewFechaCompromisoFaseTextCDD.setVisibility(View.GONE);
-                                //textViewFechaCompromisoFaseCDD.setText("");
-                            }
-                            textViewTipoDenunciaCDD.setText(respuestaGeneral.getDatosDenuncia().getTipoDenuncia());
-                            textViewUnidadNegocioCDD.setText(respuestaGeneral.getDatosDenuncia().getUdN().concat(" - ").concat(respuestaGeneral.getDatosDenuncia().getUdNCeco()));
-                            textViewZonaCDD.setText(respuestaGeneral.getDatosDenuncia().getRegion().concat(" - ").concat(respuestaGeneral.getDatosDenuncia().getZona()));
-                            textViewFechaResgistroCDD.setText(Utils.SetCambioFormatoFechaDiaMesAnio(String.valueOf(respuestaGeneral.getDatosDenuncia().getFechaRegistro())));
-                            if (respuestaGeneral.getDatosDenuncia().getIdStatusAutorizacion() == 1){
-                                textViewAutorizacionCDD.setVisibility(View.GONE);
-                                textViewAutorizacionTextCDD.setVisibility(View.GONE);
-                            }else if (respuestaGeneral.getDatosDenuncia().getIdStatusAutorizacion() == 2) {
-                                textViewAutorizacionCDD.setVisibility(View.VISIBLE);
-                                textViewAutorizacionTextCDD.setVisibility(View.VISIBLE);
-                                textViewAutorizacionCDD.setText(statusAutorizacion);
-                            } else if (respuestaGeneral.getDatosDenuncia().getIdStatusAutorizacion() == 3) {
-                                textViewAutorizacionCDD.setVisibility(View.GONE);
-                                textViewAutorizacionTextCDD.setVisibility(View.GONE);
-                                //textViewAutorizacionCDD.setText(statusAutorizacion);
-                            } else if (respuestaGeneral.getDatosDenuncia().getIdStatusAutorizacion() == 4) {
-                                textViewAutorizacionCDD.setVisibility(View.VISIBLE);
-                                textViewAutorizacionTextCDD.setVisibility(View.VISIBLE);
-                                textViewAutorizacionCDD.setText(statusAutorizacion);
-                            }
-
-                        } else {
-
+                        if (respuestaGeneral.getDatosDenuncia().getExito().equals(Constantes.exitoTrue)){
+                            getDatosDenuncia(respuestaGeneral.getDatosDenuncia());
+                        }else {
+                            Utils.messageShort(activity, respuestaGeneral.getDatosDenuncia().getError());
                         }
+
+
                         swipeRefreshLayoutPFDF.setRefreshing(false);
                     }
 
@@ -220,13 +184,57 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
                     public void executeInBackground(String result, String header) {
                         TableDataUser.updateJWT(activity, header);
                     }
-                //}, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.ObtenerDatosCaso.concat(Constantes.signoInterrogacion).concat(Constantes.idCaso).concat(Constantes.signoIgual).concat(idCaso));
+                    //}, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.ObtenerDatosCaso.concat(Constantes.signoInterrogacion).concat(Constantes.idCaso).concat(Constantes.signoIgual).concat(idCaso));
                 }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.ObtenerDatosCaso, params);
             } else {
                 Utils.message(activity, getString(R.string.text_label_error_de_conexion));
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void getDatosDenuncia(DatosDenuncia datosDenuncia){
+        if (datosDenuncia != null) {
+            //datosDenunciaOf(respuestaGeneral.getDatosDenuncia().getId());
+            statusAutorizacion = datosDenuncia.getStatusAutorizacion();
+            this.datosDenuncia = datosDenuncia;
+
+            linearLayoutColorEtapaDenunciaCDD.setBackgroundColor(Color.parseColor(datosDenuncia.getColorEtapaCaso()));
+            textViewFolioDenunciaCDD.setText(datosDenuncia.getFolio());
+            textViewNombreDenunciaCDD.setText(datosDenuncia.getNombre());
+            textViewPorcentajeGeneralDenunciaCDD.setText(Utils.setFormatoNumeroEnteroPorcentaje(datosDenuncia.getAvanceCaso()));
+            textViewTipoDelitoCDD.setText(datosDenuncia.getTipoFraude());
+            if (datosDenuncia.getFechaCompromiso() != null) {
+                textViewFechaCompromisoFaseCDD.setText(Utils.SetCambioFormatoFechaDiaMesAnio(String.valueOf(datosDenuncia.getFechaCompromiso())));
+            } else {
+                textViewFechaCompromisoFaseCDD.setVisibility(View.GONE);
+                textViewFechaCompromisoFaseTextCDD.setVisibility(View.GONE);
+                //textViewFechaCompromisoFaseCDD.setText("");
+            }
+            textViewTipoDenunciaCDD.setText(datosDenuncia.getTipoDenuncia());
+            textViewUnidadNegocioCDD.setText(datosDenuncia.getUdN().concat(" - ").concat(datosDenuncia.getUdNCeco()));
+            textViewZonaCDD.setText(datosDenuncia.getRegion().concat(" - ").concat(datosDenuncia.getZona()));
+            textViewFechaResgistroCDD.setText(Utils.SetCambioFormatoFechaDiaMesAnio(String.valueOf(datosDenuncia.getFechaRegistro())));
+            if (datosDenuncia.getIdStatusAutorizacion() == 1) {
+                textViewAutorizacionCDD.setVisibility(View.GONE);
+                textViewAutorizacionTextCDD.setVisibility(View.GONE);
+            } else if (datosDenuncia.getIdStatusAutorizacion() == 2) {
+                textViewAutorizacionCDD.setVisibility(View.VISIBLE);
+                textViewAutorizacionTextCDD.setVisibility(View.VISIBLE);
+                textViewAutorizacionCDD.setText(statusAutorizacion);
+            } else if (datosDenuncia.getIdStatusAutorizacion() == 3) {
+                textViewAutorizacionCDD.setVisibility(View.GONE);
+                textViewAutorizacionTextCDD.setVisibility(View.GONE);
+                //textViewAutorizacionCDD.setText(statusAutorizacion);
+            } else if (datosDenuncia.getIdStatusAutorizacion() == 4) {
+                textViewAutorizacionCDD.setVisibility(View.VISIBLE);
+                textViewAutorizacionTextCDD.setVisibility(View.VISIBLE);
+                textViewAutorizacionCDD.setText(statusAutorizacion);
+            }
+
+        } else {
+
         }
     }
 
@@ -243,7 +251,7 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
                         fasesAdapter = new FasesAdapter(activity, fragmentManager, respuestaGeneral.getFaseActiva().getListData(), datosDenuncia, new FasesAdapter.OnItemClickListener() {
                             @Override
-                            public void onIniciarFase(FaseActivaDatos faseActivaDatos,DatosDenuncia datosDenuncia,  int position) {
+                            public void onIniciarFase(FaseActivaDatos faseActivaDatos, DatosDenuncia datosDenuncia, int position) {
                                 Bundle bundle = new Bundle();
                                 bundle.putString("idCaso", String.valueOf(datosDenuncia.getId()));
                                 //bundle.putString("idCasoFase", String.valueOf(faseActivaDatos.getIdCasoFase()));
@@ -251,7 +259,7 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
                             }
 
                             @Override
-                            public void onReprogramarFase(FaseActivaDatos faseActivaDatos,DatosDenuncia datosDenuncia,  int position) {
+                            public void onReprogramarFase(FaseActivaDatos faseActivaDatos, DatosDenuncia datosDenuncia, int position) {
                                 Bundle bundle = new Bundle();
                                 bundle.putString("idCaso", String.valueOf(datosDenuncia.getId()));
                                 bundle.putString("idCasoFase", String.valueOf(faseActivaDatos.getIdCasoFase()));
@@ -260,7 +268,7 @@ public class ProcesoFaseDenunciaFragment extends Fragment implements View.OnClic
                             }
 
                             @Override
-                            public void onCerrarFase(FaseActivaDatos faseActivaDatos,DatosDenuncia datosDenuncia, int position) {
+                            public void onCerrarFase(FaseActivaDatos faseActivaDatos, DatosDenuncia datosDenuncia, int position) {
                                 //navigation_terminar_presentacion_denuncia_fragment
                                 Bundle bundle = new Bundle();
                                 bundle.putString("idCaso", String.valueOf(datosDenuncia.getId()));

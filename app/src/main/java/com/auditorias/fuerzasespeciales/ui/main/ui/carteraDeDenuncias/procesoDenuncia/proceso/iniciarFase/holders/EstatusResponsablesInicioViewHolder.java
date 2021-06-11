@@ -51,7 +51,7 @@ public class EstatusResponsablesInicioViewHolder extends RecyclerView.ViewHolder
     }
 
     public void setEstatusImputado(Activity activity, DatosDenunciaResponsable datosDenunciaResponsable, List<EstatusResponsableFase> listEstatusImputadoFaseList, @NotNull Spinner spinner, EstatusResponsablesInicioAdapter.OnItemSelectedListener itemSelectedListener) {
-        ArrayAdapter<EstatusResponsableFase> myAdapter = new EstatusImputadoArrayAdapter(activity, R.layout.cell_estatus_responsable_spinner_item, listEstatusImputadoFaseList);
+        ArrayAdapter<EstatusResponsableFase> myAdapter = new EstatusImputadoArrayAdapter(activity, R.layout.cell_spinner_item, listEstatusImputadoFaseList);
         spinner.setAdapter(myAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

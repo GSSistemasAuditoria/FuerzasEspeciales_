@@ -31,7 +31,7 @@ public class TotalEmpleadosResponsablesDCAadpter extends RecyclerView.Adapter<To
     @NonNull
     @Override
     public TotalEmpleadosResponsablesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.cell_total_empleados_responsables_detalle_caso_adapter, parent, false);
+        View view = inflater.inflate(R.layout.cell_total_responsables_item, parent, false);
         return new TotalEmpleadosResponsablesViewHolder(view);
     }
 
@@ -80,9 +80,9 @@ public class TotalEmpleadosResponsablesDCAadpter extends RecyclerView.Adapter<To
 
         TotalEmpleadosResponsablesViewHolder(View view) {
             super(view);
-            textViewNumeroEmpeadoTERCA = view.findViewById(R.id.textViewNumeroEmpledoResponsableCTR);
-            textViewNombreEmpeadoTERCA = view.findViewById(R.id.textViewNombreResponsableCTR);
-            textViewTipoEmpeadoTERCA = view.findViewById(R.id.textViewTipoImputadoCTR);
+            textViewNumeroEmpeadoTERCA = view.findViewById(R.id.textViewNumeroEmpledoResponsablesCTRI);
+            textViewNombreEmpeadoTERCA = view.findViewById(R.id.textViewNombreResponsablesCTRI);
+            textViewTipoEmpeadoTERCA = view.findViewById(R.id.textViewTipoResponsableCTRI);
         }
     }
 }
