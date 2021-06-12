@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textViewTextCSS"
+        android:id="@+id/textViewTextCSS_2"
         style="@style/TextviewDark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,10 +18,11 @@
         android:layout_height="wrap_content">
 
         <Spinner
-            android:id="@+id/spinnerCSS"
+            android:id="@+id/spinnerCSS_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewAlertErrorCSS"
+            android:id="@+id/textViewAlertErrorCSS_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -41,12 +42,12 @@
             android:text="@string/text_label_error"
             android:textColor="@color/Red500"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageViewAlertErrorCSS"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewAlertErrorCSS_2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerCSS" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerCSS_2" />
 
         <ImageView
-            android:id="@+id/imageViewAlertErrorCSS"
+            android:id="@+id/imageViewAlertErrorCSS_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -56,8 +57,8 @@
             android:contentDescription="@string/todo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textViewAlertErrorCSS"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerCSS"
+            app:layout_constraintStart_toEndOf="@+id/textViewAlertErrorCSS_2"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerCSS_2"
             app:srcCompat="@drawable/alert_" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

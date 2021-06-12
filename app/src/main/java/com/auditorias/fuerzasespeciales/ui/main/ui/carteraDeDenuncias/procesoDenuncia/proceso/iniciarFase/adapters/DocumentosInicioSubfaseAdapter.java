@@ -1,4 +1,4 @@
-package com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.subFases.inicioSubFases.adapters;
+package com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -9,11 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.auditorias.fuerzasespeciales.R;
-import com.auditorias.fuerzasespeciales.request.DocumentoRequest;
 import com.auditorias.fuerzasespeciales.request.inicioSubFase.Documentos;
 
 import java.util.List;

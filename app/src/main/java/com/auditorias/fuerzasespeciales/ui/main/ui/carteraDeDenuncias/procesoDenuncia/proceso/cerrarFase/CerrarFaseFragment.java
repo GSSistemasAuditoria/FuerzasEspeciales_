@@ -766,7 +766,7 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
                             }
                         }
                     } else {
-                        /*if (idCaso.isEmpty()) {
+                        if (idCaso.isEmpty()) {
                             Utils.messageShort(activity, "El idCaso esta vacío");
                         } else if (String.valueOf(idCasoFase).isEmpty()) {
                             Utils.messageShort(activity, "El idCasoFase esta vacío");
@@ -774,12 +774,13 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
                             Utils.messageShort(activity, "Agregue al menos una evidencia");
                         } else {
                             if (Functions.isNetworkAvailable(activity)) {
-                                showAlertDialogCierrePresentacion(activity, getString(R.string.text_label_cierre_de_presentacion), getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no),
-                                        valorDeConfiguraciontipoAppMovil, datosDenuncia, datosAgencia, idFase, Integer.parseInt(idCasoFase), listDocumentosSelectos, listNuevoEstatusResposables);
+                                showAlertDialogCierreFase(activity, getString(R.string.text_label_cierre_de_presentacion), getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no),
+                                        valorDeConfiguraciontipoAppMovil, null, null, idFase, Integer.parseInt(idCasoFase), idSubFase, listDocumentosSelectos, listNuevoEstatusResposables);
+                                //                              tipoApp       datosDenuncia    datosAgencia  idFase              idCasoFase        idSubFase          documentos            listResposables
                             } else {
                                 Utils.message(activity, getString(R.string.text_label_error_de_conexion));
                             }
-                        }*/
+                        }
                     }
                 }
 

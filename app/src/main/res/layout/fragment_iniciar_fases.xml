@@ -82,6 +82,12 @@
                         android:layout_height="wrap_content" />
 
                     <include
+                        android:id="@+id/custumSpinnerSelectIFF_2"
+                        layout="@layout/costum_spinner_selecto_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <include
                         android:id="@+id/custumCardViewAdjuntarDocumentosIFF"
                         layout="@layout/custum_adjuntar_evidencia"
                         android:layout_width="match_parent"

@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -16,68 +14,66 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.catalogos.EstatusResponsableFase;
 import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenunciaResponsable;
-import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.adapters.EstatusImputadoArrayAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class EstatusResponsablesInicioSubFaseAdapter extends RecyclerView.Adapter<EstatusResponsablesInicioSubFaseAdapter.EstatusResponsablesInicioSubFaseViewHolder> {
+public class EstatusResponsablesInicioSubFaseAdapter /*extends RecyclerView.Adapter<EstatusResponsablesInicioSubFaseAdapter.EstatusResponsablesInicioSubFaseViewHolder>*/ {
 
-    private final Activity activity;
-    private final List<DatosDenunciaResponsable> listResposablesCerrar;
-    private final LayoutInflater inflater;
-    private final OnItemSelectedListener itemSelectedListenerCerrar;
-    private FragmentManager fm;
-    private List<EstatusResponsableFase> listEstatusDeResposablesSelecionar;
+//    private final Activity activity;
+//    private final List<DatosDenunciaResponsable> listResposablesCerrar;
+//    private final LayoutInflater inflater;
+//    private final OnItemSelectedListener itemSelectedListenerCerrar;
+//    private FragmentManager fm;
+//    private List<EstatusResponsableFase> listEstatusDeResposablesSelecionar;
 
-    public EstatusResponsablesInicioSubFaseAdapter(Activity activity, List<DatosDenunciaResponsable> listResposablesCerrar, FragmentManager fm, List<EstatusResponsableFase> listEstatusDeResposablesSelecionar, OnItemSelectedListener itemSelectedListenerCerrar) {
+    /*public EstatusResponsablesInicioSubFaseAdapter(Activity activity, List<DatosDenunciaResponsable> listResposablesCerrar, FragmentManager fm, List<EstatusResponsableFase> listEstatusDeResposablesSelecionar, OnItemSelectedListener itemSelectedListenerCerrar) {
         this.activity = activity;
         this.fm = fm;
         this.listResposablesCerrar = listResposablesCerrar;
         this.listEstatusDeResposablesSelecionar = listEstatusDeResposablesSelecionar;
         this.itemSelectedListenerCerrar = itemSelectedListenerCerrar;
         inflater = LayoutInflater.from(activity);
-    }
+    }*/
 
-    @NonNull
+    /*@NonNull
     @Override
     public EstatusResponsablesInicioSubFaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.cell_imputados_estatus_item, parent, false);
         return new EstatusResponsablesInicioSubFaseViewHolder(view);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onBindViewHolder(@NonNull final EstatusResponsablesInicioSubFaseViewHolder holder, final int position) {
         holder.bind(activity, listResposablesCerrar.get(position), listEstatusDeResposablesSelecionar, itemSelectedListenerCerrar);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public int getItemCount() {
         return listResposablesCerrar.size();
-    }
+    }*/
 
-    public interface OnItemSelectedListener {
+    /*public interface OnItemSelectedListener {
         void onItemSelectedListener(DatosDenunciaResponsable datosDenunciaResponsable, int idCasoFase, int idCasoResponsable, int idStatusResponsable);
-    }
+    }*/
 
-    static class EstatusResponsablesInicioSubFaseViewHolder extends RecyclerView.ViewHolder {
+    static class EstatusResponsablesInicioSubFaseViewHolder /*extends RecyclerView.ViewHolder*/ {
 
         TextView textViewNumeroEmpeadoTERCA;
         TextView textViewNombreEmpeadoTERCA;
         TextView textViewTipoEmpeadoTERCA;
         Spinner spinnerEstatusResponsable;
 
-        EstatusResponsablesInicioSubFaseViewHolder(View view) {
+        /*EstatusResponsablesInicioSubFaseViewHolder(View view) {
             super(view);
             textViewNumeroEmpeadoTERCA = view.findViewById(R.id.textViewNumeroEmpledoResponsablesCTRI);
             textViewNombreEmpeadoTERCA = view.findViewById(R.id.textViewNombreResponsablesCTRI);
             textViewTipoEmpeadoTERCA = view.findViewById(R.id.textViewTipoEmpleadoResponsableCIE);
             spinnerEstatusResponsable = view.findViewById(R.id.spinnerEstatusResponsableCIE);
-        }
+        }*/
 
         //TODO: llenado de los items que se encuentran dentro del recyclerview
-        public void bind(Activity activity, DatosDenunciaResponsable datosDenunciaResponsable, List<EstatusResponsableFase> listStatusResponsableFase, OnItemSelectedListener itemSelectedListener) {
-            if (datosDenunciaResponsable.getIdEmpleado() == null /*|| String.valueOf(responsableModel.getIdEmpleado()).isEmpty() || responsableModel.getIdEmpleado().equals(0)*/) {
+        /*public void bind(Activity activity, DatosDenunciaResponsable datosDenunciaResponsable, List<EstatusResponsableFase> listStatusResponsableFase, OnItemSelectedListener itemSelectedListener) {
+            if (datosDenunciaResponsable.getIdEmpleado() == null *//*|| String.valueOf(responsableModel.getIdEmpleado()).isEmpty() || responsableModel.getIdEmpleado().equals(0)*//*) {
                 textViewNumeroEmpeadoTERCA.setVisibility(View.GONE);
                 textViewNumeroEmpeadoTERCA.setText(String.valueOf(datosDenunciaResponsable.getIdEmpleado()));
             } else {
@@ -96,11 +92,11 @@ public class EstatusResponsablesInicioSubFaseAdapter extends RecyclerView.Adapte
             }
 
             getStatusResponsableFaseList(activity, datosDenunciaResponsable, listEstatusDeResposable, spinnerEstatusResponsable, itemSelectedListener);
-        }
+        }*/
 
 
         //TODO: llenado del spinner de status de cada uno de los responsables dentro de la lista de responsables
-        public void getStatusResponsableFaseList(Activity activity, DatosDenunciaResponsable datosDenunciaResponsable, List<EstatusResponsableFase> statusResponsableFaseList, Spinner spinner, OnItemSelectedListener itemSelectedListener) {
+       /* public void getStatusResponsableFaseList(Activity activity, DatosDenunciaResponsable datosDenunciaResponsable, List<EstatusResponsableFase> statusResponsableFaseList, Spinner spinner, OnItemSelectedListener itemSelectedListener) {
             ArrayAdapter<EstatusResponsableFase> myAdapter = new EstatusImputadoArrayAdapter(activity, R.layout.cell_spinner_item, statusResponsableFaseList);
             spinner.setAdapter(myAdapter);
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -114,6 +110,6 @@ public class EstatusResponsablesInicioSubFaseAdapter extends RecyclerView.Adapte
 
                 }
             });
-        }
+        }*/
     }
 }

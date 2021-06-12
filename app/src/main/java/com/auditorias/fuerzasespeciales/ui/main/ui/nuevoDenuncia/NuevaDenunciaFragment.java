@@ -6,7 +6,11 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +47,7 @@ import com.auditorias.fuerzasespeciales.models.datosUsuario.Empleado;
 import com.auditorias.fuerzasespeciales.request.CasoRequest;
 import com.auditorias.fuerzasespeciales.request.ResponsablesResquest;
 import com.auditorias.fuerzasespeciales.request.denuncia.NuevaDenuncia;
+import com.auditorias.fuerzasespeciales.request.empleados.empledos;
 import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters.AutocompleteBaseAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters.TipoDelitoArrayAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.adapters.TipoDenunciaArrayAdapter;
@@ -356,7 +361,8 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                     etiquetaResponsables = listTipoDenuncia.get(position).getEtiquetaResponsables();
                     textViewTipoDenunciaAlertErrorCSS.setVisibility(View.GONE);
                     imageViewTipoDenunciaAlertErrorCSS.setVisibility(View.GONE);
-                    textViewResponsablesTextCNR.setText("Agregue ".concat(etiquetaResponsables));
+                    textViewResponsablesTextCNR.setText("Agregue ".concat(etiquetaResponsables.toLowerCase()));
+                    textViewListaResponsablesNDF.setText("Lista de ".concat(etiquetaResponsables.toLowerCase()));
                     textViewResponsablesTextCNR.setVisibility(View.VISIBLE);
                     textViewResponsableCNR.setVisibility(View.VISIBLE);
                     imageButtonResponsableCNR.setVisibility(View.VISIBLE);
@@ -635,7 +641,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         RadioGroup radioGroupTipoEmpleadoDTE = dialogTipoEmpleado.findViewById(R.id.radioGroupTipoEmpleadoDTE);
         TextView textViewCerrarDTE = dialogTipoEmpleado.findViewById(R.id.textViewCerrarDTE);
         TextView textViewTituloDTE = dialogTipoEmpleado.findViewById(R.id.textViewTituloDTE);
-        textViewTituloDTE.setText("Agregar tipo de ".concat(etiquetaResponsables));
+        textViewTituloDTE.setText("Agregar tipo de ".concat(etiquetaResponsables.toLowerCase()));
 
         textViewCerrarDTE.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -658,7 +664,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                 RadioButton radioBtn = dialogTipoEmpleado.findViewById(checkedRadioButtonId);
                 if (String.valueOf(radioBtn.getId()).equals("1")) {
                     dialogTipoEmpleado.dismiss();
-                    showDialogEmpleadoInterno(activity, radioBtn.getId()/*, radioBtn.getText().toString()*/);
+                    showDialogEmpleadoInterno(activity, radioBtn.getId(), etiquetaResponsables);
                 } else if (String.valueOf(radioBtn.getId()).equals("2")) {
                     dialogTipoEmpleado.dismiss();
                     showDialogEmpledoExterno(activity, radioBtn.getId());
@@ -669,7 +675,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         dialogTipoEmpleado.show();
     }
 
-    public void showDialogEmpleadoInterno(Activity activity, int tipoEmpleado/*, String tipoResponsable*/) {
+    public void showDialogEmpleadoInterno(Activity activity, int tipoEmpleado, String etiquetaResponsables) {
         Dialog dialogEmpleadoInterno = new Dialog(activity, R.style.CustomDialogTheme);
         dialogEmpleadoInterno.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogEmpleadoInterno.setCancelable(false);
@@ -701,9 +707,11 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                 editTextBusqueda.clearFocus();
                 clearFocusEditText(activity);
                 String texto = editTextBusqueda.getText().toString().trim();
-                if (!Normalizer.normalize(texto, Normalizer.Form.NFD).equals("") && !Normalizer.normalize(texto, Normalizer.Form.NFD).contains("+") &&
-                        !Normalizer.normalize(texto, Normalizer.Form.NFD).contains(",")) {
-                    new AsyncTaskGral(NuevaDenunciaFragment.this.activity, new Delegate() {
+                if (!Normalizer.normalize(texto, Normalizer.Form.NFD).equals("") && !Normalizer.normalize(texto, Normalizer.Form.NFD).contains("+") && !Normalizer.normalize(texto, Normalizer.Form.NFD).contains(",")) {
+                    Gson gsonParams = new Gson();
+                    String params = gsonParams.toJson(new empledos(editTextBusqueda.getText().toString()));
+                    //                                                                  empledos
+                    new AsyncTaskGral(activity, new Delegate() {
                         @Override
                         public void getDelegate(String result) {
                             Gson gson = new Gson();
@@ -719,7 +727,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                         public void executeInBackground(String result, String header) {
 
                         }
-                    }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.obtenerDatosEmpleadoDatosAuxiliares.concat(Constantes.signoInterrogacion).concat(Constantes.empleado).concat(Constantes.signoIgual).concat(editTextBusqueda.getText().toString()));
+                    }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.obtenerDatosEmpleadoDatosAuxiliares, params);
                 } else {
                     editTextBusqueda.setError(getString(R.string.text_label_el_numero_empleado_esta_vacio));
                     editTextBusqueda.requestFocus();
@@ -744,6 +752,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                         dialogEmpleadoInterno.dismiss();
                     } else {
                         Utils.message(context, getString(R.string.text_label_error_el_responsable_esta_en_la_lista));
+                        //Utils.message(context, "Este ".concat(etiquetaResponsables));
                     }
                 } else {
                     Utils.message(activity, getString(R.string.text_label_no_hay_contacto_valido_para_agregar));
@@ -858,7 +867,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                         Gson gson = new Gson();
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
                         if (respuestaGeneral.getGuardarDenuncia().getExito().equals(Constantes.exitoTrue)) {
-                            showDialogNuevaDenunciaConExito(activity, view, getString(R.string.text_label_guardado), getString(R.string.text_label_se_ha_guardado_con_exito_la_nueva_denuncia), getString(R.string.text_label_aceptar), String.valueOf(respuestaGeneral.getGuardarDenuncia().getIdCaso()));
+                            showDialogNuevaDenunciaConExito(activity, view, getString(R.string.text_label_guardado), getString(R.string.text_label_se_ha_guardado_con_exito_la_nueva_denuncia)/*.concat(cambiarNegritasString(respuestaGeneral.getGuardarDenuncia().getCasoNombre()))*/, getString(R.string.text_label_aceptar), String.valueOf(respuestaGeneral.getGuardarDenuncia().getIdCaso()));
                         } else {
                             Utils.message(context, respuestaGeneral.getGuardarDenuncia().getError());
                         }
@@ -878,6 +887,15 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
             }
         });
         dialogo1.show();
+    }
+
+    private static String cambiarNegritasString(String palabra){
+        SpannableString miTexto = new SpannableString(palabra);
+        //StyleSpan boldSpan1 = new StyleSpan(Typeface.BOLD);
+        StyleSpan boldSpan2 = new StyleSpan(Typeface.BOLD);
+        //miTexto.setSpan(boldSpan1, 5, 10, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        miTexto.setSpan(boldSpan2, 0, miTexto.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        return miTexto.toString();
     }
 
     public void showDialogNuevaDenunciaConExito(Activity activity, View view, String titulo, String mensaje, String butonText, String idCaso) {

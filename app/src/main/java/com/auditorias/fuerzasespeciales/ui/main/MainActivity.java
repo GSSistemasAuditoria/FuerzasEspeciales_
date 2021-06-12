@@ -56,19 +56,19 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MainActivity extends AppCompatActivity {
 
+    BottomNavigationView navView;
     private AppBarConfiguration appBarConfiguration;
     private Toolbar toolbar;
     //private TextView textViewTituloPrincipalMA;
     private ImageView imageViewSpacioMA;
     private int idUsuario;
     private int numeroNotificaciones;
-    BottomNavigationView navView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
         setObtenerNotificacionesUsuario(this, Integer.parseInt(TableDataUser.getIdEmpleado(this)));
         toolbar = findViewById(R.id.toolbar_generic);
 
@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -218,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
                         int menuItemId = navView.getMenu().getItem(4).getItemId();
                         BadgeDrawable badge = navView.getOrCreateBadge(menuItemId);
                         badge.setNumber(numeroNotificaciones);
-                        Log.i("getDelegate", "getDelegate: "+ numeroNotificaciones);
+                        Log.i("getDelegate", "getDelegate: " + numeroNotificaciones);
                         //if (serial.getIniciarFaseResult().getExito().equals(Constantes.exitoTrue)) {
                         //showDialogInicioFaseConExito(activity, view , getString(R.string.text_label_inicio), getString(R.string.text_label_se_ha_iniciado_esta_fase_con_exito), getString(R.string.text_label_aceptar), String.valueOf(serial.getIniciarFaseResult().getIdCaso()));
                         //} else {

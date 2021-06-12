@@ -33,8 +33,6 @@ import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenunciaFa
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenunciaResponsables;
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenunciaSubFase;
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDocumento;
-import com.auditorias.fuerzasespeciales.request.CasoRequest;
-import com.auditorias.fuerzasespeciales.request.denuncia.NuevaDenuncia;
 import com.auditorias.fuerzasespeciales.request.documentos.ObtenerDocumentos;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.detalleDenuncia.adapters.DetalleDenunciaDocumentosAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.detalleDenuncia.adapters.DetalleDenunciaFasesAdapter;
@@ -104,7 +102,7 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
             } //else/* if (serialDatosCaso != null) {
             //    getDetalleCaso(activityCDF, serialDatosCaso.getDatosCasoModel().getFolio());
             //} else*/ //if (guardaCatalogoCasoModel != null) {
-                //getDetalleCaso(activity, String.valueOf(guardaCatalogoCasoModel.getIdCaso()));
+            //getDetalleCaso(activity, String.valueOf(guardaCatalogoCasoModel.getIdCaso()));
             //}
 
         }
@@ -205,7 +203,7 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
         try {
             if (Functions.isNetworkAvailable(activity)) {
                 Gson gsonParams = new Gson();
-                String params = gsonParams.toJson(new ObtenerDocumentos(idDocumento,valorDeConfiguraciontipoAppMovil ));
+                String params = gsonParams.toJson(new ObtenerDocumentos(idDocumento, valorDeConfiguraciontipoAppMovil));
                 //                                                                  idTipoDenuncia  IdUdN  IdTipoFraude  IdAbogado  IdEtapaCaso  Nombre  Descripcion  Importe  MontoRecuperado  FechaReporte  IdRegion   listResponsables
 
                 new AsyncTaskGral(this.activity, new Delegate() {
@@ -217,7 +215,7 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
                             String tipoArchivo = respuestaGenerall.getDetalleDocumento().getTipoArchivo();
                             if (tipoArchivo.equals(".doc") || tipoArchivo.equals("doc") || tipoArchivo.equals(".docx") || tipoArchivo.equals("docx")) {
                                 //Documento word que se descarga
-                                documentoWord(activity,respuestaGenerall.getDetalleDocumento().getStringArchivo(), respuestaGenerall.getDetalleDocumento().getDescripcion(), respuestaGenerall.getDetalleDocumento().getTipoArchivo());
+                                documentoWord(activity, respuestaGenerall.getDetalleDocumento().getStringArchivo(), respuestaGenerall.getDetalleDocumento().getDescripcion(), respuestaGenerall.getDetalleDocumento().getTipoArchivo());
                             } else if (tipoArchivo.equals(".pdf") || tipoArchivo.equals("pdf") || tipoArchivo.equals(".png") || tipoArchivo.equals(".jpg") || tipoArchivo.equals(".jpeg") || tipoArchivo.equals("png") || tipoArchivo.equals("jpg") || tipoArchivo.equals("jpeg")) {
                                 // docmuentos pdf ,
                                 showZoomImage(activity, String.valueOf(respuestaGenerall.getDetalleDocumento().getStringArchivo()), respuestaGenerall.getDetalleDocumento().getTipoArchivo(), respuestaGenerall.getDetalleDocumento().getDescripcion());
@@ -232,7 +230,7 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
 
                     }
                 }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.obtenerDocumento, params);//.concat(Constantes.signoInterrogacion)
-                      //  .concat(Constantes.idDocumento).concat(Constantes.signoIgual).concat(String.valueOf(idDocumento)).concat(Constantes.signoAnd).concat(Constantes.idTipoApp).concat(Constantes.signoIgual).concat("2"));
+                //  .concat(Constantes.idDocumento).concat(Constantes.signoIgual).concat(String.valueOf(idDocumento)).concat(Constantes.signoAnd).concat(Constantes.idTipoApp).concat(Constantes.signoIgual).concat("2"));
 
             } else {
                 Utils.message(activity, getString(R.string.text_label_error_de_conexion));
@@ -309,114 +307,114 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
         TextView textViewSubFaseDenunciaDDD = dialogDetalleDenuncia.findViewById(R.id.textViewSubFaseDenunciaDDD);
         TextView textViewColorSubFaseDenunciaDDD = dialogDetalleDenuncia.findViewById(R.id.textViewColorSubFaseDenunciaDDD);
 
-        if (detalleDenuncia.getFolio() != null){
+        if (detalleDenuncia.getFolio() != null) {
             textViewFolioDenunciaDDD.setText(detalleDenuncia.getFolio());
-        }else {
+        } else {
             textViewFolioDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
-        if (detalleDenuncia.getNombre() != null){
+        if (detalleDenuncia.getNombre() != null) {
             textViewNombreDenunciaDDD.setText(detalleDenuncia.getNombre());
-        }else {
+        } else {
             textViewNombreDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
-        if (detalleDenuncia.getTipoFraude() != null){
+        if (detalleDenuncia.getTipoFraude() != null) {
             textViewTipoFraudeDDD.setText(detalleDenuncia.getTipoFraude());
-        }else {
+        } else {
             textViewTipoFraudeDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
-        if (detalleDenuncia.getImporte() != null){
+        if (detalleDenuncia.getImporte() != null) {
             textViewImporteDDD.setText(Constantes.signoPesos.concat(Utils.setFormatoNumeroDecimalDinero(detalleDenuncia.getImporte())));
-        }else {
+        } else {
             textViewImporteDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
-        if (detalleDenuncia.getMontoRecuperado() != null){
+        if (detalleDenuncia.getMontoRecuperado() != null) {
             textViewMontoRecuperadoDDD.setText(Constantes.signoPesos.concat(Utils.setFormatoNumeroDecimalDinero(detalleDenuncia.getMontoRecuperado())));
-        }else {
+        } else {
             textViewMontoRecuperadoDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
-        if (detalleDenuncia.getUdN() != null){
+        if (detalleDenuncia.getUdN() != null) {
             textViewNombreUnidadNegocioDDD.setText(detalleDenuncia.getUdN());
-        }else {
+        } else {
             textViewNombreUnidadNegocioDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
-        if (detalleDenuncia.getUdNCeco() != null){
+        if (detalleDenuncia.getUdNCeco() != null) {
             textViewCecoUnidadNegocioDDD.setText(detalleDenuncia.getUdNCeco());
-        }else {
+        } else {
             textViewCecoUnidadNegocioDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
-        if (detalleDenuncia.getAbogado() != null && detalleDenuncia.getIdAbogado() != null){
+        if (detalleDenuncia.getAbogado() != null && detalleDenuncia.getIdAbogado() != null) {
             textViewNombreAbogadoResponsableDDD.setText(detalleDenuncia.getIdAbogado().concat(" - ").concat(detalleDenuncia.getAbogado()));
-        }else {
+        } else {
             textViewNombreAbogadoResponsableDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
-        if (detalleDenuncia.getZona() != null){
+        if (detalleDenuncia.getZona() != null) {
             textViewZonaDDD.setText(detalleDenuncia.getZona());
-        }else {
+        } else {
             textViewZonaDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
-        if (detalleDenuncia.getRegion() != null){
+        if (detalleDenuncia.getRegion() != null) {
             textViewRegionDDD.setText(detalleDenuncia.getRegion());
-        }else {
+        } else {
             textViewRegionDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
-        if (detalleDenuncia.getEtapaCaso() != null){
+        if (detalleDenuncia.getEtapaCaso() != null) {
             textViewColorEtapaDenunciaDDD.setText(detalleDenuncia.getEtapaCaso());
             textViewColorEtapaDenunciaDDD.setBackground(Utils.cambiarColorTextView(detalleDenuncia.getColorEtapaCaso()));
-        }else {
+        } else {
             textViewColorEtapaDenunciaDDD.setTextColor(activity.getColor(R.color.dark));
             textViewColorEtapaDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
             textViewColorEtapaDenunciaDDD.setBackgroundColor(Color.TRANSPARENT);
         }
 
-        if (detalleDenuncia.getAvanceCaso() != null){
+        if (detalleDenuncia.getAvanceCaso() != null) {
             textViewAvanceDenunciaDDD.setText(Utils.setFormatoNumeroEnteroPorcentaje(detalleDenuncia.getAvanceCaso()));
-        }else {
+        } else {
             textViewAvanceDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
-        if (detalleDenuncia.getFase() != null){
+        if (detalleDenuncia.getFase() != null) {
             textViewFaseDenunciaDDD.setText(detalleDenuncia.getFase());
-        }else {
+        } else {
             textViewFaseDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
-        if (detalleDenuncia.getEtapaFase() != null && detalleDenuncia.getColorFase() != null){
+        if (detalleDenuncia.getEtapaFase() != null && detalleDenuncia.getColorFase() != null) {
             textViewColorFaseDenunciaDDD.setBackground(Utils.cambiarColorTextView(detalleDenuncia.getColorFase()));
             textViewColorFaseDenunciaDDD.setText(detalleDenuncia.getEtapaFase());
-        }else {
+        } else {
             textViewColorFaseDenunciaDDD.setVisibility(View.GONE);
             //textViewColorFaseDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
             //textViewColorFaseDenunciaDDD.setBackgroundColor(Color.TRANSPARENT);
         }
 
-        if (detalleDenuncia.getSubFase() != null){
-            textViewSubFaseDenunciaDDD.setText(detalleDenuncia.getSubFase());
-        }else {
+        if (detalleDenuncia.getSubFase() != null) {
+            //textViewSubFaseDenunciaDDD.setText(detalleDenuncia.getSubFase());
+        } else {
             textViewSubFaseDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
-        if (detalleDenuncia.getEtapaSubFase() != null && detalleDenuncia.getColorSubFase() != null){
-            textViewColorSubFaseDenunciaDDD.setBackground(Utils.cambiarColorTextView(detalleDenuncia.getColorSubFase()));
-            textViewColorSubFaseDenunciaDDD.setText(detalleDenuncia.getEtapaSubFase());
-        }else {
+        if (detalleDenuncia.getEtapaSubFase() != null && detalleDenuncia.getColorSubFase() != null) {
+            //textViewColorSubFaseDenunciaDDD.setBackground(Utils.cambiarColorTextView(detalleDenuncia.getColorSubFase()));
+            //textViewColorSubFaseDenunciaDDD.setText(detalleDenuncia.getEtapaSubFase());
+        } else {
             textViewColorSubFaseDenunciaDDD.setVisibility(View.GONE);
             //textViewColorSubFaseDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
             //textViewColorSubFaseDenunciaDDD.setBackgroundColor(Color.TRANSPARENT);
         }
 
-        if (detalleDenuncia.getFechaRegistro() != null){
+        if (detalleDenuncia.getFechaRegistro() != null) {
             textViewFechaReporteDDD.setText(Utils.SetCambioFormatoFechaDiaMesAnio(detalleDenuncia.getFechaRegistro()));
-        }else {
+        } else {
             textViewFechaReporteDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
@@ -684,9 +682,9 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
                 Utils.createScanFolder(path);
                 String documentoDecompres = Utils.decompressBase64(imageDecodableString);
                 File file;
-                if (tipoArchivo.equals(".pdf")){
+                if (tipoArchivo.equals(".pdf")) {
                     file = Utils.base64ToFile(path.concat(nombre).concat(tipoArchivo), documentoDecompres);
-                }else{
+                } else {
                     file = Utils.base64ToFile(path.concat(nombre).concat(".").concat(tipoArchivo), documentoDecompres);
                 }
                 pdfView.fromFile(file).load();

@@ -58,6 +58,7 @@ public class Constantes {
     public static String obtenerDetalleUsuario = "ObtenerDetalleUsuario";
     public static String obtenerCatalogoIntegracionDoc = "ObtenerCatalogoIntegracionDoc";
     public static String obtenerTipoDenuncia = "ObtenerTipoDenuncia";
+    public static String obtenerCatalogoStatusSentencia = "ObtenerCatalogoStatusSentencia";
     //TODO: Posts
     public static String loginoAuth = "LoginoAuth";
     //public static String guardaCatalogoUdN = "GuardaCatalogoUdN";

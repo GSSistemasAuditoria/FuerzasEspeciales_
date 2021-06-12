@@ -1,6 +1,7 @@
 package com.auditorias.fuerzasespeciales.models;
 
 import com.auditorias.fuerzasespeciales.models.catalogos.EstatusResponsableFase;
+import com.auditorias.fuerzasespeciales.models.catalogos.estatusSentencia.EstatusSentencia;
 import com.auditorias.fuerzasespeciales.models.catalogos.integracion.IntegracionDoc;
 import com.auditorias.fuerzasespeciales.models.catalogos.casos.CasosAbogado;
 import com.auditorias.fuerzasespeciales.models.catalogos.etapa.EtapaCaso;
@@ -254,6 +255,7 @@ public class RespuestaGeneral {
         this.tipoDenuncia = tipoDenuncia;
     }
 
+    /****  servicio de Guardar Denuncia *******************************************************/
     @SerializedName("GuardaCatalogoCasoResult")
     @Expose
     private GuardarDenuncia guardarDenuncia;
@@ -266,6 +268,7 @@ public class RespuestaGeneral {
         this.guardarDenuncia = guardarDenuncia;
     }
 
+    /****  servicio de Obtener Tipo Empleado *******************************************************/
     @SerializedName("ObtenerCatalogoTipoEmpleadoResult")
     @Expose
     private List<TipoEmpleado> listTipoEmpleado = null;
@@ -278,7 +281,7 @@ public class RespuestaGeneral {
         this.listTipoEmpleado = listTipoEmpleado;
     }
 
-
+    /****  servicio de Obtener Unidid de Negocio *******************************************************/
     @SerializedName("ObtenerCatalogoUdNResult")
     @Expose
     private List<UnidadDeNegocio> listUnidadDeNegocio = null;
@@ -291,6 +294,7 @@ public class RespuestaGeneral {
         this.listUnidadDeNegocio = listUnidadDeNegocio;
     }
 
+    /****  servicio de Obtener Tipo Fraude *******************************************************/
     @SerializedName("ObtenerCatalogoTipoFraudeResult")
     @Expose
     private List<TipoFraude> listTipoFraude = null;
@@ -303,6 +307,7 @@ public class RespuestaGeneral {
         this.listTipoFraude = listTipoFraude;
     }
 
+    /****  servicio de Obtener Datos Empleado Datos Auxiliares *******************************************************/
     @SerializedName("ObtenerDatosEmpleadoDatosAuxiliaresResult")
     @Expose
     private List<Empleado> listEmpleado = null;
@@ -315,7 +320,7 @@ public class RespuestaGeneral {
         this.listEmpleado = listEmpleado;
     }
 
-
+    /****  servicio de Iniciar Fase *******************************************************/
     @SerializedName("IniciarFaseResult")
     @Expose
     private InicioFase iniciarFase;
@@ -326,5 +331,18 @@ public class RespuestaGeneral {
 
     public void setIniciarFase(InicioFase iniciarFase) {
         this.iniciarFase = iniciarFase;
+    }
+
+    /****  servicio de Obtener Tipo Denuncia *******************************************************/
+    @SerializedName("ObtenerCatalogoStatusSentenciaResult")
+    @Expose
+    private EstatusSentencia estatusSentencia;
+
+    public EstatusSentencia getEstatusSentencia() {
+        return estatusSentencia;
+    }
+
+    public void setEstatusSentencia(EstatusSentencia estatusSentencia) {
+        this.estatusSentencia = estatusSentencia;
     }
 }
