@@ -29,7 +29,6 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class FinishedFragment extends Fragment {
 
     //TODO:variables generales de un fragment
@@ -67,7 +66,7 @@ public class FinishedFragment extends Fragment {
         recyclerViewCasosAbogadoIF.setLayoutManager(layoutManagerCategory);
 
         if (Functions.isNetworkAvailable(contextHF)) {
-            getCasosAbogado(activityHF, viewHF);
+            getCasosTerminadosAbogado(activityHF, viewHF);
         } else {
             Utils.message(activityHF, getString(R.string.text_label_error_de_conexion));
         }
@@ -75,8 +74,7 @@ public class FinishedFragment extends Fragment {
         return viewHF;
     }
 
-    public void getCasosAbogado(Activity activity, View view) {
-
+    public void getCasosTerminadosAbogado(Activity activity, View view) {
         try {
             listCasoTerminados.clear();
             if (Functions.isNetworkAvailable(activity)) {
@@ -84,7 +82,6 @@ public class FinishedFragment extends Fragment {
                     @Override
                     public void getDelegate(String result) {
                         Gson gson = new Gson();
-                        //Serial serial = gson.fromJson(result, Serial.class);
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
 
                         listCasoTerminados.addAll(respuestaGeneral.getCasosTerminados().getDataCasosTerminados());
@@ -92,7 +89,6 @@ public class FinishedFragment extends Fragment {
                         CasosTermidasAdapter casosAbogadoAdapter = new CasosTermidasAdapter(activity, fragmentManagerHF, listCasoTerminados, new CasosTermidasAdapter.OnListenerCasosTerminados() {
                             @Override
                             public void onItemClick(DataCasosTerminados casosTerminados, int position) {
-                                //action_navigation_finished_to_navigation_detalle_del_caso_fragment
                                 Bundle bundle = new Bundle();
                                 bundle.putString("idCaso", String.valueOf(casosTerminados.getId()));
                                 Navigation.findNavController(view).navigate(R.id.action_navigation_finished_to_navigation_detalle_del_caso_fragment, bundle);

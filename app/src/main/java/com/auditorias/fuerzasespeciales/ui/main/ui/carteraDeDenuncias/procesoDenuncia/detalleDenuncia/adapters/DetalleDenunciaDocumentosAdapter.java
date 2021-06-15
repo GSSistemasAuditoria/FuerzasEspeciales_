@@ -105,14 +105,25 @@ public class DetalleDenunciaDocumentosAdapter extends RecyclerView.Adapter<Detal
 
         @SuppressLint("UseCompatLoadingForDrawables")
         public void bind(Activity activity, DetalleDocumento detalleDocumento, OnItemClickListener listener) {
-            if (detalleDocumento.getTipoArchivo().equals(".png") || detalleDocumento.getTipoArchivo().equals(".jpg") || detalleDocumento.getTipoArchivo().equals(".jpeg")
-                    || detalleDocumento.getTipoArchivo().equals("png") || detalleDocumento.getTipoArchivo().equals("jpg") || detalleDocumento.getTipoArchivo().equals("jpeg")) {
-                imageViewPrevioDocumentoCDD.setImageDrawable(activity.getDrawable(R.drawable.ic_image));
-            } else if (detalleDocumento.getTipoArchivo().equals(".pdf") || detalleDocumento.getTipoArchivo().equals("pdf")) {
-                imageViewPrevioDocumentoCDD.setImageDrawable(activity.getDrawable(R.drawable.ic_pdf_box));
-            } else if (detalleDocumento.getTipoArchivo().equals("doc") || detalleDocumento.getTipoArchivo().equals("docx")
-                    || detalleDocumento.getTipoArchivo().equals(".doc") || detalleDocumento.getTipoArchivo().equals(".docx")) {
-                imageViewPrevioDocumentoCDD.setImageDrawable(activity.getDrawable(R.drawable.ic_word));
+            switch (detalleDocumento.getTipoArchivo()) {
+                case ".png":
+                case ".jpg":
+                case ".jpeg":
+                case "png":
+                case "jpg":
+                case "jpeg":
+                    imageViewPrevioDocumentoCDD.setImageDrawable(activity.getDrawable(R.drawable.ic_image));
+                    break;
+                case ".pdf":
+                case "pdf":
+                    imageViewPrevioDocumentoCDD.setImageDrawable(activity.getDrawable(R.drawable.ic_pdf_box));
+                    break;
+                case "doc":
+                case "docx":
+                case ".doc":
+                case ".docx":
+                    imageViewPrevioDocumentoCDD.setImageDrawable(activity.getDrawable(R.drawable.ic_word));
+                    break;
             }
             cardViewDetalleDocumentosCDD.setOnClickListener(new View.OnClickListener() {
                 @Override

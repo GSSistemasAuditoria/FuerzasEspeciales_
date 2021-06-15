@@ -109,6 +109,32 @@
                     android:layout_marginBottom="5dp"
                     android:background="#b3b3b3" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text="Tipo de denuncia:"
+                        android:textColor="@color/gray20" />
+
+                    <TextView
+                        android:id="@+id/textViewTipoDenunciaDDD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="robo"
+                        android:textColor="@color/dark"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -129,6 +155,32 @@
                     android:textColor="@color/dark"
                     android:textStyle="bold" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text="Sentencia:"
+                        android:textColor="@color/gray20" />
+
+                    <TextView
+                        android:id="@+id/textViewEstatusSentenciaDDD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="robo"
+                        android:textColor="@color/dark"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -137,7 +189,6 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:background="#b3b3b3" />
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -264,15 +315,6 @@
                     android:textColor="@color/green_principal"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/text_label_nombre_del_abogado"
-                    android:textColor="@color/gray20" />
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -353,6 +395,7 @@
                         android:id="@+id/textViewColorEtapaDenunciaDDD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@color/green_principal"
                         android:padding="5dp"
                         android:text="@string/text_label_en_espera_ejemplo"
                         android:textColor="@color/white" />
@@ -402,6 +445,13 @@
                         android:text="@string/text_label_fase_dos_puntos"
                         android:textColor="@color/gray20" />
 
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/ic_sifra__foreground" />
+
                     <TextView
                         android:id="@+id/textViewFaseDenunciaDDD"
                         android:layout_width="wrap_content"
@@ -415,7 +465,9 @@
                         android:id="@+id/textViewColorFaseDenunciaDDD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@color/green_principal"
                         android:padding="5dp"
+                        android:text="En espera"
                         android:textColor="@color/white" />
 
                 </LinearLayout>
@@ -448,8 +500,37 @@
                         android:id="@+id/textViewColorSubFaseDenunciaDDD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@color/green_principal"
                         android:padding="5dp"
+                        android:text="En espera"
                         android:textColor="@color/white" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text="Estatus reprogramación:"
+                        android:textColor="@color/gray20" />
+
+                    <TextView
+                        android:id="@+id/textViewEstatusReprogramarDDD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/green_principal"
+                        android:padding="5dp"
+                        android:text="@string/text_label_en_espera_ejemplo"
+                        android:textColor="@color/white" />
+
                 </LinearLayout>
 
                 <View

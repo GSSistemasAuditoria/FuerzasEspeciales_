@@ -37,28 +37,24 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:orientation="horizontal">
+                    android:text="Motivo:"
+                    android:textColor="@color/dark" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:text="Motivo:" />
-
-                    <TextView
-                        android:id="@+id/textViewMotivoSolicitudCDR"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Solicitud"
-                        android:textColor="@color/dark"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/textViewMotivoSolicitudCDR"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Solicitud"
+                    android:textColor="@color/dark"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -83,30 +79,30 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:text="Fase:" />
-
-                    <TextView
-                        android:id="@+id/textViewFaseCDR"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Presentacion de denuncia"
-                        android:textColor="@color/dark"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="Fase:" />
+
+            <TextView
+                android:id="@+id/textViewFaseCDR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Presentacion de denuncia"
+                android:textColor="@color/dark"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout

@@ -33,6 +33,7 @@ import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenunciaFa
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenunciaResponsables;
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenunciaSubFase;
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDocumento;
+import com.auditorias.fuerzasespeciales.request.denuncia.DatosDenunciaRequest;
 import com.auditorias.fuerzasespeciales.request.documentos.ObtenerDocumentos;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.detalleDenuncia.adapters.DetalleDenunciaDocumentosAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.detalleDenuncia.adapters.DetalleDenunciaFasesAdapter;
@@ -47,6 +48,7 @@ import com.auditorias.fuerzasespeciales.webServicies.Constantes;
 import com.bumptech.glide.Glide;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -89,23 +91,17 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
         fragmentManager = getFragmentManager();
 
         refereciasConInterface(view);
-        textViewSubTiutuloCST.setText(getString(R.string.title_detalle_del_caso));
 
         args = getArguments();
         if (args != null) {
-            //guardaCatalogoCasoModel = args.getParcelable("guardaCatalogoCasoModel");
-
             idCaso = args.getString("idCaso");
             if (idCaso != null) {
-                getDetalleCaso(activity, idCaso);
+                getDetalleCaso(activity, Integer.parseInt(idCaso));
                 getObtenerConfiguracionTipoAppMovil(activity);
-            } //else/* if (serialDatosCaso != null) {
-            //    getDetalleCaso(activityCDF, serialDatosCaso.getDatosCasoModel().getFolio());
-            //} else*/ //if (guardaCatalogoCasoModel != null) {
-            //getDetalleCaso(activity, String.valueOf(guardaCatalogoCasoModel.getIdCaso()));
-            //}
+            }
 
         }
+
         return view;
     }
 
@@ -126,9 +122,12 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
 
     }
 
-    public void getDetalleCaso(Activity activity, String idCaso) {
+    public void getDetalleCaso(Activity activity, int idCaso) {
         try {
             if (Functions.isNetworkAvailable(activity)) {
+                Gson gsonParams = new Gson();
+                String params = gsonParams.toJson(new DatosDenunciaRequest(idCaso, 2));
+                //                                                         idCaso
                 new AsyncTaskGral(this.activity, new Delegate() {
                     @Override
                     public void getDelegate(String result) {
@@ -138,6 +137,7 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
                         if (respuestaGeneral.getDetalleDenuncia().getExito().equals(Constantes.exitoTrue)) {
                             if (respuestaGeneral.getDetalleDenuncia() != null || !respuestaGeneral.getDetalleDenuncia().equals("")) {
                                 detalleDenuncia = respuestaGeneral.getDetalleDenuncia();
+                                textViewResponsablesDDF.setText(detalleDenuncia.getEtiquetaResponsables());
                             }
 
                             if (/*respuestaGeneral.getDetalleDenuncia().getListFases() != null || */!respuestaGeneral.getDetalleDenuncia().getListFases().isEmpty()) {
@@ -161,8 +161,8 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
                     public void executeInBackground(String result, String header) {
                         TableDataUser.updateJWT(activity, header);
                     }
-                }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.obtenerDetalleCaso.concat(Constantes.signoInterrogacion)
-                        .concat(Constantes.idCaso).concat(Constantes.signoIgual).concat(idCaso).concat(Constantes.signoAnd).concat(Constantes.idTipoApp).concat(Constantes.signoIgual).concat("2"));
+                }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.obtenerDetalleCaso, params);//.concat(Constantes.signoInterrogacion)
+                        //.concat(Constantes.idCaso).concat(Constantes.signoIgual).concat(idCaso).concat(Constantes.signoAnd).concat(Constantes.idTipoApp).concat(Constantes.signoIgual).concat("2"));
 
             } else {
                 Utils.message(activity, getString(R.string.text_label_error_de_conexion));
@@ -258,7 +258,7 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
 
             case R.id.textViewResponsablesDDF:
                 if (!listDetallaResponsables.isEmpty()) {
-                    showDialogDetalleResponsables(activity, listDetallaResponsables);
+                    showDialogDetalleResponsables(activity, listDetallaResponsables, detalleDenuncia);
                 } else {
                     Utils.messageShort(activity, "No se encuentran imputados registrados");
                 }
@@ -306,6 +306,13 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
         TextView textViewCerrarDDD = dialogDetalleDenuncia.findViewById(R.id.textViewCerrarDDD);
         TextView textViewSubFaseDenunciaDDD = dialogDetalleDenuncia.findViewById(R.id.textViewSubFaseDenunciaDDD);
         TextView textViewColorSubFaseDenunciaDDD = dialogDetalleDenuncia.findViewById(R.id.textViewColorSubFaseDenunciaDDD);
+        TextView textViewTipoDenunciaDDD = dialogDetalleDenuncia.findViewById(R.id.textViewTipoDenunciaDDD);
+        TextView textViewEstatusSentenciaDDD = dialogDetalleDenuncia.findViewById(R.id.textViewEstatusSentenciaDDD);
+        TextView textViewEstatusReprogramarDDD = dialogDetalleDenuncia.findViewById(R.id.textViewEstatusReprogramarDDD);
+        //ImageView imageView4 = dialogDetalleDenuncia.findViewById(R.id.imageView4);
+
+        //Picasso.get().load(detalleDenuncia.getImagenFase().replace("/..", Constantes.BASE_URL_IMAGE)).into(imageView4);
+
 
         if (detalleDenuncia.getFolio() != null) {
             textViewFolioDenunciaDDD.setText(detalleDenuncia.getFolio());
@@ -319,10 +326,22 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
             textViewNombreDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
+        if (detalleDenuncia.getTipoDenuncia() != null) {
+            textViewTipoDenunciaDDD.setText(detalleDenuncia.getTipoDenuncia());
+        } else {
+            textViewTipoDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
+        }
+
         if (detalleDenuncia.getTipoFraude() != null) {
             textViewTipoFraudeDDD.setText(detalleDenuncia.getTipoFraude());
         } else {
             textViewTipoFraudeDDD.setText(getString(R.string.text_label_no_aplica));
+        }
+
+        if (detalleDenuncia.getStatusSentencia() != null) {
+            textViewEstatusSentenciaDDD.setText(detalleDenuncia.getStatusSentencia());
+        } else {
+            textViewEstatusSentenciaDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
         if (detalleDenuncia.getImporte() != null) {
@@ -392,24 +411,40 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
             textViewColorFaseDenunciaDDD.setBackground(Utils.cambiarColorTextView(detalleDenuncia.getColorFase()));
             textViewColorFaseDenunciaDDD.setText(detalleDenuncia.getEtapaFase());
         } else {
-            textViewColorFaseDenunciaDDD.setVisibility(View.GONE);
-            //textViewColorFaseDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
-            //textViewColorFaseDenunciaDDD.setBackgroundColor(Color.TRANSPARENT);
+            textViewColorFaseDenunciaDDD.setTextColor(activity.getColor(R.color.dark));
+            textViewColorFaseDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
+            textViewColorFaseDenunciaDDD.setBackgroundColor(Color.TRANSPARENT);
         }
 
         if (detalleDenuncia.getSubFase() != null) {
-            //textViewSubFaseDenunciaDDD.setText(detalleDenuncia.getSubFase());
+            textViewSubFaseDenunciaDDD.setText(detalleDenuncia.getSubFase());
         } else {
             textViewSubFaseDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
         }
 
         if (detalleDenuncia.getEtapaSubFase() != null && detalleDenuncia.getColorSubFase() != null) {
-            //textViewColorSubFaseDenunciaDDD.setBackground(Utils.cambiarColorTextView(detalleDenuncia.getColorSubFase()));
-            //textViewColorSubFaseDenunciaDDD.setText(detalleDenuncia.getEtapaSubFase());
+            textViewColorSubFaseDenunciaDDD.setBackground(Utils.cambiarColorTextView(detalleDenuncia.getColorSubFase()));
+            textViewColorSubFaseDenunciaDDD.setText(detalleDenuncia.getEtapaSubFase());
         } else {
-            textViewColorSubFaseDenunciaDDD.setVisibility(View.GONE);
-            //textViewColorSubFaseDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
-            //textViewColorSubFaseDenunciaDDD.setBackgroundColor(Color.TRANSPARENT);
+            textViewColorSubFaseDenunciaDDD.setTextColor(activity.getColor(R.color.dark));
+            textViewColorSubFaseDenunciaDDD.setText(getString(R.string.text_label_no_aplica));
+            textViewColorSubFaseDenunciaDDD.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        if (detalleDenuncia.getStatusAutorizacion() != null) {
+            textViewEstatusReprogramarDDD.setText(detalleDenuncia.getStatusAutorizacion());
+        } else {
+            textViewEstatusReprogramarDDD.setText(getString(R.string.text_label_no_aplica));
+        }
+
+        if (detalleDenuncia.getColorAutorizacion1() != null && detalleDenuncia.getColorAutorizacion1() != null) {
+            textViewEstatusReprogramarDDD.setBackground(Utils.cambiarColorTextView(detalleDenuncia.getColorAutorizacion1()));
+            textViewEstatusReprogramarDDD.setText(detalleDenuncia.getEtapaSubFase());
+        } else {
+            //textViewColorSubFaseDenunciaDDD.setVisibility(View.GONE);
+            textViewEstatusReprogramarDDD.setTextColor(activity.getColor(R.color.dark));
+            textViewEstatusReprogramarDDD.setText(getString(R.string.text_label_no_aplica));
+            textViewEstatusReprogramarDDD.setBackgroundColor(Color.TRANSPARENT);
         }
 
         if (detalleDenuncia.getFechaRegistro() != null) {
@@ -464,17 +499,7 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
 
         DetalleDenunciaFasesAdapter detalleDenunciaFasesAdapter = new DetalleDenunciaFasesAdapter(activity, listDetalleFases, new DetalleDenunciaFasesAdapter.OnListener() {
             @Override
-            public void onItemClick(DetalleDenunciaFase detalleDenunciaFase, int position, String imagenString, String tipoArchivo) {
-
-            }
-
-            @Override
-            public void onClickDetalleDocumentos(DetalleDenunciaFase detalleDenunciaFase, int position, List<DetalleDocumento> documentos) {
-
-            }
-
-            @Override
-            public void onClickDetalleSubfases(DetalleDenunciaFase detalleDenunciaFase, int position, List<DetalleDenunciaSubFase> listSubfases) {
+            public void onClickDetalleSubfases(DetalleDenunciaFase detalleDenunciaFase, int posicion, List<DetalleDenunciaSubFase> listSubfases) {
                 if (/*listSubfases != null || */!listSubfases.isEmpty()) {
                     showDialogDetalleSubFases(activity, listSubfases);
                 } else {
@@ -483,7 +508,7 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
             }
 
             @Override
-            public void onClickDetalleReprogramaciones(DetalleDenunciaFase detalleDenunciaFase, int positio, List<DetalleDenunciaFaseReprogramaciones> listReprogramaciones) {
+            public void onClickDetalleReprogramaciones(DetalleDenunciaFase detalleDenunciaFase, int posicion, List<DetalleDenunciaFaseReprogramaciones> listReprogramaciones) {
                 if (/*listSubfases != null || */!listReprogramaciones.isEmpty()) {
                     showDialogDetalleReprogramaciones(activity, listReprogramaciones);
                 } else {
@@ -491,6 +516,15 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
                 }
 
             }
+            /*@Override
+            public void onItemClick(DetalleDenunciaFase detalleDenunciaFase, int position, String imagenString, String tipoArchivo) {
+
+            }*/
+
+            /*@Override
+            public void onClickDetalleDocumentos(DetalleDenunciaFase detalleDenunciaFase, int position, List<DetalleDocumento> documentos) {
+
+            }*/
         });
         recyclerViewResponsablesDDDF.setHasFixedSize(false);
         recyclerViewResponsablesDDDF.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -521,8 +555,12 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
 
         DetalleDenunciaSubfasesAdapter detalleDenunciaSubfasesAdapter = new DetalleDenunciaSubfasesAdapter(activity, listDetalleSubfase, new DetalleDenunciaSubfasesAdapter.OnListener() {
             @Override
-            public void onItemClick(DetalleDenunciaFase detalleDenunciaFase, int position, String imagenString, String tipoArchivo) {
-
+            public void onClickCardViewReprogramaciones(DetalleDenunciaSubFase detalleDenunciaSubFase, int posicion, List<DetalleDenunciaFaseReprogramaciones> listReprogramaciones) {
+                if (/*listSubfases != null || */!listReprogramaciones.isEmpty()) {
+                    showDialogDetalleReprogramaciones(activity, listReprogramaciones);
+                } else {
+                    Utils.messageShort(DetalleDelCasoFragment.this.activity, "No se cuenta con reprogramaciones");
+                }
             }
         });
         recyclerViewResponsablesDDDF.setHasFixedSize(false);
@@ -585,23 +623,25 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
         dialogDetalleResponsables.show();
     }
 
-    public void showDialogDetalleResponsables(Activity activity, List<DetalleDenunciaResponsables> listDenunciaDetallaResponsables) {
+    public void showDialogDetalleResponsables(Activity activity, List<DetalleDenunciaResponsables> listDenunciaDetallaResponsables, DetalleDenuncia detalleDenuncia) {
         Dialog dialogDetalleResponsables = new Dialog(activity, R.style.CustomDialogTheme);
         dialogDetalleResponsables.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogDetalleResponsables.setCancelable(false);
-        dialogDetalleResponsables.setContentView(R.layout.dialog_detalle_denuncia_responsables);
+        dialogDetalleResponsables.setContentView(R.layout.dialog_detalle_denuncia_fases);
         Objects.requireNonNull(dialogDetalleResponsables.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-        TextView textViewCerrarDDDR = dialogDetalleResponsables.findViewById(R.id.textViewCerrarDDDR);
-        RecyclerView recyclerViewResponsablesDDDR = dialogDetalleResponsables.findViewById(R.id.recyclerViewResponsablesDDDR);
+        TextView textViewCerrarDDDF = dialogDetalleResponsables.findViewById(R.id.textViewCerrarDDDF);
+        TextView textViewTituloDDDF = dialogDetalleResponsables.findViewById(R.id.textViewTituloDDDF);
+        textViewTituloDDDF.setText(detalleDenuncia.getEtiquetaResponsables());
+        RecyclerView recyclerViewResponsablesDDDF = dialogDetalleResponsables.findViewById(R.id.recyclerViewResponsablesDDDF);
 
         DetalleEmpleadosResponsablesAdapter totalEmpleadosResponsablesDCAadpter = new DetalleEmpleadosResponsablesAdapter(activity, listDenunciaDetallaResponsables);
-        recyclerViewResponsablesDDDR.setHasFixedSize(false);
-        recyclerViewResponsablesDDDR.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerViewResponsablesDDDR.setAdapter(totalEmpleadosResponsablesDCAadpter);
-        recyclerViewResponsablesDDDR.setNestedScrollingEnabled(false);
+        recyclerViewResponsablesDDDF.setHasFixedSize(false);
+        recyclerViewResponsablesDDDF.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewResponsablesDDDF.setAdapter(totalEmpleadosResponsablesDCAadpter);
+        recyclerViewResponsablesDDDF.setNestedScrollingEnabled(false);
 
-        textViewCerrarDDDR.setOnClickListener(new View.OnClickListener() {
+        textViewCerrarDDDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialogDetalleResponsables.dismiss();
@@ -658,6 +698,7 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
         Button buttonCerrarDZI = dialogAdjuntarDocumentos.findViewById(R.id.buttonCerrarDZI);
         Button buttonEliminarEvidenciaDZI = dialogAdjuntarDocumentos.findViewById(R.id.buttonEliminarEvidenciaDZI);
         buttonEliminarEvidenciaDZI.setVisibility(View.GONE);
+
         ImageView imageViewViewImageDZI = dialogAdjuntarDocumentos.findViewById(R.id.imageViewViewImageDZI);
         PDFView pdfView = dialogAdjuntarDocumentos.findViewById(R.id.pdfView);
 

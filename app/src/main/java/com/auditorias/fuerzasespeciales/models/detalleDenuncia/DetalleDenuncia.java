@@ -84,7 +84,7 @@ public class DetalleDenuncia {
     private String abogado;
     @SerializedName("ColorAutorizacion1")
     @Expose
-    private Object colorAutorizacion1;
+    private String colorAutorizacion1;
     @SerializedName("ColorAutorizacion2")
     @Expose
     private Object colorAutorizacion2;
@@ -96,7 +96,7 @@ public class DetalleDenuncia {
     private String colorFase;
     @SerializedName("ColorSubFase")
     @Expose
-    private Object colorSubFase;
+    private String colorSubFase;
     @SerializedName("Documentos")
     @Expose
     private List<DetalleDocumento> listDocumentos = null;
@@ -109,7 +109,7 @@ public class DetalleDenuncia {
     private String etapaFase;
     @SerializedName("EtapaSubFase")
     @Expose
-    private Object etapaSubFase;
+    private String etapaSubFase;
     @SerializedName("EtiquetaResponsables")
     @Expose
     private String etiquetaResponsables;
@@ -168,10 +168,10 @@ public class DetalleDenuncia {
     private String statusAutorizacion;
     @SerializedName("StatusSentencia")
     @Expose
-    private Object statusSentencia;
+    private String statusSentencia;
     @SerializedName("SubFase")
     @Expose
-    private Object subFase;
+    private String subFase;
     @SerializedName("TipoDenuncia")
     @Expose
     private String tipoDenuncia;
@@ -388,11 +388,11 @@ public class DetalleDenuncia {
         this.abogado = abogado;
     }
 
-    public Object getColorAutorizacion1() {
+    public String getColorAutorizacion1() {
         return colorAutorizacion1;
     }
 
-    public void setColorAutorizacion1(Object colorAutorizacion1) {
+    public void setColorAutorizacion1(String colorAutorizacion1) {
         this.colorAutorizacion1 = colorAutorizacion1;
     }
 
@@ -420,11 +420,11 @@ public class DetalleDenuncia {
         this.colorFase = colorFase;
     }
 
-    public Object getColorSubFase() {
+    public String getColorSubFase() {
         return colorSubFase;
     }
 
-    public void setColorSubFase(Object colorSubFase) {
+    public void setColorSubFase(String colorSubFase) {
         this.colorSubFase = colorSubFase;
     }
 
@@ -452,11 +452,11 @@ public class DetalleDenuncia {
         this.etapaFase = etapaFase;
     }
 
-    public Object getEtapaSubFase() {
+    public String getEtapaSubFase() {
         return etapaSubFase;
     }
 
-    public void setEtapaSubFase(Object etapaSubFase) {
+    public void setEtapaSubFase(String etapaSubFase) {
         this.etapaSubFase = etapaSubFase;
     }
 
@@ -604,19 +604,19 @@ public class DetalleDenuncia {
         this.statusAutorizacion = statusAutorizacion;
     }
 
-    public Object getStatusSentencia() {
+    public String getStatusSentencia() {
         return statusSentencia;
     }
 
-    public void setStatusSentencia(Object statusSentencia) {
+    public void setStatusSentencia(String statusSentencia) {
         this.statusSentencia = statusSentencia;
     }
 
-    public Object getSubFase() {
+    public String getSubFase() {
         return subFase;
     }
 
-    public void setSubFase(Object subFase) {
+    public void setSubFase(String subFase) {
         this.subFase = subFase;
     }
 

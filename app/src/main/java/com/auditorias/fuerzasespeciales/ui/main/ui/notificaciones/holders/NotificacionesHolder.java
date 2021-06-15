@@ -41,7 +41,7 @@ public class NotificacionesHolder extends RecyclerView.ViewHolder {
 
     public void bind(Activity activity, final DataNotificacion notificacion, final NotificacionesAdapter.OnClickListener listener) {
         if (notificacion.getIcono() != null) {
-            //Picasso.get().load(notificacion.getImagenUrl().replace("/..", Constantes.BASE_URL_IMAGE)).into(imageView2);
+            Picasso.get().load(notificacion.getIcono().replace("/..", Constantes.BASE_URL_IMAGE)).into(imageView2);
         } else {
             imageView2.setImageDrawable(activity.getDrawable(R.drawable.sifra_1));
         }

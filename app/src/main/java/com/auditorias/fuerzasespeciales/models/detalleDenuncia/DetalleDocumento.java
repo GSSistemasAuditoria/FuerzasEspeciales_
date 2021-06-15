@@ -216,5 +216,4 @@ public class DetalleDocumento {
     public void setTipoIntegracion(String tipoIntegracion) {
         this.tipoIntegracion = tipoIntegracion;
     }
-
 }

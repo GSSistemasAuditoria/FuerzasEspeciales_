@@ -19,6 +19,7 @@ import com.auditorias.fuerzasespeciales.SQLite.TableDataUser;
 import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
 import com.auditorias.fuerzasespeciales.models.notificaciones.DataNotificacion;
 import com.auditorias.fuerzasespeciales.request.envioRequest;
+import com.auditorias.fuerzasespeciales.request.notificaciones.Notificaciones;
 import com.auditorias.fuerzasespeciales.ui.main.ui.notificaciones.adapters.NotificacionesAdapter;
 import com.auditorias.fuerzasespeciales.utils.AsyncTaskGral;
 import com.auditorias.fuerzasespeciales.utils.Delegate;
@@ -41,6 +42,8 @@ public class notificacionesFragment extends Fragment implements SwipeRefreshLayo
     private RecyclerView recyclerViewNotificacionesNF;
     private String mParam1;
     private String mParam2;
+    private String valorDeConfiguraciontipoAppMovil = "";
+    private String descripcionConfiguraciontipoAppMovil;
 
     public notificacionesFragment() {
         // Required empty public constructor
@@ -73,6 +76,7 @@ public class notificacionesFragment extends Fragment implements SwipeRefreshLayo
 
         getEnlaces(view);
 
+        getObtenerConfiguracionTipoAppMovil(activity);
         textViewSubTiutuloCST.setText(getString(R.string.title_notificaciones));
 
         setObtenerNotificacionesUsuario(activity, Integer.parseInt(TableDataUser.getIdEmpleado(activity)));
@@ -91,12 +95,39 @@ public class notificacionesFragment extends Fragment implements SwipeRefreshLayo
         swipeRefreshLayoutNF.setColorSchemeResources(R.color.colorPrimary, android.R.color.holo_green_dark, android.R.color.holo_orange_dark, android.R.color.holo_blue_dark);
     }
 
+    private void getObtenerConfiguracionTipoAppMovil(Activity activity) {
+        try {
+            if (Functions.isNetworkAvailable(activity)) {
+                new AsyncTaskGral(activity, new Delegate() {
+                    @Override
+                    public void getDelegate(String result) {
+                        Gson gson = new Gson();
+                        RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
+                        if (respuestaGeneral.getConfiguracionData() != null || !respuestaGeneral.getConfiguracionData().toString().isEmpty()) {
+                            valorDeConfiguraciontipoAppMovil = respuestaGeneral.getConfiguracionData().getValor();
+                            descripcionConfiguraciontipoAppMovil = respuestaGeneral.getConfiguracionData().getDescripcion();
+                        }
+                    }
+
+                    @Override
+                    public void executeInBackground(String result, String header) {
+
+                    }
+                }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.obtenerConfiguracion.concat(Constantes.signoInterrogacion).concat(Constantes.clave).concat(Constantes.signoIgual).concat(Constantes.tipoAppMovil)).get();
+            } else {
+                Utils.messageShort(activity, getString(R.string.text_label_error_de_conexion));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setObtenerNotificacionesUsuario(Activity activity, int idUsuario) {
         try {
             if (Functions.isNetworkAvailable(activity)) {
                 Gson gsonParams = new Gson();
 
-                String params = gsonParams.toJson(new envioRequest(idUsuario));
+                String params = gsonParams.toJson(new Notificaciones( Integer.parseInt("2"), idUsuario));
                 //
                 new AsyncTaskGral(activity, new Delegate() {
                     @Override
@@ -107,7 +138,7 @@ public class notificacionesFragment extends Fragment implements SwipeRefreshLayo
                             NotificacionesAdapter denunciasAdapter = new NotificacionesAdapter(activity, fragmentManager, respuestaGeneral.getNotificacionesUsuario().getDataNotificacions(), new NotificacionesAdapter.OnClickListener() {
                                 @Override
                                 public void onItemClick(DataNotificacion notificacion, int position) {
-
+                                    setActualizarNotificacion(activity, notificacion.getId(), notificacion.getIdCaso(), notificacion.getIdTipoNotificacion());
                                 }
                             });
                             recyclerViewNotificacionesNF.setHasFixedSize(false);
@@ -126,6 +157,40 @@ public class notificacionesFragment extends Fragment implements SwipeRefreshLayo
 
                     }
                 }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.obtenerNotificacionesUsuario, params);
+            } else {
+                Utils.messageShort(activity, getString(R.string.text_label_error_de_conexion));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setActualizarNotificacion(Activity activity, int idNotificacion, int idDenuncia, int IdTipoNotificacion) {
+        try {
+            if (Functions.isNetworkAvailable(activity)) {
+                Gson gsonParams = new Gson();
+                String params = gsonParams.toJson(new Notificaciones(idNotificacion));
+                //
+                new AsyncTaskGral(activity, new Delegate() {
+                    @Override
+                    public void getDelegate(String result) {
+                        Gson gson = new Gson();
+                        RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
+                        if (respuestaGeneral.getNotificacionesUsuario().getExito().equals(Constantes.exitoTrue)) {
+
+                        } else {
+                            Utils.messageShort(activity, respuestaGeneral.getNotificacionesUsuario().getError());
+                        }
+
+                        swipeRefreshLayoutNF.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void executeInBackground(String result, String header) {
+
+                    }
+                }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.actualizarNotificacion, params);
             } else {
                 Utils.messageShort(activity, getString(R.string.text_label_error_de_conexion));
             }

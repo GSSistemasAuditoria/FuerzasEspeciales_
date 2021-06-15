@@ -10,8 +10,17 @@ public class DatosDenunciaRequest {
     @Expose
     private Integer idCaso;
 
+    @SerializedName("idTipoApp")
+    @Expose
+    private Integer idTipoApp;
+
     public DatosDenunciaRequest(Integer idCaso) {
         this.idCaso = idCaso;
+    }
+
+    public DatosDenunciaRequest(Integer idCaso, Integer idTipoApp) {
+        this.idCaso = idCaso;
+        this.idTipoApp = idTipoApp;
     }
 
     public Integer getIdCaso() {
@@ -20,5 +29,13 @@ public class DatosDenunciaRequest {
 
     public void setIdCaso(Integer idCaso) {
         this.idCaso = idCaso;
+    }
+
+    public Integer getIdTipoApp() {
+        return idTipoApp;
+    }
+
+    public void setIdTipoApp(Integer idTipoApp) {
+        this.idTipoApp = idTipoApp;
     }
 }

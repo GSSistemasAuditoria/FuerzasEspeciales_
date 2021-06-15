@@ -105,6 +105,8 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
     private TextView textViewAdjuntarEvidenciaCAE;
     private TextView textViewSubTiutuloCST;
     private TextView textViewTipoDenunciaCDD;
+    private TextView textViewListaImputadosTextCLI;
+    private TextView textViewTotalResponsablesTextCLI;
 
     private TextInputEditText textInputEditTextDatosDenunciaCDDDA;
     private TextInputEditText textInputEditTextDatosAgenciaCDDDA;
@@ -329,6 +331,9 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
         textInputEditTextDatosAgenciaCDDDA = view.findViewById(R.id.textInputEditTextDatosAgenciaCDDDA);
         custumDatosDenuciaAndDatosAgenciaIFF = view.findViewById(R.id.custumDatosDenuciaAndDatosAgenciaCFF);
 
+        textViewListaImputadosTextCLI = view.findViewById(R.id.textViewListaImputadosTextCLI);
+        textViewTotalResponsablesTextCLI = view.findViewById(R.id.textViewTotalResponsablesTextCLI);
+
         imageViewDocumentoCAE = view.findViewById(R.id.imageViewDocumentoCAE);
         imageViewDocumentoCAE.setOnClickListener(this);
 
@@ -462,6 +467,9 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
 
         textViewFechaCompromisoCDF.setText(Utils.SetCambioFormatoFechaDiaMesAnio(String.valueOf(datosDenuncia.getFechaCompromiso())));
         textViewFechaCompromisoCDF.setTextColor(activity.getColor(R.color.green_secondary));
+
+        textViewListaImputadosTextCLI.setText("Lista de ".concat(datosDenuncia.getEtiquetaResponsables()));
+        textViewTotalResponsablesTextCLI.setText("Total de ".concat(datosDenuncia.getEtiquetaResponsables()));
 
         textViewTotalImputadosCLI.setText(String.valueOf(datosDenuncia.getTotalResponsables()));
         textViewTipoDelitoCDD.setText(datosDenuncia.getTipoFraude());

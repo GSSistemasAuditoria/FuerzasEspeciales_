@@ -68,6 +68,8 @@ public class Constantes {
     public static String calculaFechaCompromiso = "CalculaFechaCompromiso";
     public static String nuevaSolicitudCambioFecha = "NuevaSolicitudCambioFecha";
     public static String obtenerNotificacionesUsuario = "ObtenerNotificacionesUsuario";
+    public static String actualizarNotificacion = "ActualizarNotificacion";
+
     public static String exitoTrue = "true";
     public static String selecionar = "Selecionar";
     public static String signoIgual = "=";
