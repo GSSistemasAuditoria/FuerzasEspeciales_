@@ -445,12 +445,12 @@
                         android:text="@string/text_label_fase_dos_puntos"
                         android:textColor="@color/gray20" />
 
-                    <ImageView
+<!--                    <ImageView
                         android:id="@+id/imageView4"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:background="@android:color/transparent"
-                        app:srcCompat="@drawable/ic_sifra__foreground" />
+                        app:srcCompat="@drawable/ic_sifra__foreground" />-->
 
                     <TextView
                         android:id="@+id/textViewFaseDenunciaDDD"

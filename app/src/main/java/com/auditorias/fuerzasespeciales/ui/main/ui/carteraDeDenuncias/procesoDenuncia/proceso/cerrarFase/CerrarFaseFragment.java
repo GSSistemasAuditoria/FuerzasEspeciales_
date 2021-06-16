@@ -700,7 +700,7 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
                     bundle.putString("idCaso", idCaso);
                     bundle.putString("navigationFragment", "terminar");
                     bundle.putString("tipoAppMovil", valorDeConfiguraciontipoAppMovil);
-                    Navigation.findNavController(v).navigate(R.id.action_navigation_terminar_presentacion_denuncia_fragment_to_navigation_geleria_tomar_fotos_fragment, bundle);
+                    Navigation.findNavController(v).navigate(R.id.action_navigation_cerrar_fase_fragment_to_navigation_geleria_tomar_fotos_fragment, bundle);
                 }
                 break;
 
@@ -817,7 +817,7 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
                     bundle.putString("idCaso", idCaso);
                     bundle.putString("navigationFragment", "terminar");
                     bundle.putString("tipoAppMovil", valorDeConfiguraciontipoAppMovil);
-                    Navigation.findNavController(view).navigate(R.id.action_navigation_terminar_presentacion_denuncia_fragment_to_navigation_geleria_tomar_fotos_fragment, bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_navigation_cerrar_fase_fragment_to_navigation_geleria_tomar_fotos_fragment, bundle);
                 }
             }
         });

@@ -36,7 +36,6 @@ import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
 import com.auditorias.fuerzasespeciales.models.Serial;
 import com.auditorias.fuerzasespeciales.request.DatosFecha;
-import com.auditorias.fuerzasespeciales.request.DocumentoRequest;
 import com.auditorias.fuerzasespeciales.request.SolicitudRequest;
 import com.auditorias.fuerzasespeciales.request.denuncia.DatosDenunciaRequest;
 import com.auditorias.fuerzasespeciales.request.envioRequest;
@@ -557,7 +556,7 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
                     bundle.putString("idCaso", idCasoGeneral);
                     bundle.putString("navigationFragment", "reprogramadas");
                     bundle.putString("tipoAppMovil", valorDeConfiguraciontipoAppMovil);
-                    Navigation.findNavController(view).navigate(R.id.action_navigation_terminar_presentacion_denuncia_fragment_to_navigation_geleria_tomar_fotos_fragment, bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_navigation_cerrar_fase_fragment_to_navigation_geleria_tomar_fotos_fragment, bundle);
                 }
 
             }

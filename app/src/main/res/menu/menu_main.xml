@@ -10,6 +10,13 @@
         app:showAsAction="ifRoom" />-->
 
     <item
+        android:id="@+id/navigation_notificaciones_fragment"
+        android:icon="@drawable/ic_notifications"
+        android:title="Cart"
+        app:actionLayout="@layout/badge_layout"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/menu_action_cerrar_session"
         android:orderInCategory="100"
         android:title="@string/action_cerrar_session"
@@ -20,6 +27,6 @@
         android:icon="@drawable/ic_usuario"
         android:orderInCategory="100"
         android:title="@string/action_perfil"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
 </menu>

@@ -56,9 +56,9 @@ import com.auditorias.fuerzasespeciales.request.inicioSubFase.Documentos;
 import com.auditorias.fuerzasespeciales.request.inicioSubFase.InicioSubFase;
 import com.auditorias.fuerzasespeciales.request.inicioSubFase.SubFase;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.cerrarFase.adapters.GaleriaFotosAdapter;
+import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.adapters.DocumentosInicioSubfaseAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.adapters.EstatusResponsablesInicioAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.adapters.EstatusSentenciaArrayAdapter;
-import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.adapters.DocumentosInicioSubfaseAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.adapters.IntegracionDocArrayAdapter;
 import com.auditorias.fuerzasespeciales.utils.AsyncTaskGral;
 import com.auditorias.fuerzasespeciales.utils.Delegate;
@@ -230,6 +230,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
     private Bundle args;
 
     private int mostrarListaImputados = 0;
+    //private int mostrarImagenBandera = 0;
 
     public IniciarFaseFragment() {
 
@@ -381,7 +382,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
         getObtenerConfiguracionPhotoNumber(activity);
     }
 
-    private void llenadoRecyclerView(Activity activity, ArrayList<Documentos> list, RecyclerView recyclerView){
+    private void llenadoRecyclerView(Activity activity, ArrayList<Documentos> list, RecyclerView recyclerView) {
         documentosInicioSubfaseAdapter = new DocumentosInicioSubfaseAdapter(activity, list, new DocumentosInicioSubfaseAdapter.OnItemSelectedListener() {
             @Override
             public void onEliminarListener(Documentos documentoRequest, int position) {
@@ -395,7 +396,8 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                     File file = new File(documentoRequest.getmPath());
                     abrirDocumentoWord(activity, file);
                 } else {
-                    showZoomImage(activity, documentoRequest.getStringArchivo(), documentoRequest.getmPath(), documentoRequest.getTipoArchivo());
+                    //mostrarImagenBandera= 1;
+                    showZoomImage(activity, documentoRequest.getStringArchivo(), documentoRequest.getmPath(), documentoRequest.getTipoArchivo(), 1);
                 }
             }
         });
@@ -445,9 +447,9 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
         idCasoFase = String.valueOf(datosDenuncia.getIdCasoFase());
         idFase = String.valueOf(datosDenuncia.getIdFase());
 
-        if (datosDenuncia.getIdSubFase() !=  null){
+        if (datosDenuncia.getIdSubFase() != null) {
             idSubFase = String.valueOf(datosDenuncia.getIdSubFase());
-        } else{
+        } else {
             idSubFase = null;
         }
 
@@ -876,7 +878,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
 
             case R.id.imageViewDocumentoCAE:
             case R.id.textViewDocumentoCAE:
-                if (idSubFase !=null){
+                if (idSubFase != null) {
                     if (idSubFase.equals("1")) {
                         cargarArchivo();
                     } else {
@@ -886,10 +888,10 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                             cargarArchivo();
                         }
                     }
-                }else {
-                    if (idFase.equals("2")){
+                } else {
+                    if (idFase.equals("2")) {
 
-                    }else if (idFase.equals("5")){
+                    } else if (idFase.equals("5")) {
                         if (stringBase64Documento != null) {
                             showAlertDialogSeleccionarEvidencia(activity, getString(R.string.text_label_evidencia), getString(R.string.text_label_se_eleminara_la_evidencia_anterior).concat(getString(R.string.text_label_pregunta_general)), getString(R.string.text_label_si), getString(R.string.text_label_no), 1, v);
                         } else {
@@ -902,7 +904,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
 
             case R.id.imageViewCamaraCAE:
             case R.id.textViewCamaraCAE:
-                if (idSubFase !=null){
+                if (idSubFase != null) {
                     if (idSubFase.equals("1")) {
                         showDialogfotos(activity);
                     } else {
@@ -913,10 +915,10 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                             showDialogfotos(activity);
                         }
                     }
-                }else {
-                    if (idFase.equals("2")){
+                } else {
+                    if (idFase.equals("2")) {
 
-                    }else if (idFase.equals("5")){
+                    } else if (idFase.equals("5")) {
                         if (stringBase64Documento != null) {
                             showAlertDialogSeleccionarEvidencia(activity, getString(R.string.text_label_evidencia), getString(R.string.text_label_se_eleminara_la_evidencia_anterior).concat(getString(R.string.text_label_pregunta_general)), getString(R.string.text_label_si), getString(R.string.text_label_no), 3, v);
                         } else {
@@ -930,7 +932,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
 
             case R.id.imageViewGaleriaCAE:
             case R.id.textViewGaleriaCAE:
-                if (idSubFase !=null){
+                if (idSubFase != null) {
                     if (idSubFase.equals("1")) {
                         cargarImagenGaleria("png");
                     } else {
@@ -940,10 +942,10 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                             cargarImagenGaleria("png");
                         }
                     }
-                }else {
-                    if (idFase.equals("2")){
+                } else {
+                    if (idFase.equals("2")) {
 
-                    }else if (idFase.equals("5")){
+                    } else if (idFase.equals("5")) {
                         if (stringBase64Documento != null) {
                             showAlertDialogSeleccionarEvidencia(activity, getString(R.string.text_label_evidencia), getString(R.string.text_label_se_eleminara_la_evidencia_anterior).concat(getString(R.string.text_label_pregunta_general)), getString(R.string.text_label_si), getString(R.string.text_label_no), 1, v);
                         } else {
@@ -962,13 +964,13 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                     File file = new File(mPath);
                     abrirDocumentoWord(activity, file);
                 } else {
-                    showZoomImage(activity, stringBase64Documento, mPath, extension);
+                    showZoomImage(activity, stringBase64Documento, mPath, extension, 2);
                 }
                 break;
 
             case R.id.buttonInicioFaseIFF:
                 if (idSubFase != null) {
-                   if (idSubFase.equals("1")) {
+                    if (idSubFase.equals("1")) {
                         if (idCaso.isEmpty()) {
                             Utils.messageShort(activity, getString(R.string.text_label_id_caso));
                         } else if (String.valueOf(idCasoFase).isEmpty()) {
@@ -1005,7 +1007,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                         }
                     }
                 } else {
-                    if (idFase.equals("2")){
+                    if (idFase.equals("2")) {
                         String datosDemanda = Objects.requireNonNull(textInputEditTextDatosDenunciaCDDDA.getText()).toString().trim();
                         String datosAgencia = Objects.requireNonNull(textInputEditTextDatosAgenciaCDDDA.getText()).toString().trim();
                         if (idCaso.isEmpty()) {
@@ -1035,10 +1037,11 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                                 Utils.message(activity, getString(R.string.text_label_error_de_conexion));
                             }
                         }
-                    }else if (idFase.equals("5")){
+                    } else if (idFase.equals("5")) {
                         /*if (idStatusSentencia.isEmpty()) {
                             Utils.messageShort(activity, getString(R.string.text_label_id_caso));
-                        } else*/ if (String.valueOf(idStatusSentencia).isEmpty() || idStatusSentencia.equals("0")) {
+                        } else*/
+                        if (String.valueOf(idStatusSentencia).isEmpty() || idStatusSentencia.equals("0")) {
                             textViewAlertErrorCSS_2.setVisibility(View.VISIBLE);
                             imageViewAlertErrorCSS_2.setVisibility(View.VISIBLE);
                             textViewAlertErrorCSS_2.setText(getString(R.string.text_label_seleccione_al_menos_una_sentencia));
@@ -1130,10 +1133,10 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
             if (Functions.isNetworkAvailable(activity)) {
                 Gson gsonParams = new Gson();
                 String params = null;
-                if (idFase.equals("2")){
+                if (idFase.equals("2")) {
                     params = gsonParams.toJson(new InicioFase(new Denuncia(idCaso, datosDemanda, datosAgencia), new Fase(idCasoFase, fechaCompromiso), listRespondablesFase));
                     //                                                     idCaso  datosDemanda  datosAgencia            idCasoFase  fechaCompromiso   listRespondablesFase
-                }else if (idFase.equals("5")){
+                } else if (idFase.equals("5")) {
                     params = gsonParams.toJson(new InicioFase(Integer.parseInt(tipoApp), new Denuncia(Integer.parseInt(idStatusSentencia)), new Fase(idCasoFase), listRespondablesFase, documentos));
                     //                                                                      idStatusSentencia            idCasoFase   listRespondablesFase
                 }
@@ -1327,7 +1330,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
 
     }
 
-    public void showZoomImage(Activity activity, String documentoEnBase64, String pathDocumento, String extension) {
+    public void showZoomImage(Activity activity, String documentoEnBase64, String pathDocumento, String extension, int bandera) {
         Dialog dialogAdjuntarDocumentos = new Dialog(activity, R.style.CustomDialogTheme);
         dialogAdjuntarDocumentos.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogAdjuntarDocumentos.setCancelable(false);
@@ -1344,18 +1347,18 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
 
             pdfView.setVisibility(View.GONE);
             imageViewViewImageDZI.setVisibility(View.VISIBLE);
-            //if (documentoEnBase64 != null) {
-            //    Glide.with(activity).load(Utils.base64ToBitmap(documentoEnBase64)).fitCenter().into(imageViewViewImageDZI);
-            //}
-            String imagenDecompres = null;
-            try {
-                imagenDecompres = Utils.decompressBase64(documentoEnBase64);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (bandera == 1) {
+                String imagenDecompres = null;
+                try {
+                    imagenDecompres = Utils.decompressBase64(documentoEnBase64);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Bitmap imagenSinBase64 = Utils.base64ToBitmap(imagenDecompres);
+                Glide.with(activity).load(/*Utils.rotateImage(*/imagenSinBase64/*, -90)*/).fitCenter().into(imageViewViewImageDZI);
+            } else if (bandera == 2) {
+                Glide.with(activity).load(Utils.base64ToBitmap(documentoEnBase64)).fitCenter().into(imageViewViewImageDZI);
             }
-            Bitmap imagenSinBase64 = Utils.base64ToBitmap(imagenDecompres);
-            Glide.with(activity).load(/*Utils.rotateImage(*/imagenSinBase64/*, -90)*/).fitCenter().into(imageViewViewImageDZI);
-
         } else if (extension.equals(".pdf") || extension.equals("pdf")) {
             pdfView.setVisibility(View.VISIBLE);
             imageViewViewImageDZI.setVisibility(View.GONE);
@@ -1400,7 +1403,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    if (idSubFase != null){
+                    if (idSubFase != null) {
                         if (idSubFase.equals("1")) {
                             custumDocumentosIntegracionIFF.setVisibility(View.VISIBLE);
                             textViewListaDocumentosCDI.setVisibility(View.VISIBLE);
@@ -1411,10 +1414,10 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                             imageViewVerCamaraCAE.setVisibility(View.GONE);
                             imageViewVerDocumentoCAE.setVisibility(View.GONE);
                         }
-                    }else {
-                        if (idFase.equals("2")){
+                    } else {
+                        if (idFase.equals("2")) {
 
-                        }else if (idFase.equals("5")){
+                        } else if (idFase.equals("5")) {
                             imageViewVerGaleriaCAE.setVisibility(View.VISIBLE);
                             imageViewVerCamaraCAE.setVisibility(View.GONE);
                             imageViewVerDocumentoCAE.setVisibility(View.GONE);
@@ -1458,7 +1461,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                             imageViewVerCamaraCAE.setVisibility(View.GONE);
                             imageViewVerDocumentoCAE.setVisibility(View.VISIBLE);
                         }*/
-                        if (idSubFase != null){
+                        if (idSubFase != null) {
                             if (idSubFase.equals("1")) {
                                 custumDocumentosIntegracionIFF.setVisibility(View.VISIBLE);
                                 textViewListaDocumentosCDI.setVisibility(View.VISIBLE);
@@ -1469,10 +1472,10 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                                 imageViewVerCamaraCAE.setVisibility(View.GONE);
                                 imageViewVerDocumentoCAE.setVisibility(View.GONE);
                             }
-                        }else {
-                            if (idFase.equals("2")){
+                        } else {
+                            if (idFase.equals("2")) {
 
-                            }else if (idFase.equals("5")){
+                            } else if (idFase.equals("5")) {
                                 imageViewVerGaleriaCAE.setVisibility(View.VISIBLE);
                                 imageViewVerCamaraCAE.setVisibility(View.GONE);
                                 imageViewVerDocumentoCAE.setVisibility(View.GONE);
@@ -1580,9 +1583,10 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
         Dialog dialog = new Dialog(activity, R.style.CustomDialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
-        dialog.setContentView(R.layout.fragment_gelria_tomar_fotos);
+        dialog.setContentView(R.layout.dialog_galeria_tomar_fotos);
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
+        TextView textViewCloseDGTF = dialog.findViewById(R.id.textViewCloseDGTF);
         linearLayoutAdvertenciaFotosGTFF = dialog.findViewById(R.id.linearLayoutAdvertenciaFotosGTFF);
         imagenViewAdvertenciaFotosGTFF = dialog.findViewById(R.id.imagenViewAdvertenciaFotosGTFF);
 
@@ -1621,6 +1625,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                 }
             }
         });
+
         buttonGuardarPDFGTFF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1629,6 +1634,14 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                 } else {
                     GeneratePDF(dialog);
                 }
+            }
+        });
+
+        textViewCloseDGTF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listGaleriaFotos.clear();
+                dialog.dismiss();
             }
         });
         dialog.show();
@@ -1648,7 +1661,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                     listDocumentosSelectos.add(new Documentos(nombreFoto, String.valueOf(idIntegracionDoc), extension, Integer.parseInt(tamanio), stringCompressDocumento, mPath, tipoDocumento));
                 }
                 listGaleriaFotos.clear();
-                if (idSubFase !=null){
+                if (idSubFase != null) {
                     if (idSubFase.equals("1")) {
                         textViewListaDocumentosCDI.setVisibility(View.VISIBLE);
                         recyclerViewDocumentosCDI.setVisibility(View.VISIBLE);
@@ -1658,10 +1671,10 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                         imageViewVerCamaraCAE.setVisibility(View.VISIBLE);
                         imageViewVerDocumentoCAE.setVisibility(View.GONE);
                     }
-                }else {
+                }/* else {
 
-                }
-                if (idSubFase.equals("1")) {
+                }*/
+/*                if (idSubFase.equals("1")) {
                     textViewListaDocumentosCDI.setVisibility(View.VISIBLE);
                     recyclerViewDocumentosCDI.setVisibility(View.VISIBLE);
                     documentosInicioSubfaseAdapter.notifyDataSetChanged();
@@ -1669,7 +1682,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                     imageViewVerGaleriaCAE.setVisibility(View.GONE);
                     imageViewVerCamaraCAE.setVisibility(View.VISIBLE);
                     imageViewVerDocumentoCAE.setVisibility(View.GONE);
-                }
+                }*/
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1820,6 +1833,5 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
         galeriaFotosAdapter.getList().add(imagen);
         galeriaFotosAdapter.notifyDataSetChanged();
     }
-
 
 }

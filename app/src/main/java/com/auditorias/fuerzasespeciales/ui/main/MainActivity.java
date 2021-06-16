@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
     private int idUsuario;
     private int numeroNotificaciones;
 
+    private TextView textCartItemCount;
+    //int mCartItemCount = 10;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewSpacioMA = findViewById(R.id.imageViewSpacioMA);
 
         setSupportActionBar(toolbar);
-        appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_inicio_fragment, R.id.navigation_alta_nuevo_caso_fragment, R.id.navigation_search, R.id.navigation_finished, R.id.navigation_notificaciones_fragment).build();
+        appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_inicio_fragment, R.id.navigation_nueva_denuncia_fragment, R.id.navigation_busqueda_denuncias, R.id.navigation_denuncias_terminadas, R.id.navigation_notificaciones_fragment).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
@@ -89,38 +92,35 @@ public class MainActivity extends AppCompatActivity {
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 switch (destination.getId()) {
                     case R.id.navigation_inicio_fragment:
+                    case R.id.navigation_nueva_denuncia_fragment:
+                    case R.id.navigation_busqueda_denuncias:
+                    case R.id.navigation_denuncias_terminadas:
+                    case R.id.navigation_notificaciones_fragment:
+                        //textViewTituloPrincipalMA.setText(getString(R.string.title_complaints_finished));
+                        //textViewTituloPrincipalMA.setText(getString(R.string.title_search));
+                        //textViewTituloPrincipalMA.setText(getString(R.string.title_nuevas_denuncias));
                         //textViewTituloPrincipalMA.setText(TableDataUser.getNombreAbodago(MainActivity.this).concat(" - ").concat(TableDataUser.getPerfil(MainActivity.this)));
                         imageViewSpacioMA.setVisibility(View.VISIBLE);
-                        break;
-                    case R.id.navigation_alta_nuevo_caso_fragment:
-                        //textViewTituloPrincipalMA.setText(getString(R.string.title_nuevas_denuncias));
-                        imageViewSpacioMA.setVisibility(View.VISIBLE);
-                        break;
-                    case R.id.navigation_search:
-                        //textViewTituloPrincipalMA.setText(getString(R.string.title_search));
-                        imageViewSpacioMA.setVisibility(View.VISIBLE);
-                        break;
-                    case R.id.navigation_finished:
-                        //textViewTituloPrincipalMA.setText(getString(R.string.title_complaints_finished));
-                        imageViewSpacioMA.setVisibility(View.VISIBLE);
+                        setObtenerNotificacionesUsuario(MainActivity.this, Integer.parseInt(TableDataUser.getIdEmpleado(MainActivity.this)));
+                        setupBadge();
                         break;
                     case R.id.navigation_proceso_fase_denuncia_fragment:
                         //txtVwTileMainContainer.setText(getString(R.string.title_detalle_del_caso));
                         //imageView3.setVisibility(View.GONE);
                         //break;
                     case R.id.navigation_detalle_del_caso_fragment:
+                    case R.id.navigation_cerrar_fase_fragment:
+                    case R.id.navigation_iniciar_fase_fragment:
+                    case R.id.navigation_reprogramar_fase_fragment:
+                    case R.id.navigation_geleria_tomar_fotos_fragment:
+                        //textViewTituloPrincipalMA.setText(R.string.title_reprogramar_presentacion_de_denuncia);
+                        //textViewTituloPrincipalMA.setText(R.string.title_presentacion_de_denuncia);
                         //textViewTituloPrincipalMA.setText(getString(R.string.title_detalle_del_caso));
                         imageViewSpacioMA.setVisibility(View.GONE);
+                        setObtenerNotificacionesUsuario(MainActivity.this, Integer.parseInt(TableDataUser.getIdEmpleado(MainActivity.this)));
+                        setupBadge();
                         break;
-                    case R.id.navigation_terminar_presentacion_denuncia_fragment:
-                    case R.id.navigation_iniciar_fase_fragment:
-                        //textViewTituloPrincipalMA.setText(R.string.title_presentacion_de_denuncia);
-                        imageViewSpacioMA.setVisibility(View.GONE);
-                        break;
-                    case R.id.navigation_reprogramar_fase_fragment:
-                        //textViewTituloPrincipalMA.setText(R.string.title_reprogramar_presentacion_de_denuncia);
-                        imageViewSpacioMA.setVisibility(View.GONE);
-                        break;
+
                     default:
                         break;
                 }
@@ -145,6 +145,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        final MenuItem menuItem = menu.findItem(R.id.navigation_notificaciones_fragment);
+
+        View actionView = menuItem.getActionView();
+        textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
+
+        setupBadge();
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
 
         return true;
     }
@@ -159,17 +172,34 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         int id = item.getItemId();
+
         if (id == R.id.menu_action_cerrar_session) {
             showAlertDialog(MainActivity.this, getString(R.string.text_label_titulo_cerrar_sesion), getString(R.string.text_label_estas_seguro_de_cerrar_sesion), getString(R.string.text_label_si), getString(R.string.text_label_no));
-        } else /*if (id == R.id.menu_action_notification) {
-            Toast.makeText(this, "OPCION notifications", Toast.LENGTH_SHORT).show();
-        } else */if (id == R.id.menu_action_perfil) {
+        } else if (id == R.id.navigation_notificaciones_fragment) {
+            //Toast.makeText(this, "OPCION notifications", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menu_action_perfil) {
             //showDialogDetallePerfil(this, "");
             //Toast.makeText(this, "OPCION notifications", Toast.LENGTH_SHORT).show();
             getObtenerDetalleUsuario(this);
         }
 
         return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
+    }
+
+    private void setupBadge() {
+
+        if (textCartItemCount != null) {
+            if (numeroNotificaciones == 0) {
+                if (textCartItemCount.getVisibility() != View.GONE) {
+                    textCartItemCount.setVisibility(View.GONE);
+                }
+            } else {
+                textCartItemCount.setText(String.valueOf(Math.min(numeroNotificaciones, 99)));
+                if (textCartItemCount.getVisibility() != View.VISIBLE) {
+                    textCartItemCount.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 
     @Override

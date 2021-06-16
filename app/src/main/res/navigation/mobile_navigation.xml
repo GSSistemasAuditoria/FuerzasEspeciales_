@@ -20,7 +20,7 @@
         app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
     <fragment
-        android:id="@+id/navigation_alta_nuevo_caso_fragment"
+        android:id="@+id/navigation_nueva_denuncia_fragment"
         android:name="com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.NuevaDenunciaFragment"
         android:label="@string/title_denuncia"
         tools:layout="@layout/fragment_nueva_denuncia" />
@@ -37,18 +37,16 @@
         app:popUpToInclusive="true" />
 
     <fragment
-        android:id="@+id/navigation_search"
+        android:id="@+id/navigation_busqueda_denuncias"
         android:name="com.auditorias.fuerzasespeciales.ui.main.ui.busqueda.BusquedaDenunciasFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_busqueda_denuncias" />
 
     <fragment
-        android:id="@+id/navigation_finished"
+        android:id="@+id/navigation_denuncias_terminadas"
         android:name="com.auditorias.fuerzasespeciales.ui.main.ui.terminadas.FinishedFragment"
         android:label="@string/title_finished"
-        tools:layout="@layout/fragment_finished" >
-
-    </fragment>
+        tools:layout="@layout/fragment_finished" />
 
     <action
         android:id="@+id/action_navigation_finished_to_navigation_detalle_del_caso_fragment"
@@ -57,6 +55,20 @@
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <fragment
+        android:id="@+id/navigation_notificaciones_fragment"
+        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.notificaciones.NotificacionesFragment"
+        android:label="fragment_notificaciones"
+        tools:layout="@layout/fragment_notificaciones" />
+
+    <action
+        android:id="@+id/action_navigation_notificaciones_fragment_to_navigation_proceso_fase_denuncia_fragment"
+        app:destination="@id/navigation_proceso_fase_denuncia_fragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 
     <fragment
         android:id="@+id/navigation_proceso_fase_denuncia_fragment"
@@ -90,19 +102,19 @@
 
     <action
         android:id="@+id/action_navigation_proceso_fase_del_caso_fragment_to_navigation_terminar_presentacion_denuncia_fragment"
-        app:destination="@id/navigation_terminar_presentacion_denuncia_fragment"
+        app:destination="@id/navigation_cerrar_fase_fragment"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
-    <action
+<!--    <action
         android:id="@+id/action_navigation_proceso_fase_del_caso_fragment_to_navigation_iniciar_sub_fases_fragment"
         app:destination="@id/navigation_iniciar_sub_fases_fragment"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />-->
 
     <fragment
         android:id="@+id/navigation_detalle_del_caso_fragment"
@@ -153,13 +165,13 @@
         app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
     <fragment
-        android:id="@+id/navigation_terminar_presentacion_denuncia_fragment"
+        android:id="@+id/navigation_cerrar_fase_fragment"
         android:name="com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.cerrarFase.CerrarFaseFragment"
         android:label="fragment_terminar_presentacion_denuncia"
         tools:layout="@layout/fragment_cerrar_fase" />
 
     <action
-        android:id="@+id/action_navigation_terminar_presentacion_denuncia_fragment_to_navigation_proceso_fase_del_caso_fragment"
+        android:id="@+id/action_navigation_cerrar_fase_fragment_to_navigation_proceso_fase_del_caso_fragment"
         app:destination="@id/navigation_proceso_fase_denuncia_fragment"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
@@ -170,7 +182,7 @@
         app:popUpToInclusive="true" />
 
     <action
-        android:id="@+id/action_navigation_terminar_presentacion_denuncia_fragment_to_navigation_geleria_tomar_fotos_fragment"
+        android:id="@+id/action_navigation_cerrar_fase_fragment_to_navigation_geleria_tomar_fotos_fragment"
         app:destination="@id/navigation_geleria_tomar_fotos_fragment"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
@@ -181,7 +193,7 @@
         android:id="@+id/navigation_geleria_tomar_fotos_fragment"
         android:name="com.auditorias.fuerzasespeciales.GaleriaFotosFragment"
         android:label="fragment_gelria_tomar_fotos"
-        tools:layout="@layout/fragment_gelria_tomar_fotos" />
+        tools:layout="@layout/fragment_galeria_tomar_fotos" />
 
     <action
         android:id="@+id/action_navigation_geleria_tomar_fotos_fragment_to_navigation_reprogramadas_prentacion_de_demanda_fragment"
@@ -196,16 +208,16 @@
 
     <action
         android:id="@+id/action_navigation_geleria_tomar_fotos_fragment_to_navigation_terminar_presentacion_denuncia_fragment"
-        app:destination="@id/navigation_terminar_presentacion_denuncia_fragment"
+        app:destination="@id/navigation_cerrar_fase_fragment"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:launchSingleTop="true"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        app:popUpTo="@id/navigation_terminar_presentacion_denuncia_fragment"
+        app:popUpTo="@id/navigation_cerrar_fase_fragment"
         app:popUpToInclusive="true" />
 
-    <action
+    <!--<action
         android:id="@+id/action_navigation_geleria_tomar_fotos_fragment_to_navigation_iniciar_sub_fases_fragment"
         app:destination="@id/navigation_iniciar_sub_fases_fragment"
         app:enterAnim="@anim/nav_default_enter_anim"
@@ -213,28 +225,23 @@
         app:launchSingleTop="true"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        app:popUpTo="@id/navigation_terminar_presentacion_denuncia_fragment"
-        app:popUpToInclusive="true"/>
+        app:popUpTo="@id/navigation_cerrar_fase_fragment"
+        app:popUpToInclusive="true"/>-->
 
-    <fragment
+    <!--<fragment
         android:id="@+id/navigation_iniciar_sub_fases_fragment"
         android:name="com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.subFases.inicioSubFases.IniciarSubFasesFragment"
         android:label="IniciarSubFasesFragment"
-        tools:layout="@layout/fragment_iniciar_fases" />
+        tools:layout="@layout/fragment_iniciar_fases" />-->
 
-    <action
+    <!--<action
         android:id="@+id/action_navigation_iniciar_sub_fases_fragment_to_navigation_geleria_tomar_fotos_fragment"
         app:destination="@id/navigation_geleria_tomar_fotos_fragment"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
-
-    <fragment
-        android:id="@+id/navigation_notificaciones_fragment"
-        android:name="com.auditorias.fuerzasespeciales.ui.main.ui.notificaciones.notificacionesFragment"
-        android:label="fragment_notificaciones"
-        tools:layout="@layout/fragment_notificaciones" />
+-->
 
 
 </navigation>

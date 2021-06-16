@@ -25,12 +25,13 @@
 
             <TextView
                 android:id="@+id/buttonCerrarDDA"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center|end"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@android:color/transparent"
+                android:gravity="center"
                 android:text="X"
                 android:textColor="@color/gray20"
                 android:textSize="20sp" />
@@ -51,16 +52,16 @@
                 android:id="@+id/imageViewPerfilDDA"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/textViewNombrePerfilDDA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:gravity="center"
                 android:text="Nombre "
                 android:textColor="@color/dark"
@@ -71,9 +72,9 @@
                 android:id="@+id/textViewCorreoPerfilDDA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="10dp"
                 android:gravity="center"
                 android:text="Correo"
                 android:textColor="@color/dark" />
@@ -81,10 +82,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:orientation="horizontal">
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -123,9 +125,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -164,9 +166,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
 
                 <TextView

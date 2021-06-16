@@ -93,7 +93,7 @@ public class GaleriaFotosFragment extends Fragment implements View.OnClickListen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_gelria_tomar_fotos, container, false);
+        view = inflater.inflate(R.layout.fragment_galeria_tomar_fotos, container, false);
         activity = getActivity();
         //TODO: es el context del fragment
         //Context context = getContext();

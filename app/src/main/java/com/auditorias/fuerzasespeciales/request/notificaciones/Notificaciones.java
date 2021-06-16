@@ -5,21 +5,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class Notificaciones {
 
+
     @SerializedName("idTipoApp")
     @Expose
     private Integer idTipoApp;
-
     @SerializedName("idUsuario")
     @Expose
-    int idUsuario;
-    @SerializedName("notificacion")
-    @Expose
-    int notificacion;
-
-
-    public Notificaciones(int notificacion) {
-        this.notificacion = notificacion;
-    }
+    private int idUsuario;
 
     public Notificaciones(Integer idTipoApp, int idUsuario) {
         this.idTipoApp = idTipoApp;
@@ -42,11 +34,4 @@ public class Notificaciones {
         this.idUsuario = idUsuario;
     }
 
-    public int getNotificacion() {
-        return notificacion;
-    }
-
-    public void setNotificacion(int notificacion) {
-        this.notificacion = notificacion;
-    }
 }

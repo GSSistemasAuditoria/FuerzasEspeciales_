@@ -23,6 +23,7 @@ import com.auditorias.fuerzasespeciales.models.denunciaTerminada.CasosTerminados
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenuncia;
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDocumento;
 import com.auditorias.fuerzasespeciales.models.login.LoginAuthModel;
+import com.auditorias.fuerzasespeciales.models.notificaciones.ActualizarNotificacion;
 import com.auditorias.fuerzasespeciales.models.notificaciones.NotificacionesUsuario;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -66,7 +67,7 @@ public class RespuestaGeneral {
         return listCasosAbogado;
     }
 
-    public void setListCasosAbogado (List<CasosAbogado> listCasosAbogado) {
+    public void setListCasosAbogado(List<CasosAbogado> listCasosAbogado) {
         this.listCasosAbogado = listCasosAbogado;
     }
 
@@ -333,7 +334,7 @@ public class RespuestaGeneral {
         this.iniciarFase = iniciarFase;
     }
 
-    /****  servicio de Obtener Tipo Denuncia *******************************************************/
+    /****  servicio de Status Sentencia *******************************************************/
     @SerializedName("ObtenerCatalogoStatusSentenciaResult")
     @Expose
     private EstatusSentencia estatusSentencia;
@@ -344,5 +345,19 @@ public class RespuestaGeneral {
 
     public void setEstatusSentencia(EstatusSentencia estatusSentencia) {
         this.estatusSentencia = estatusSentencia;
+    }
+
+
+    /****  servicio de Status Sentencia *******************************************************/
+    @SerializedName("ActualizarNotificacionResult")
+    @Expose
+    private ActualizarNotificacion ActualizarNotificacion;
+
+    public ActualizarNotificacion getActualizarNotificacion() {
+        return ActualizarNotificacion;
+    }
+
+    public void setActualizarNotificacion(ActualizarNotificacion actualizarNotificacion) {
+        this.ActualizarNotificacion = actualizarNotificacion;
     }
 }

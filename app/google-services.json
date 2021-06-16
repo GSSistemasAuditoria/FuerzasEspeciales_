@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "663594714913",
+    "project_id": "sifra-c6923",
+    "storage_bucket": "sifra-c6923.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663594714913:android:b02ea3bcff8334a33be060",
+        "android_client_info": {
+          "package_name": "com.auditorias.fuerzasespeciales"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663594714913-q54n8n8hhf605mqm6b2fjo4rubnpgf99.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiAptNso0Nv6y4JsmYAT1IrrAmSZngXyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663594714913-q54n8n8hhf605mqm6b2fjo4rubnpgf99.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
