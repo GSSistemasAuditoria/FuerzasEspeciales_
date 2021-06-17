@@ -97,15 +97,11 @@ public class NotificacionesFragment extends Fragment implements SwipeRefreshLayo
         fragmentManager = getFragmentManager();
 
         getEnlaces(view);
-
+        ocultarElementos();
         getObtenerConfiguracionTipoAppMovil(activity);
         textViewSubTiutuloCST.setText(getString(R.string.title_notificaciones));
 
         setObtenerNotificacionesUsuario(activity, Integer.parseInt(TableDataUser.getIdEmpleado(activity)), Integer.parseInt("2"));
-
-
-
-
 
         //new Section
         return view;
@@ -126,6 +122,13 @@ public class NotificacionesFragment extends Fragment implements SwipeRefreshLayo
         swipeRefreshLayoutNF = view.findViewById(R.id.swipeRefreshLayoutNF);
         swipeRefreshLayoutNF.setOnRefreshListener(this);
         swipeRefreshLayoutNF.setColorSchemeResources(R.color.colorPrimary, android.R.color.holo_green_dark, android.R.color.holo_orange_dark, android.R.color.holo_blue_dark);
+    }
+
+    private void ocultarElementos(){
+        textViewDenunciasPorVencerNF.setVisibility(View.GONE);
+        textViewDenunciasPorVencerMostrarNF.setVisibility(View.GONE);
+        textViewReprogramacionesNF.setVisibility(View.GONE);
+        textViewReprogramacionesMostrarNF.setVisibility(View.GONE);
     }
 
     private void getObtenerConfiguracionTipoAppMovil(Activity activity) {
@@ -168,38 +171,47 @@ public class NotificacionesFragment extends Fragment implements SwipeRefreshLayo
                         Gson gson = new Gson();
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
                         if (respuestaGeneral.getNotificacionesUsuario().getExito().equals(Constantes.exitoTrue)) {
-                            for (int x = 0; x < respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().size(); x++) {
-                                if (respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().get(x).getIdTipoNotificacion().equals(2)) {
-                                    textViewDenunciasPorVencerNF.setText(respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().get(x).getTipoNotificacion());
-                                    listDenunciasPorVencer.add(respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().get(x));
-                                } else if (respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().get(x).getIdTipoNotificacion().equals(1)) {
-                                    textViewReprogramacionesNF.setText(respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().get(x).getTipoNotificacion());
-                                    listReprogramaciones.add(respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().get(x));
+                            if (!respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().isEmpty()){
+                                for (int x = 0; x < respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().size(); x++) {
+                                    if (respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().get(x).getIdTipoNotificacion().equals(2)) {
+                                        textViewDenunciasPorVencerNF.setVisibility(View.VISIBLE);
+                                        textViewDenunciasPorVencerMostrarNF.setVisibility(View.VISIBLE);
+                                        textViewDenunciasPorVencerNF.setText(respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().get(x).getTipoNotificacion());
+                                        listDenunciasPorVencer.add(respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().get(x));
+                                    } else if (respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().get(x).getIdTipoNotificacion().equals(1)) {
+                                        textViewReprogramacionesNF.setVisibility(View.VISIBLE);
+                                        textViewReprogramacionesMostrarNF.setVisibility(View.VISIBLE);
+                                        textViewReprogramacionesNF.setText(respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().get(x).getTipoNotificacion());
+                                        listReprogramaciones.add(respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().get(x));
+                                    }
                                 }
-                            }
-                            denunciasAdapter = new DenunciasPorVencerAdapter(activity, fragmentManager, listDenunciasPorVencer, new DenunciasPorVencerAdapter.OnClickListener() {
-                                @Override
-                                public void onItemClick(DataNotificacion notificacion, int position) {
-                                    setActualizarNotificacion(activity, notificacion.getId(), notificacion.getIdCaso(), notificacion.getIdTipoNotificacion());
-                                }
-                            });
-                            recyclerViewDenunciasPorVencerNF.setHasFixedSize(false);
-                            recyclerViewDenunciasPorVencerNF.setNestedScrollingEnabled(false);
-                            RecyclerView.LayoutManager layoutManagerCategory = new LinearLayoutManager(activity);
-                            recyclerViewDenunciasPorVencerNF.setLayoutManager(layoutManagerCategory);
-                            recyclerViewDenunciasPorVencerNF.setAdapter(denunciasAdapter);
 
-                            reprogramacionesAdapter = new ReprogramacionesAdapter(activity, fragmentManager, listReprogramaciones, new ReprogramacionesAdapter.OnClickListener() {
-                                @Override
-                                public void onItemClick(DataNotificacion notificacion, int position) {
-                                    setActualizarNotificacion(activity, notificacion.getId(), notificacion.getIdCaso(), notificacion.getIdTipoNotificacion());
-                                }
-                            });
-                            recyclerViewReprogramacionesNF.setHasFixedSize(false);
-                            recyclerViewReprogramacionesNF.setNestedScrollingEnabled(false);
-                            RecyclerView.LayoutManager layoutManagerCategory2 = new LinearLayoutManager(activity);
-                            recyclerViewReprogramacionesNF.setLayoutManager(layoutManagerCategory2);
-                            recyclerViewReprogramacionesNF.setAdapter(reprogramacionesAdapter);
+                                denunciasAdapter = new DenunciasPorVencerAdapter(activity, fragmentManager, listDenunciasPorVencer, new DenunciasPorVencerAdapter.OnClickListener() {
+                                    @Override
+                                    public void onItemClick(DataNotificacion notificacion, int position) {
+                                        setActualizarNotificacion(activity, notificacion.getId(), notificacion.getIdCaso(), notificacion.getIdTipoNotificacion());
+                                    }
+                                });
+                                recyclerViewDenunciasPorVencerNF.setHasFixedSize(false);
+                                recyclerViewDenunciasPorVencerNF.setNestedScrollingEnabled(false);
+                                RecyclerView.LayoutManager layoutManagerCategory = new LinearLayoutManager(activity);
+                                recyclerViewDenunciasPorVencerNF.setLayoutManager(layoutManagerCategory);
+                                recyclerViewDenunciasPorVencerNF.setAdapter(denunciasAdapter);
+
+                                reprogramacionesAdapter = new ReprogramacionesAdapter(activity, fragmentManager, listReprogramaciones, new ReprogramacionesAdapter.OnClickListener() {
+                                    @Override
+                                    public void onItemClick(DataNotificacion notificacion, int position) {
+                                        setActualizarNotificacion(activity, notificacion.getId(), notificacion.getIdCaso(), notificacion.getIdTipoNotificacion());
+                                    }
+                                });
+                                recyclerViewReprogramacionesNF.setHasFixedSize(false);
+                                recyclerViewReprogramacionesNF.setNestedScrollingEnabled(false);
+                                RecyclerView.LayoutManager layoutManagerCategory2 = new LinearLayoutManager(activity);
+                                recyclerViewReprogramacionesNF.setLayoutManager(layoutManagerCategory2);
+                                recyclerViewReprogramacionesNF.setAdapter(reprogramacionesAdapter);
+                            }else {
+                                Utils.messageShort(activity, "No hay notificaciones");
+                            }
 
                         } else {
                             Utils.messageShort(activity, respuestaGeneral.getNotificacionesUsuario().getError());

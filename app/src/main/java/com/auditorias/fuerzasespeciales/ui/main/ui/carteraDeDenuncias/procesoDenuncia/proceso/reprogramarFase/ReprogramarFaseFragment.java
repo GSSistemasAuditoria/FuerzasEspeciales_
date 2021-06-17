@@ -35,6 +35,7 @@ import androidx.navigation.Navigation;
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
 import com.auditorias.fuerzasespeciales.models.Serial;
+import com.auditorias.fuerzasespeciales.models.denucia.DatosDenuncia;
 import com.auditorias.fuerzasespeciales.request.DatosFecha;
 import com.auditorias.fuerzasespeciales.request.SolicitudRequest;
 import com.auditorias.fuerzasespeciales.request.denuncia.DatosDenunciaRequest;
@@ -66,6 +67,42 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
 
     //TODO:todas los listas que se pueden utilizar en el fragmento
     private final List<Documentos> documentos = new ArrayList<>();
+
+    private TextView textViewSubTiutuloCST;
+
+    private LinearLayout linearLayoutColorEtapaDenunciaCDD;
+    private TextView textViewFolioDenunciaCDD;
+    private TextView textViewNombreDenunciaCDD;
+    private TextView textViewPorcentajeGeneralDenunciaCDD;
+    private TextView textViewTipoDelitoCDD;
+    private TextView textViewTipoDenunciaCDD;
+    private TextView textViewUnidadNegocioCDD;
+    private TextView textViewFechaResgistroCDD;
+    private TextView textViewFechaCompromisoFaseTextCDD;
+    private TextView textViewFechaCompromisoFaseCDD;
+    private TextView textViewZonaCDD;
+    private TextView textViewAutorizacionTextCDD;
+    private TextView textViewAutorizacionCDD;
+
+    private TextView textViewFaseEtapaCDF;
+    private TextView textViewFaseEtapaColorCDF;
+    private TextView textViewFechaCompromisoCDF;
+
+    private TextInputEditText textInputEditTextMotivoSolicitidRFF;
+
+    private ImageView imageViewDocumentoCAE;
+    private TextView textViewDocumentoCAE;
+    private ImageView imageViewVerDocumentoCAE;
+
+    private ImageView imageViewCamaraCAE;
+    private TextView textViewCamaraCAE;
+    private ImageView imageViewVerCamaraCAE;
+
+    private ImageView imageViewGaleriaCAE;
+    private TextView textViewGaleriaCAE;
+    private ImageView imageViewVerGaleriaCAE;
+
+
 
     private String[] parts;
     private String doc;
@@ -101,30 +138,7 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
     private Double valorDeConfiguracion;
     private String descripcionConfiguracion;
     private int banderaFotos = 0;
-    //TODO: son todos los textview del fragment
-    private TextView textViewFolioDenunciaCDD;
-    private TextView textViewPorcentajeGeneralDenunciaCDD;
-    private TextView textViewNombreDenunciaCDD;
-    private TextView textViewTipoDelitoCDD;
-    private TextView textViewUnidadNegocioCDD;
-    private TextView textViewFechaResgistroCDD;
-    private TextView textViewFechaCompromisoFaseTextCDD;
-    private TextView textViewFechaCompromisoCasoCDD;
-    private TextView textViewZonaCDD;
-    private TextView textViewAutorizacionTextCDD;
-    private TextView textViewAutorizacionCDD;
-    private TextView textViewFaseEtapaCDF;
-    private TextView textViewFaseEtapaColorCDF;
-    private TextView textViewFechaCompromisoCDF;
-    private TextView textViewSubTiutuloCST;
 
-    //TODO: son todos los TextInputEditText del fragment
-    private TextInputEditText textInputEditTextMotivoSolicitidRDF;
-    private ImageView imageViewVerDocumentoCAE;
-    private ImageView imageViewVerFotosCAE;
-    private ImageView imageViewVerImagenesCAE;
-    //TODO: son todos los Linearlayout del fragment
-    private LinearLayout linearLayoutColorEtapaDenunciaCDD;
     //TODO: son todos los view del fragment
     private View view;
     //TODO: es el context del fragment
@@ -166,13 +180,13 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
             valorDeConfiguraciontipoAppMovil = args.getString("tipoAppMovil");
             mPath = args.getString("uriStringPDFPDFFotos");
             justificacion = args.getString("justificacion");
-            textInputEditTextMotivoSolicitidRDF.setText(args.getString("justificacion"));
+            //textInputEditTextMotivoSolicitidRFF.setText(args.getString("justificacion"));
         }
 
         if (mPath != null) {
             imageViewVerDocumentoCAE.setVisibility(View.GONE);
-            imageViewVerFotosCAE.setVisibility(View.VISIBLE);
-            imageViewVerImagenesCAE.setVisibility(View.GONE);
+            imageViewVerCamaraCAE.setVisibility(View.VISIBLE);
+            imageViewVerGaleriaCAE.setVisibility(View.GONE);
             banderaFotos = 2;
             try {
                 File file = new File(mPath);
@@ -215,75 +229,63 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
     }
 
     public void refereciasConInterface(View view) {
+        textViewSubTiutuloCST = view.findViewById(R.id.textViewSubTiutuloCST);
         linearLayoutColorEtapaDenunciaCDD = view.findViewById(R.id.linearLayoutColorEtapaDenunciaCDD);
         textViewFolioDenunciaCDD = view.findViewById(R.id.textViewFolioDenunciaCDD);
         textViewNombreDenunciaCDD = view.findViewById(R.id.textViewNombreDenunciaCDD);
         textViewPorcentajeGeneralDenunciaCDD = view.findViewById(R.id.textViewPorcentajeGeneralDenunciaCDD);
         textViewTipoDelitoCDD = view.findViewById(R.id.textViewTipoDelitoCDD);
+        textViewTipoDenunciaCDD = view.findViewById(R.id.textViewTipoDenunciaCDD);
         textViewUnidadNegocioCDD = view.findViewById(R.id.textViewUnidadNegocioCDD);
         textViewFechaResgistroCDD = view.findViewById(R.id.textViewFechaResgistroCDD);
         textViewFechaCompromisoFaseTextCDD = view.findViewById(R.id.textViewFechaCompromisoFaseTextCDD);
-        textViewFechaCompromisoCasoCDD = view.findViewById(R.id.textViewFechaCompromisoFaseCDD);
+        textViewFechaCompromisoFaseCDD = view.findViewById(R.id.textViewFechaCompromisoFaseCDD);
         textViewZonaCDD = view.findViewById(R.id.textViewZonaCDD);
         textViewAutorizacionTextCDD = view.findViewById(R.id.textViewAutorizacionTextCDD);
         textViewAutorizacionCDD = view.findViewById(R.id.textViewAutorizacionCDD);
-        textViewSubTiutuloCST = view.findViewById(R.id.textViewSubTiutuloCST);
 
         textViewFaseEtapaCDF = view.findViewById(R.id.textViewFaseEtapaCDF);
         textViewFaseEtapaColorCDF = view.findViewById(R.id.textViewFaseEtapaColorCDF);
-
         textViewFechaCompromisoCDF = view.findViewById(R.id.textViewFechaCompromisoCDF);
 
-        //TODO: son todos los TextinputLayout del fragment
-        //TextInputLayout textInputLayoutMotivoSolicitudRDF = view.findViewById(R.id.textInputLayoutMotivoSolicitudRDF);
-        textInputEditTextMotivoSolicitidRDF = view.findViewById(R.id.textInputEditTextMotivoSolicitidRFF);
+        textInputEditTextMotivoSolicitidRFF = view.findViewById(R.id.textInputEditTextMotivoSolicitidRFF);
 
-        //TODO: son todos los imageview del fragment
-        ImageView imageViewDocumentoCAE = view.findViewById(R.id.imageViewDocumentoCAE);
+        imageViewDocumentoCAE = view.findViewById(R.id.imageViewDocumentoCAE);
         imageViewDocumentoCAE.setOnClickListener(this);
-
-        TextView textViewDocumentoCAE = view.findViewById(R.id.textViewDocumentoCAE);
+        textViewDocumentoCAE = view.findViewById(R.id.textViewDocumentoCAE);
         textViewDocumentoCAE.setOnClickListener(this);
-
         imageViewVerDocumentoCAE = view.findViewById(R.id.imageViewVerDocumentoCAE);
         imageViewVerDocumentoCAE.setOnClickListener(this);
 
-        ImageView imageViewCamaraCAE = view.findViewById(R.id.imageViewCamaraCAE);
+        imageViewCamaraCAE = view.findViewById(R.id.imageViewCamaraCAE);
         imageViewCamaraCAE.setOnClickListener(this);
-
-        TextView textViewCamaraCAE = view.findViewById(R.id.textViewCamaraCAE);
+        textViewCamaraCAE = view.findViewById(R.id.textViewCamaraCAE);
         textViewCamaraCAE.setOnClickListener(this);
+        imageViewVerCamaraCAE = view.findViewById(R.id.imageViewVerCamaraCAE);
+        imageViewVerCamaraCAE.setOnClickListener(this);
 
-        imageViewVerFotosCAE = view.findViewById(R.id.imageViewVerCamaraCAE);
-        imageViewVerFotosCAE.setOnClickListener(this);
-
-        ImageView imageViewGaleriaCAE = view.findViewById(R.id.imageViewGaleriaCAE);
+        imageViewGaleriaCAE = view.findViewById(R.id.imageViewGaleriaCAE);
         imageViewGaleriaCAE.setOnClickListener(this);
-
-        TextView textViewGaleriaCAE = view.findViewById(R.id.textViewGaleriaCAE);
+        textViewGaleriaCAE = view.findViewById(R.id.textViewGaleriaCAE);
         textViewGaleriaCAE.setOnClickListener(this);
+        imageViewVerGaleriaCAE = view.findViewById(R.id.imageViewVerGaleriaCAE);
+        imageViewVerGaleriaCAE.setOnClickListener(this);
 
-        imageViewVerImagenesCAE = view.findViewById(R.id.imageViewVerGaleriaCAE);
-        imageViewVerImagenesCAE.setOnClickListener(this);
-
-        //TODO: son todos los botones del fragment
-        Button buttonReprogramarRDF = view.findViewById(R.id.buttonReprogramarRFF);
-        buttonReprogramarRDF.setOnClickListener(this);
+        Button buttonReprogramarRFF = view.findViewById(R.id.buttonReprogramarRFF);
+        buttonReprogramarRFF.setOnClickListener(this);
     }
 
-    //TODO: los elementos que se ocultan al iniciar el fragment
     public void ocultarElementos() {
         textViewPorcentajeGeneralDenunciaCDD.setVisibility(View.GONE);
         textViewFechaCompromisoFaseTextCDD.setVisibility(View.GONE);
-        textViewFechaCompromisoCasoCDD.setVisibility(View.GONE);
-        textViewAutorizacionCDD.setVisibility(View.GONE);
+        textViewFechaCompromisoFaseCDD.setVisibility(View.GONE);
         textViewAutorizacionTextCDD.setVisibility(View.GONE);
+        textViewAutorizacionCDD.setVisibility(View.GONE);
         imageViewVerDocumentoCAE.setVisibility(View.GONE);
-        imageViewVerFotosCAE.setVisibility(View.GONE);
-        imageViewVerImagenesCAE.setVisibility(View.GONE);
+        imageViewVerCamaraCAE.setVisibility(View.GONE);
+        imageViewVerGaleriaCAE.setVisibility(View.GONE);
     }
 
-    //TODO: llenar la vista cn el servicio de datos casos en el fragment
     private void getDatosCasos(Activity activity, int idCaso) {
         try {
             Gson gsonParams = new Gson();
@@ -295,30 +297,10 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
                     Gson gson = new Gson();
                     Serial serial = gson.fromJson(result, Serial.class);
                     if (serial.getDatosCasoModel().getExito().equals(Constantes.exitoTrue)) {
-
+                        getDatosDenuncia(serial.getDatosCasoModel());
                         idCasoGeneral = String.valueOf(serial.getDatosCasoModel().getId());
                         idFase = String.valueOf(serial.getDatosCasoModel().getIdFase());
                         idCasoFase = String.valueOf(serial.getDatosCasoModel().getIdCasoFase());
-
-                        if (serial.getDatosCasoModel().getIdSubFase() != null) {
-                            textViewSubTiutuloCST.setText(getString(R.string.text_label_reprogramacion).concat(" - ").concat(serial.getDatosCasoModel().getSubFase()));
-                        } else {
-                            textViewSubTiutuloCST.setText(getString(R.string.text_label_reprogramacion).concat(" - ").concat(serial.getDatosCasoModel().getFase()));
-                        }
-
-                        linearLayoutColorEtapaDenunciaCDD.setBackgroundColor(Color.parseColor(serial.getDatosCasoModel().getColorEtapaCaso()));
-                        textViewFolioDenunciaCDD.setText(serial.getDatosCasoModel().getFolio());
-                        textViewNombreDenunciaCDD.setText(serial.getDatosCasoModel().getNombre());
-                        textViewTipoDelitoCDD.setText(serial.getDatosCasoModel().getTipoFraude());
-                        textViewUnidadNegocioCDD.setText(serial.getDatosCasoModel().getUdN());
-                        textViewZonaCDD.setText(serial.getDatosCasoModel().getRegion());
-                        textViewFechaResgistroCDD.setText(Utils.SetCambioFormatoFechaDiaMesAnio(String.valueOf(serial.getDatosCasoModel().getFechaRegistro())));
-
-                        textViewFaseEtapaCDF.setText(serial.getDatosCasoModel().getFase());
-                        textViewFechaCompromisoCDF.setText(Utils.SetCambioFormatoFechaDiaMesAnio(String.valueOf(serial.getDatosCasoModel().getFechaCompromiso())));
-
-                        textViewFaseEtapaColorCDF.setText(serial.getDatosCasoModel().getEtapaFase());
-                        textViewFaseEtapaColorCDF.setBackground(Utils.cambiarColorTextView(serial.getDatosCasoModel().getColorEtapaCaso()));
 
                         try {
                             fechaCompromiso = Utils.cambiarFechayyyyMMdd(serial.getDatosCasoModel().getFechaCompromiso());
@@ -332,11 +314,49 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
                 public void executeInBackground(String result, String header) {
 
                 }
-            //}, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.ObtenerDatosCaso.concat(Constantes.signoInterrogacion).concat(Constantes.idCaso).concat(Constantes.signoIgual).concat(idCaso));
+                //}, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.ObtenerDatosCaso.concat(Constantes.signoInterrogacion).concat(Constantes.idCaso).concat(Constantes.signoIgual).concat(idCaso));
             }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.ObtenerDatosCaso, params);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void getDatosDenuncia(DatosDenuncia datosDenuncia) {
+        if (datosDenuncia.getSubFase() != null) {
+            textViewSubTiutuloCST.setText(getString(R.string.text_label_reprogramacion).concat(" - ").concat(datosDenuncia.getSubFase()));
+        } else {
+            textViewSubTiutuloCST.setText(getString(R.string.text_label_reprogramacion).concat(" - ").concat(datosDenuncia.getFase()));
+        }
+
+        linearLayoutColorEtapaDenunciaCDD.setBackgroundColor(Color.parseColor(datosDenuncia.getColorEtapaCaso()));
+        textViewFolioDenunciaCDD.setText(datosDenuncia.getFolio());
+        textViewNombreDenunciaCDD.setText(datosDenuncia.getNombre());
+        textViewTipoDelitoCDD.setText(datosDenuncia.getTipoFraude());
+        textViewTipoDenunciaCDD.setText(datosDenuncia.getTipoDenuncia());
+        textViewUnidadNegocioCDD.setText(datosDenuncia.getUdN().concat(" - ").concat(datosDenuncia.getUdNCeco()));
+        textViewFechaResgistroCDD.setText(Utils.SetCambioFormatoFechaDiaMesAnio(String.valueOf(datosDenuncia.getFechaRegistro())));
+        textViewZonaCDD.setText(datosDenuncia.getRegion().concat(" - ").concat(datosDenuncia.getZona()));
+
+        if (datosDenuncia.getSubFase() != null) {
+            textViewFaseEtapaCDF.setText(datosDenuncia.getFase());
+        } else {
+            textViewFaseEtapaCDF.setText(datosDenuncia.getSubFase());
+        }
+
+        if (datosDenuncia.getEtapaSubFase() != null){
+            textViewFaseEtapaColorCDF.setText(datosDenuncia.getEtapaFase());
+        }else {
+            textViewFaseEtapaColorCDF.setText(datosDenuncia.getEtapaSubFase());
+        }
+
+        if (datosDenuncia.getColorSubFase() != null){
+            textViewFaseEtapaColorCDF.setBackground(Utils.cambiarColorTextView(datosDenuncia.getColorSubFase()));
+        }else {
+            textViewFaseEtapaColorCDF.setBackground(Utils.cambiarColorTextView(datosDenuncia.getColorFase()));
+        }
+
+        textViewFechaCompromisoCDF.setText(Utils.SetCambioFormatoFechaDiaMesAnio(String.valueOf(datosDenuncia.getFechaCompromiso())));
+
     }
 
     private void getObtenerConfiguracionFileMaxSize(Activity activity) {
@@ -468,7 +488,7 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
 
             case R.id.imageViewCamaraCAE:
             case R.id.textViewCamaraCAE:
-                justificacion = Objects.requireNonNull(textInputEditTextMotivoSolicitidRDF.getText()).toString().trim();
+                justificacion = Objects.requireNonNull(textInputEditTextMotivoSolicitidRFF.getText()).toString().trim();
                 if (stringBase64DocumentoImganen != null) {
                     showAlertDialogSeleccionarEvidencia(activity, getString(R.string.text_label_evidencia), getString(R.string.text_label_se_eleminara_la_evidencia_anterior).concat(getString(R.string.text_label_pregunta_general)), getString(R.string.text_label_si), getString(R.string.text_label_no), 3, v);
                 } else {
@@ -506,21 +526,18 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
                 break;
 
             case R.id.buttonReprogramarRFF:
-                justificacion = Objects.requireNonNull(textInputEditTextMotivoSolicitidRDF.getText()).toString().trim();
+                justificacion = Objects.requireNonNull(textInputEditTextMotivoSolicitidRFF.getText()).toString().trim();
                 if (idCasoGeneral.isEmpty()) {
                     Utils.messageShort(activity, getString(R.string.text_label_id_caso));
                 } else if (String.valueOf(idCasoFase).isEmpty()) {
                     Utils.messageShort(activity, getString(R.string.text_label_id_caso_face));
                 } else if (justificacion.isEmpty()) {
-                    textInputEditTextMotivoSolicitidRDF.setError(getString(R.string.text_label_la_justificacion_esta_vacia));
-                    textInputEditTextMotivoSolicitidRDF.requestFocus();
+                    textInputEditTextMotivoSolicitidRFF.setError(getString(R.string.text_label_la_justificacion_esta_vacia));
+                    textInputEditTextMotivoSolicitidRFF.requestFocus();
                 } else if (justificacion.length() <= 9) {
-                    textInputEditTextMotivoSolicitidRDF.setError(getString(R.string.text_label_la_justificacion_es_menor_a_10_caracteres));
-                    textInputEditTextMotivoSolicitidRDF.requestFocus();
-                } else if (fechaCompromiso.length() <= 9) {
-                    textInputEditTextMotivoSolicitidRDF.setError(getString(R.string.text_label_fecha_compromiso_esta_vacio));
-                    textInputEditTextMotivoSolicitidRDF.requestFocus();
-                } else {
+                    textInputEditTextMotivoSolicitidRFF.setError(getString(R.string.text_label_la_justificacion_es_menor_a_10_caracteres));
+                    textInputEditTextMotivoSolicitidRFF.requestFocus();
+                } else  {
                     if (Functions.isNetworkAvailable(activity)) {
                         showAlertDialogReprogramcionPresentacion(activity, getString(R.string.text_label_reprogramacion),
                                 getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no),
@@ -544,8 +561,8 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
         dialogo1.setPositiveButton(positivoMensaje, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {
                 imageViewVerDocumentoCAE.setVisibility(View.GONE);
-                imageViewVerFotosCAE.setVisibility(View.GONE);
-                imageViewVerImagenesCAE.setVisibility(View.GONE);
+                imageViewVerCamaraCAE.setVisibility(View.GONE);
+                imageViewVerGaleriaCAE.setVisibility(View.GONE);
                 stringsToNull();
                 if (tipoDocumento == 1) {
                     cargarImagenGaleria("png");
@@ -847,8 +864,8 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        imageViewVerImagenesCAE.setVisibility(View.VISIBLE);
-                        imageViewVerFotosCAE.setVisibility(View.GONE);
+                        imageViewVerGaleriaCAE.setVisibility(View.VISIBLE);
+                        imageViewVerCamaraCAE.setVisibility(View.GONE);
                         imageViewVerDocumentoCAE.setVisibility(View.GONE);
                     } else {
                         stringsToNull();
@@ -894,8 +911,8 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
                             e.printStackTrace();
                         }
                         banderaFotos = 1;
-                        imageViewVerImagenesCAE.setVisibility(View.GONE);
-                        imageViewVerFotosCAE.setVisibility(View.GONE);
+                        imageViewVerGaleriaCAE.setVisibility(View.GONE);
+                        imageViewVerCamaraCAE.setVisibility(View.GONE);
                         imageViewVerDocumentoCAE.setVisibility(View.VISIBLE);
 
                     } else {
@@ -929,7 +946,7 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
             return null;
     }
 
-    public Bitmap decodeFile(String path) {
+    /*public Bitmap decodeFile(String path) {
         try {
             // Decode image size
             BitmapFactory.Options o = new BitmapFactory.Options();
@@ -952,7 +969,7 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
         }
         return null;
 
-    }
+    }*/
 
 
     public void cargarImagenGaleria(String extensionPng) {

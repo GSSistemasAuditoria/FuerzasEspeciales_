@@ -4,6 +4,8 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,9 +44,12 @@ import com.auditorias.fuerzasespeciales.utils.Delegate;
 import com.auditorias.fuerzasespeciales.utils.Functions;
 import com.auditorias.fuerzasespeciales.utils.Utils;
 import com.auditorias.fuerzasespeciales.webServicies.Constantes;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -75,6 +81,52 @@ public class MainActivity extends AppCompatActivity {
         setObtenerNotificacionesUsuario(this, Integer.parseInt(TableDataUser.getIdEmpleado(this)));
         toolbar = findViewById(R.id.toolbar_generic);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create channel to show notifications.
+            String channelId = getString(R.string.default_notification_channel_id);
+            String channelName = getString(R.string.default_notification_channel_name);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW));
+        }
+
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+                Log.d("", "Key: " + key + " Value: " + value);
+            }
+        }
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("", "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d("token", msg);
+                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        FirebaseMessaging.getInstance().subscribeToTopic("sifra")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = getString(R.string.msg_subscribed);
+                        if (!task.isSuccessful()) {
+                            msg = getString(R.string.msg_subscribe_failed);
+                        }
+                        Log.d("", msg);
+                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
         //textViewTituloPrincipalMA = findViewById(R.id.textViewSubTiutuloCST);
         imageViewSpacioMA = findViewById(R.id.imageViewSpacioMA);
 
@@ -95,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_nueva_denuncia_fragment:
                     case R.id.navigation_busqueda_denuncias:
                     case R.id.navigation_denuncias_terminadas:
-                    case R.id.navigation_notificaciones_fragment:
+                        //case R.id.navigation_notificaciones_fragment:
                         //textViewTituloPrincipalMA.setText(getString(R.string.title_complaints_finished));
                         //textViewTituloPrincipalMA.setText(getString(R.string.title_search));
                         //textViewTituloPrincipalMA.setText(getString(R.string.title_nuevas_denuncias));
@@ -241,18 +293,12 @@ public class MainActivity extends AppCompatActivity {
                     public void getDelegate(String result) {
                         Gson gson = new Gson();
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
-                        //Serial serial = gson.fromJson(result, Serial.class);
                         numeroNotificaciones = respuestaGeneral.getNotificacionesUsuario().getDataNotificacions().size();
 
                         int menuItemId = navView.getMenu().getItem(4).getItemId();
                         BadgeDrawable badge = navView.getOrCreateBadge(menuItemId);
                         badge.setNumber(numeroNotificaciones);
-                        Log.i("getDelegate", "getDelegate: " + numeroNotificaciones);
-                        //if (serial.getIniciarFaseResult().getExito().equals(Constantes.exitoTrue)) {
-                        //showDialogInicioFaseConExito(activity, view , getString(R.string.text_label_inicio), getString(R.string.text_label_se_ha_iniciado_esta_fase_con_exito), getString(R.string.text_label_aceptar), String.valueOf(serial.getIniciarFaseResult().getIdCaso()));
-                        //} else {
-                        //    Utils.message(activity, serial.getIniciarFaseResult().getError());
-                        //}
+                        //Log.i("getDelegate", "getDelegate: " + numeroNotificaciones);
                     }
 
                     @Override
@@ -269,6 +315,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     public void showDialogDetallePerfil(Activity activity, String titulo, DetalleUsuario detalleUsuario) {
         Dialog dialog = new Dialog(activity, R.style.CustomDialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -288,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
         TextView buttonCerrarDDA = dialog.findViewById(R.id.buttonCerrarDDA);
         TextView textViewTipoEmpleadoDDA = dialog.findViewById(R.id.textViewTipoEmpleadoDDA);
 
-        textViewTituloDDA.setText(titulo);
+        textViewTituloDDA.setText(detalleUsuario.getPerfil());
         textViewNombrePerfilDDA.setText(detalleUsuario.getNombre());
         textViewPerfilPerfilDDA.setText(detalleUsuario.getPerfil());
         textViewCecoPerfilDDA.setText(detalleUsuario.getCeco());
@@ -300,8 +347,10 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             Picasso.get().load("https://portal.socio.gs/foto/back_office/empleados/".concat(detalleUsuario.getIdUsuario()).concat(".jpg")).into(imageViewPerfilDDA);
+            //imageViewPerfilDDA.setImageDrawable(getDrawable(R.drawable.ic_png_transpare));
         } catch (Exception e) {
             e.printStackTrace();
+            imageViewPerfilDDA.setImageDrawable(getDrawable(R.drawable.ic_png_transpare));
             //Picasso.get().load("https://portal.socio.gs/foto/back_office/empleados/".concat(detalleUsuario.getIdUsuario()).concat(".jpg")).into(imageViewPerfilDDA);
         }
 

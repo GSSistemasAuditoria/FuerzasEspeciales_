@@ -432,7 +432,6 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                     public void executeInBackground(String result, String header) {
 
                     }
-                    //}, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.ObtenerDatosCaso.concat(Constantes.signoInterrogacion).concat(Constantes.idCaso).concat(Constantes.signoIgual).concat(idCaso));
                 }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.ObtenerDatosCaso, params);
             } else {
                 Utils.messageShort(activity, getString(R.string.text_label_error_de_conexion));

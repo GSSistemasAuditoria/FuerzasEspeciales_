@@ -12,21 +12,21 @@
     <item
         android:id="@+id/navigation_notificaciones_fragment"
         android:icon="@drawable/ic_notifications"
-        android:title="Cart"
+        android:title="@string/title_notificaciones"
         app:actionLayout="@layout/badge_layout"
-        app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/menu_action_cerrar_session"
-        android:orderInCategory="100"
-        android:title="@string/action_cerrar_session"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_action_perfil"
         android:icon="@drawable/ic_usuario"
         android:orderInCategory="100"
         android:title="@string/action_perfil"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_action_cerrar_session"
+        android:orderInCategory="100"
+        android:title="@string/action_cerrar_session"
         app:showAsAction="never" />
 
 </menu>

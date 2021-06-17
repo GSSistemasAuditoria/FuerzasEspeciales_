@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -432,6 +433,7 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
         }
 
         if (detalleDenuncia.getStatusAutorizacion() != null) {
+            Log.i(TAG, "showDialogDetalleDenuncia: "+ detalleDenuncia.getStatusAutorizacion());
             textViewEstatusReprogramarDDD.setText(detalleDenuncia.getStatusAutorizacion());
         } else {
             textViewEstatusReprogramarDDD.setText(getString(R.string.text_label_no_aplica));
@@ -439,7 +441,7 @@ public class DetalleDelCasoFragment extends Fragment implements View.OnClickList
 
         if (detalleDenuncia.getColorAutorizacion1() != null && detalleDenuncia.getColorAutorizacion1() != null) {
             textViewEstatusReprogramarDDD.setBackground(Utils.cambiarColorTextView(detalleDenuncia.getColorAutorizacion1()));
-            textViewEstatusReprogramarDDD.setText(detalleDenuncia.getEtapaSubFase());
+            //textViewEstatusReprogramarDDD.setText(detalleDenuncia.getEtapaSubFase());
         } else {
             //textViewColorSubFaseDenunciaDDD.setVisibility(View.GONE);
             textViewEstatusReprogramarDDD.setTextColor(activity.getColor(R.color.dark));
