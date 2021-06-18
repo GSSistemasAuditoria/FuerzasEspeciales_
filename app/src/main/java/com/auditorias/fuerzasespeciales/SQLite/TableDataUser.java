@@ -13,12 +13,13 @@ import com.auditorias.fuerzasespeciales.webServicies.Constantes;
 
 public class TableDataUser {
 
-    String sql = "CREATE TABLE IF NOT EXISTS " + Constantes.tableDataUser + " (" + Constantes.jwt + " TEXT," +
-            Constantes.ceco + " TEXT," + Constantes.contrasena + " TEXT," + Constantes.correo + " TEXT," + Constantes.fechaAlta + " TEXT," +
-            Constantes.fechaMod + " TEXT," + Constantes.idEmpleado + " TEXT," + Constantes.idPerfil + " TEXT," + Constantes.idStatus + " TEXT," +
-            Constantes.idTipoEmpleado + " TEXT," + Constantes.idUsuario + " TEXT," + Constantes.nombre + " TEXT," + Constantes.telefono + " TEXT," +
-            Constantes.estatus + " TEXT," + Constantes.idRegion + " TEXT," + Constantes.perfil + " TEXT," + Constantes.region + " TEXT," +
-            Constantes.tipoEmpleado + " TEXT," + Constantes.zona + " TEXT)";
+    String sql = Constantes.create_table_if_no_exists.concat( Constantes.tableDataUser).concat(Constantes.parectesis_inicio).concat(Constantes.jwt).concat(Constantes.string_text_coma)
+            .concat(Constantes.ceco).concat(Constantes.string_text_coma).concat(Constantes.contrasena).concat(Constantes.string_text_coma).concat(Constantes.correo).concat(Constantes.string_text_coma)
+            .concat(Constantes.fechaAlta).concat(Constantes.string_text_coma).concat(Constantes.fechaMod).concat(Constantes.string_text_coma).concat(Constantes.idEmpleado).concat(Constantes.string_text_coma)
+            .concat(Constantes.idPerfil).concat(Constantes.string_text_coma).concat(Constantes.idStatus).concat(Constantes.string_text_coma).concat(Constantes.idTipoEmpleado).concat(Constantes.string_text_coma)
+            .concat(Constantes.idUsuario).concat(Constantes.string_text_coma).concat(Constantes.nombre).concat(Constantes.string_text_coma).concat(Constantes.telefono).concat(Constantes.string_text_coma)
+            .concat(Constantes.estatus).concat(Constantes.string_text_coma).concat(Constantes.idRegion).concat(Constantes.string_text_coma).concat(Constantes.perfil).concat(Constantes.string_text_coma)
+            .concat(Constantes.region).concat(Constantes.string_text_coma).concat(Constantes.tipoEmpleado).concat(Constantes.string_text_coma).concat(Constantes.tipoEmpleado).concat(Constantes.text_parectesis_final);
 
     public static void setAgregarDatosDeAbogado(Activity activity, LoginAuthModel loginAuthModel, Usuario usuario) {
         SQLHelper date = new SQLHelper(activity);

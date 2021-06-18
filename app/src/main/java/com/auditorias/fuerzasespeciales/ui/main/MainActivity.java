@@ -8,10 +8,13 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +41,7 @@ import com.auditorias.fuerzasespeciales.SQLite.TableDataUser;
 import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
 import com.auditorias.fuerzasespeciales.models.datosUsuario.DetalleUsuario;
 import com.auditorias.fuerzasespeciales.request.envioRequest;
+import com.auditorias.fuerzasespeciales.request.notificaciones.Notificaciones;
 import com.auditorias.fuerzasespeciales.ui.login.LoginActivity;
 import com.auditorias.fuerzasespeciales.utils.AsyncTaskGral;
 import com.auditorias.fuerzasespeciales.utils.Delegate;
@@ -53,6 +57,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 import okhttp3.HttpUrl;
@@ -77,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         navView = findViewById(R.id.nav_view);
         setObtenerNotificacionesUsuario(this, Integer.parseInt(TableDataUser.getIdEmpleado(this)));
         toolbar = findViewById(R.id.toolbar_generic);
@@ -108,10 +115,12 @@ public class MainActivity extends AppCompatActivity {
                         // Get new FCM registration token
                         String token = task.getResult();
 
+                        setActualizarTokenFirebase(MainActivity.this, Integer.parseInt(TableDataUser.getIdEmpleado(MainActivity.this)), token);
                         // Log and toast
                         String msg = getString(R.string.msg_token_fmt, token);
+
                         Log.d("token", msg);
-                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -124,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                             msg = getString(R.string.msg_subscribe_failed);
                         }
                         Log.d("", msg);
-                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
         //textViewTituloPrincipalMA = findViewById(R.id.textViewSubTiutuloCST);
@@ -191,26 +200,31 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("com.auditorias.fuerzasespeciales", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md;
+                md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String something = new String(Base64.encode(md.digest(), 0));
+                //String something = new String(Base64.encodeBytes(md.digest()));
+                //et.setText("" + something);
+                Log.e("hashkey", something);
+            }
+        } catch (PackageManager.NameNotFoundException e1) {
+            Log.e("name not found", e1.toString());
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("no such an algorithm", e.toString());
+        } catch (Exception e) {
+            Log.e("exception", e.toString());
+        }
+
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        final MenuItem menuItem = menu.findItem(R.id.navigation_notificaciones_fragment);
-
-        View actionView = menuItem.getActionView();
-        textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
-
-        setupBadge();
-
-        actionView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onOptionsItemSelected(menuItem);
-            }
-        });
-
         return true;
     }
 
@@ -227,11 +241,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.menu_action_cerrar_session) {
             showAlertDialog(MainActivity.this, getString(R.string.text_label_titulo_cerrar_sesion), getString(R.string.text_label_estas_seguro_de_cerrar_sesion), getString(R.string.text_label_si), getString(R.string.text_label_no));
-        } else if (id == R.id.navigation_notificaciones_fragment) {
-            //Toast.makeText(this, "OPCION notifications", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.menu_action_perfil) {
-            //showDialogDetallePerfil(this, "");
-            //Toast.makeText(this, "OPCION notifications", Toast.LENGTH_SHORT).show();
             getObtenerDetalleUsuario(this);
         }
 
@@ -306,6 +316,39 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.obtenerNotificacionesUsuario, params);
+            } else {
+                Utils.messageShort(activity, getString(R.string.text_label_error_de_conexion));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setActualizarTokenFirebase(Activity activity, int idUsuario, String token ) {
+        try {
+            if (Functions.isNetworkAvailable(activity)) {
+                Gson gsonParams = new Gson();
+
+                String params = gsonParams.toJson(new Notificaciones(idUsuario, token));
+                //
+                new AsyncTaskGral(activity, new Delegate() {
+                    @Override
+                    public void getDelegate(String result) {
+                        Gson gson = new Gson();
+                        RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
+                       /* if (respuestaGeneral.getNotificacionesUsuario().getExito().equals(Constantes.exitoTrue)) {
+
+                        } else {
+                            Utils.messageShort(activity, respuestaGeneral.getNotificacionesUsuario().getError());
+                        }*/
+                    }
+
+                    @Override
+                    public void executeInBackground(String result, String header) {
+
+                    }
+                }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.actualizarTokenFirebase, params);
             } else {
                 Utils.messageShort(activity, getString(R.string.text_label_error_de_conexion));
             }
@@ -412,7 +455,7 @@ public class MainActivity extends AppCompatActivity {
     private void cargarDialogoRecomendacion(Activity activity) {
         android.app.AlertDialog.Builder dialogo = new android.app.AlertDialog.Builder(activity);
         dialogo.setTitle("Permisos Desactivados");
-        dialogo.setMessage("Debe aceptar los permisos para el correcto funcionamiento de la Ap");
+        dialogo.setMessage("Debe aceptar los permisos para el correcto funcionamiento de la App");
 
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override

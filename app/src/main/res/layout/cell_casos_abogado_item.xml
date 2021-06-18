@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:text="@string/item_text_label_nombre_del_caso"
+                    android:text="@string/text_label_nombre_de_la_denuncia"
                     android:textColor="@color/green_secondary" />
 
                 <TextView
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="@string/item_text_label_business_unit" />
+                android:text="@string/text_label_unidad_negocio_dos_puntos" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -128,7 +128,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/text_label_fecha_compromiso" />
+                    android:text="@string/text_label_fecha_compromiso_dos_puntos" />
 
                 <TextView
                     android:id="@+id/textViewEstatusAutorizacionCAA"

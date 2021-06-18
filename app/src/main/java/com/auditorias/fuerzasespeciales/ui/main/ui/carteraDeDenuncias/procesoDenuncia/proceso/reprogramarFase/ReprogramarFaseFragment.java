@@ -15,22 +15,28 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
@@ -42,6 +48,7 @@ import com.auditorias.fuerzasespeciales.request.denuncia.DatosDenunciaRequest;
 import com.auditorias.fuerzasespeciales.request.envioRequest;
 import com.auditorias.fuerzasespeciales.request.inicioSubFase.Documentos;
 import com.auditorias.fuerzasespeciales.request.reprogramacion.CalculoFechaCompromiso;
+import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.cerrarFase.adapters.GaleriaFotosAdapter;
 import com.auditorias.fuerzasespeciales.utils.AsyncTaskGral;
 import com.auditorias.fuerzasespeciales.utils.Delegate;
 import com.auditorias.fuerzasespeciales.utils.Functions;
@@ -51,12 +58,22 @@ import com.bumptech.glide.Glide;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -67,6 +84,8 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
 
     //TODO:todas los listas que se pueden utilizar en el fragmento
     private final List<Documentos> documentos = new ArrayList<>();
+    private final List<String> listGaleriaFotos = new ArrayList<>();
+    private final ArrayList<Documentos> listDocumentosSelectos = new ArrayList<>();
 
     private TextView textViewSubTiutuloCST;
 
@@ -102,7 +121,13 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
     private TextView textViewGaleriaCAE;
     private ImageView imageViewVerGaleriaCAE;
 
+    private LinearLayout linearLayoutAdvertenciaFotosGTFF;
+    private ImageView imagenViewAdvertenciaFotosGTFF;
+    private GaleriaFotosAdapter galeriaFotosAdapter;
+    private String imagen;
 
+    private Integer valorDeConfiguracionPhotoNumber;
+    private String descripcionConfiguracionPhotoNumber;
 
     private String[] parts;
     private String doc;
@@ -127,16 +152,20 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
     private String idFase = "";
 
     private String fechaCompromiso;
-    private String stringBase64DocumentoImganen;
+
+    private String stringBase64Documento;
+    private String stringCompressDocumento;
+
     private Bitmap bitmapImageFoto;
     private String extension;
     private Uri uriImagenOrPdf;
     private String nombreDeArchivoFoto;
-
+    private String nombreFoto;
     private String tamanioPDFFotos = "";
+    private String tamanio;
 
-    private Double valorDeConfiguracion;
-    private String descripcionConfiguracion;
+    private Double valorDeConfiguracionFileMaxSize;
+    private String descripcionConfiguracionFileMaxSize;
     private int banderaFotos = 0;
 
     //TODO: son todos los view del fragment
@@ -145,7 +174,7 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
     private Context context;
     //TODO: es el activity del fragment
     private Activity activity;
-    private String stringCompressDocumentoImagen;
+
 
     public ReprogramarFaseFragment() {
         // Required empty public constructor
@@ -190,12 +219,12 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
             banderaFotos = 2;
             try {
                 File file = new File(mPath);
-                stringBase64DocumentoImganen = Utils.fileToBase64(activity, Uri.fromFile(file));
-                stringCompressDocumentoImagen = Utils.compressBase64(stringBase64DocumentoImganen);
+                stringBase64Documento = Utils.fileToBase64(activity, Uri.fromFile(file));
+                stringCompressDocumento = Utils.compressBase64(stringBase64Documento);
                 if (valorDeConfiguraciontipoAppMovil.equals("1")) {
-                    documentos.add(new Documentos(nombreDeArchivoFoto, extension, Integer.parseInt(tamanioPDFFotos), stringBase64DocumentoImganen));
+                    documentos.add(new Documentos(nombreDeArchivoFoto, extension, Integer.parseInt(tamanioPDFFotos), stringBase64Documento));
                 } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
-                    documentos.add(new Documentos(nombreDeArchivoFoto, extension, Integer.parseInt(tamanioPDFFotos), stringCompressDocumentoImagen));
+                    documentos.add(new Documentos(nombreDeArchivoFoto, extension, Integer.parseInt(tamanioPDFFotos), stringCompressDocumento));
                 }
 
             } catch (IOException e) {
@@ -212,7 +241,7 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
         getObtenerConfiguracionFileMaxSize(activity);
         getObtenerConfiguracionFormatDocuments(activity);
         getObtenerConfiguracionTipoAppMovil(activity);
-
+        getObtenerConfiguracionPhotoNumber(activity);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             //para versiones con android 10.0 o superior.
@@ -338,15 +367,15 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
         textViewZonaCDD.setText(datosDenuncia.getRegion().concat(" - ").concat(datosDenuncia.getZona()));
 
         if (datosDenuncia.getSubFase() != null) {
-            textViewFaseEtapaCDF.setText(datosDenuncia.getFase());
-        } else {
             textViewFaseEtapaCDF.setText(datosDenuncia.getSubFase());
+        } else {
+            textViewFaseEtapaCDF.setText(datosDenuncia.getFase());
         }
 
         if (datosDenuncia.getEtapaSubFase() != null){
-            textViewFaseEtapaColorCDF.setText(datosDenuncia.getEtapaFase());
-        }else {
             textViewFaseEtapaColorCDF.setText(datosDenuncia.getEtapaSubFase());
+        }else {
+            textViewFaseEtapaColorCDF.setText(datosDenuncia.getEtapaFase());
         }
 
         if (datosDenuncia.getColorSubFase() != null){
@@ -368,8 +397,8 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
                         Gson gson = new Gson();
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
                         if (respuestaGeneral.getConfiguracionData() != null || !respuestaGeneral.getConfiguracionData().toString().isEmpty()) {
-                            valorDeConfiguracion = (double) Utils.getByteToMegas(Long.parseLong(respuestaGeneral.getConfiguracionData().getValor()));
-                            descripcionConfiguracion = respuestaGeneral.getConfiguracionData().getDescripcion();
+                            valorDeConfiguracionFileMaxSize = (double) Utils.getByteToMegas(Long.parseLong(respuestaGeneral.getConfiguracionData().getValor()));
+                            descripcionConfiguracionFileMaxSize = respuestaGeneral.getConfiguracionData().getDescripcion();
                         }
                     }
 
@@ -472,13 +501,40 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
         }
     }
 
+    private void getObtenerConfiguracionPhotoNumber(Activity activity) {
+        try {
+            if (Functions.isNetworkAvailable(activity)) {
+                new AsyncTaskGral(activity, new Delegate() {
+                    @Override
+                    public void getDelegate(String result) {
+                        Gson gson = new Gson();
+                        RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
+                        if (respuestaGeneral.getConfiguracionData() != null || !respuestaGeneral.getConfiguracionData().toString().isEmpty()) {
+                            valorDeConfiguracionPhotoNumber = Integer.parseInt(respuestaGeneral.getConfiguracionData().getValor());
+                            descripcionConfiguracionPhotoNumber = respuestaGeneral.getConfiguracionData().getDescripcion();
+                        }
+                    }
+
+                    @Override
+                    public void executeInBackground(String result, String header) {
+
+                    }
+                }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_GET, Constantes.obtenerConfiguracion.concat(Constantes.signoInterrogacion).concat(Constantes.clave).concat(Constantes.signoIgual).concat(Constantes.photoNumber));
+            } else {
+                Utils.messageShort(activity, getString(R.string.text_label_error_de_conexion));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imageViewDocumentoCAE:
             case R.id.textViewDocumentoCAE:
-                if (stringBase64DocumentoImganen != null) {
+                if (stringBase64Documento != null) {
                     showAlertDialogSeleccionarEvidencia(activity, getString(R.string.text_label_evidencia), getString(R.string.text_label_se_eleminara_la_evidencia_anterior).concat(getString(R.string.text_label_pregunta_general)), getString(R.string.text_label_si), getString(R.string.text_label_no), 2, v);
                 } else {
                     //cargarArchivo(doc, docx, pdf);
@@ -489,10 +545,10 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
             case R.id.imageViewCamaraCAE:
             case R.id.textViewCamaraCAE:
                 justificacion = Objects.requireNonNull(textInputEditTextMotivoSolicitidRFF.getText()).toString().trim();
-                if (stringBase64DocumentoImganen != null) {
+                if (stringBase64Documento != null) {
                     showAlertDialogSeleccionarEvidencia(activity, getString(R.string.text_label_evidencia), getString(R.string.text_label_se_eleminara_la_evidencia_anterior).concat(getString(R.string.text_label_pregunta_general)), getString(R.string.text_label_si), getString(R.string.text_label_no), 3, v);
                 } else {
-                    documentos.clear();
+                /*    documentos.clear();
                     Bundle bundle = new Bundle();
                     bundle.putString("idCaso", idCasoGeneral);
                     bundle.putString("idCasoFase", idCasoFase);
@@ -500,12 +556,14 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
                     bundle.putString("justificacion", justificacion);
                     bundle.putString("tipoAppMovil", valorDeConfiguraciontipoAppMovil);
                     Navigation.findNavController(v).navigate(R.id.action_navigation_reprogramadas_prentacion_de_demanda_fragment_to_navigation_geleria_tomar_fotos_fragment, bundle);
+                */
+                    showDialogfotos(activity);
                 }
                 break;
 
             case R.id.imageViewGaleriaCAE:
             case R.id.textViewGaleriaCAE:
-                if (stringBase64DocumentoImganen != null) {
+                if (stringBase64Documento != null) {
                     showAlertDialogSeleccionarEvidencia(activity, getString(R.string.text_label_evidencia), getString(R.string.text_label_se_eleminara_la_evidencia_anterior).concat(getString(R.string.text_label_pregunta_general)), getString(R.string.text_label_si), getString(R.string.text_label_no), 1, v);
                 } else {
                     cargarImagenGaleria("png");
@@ -521,7 +579,7 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
                     File file = new File(mPath);
                     abrirDocumentoWord(activity, file);
                 } else {
-                    showZoomImage(activity, stringBase64DocumentoImganen, mPath, extension);
+                    showZoomImage(activity, stringBase64Documento, mPath, extension);
                 }
                 break;
 
@@ -569,11 +627,13 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
                 } else if (tipoDocumento == 2) {
                     cargarArchivo();
                 } else if (tipoDocumento == 3) {
-                    Bundle bundle = new Bundle();
+                    listDocumentosSelectos.clear();
+                    showDialogfotos(activity);
+                    /*Bundle bundle = new Bundle();
                     bundle.putString("idCaso", idCasoGeneral);
                     bundle.putString("navigationFragment", "reprogramadas");
                     bundle.putString("tipoAppMovil", valorDeConfiguraciontipoAppMovil);
-                    Navigation.findNavController(view).navigate(R.id.action_navigation_cerrar_fase_fragment_to_navigation_geleria_tomar_fotos_fragment, bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_navigation_cerrar_fase_fragment_to_navigation_geleria_tomar_fotos_fragment, bundle);*/
                 }
 
             }
@@ -824,102 +884,100 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_CANCELED && data.getData() != null) {
+        //if (resultCode != Activity.RESULT_CANCELED && data.getData() != null) {
+        if (resultCode == Activity.RESULT_OK) {
 
             if (requestCode == Constantes.RESPUESTA_DE_GALERIA) {
-                if (data != null) {
-                    //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    //para versiones con android 10.0 o superior.
-                    uriImagenOrPdf = data.getData();
-                    //} else {
-                    //para versiones inferiores a android 10.0.
-                    //    uriImagenOrPdf = (Uri) data.getExtras().get("dat");
-                    //}
+                uriImagenOrPdf = data.getData();
 
+                String pruba = getAbsolutePath(data.getData());
+                Log.i("onActivityResult", "onActivityResult: " + pruba);
+                if (valorDeConfiguracionFileMaxSize >= Double.parseDouble(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf))) {
 
-                    //uriImagenOrPdf = data.getExtras().get("data");
+                    mPath = uriImagenOrPdf.getPath();
+                    try {
+                        bitmapImageFoto = Utils.getUriToBitmapImagen(activity, uriImagenOrPdf);
+                        //bitmapImageFoto = Utils.cambiarPosicionImage(bitmapImageFoto);
+                        uriImagenOrPdf = Utils.resizeImage(activity, bitmapImageFoto);
 
-                    String pruba = getAbsolutePath(data.getData());
-                    Log.i("onActivityResult", "onActivityResult: " + pruba);
-                    if (valorDeConfiguracion >= Double.parseDouble(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf))) {
+                        nombreDeArchivoFoto = Utils.getNombreUriDocumentos(context, uriImagenOrPdf);
+                        extension = Utils.getExtensionArchivos(nombreDeArchivoFoto);
 
-                        mPath = uriImagenOrPdf.getPath();
-                        try {
-                            bitmapImageFoto = Utils.getUriToBitmapImagen(activity, uriImagenOrPdf);
-                            //bitmapImageFoto = Utils.cambiarPosicionImage(bitmapImageFoto);
-                            uriImagenOrPdf = Utils.resizeImage(activity, bitmapImageFoto);
+                        stringBase64Documento = Utils.bitmapToBase64(bitmapImageFoto, extension);
+                        stringCompressDocumento = Utils.compressBase64(stringBase64Documento);
 
-                            nombreDeArchivoFoto = Utils.getNombreUriDocumentos(context, uriImagenOrPdf);
-                            extension = Utils.getExtensionArchivos(nombreDeArchivoFoto);
-
-                            stringBase64DocumentoImganen = Utils.bitmapToBase64(bitmapImageFoto, extension);
-                            stringCompressDocumentoImagen = Utils.compressBase64(stringBase64DocumentoImganen);
-
-                            if (valorDeConfiguraciontipoAppMovil.equals("1")) {
-                                documentos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64DocumentoImganen));
-                            } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
-                                documentos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumentoImagen));
-                            }
-                            //documentos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activityRPDDF, uriImagenOrPdf)), stringBase64DocumentoImganen));
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        if (valorDeConfiguraciontipoAppMovil.equals("1")) {
+                            documentos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64Documento));
+                        } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
+                            documentos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumento));
                         }
-                        imageViewVerGaleriaCAE.setVisibility(View.VISIBLE);
-                        imageViewVerCamaraCAE.setVisibility(View.GONE);
-                        imageViewVerDocumentoCAE.setVisibility(View.GONE);
-                    } else {
-                        stringsToNull();
-                        Utils.messageShort(activity, descripcionConfiguracion);
+                        //documentos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activityRPDDF, uriImagenOrPdf)), stringBase64DocumentoImganen));
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                    imageViewVerGaleriaCAE.setVisibility(View.VISIBLE);
+                    imageViewVerCamaraCAE.setVisibility(View.GONE);
+                    imageViewVerDocumentoCAE.setVisibility(View.GONE);
+                } else {
+                    stringsToNull();
+                    Utils.messageShort(activity, descripcionConfiguracionFileMaxSize);
                 }
             } else if (requestCode == Constantes.RESPUESTA_DE_ALMACENAMIENTO) {
-/*                String sdpath, sd1path, usbdiskpath, sd0path;
+                uriImagenOrPdf = data.getData();
+                if (valorDeConfiguracionFileMaxSize >= Double.parseDouble(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf))) {
 
-                if (new File("/storage/extSdCard/").exists()) {
-                    sdpath = "/storage/extSdCard/";
-                    Log.i("Sd Cardext Path", sdpath);
-                }
-                if (new File("/storage/sdcard1/").exists()) {
-                    sd1path = "/storage/sdcard1/";
-                    Log.i("Sd Card1 Path", sd1path);
-                }
-                if (new File("/storage/usbcard1/").exists()) {
-                    usbdiskpath = "/storage/usbcard1/";
-                    Log.i("USB Path", usbdiskpath);
-                }
-                if (new File("/storage/sdcard0/").exists()) {
-                    sd0path = "/storage/sdcard0/";
-                    Log.i("Sd Card0 Path", sd0path);
-                }*/
-                if (data != null) {
-                    uriImagenOrPdf = data.getData();
-                    if (valorDeConfiguracion >= Double.parseDouble(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf))) {
-
-                        mPath = Utils.getPath(activity, uriImagenOrPdf);
-                        try {
-                            nombreDeArchivoFoto = Utils.getNombreUriDocumentos(context, uriImagenOrPdf);
-                            extension = Utils.getExtensionArchivos(nombreDeArchivoFoto);
-                            stringBase64DocumentoImganen = Utils.fileToBase64(activity, uriImagenOrPdf);
-                            stringCompressDocumentoImagen = Utils.compressBase64(stringBase64DocumentoImganen);
-                            if (valorDeConfiguraciontipoAppMovil.equals("1")) {
-                                documentos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64DocumentoImganen));
-                            } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
-                                documentos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumentoImagen));
-                            }
-                            //documentos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activityRPDDF, uriImagenOrPdf)), stringBase64DocumentoImganen));
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    mPath = Utils.getPath(activity, uriImagenOrPdf);
+                    try {
+                        nombreDeArchivoFoto = Utils.getNombreUriDocumentos(context, uriImagenOrPdf);
+                        extension = Utils.getExtensionArchivos(nombreDeArchivoFoto);
+                        stringBase64Documento = Utils.fileToBase64(activity, uriImagenOrPdf);
+                        stringCompressDocumento = Utils.compressBase64(stringBase64Documento);
+                        if (valorDeConfiguraciontipoAppMovil.equals("1")) {
+                            documentos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringBase64Documento));
+                        } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
+                            documentos.add(new Documentos(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activity, uriImagenOrPdf)), stringCompressDocumento));
                         }
-                        banderaFotos = 1;
-                        imageViewVerGaleriaCAE.setVisibility(View.GONE);
-                        imageViewVerCamaraCAE.setVisibility(View.GONE);
-                        imageViewVerDocumentoCAE.setVisibility(View.VISIBLE);
-
-                    } else {
-                        stringsToNull();
-                        Utils.messageShort(activity, descripcionConfiguracion);
-                        banderaFotos = 0;
+                        //documentos.add(new DocumentoRequest(Utils.getNombreDocumentos(nombreDeArchivoFoto), extension, Integer.parseInt(Utils.getTamanioUriDocumentos(activityRPDDF, uriImagenOrPdf)), stringBase64DocumentoImganen));
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                    banderaFotos = 1;
+                    imageViewVerGaleriaCAE.setVisibility(View.GONE);
+                    imageViewVerCamaraCAE.setVisibility(View.GONE);
+                    imageViewVerDocumentoCAE.setVisibility(View.VISIBLE);
+
+                } else {
+                    stringsToNull();
+                    Utils.messageShort(activity, descripcionConfiguracionFileMaxSize);
+                    banderaFotos = 0;
+                }
+            }else if (requestCode == Constantes.RESPUESTA_DE_CAMARA) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    galleryAddPic();
+                    setPic();
+                } else {
+/*                    MediaScannerConnection.scanFile(activity,
+                            new String[]{mPath}, null,
+                            new MediaScannerConnection.OnScanCompletedListener() {
+                                @Override
+                                public void onScanCompleted(String path, Uri uri) {
+                                    Log.i("ExternalStorage", "Scanned " + path + ":");
+                                    Log.i("ExternalStorage", "-> Uri = " + uri);
+                                }
+                            });
+
+                    Bitmap bitmapImageFoto = BitmapFactory.decodeFile(mPath);
+
+                    linearLayoutAdvertenciaFotosGTFF.setVisibility(View.GONE);
+
+                    try {
+                        uriImagenOrPdf = Utils.resizeImage(activity, bitmapImageFoto);
+                        imagen = Utils.fileToBase64(activity, uriImagenOrPdf);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    galeriaFotosAdapter.getList().add(imagen);
+                    galeriaFotosAdapter.notifyDataSetChanged();*/
                 }
             }
         }
@@ -930,7 +988,7 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
         mPath = null;
         nombreDeArchivoFoto = null;
         extension = null;
-        stringBase64DocumentoImganen = null;
+        stringBase64Documento = null;
         documentos.clear();
     }
 
@@ -1033,4 +1091,261 @@ public class ReprogramarFaseFragment extends Fragment implements View.OnClickLis
         });
         dialogo.show();
     }
+
+    public void showDialogfotos(Activity activity) {
+        Dialog dialog = new Dialog(activity, R.style.CustomDialogTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.dialog_galeria_tomar_fotos);
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        TextView textViewCloseDGTF = dialog.findViewById(R.id.textViewCloseDGTF);
+        linearLayoutAdvertenciaFotosGTFF = dialog.findViewById(R.id.linearLayoutAdvertenciaFotosGTFF);
+        imagenViewAdvertenciaFotosGTFF = dialog.findViewById(R.id.imagenViewAdvertenciaFotosGTFF);
+
+        ImageButton buttonAgregarFotoGTFF = dialog.findViewById(R.id.buttonAgregarFotoGTFF);
+        buttonAgregarFotoGTFF.setOnClickListener(this);
+
+        ImageButton buttonGuardarPDFGTFF = dialog.findViewById(R.id.buttonGuardarPDFGTFF);
+        buttonGuardarPDFGTFF.setOnClickListener(this);
+
+        RecyclerView recyclerViewGaleria = dialog.findViewById(R.id.recyclerViewGaleria);
+        galeriaFotosAdapter = new GaleriaFotosAdapter(activity, listGaleriaFotos, new GaleriaFotosAdapter.OnListener() {
+            @Override
+            public void onItemSelectedListener(String fotoString, int posicion) {
+                showAlertDialogEliminarEnvidencia(activity, getString(R.string.text_label_liminar_evidencia), getString(R.string.text_label_pregunta_general), getString(R.string.text_label_si), getString(R.string.text_label_no), posicion);
+            }
+        });
+        recyclerViewGaleria.setHasFixedSize(false);
+        RecyclerView.LayoutManager layoutManagerCategory = new GridLayoutManager(activity, 3);
+        recyclerViewGaleria.setLayoutManager(layoutManagerCategory);
+        recyclerViewGaleria.setNestedScrollingEnabled(false);
+        recyclerViewGaleria.setAdapter(galeriaFotosAdapter);
+
+        buttonAgregarFotoGTFF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listGaleriaFotos.size() < valorDeConfiguracionPhotoNumber) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        dispatchTakePictureIntent();
+                    } else {
+                        //para versiones inferiores a android 10.0.
+                        //openCamera(activity);
+                    }
+
+                } else {
+                    Utils.messageShort(activity, descripcionConfiguracionPhotoNumber);
+                }
+            }
+        });
+
+        buttonGuardarPDFGTFF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listGaleriaFotos.isEmpty() || listGaleriaFotos == null) {
+                    Utils.messageShort(activity, getString(R.string.text_label_falta_tomar_una_foto));
+                } else {
+                    GeneratePDF(dialog);
+                }
+            }
+        });
+
+        textViewCloseDGTF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listGaleriaFotos.clear();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    @SuppressLint("QueryPermissionsNeeded")
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            if (photoFile != null) {
+                Uri imagenUri = FileProvider.getUriForFile(activity, "com.auditorias.fuerzasespeciales.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imagenUri);
+                startActivityForResult(takePictureIntent, Constantes.RESPUESTA_DE_CAMARA);
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmssSS", Locale.getDefault());
+        Date date = new Date();
+        nombreFoto = dateFormat.format(date);
+        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(nombreFoto, ".jpg", storageDir);
+        mPath = image.getAbsolutePath();
+        //currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    public void GeneratePDF(Dialog dialog) {
+        if (write()) {
+            dialog.dismiss();
+            Toast.makeText(activity, "Archivo PDF creado correctamente", Toast.LENGTH_LONG).show();
+            File file = new File(mPath);
+            try {
+                stringBase64Documento = Utils.fileToBase64(activity, Uri.fromFile(file));
+                stringCompressDocumento = Utils.compressBase64(stringBase64Documento);
+                if (valorDeConfiguraciontipoAppMovil.equals("1")) {
+                    listDocumentosSelectos.add(new Documentos(nombreFoto, extension, Integer.parseInt(tamanio), stringBase64Documento));
+                } else if (valorDeConfiguraciontipoAppMovil.equals("2")) {
+                    listDocumentosSelectos.add(new Documentos(nombreFoto, extension, Integer.parseInt(tamanio), stringCompressDocumento));
+                }
+                listGaleriaFotos.clear();
+                //if (idSubFase != null) {
+                //    if (idSubFase.equals("1")) {
+                //        textViewListaDocumentosCDI.setVisibility(View.VISIBLE);
+                //        recyclerViewDocumentosCDI.setVisibility(View.VISIBLE);
+                //        documentosInicioSubfaseAdapter.notifyDataSetChanged();
+                //    } else /*if (idSubFase.equals("2"))*/ {
+                        imageViewVerGaleriaCAE.setVisibility(View.GONE);
+                        imageViewVerCamaraCAE.setVisibility(View.VISIBLE);
+                        imageViewVerDocumentoCAE.setVisibility(View.GONE);
+                //    }
+                //}/* else {
+
+                //}*/
+/*                if (idSubFase.equals("1")) {
+                    textViewListaDocumentosCDI.setVisibility(View.VISIBLE);
+                    recyclerViewDocumentosCDI.setVisibility(View.VISIBLE);
+                    documentosInicioSubfaseAdapter.notifyDataSetChanged();
+                } else if (idSubFase.equals("2")) {
+                    imageViewVerGaleriaCAE.setVisibility(View.GONE);
+                    imageViewVerCamaraCAE.setVisibility(View.VISIBLE);
+                    imageViewVerDocumentoCAE.setVisibility(View.GONE);
+                }*/
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            Toast.makeText(activity, getString(R.string.text_label_no_se_creo_el_archivo_pdf), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public Boolean write() {
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmssSS", Locale.getDefault());
+            Date date = new Date();
+            nombreFoto = dateFormat.format(date);
+
+            String path = Environment.getExternalStorageDirectory() + "/sifra/";
+
+            File dir = new File(path);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            File newFile = new File(dir, nombreFoto + ".pdf");
+            Document document = new Document();
+
+            if (valorDeConfiguracionFileMaxSize >= Double.parseDouble(String.valueOf(newFile.length()))) {
+
+                if (listGaleriaFotos != null || listGaleriaFotos.size() != 0) {
+
+                    PdfWriter.getInstance(document, new FileOutputStream(newFile.getAbsoluteFile()));
+                    document.open();
+
+                    for (int i = 0; i < listGaleriaFotos.size(); i++) {
+                        Image foto = Image.getInstance(Base64.decode(listGaleriaFotos.get(i), Base64.NO_WRAP));
+                        foto.scaleAbsolute(500, 350);
+
+                        document.add(foto);
+                        document.add(new Phrase(Chunk.NEWLINE));
+                    }
+                    document.close();
+                    nombreDeArchivoFoto = Utils.getNombreDocumentos(String.valueOf(newFile));
+                    extension = "pdf";
+                    tamanio = String.valueOf(newFile.length());
+                    mPath = newFile.getPath();
+
+                } else {
+                    document.close();
+                    Utils.messageShort(activity, "No hay fotos");
+                }
+
+            } else {
+                document.close();
+                Utils.messageShort(activity, descripcionConfiguracionFileMaxSize);
+            }
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } catch (DocumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(mPath);
+        uriImagenOrPdf = Uri.fromFile(f);
+        mediaScanIntent.setData(uriImagenOrPdf);
+        activity.sendBroadcast(mediaScanIntent);
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void setPic() {
+        float targetW = imagenViewAdvertenciaFotosGTFF.getWidth();
+        float targetH = imagenViewAdvertenciaFotosGTFF.getHeight();
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+        float scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = (int) scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        linearLayoutAdvertenciaFotosGTFF.setVisibility(View.GONE);
+        Bitmap bitmap = null;
+        try {
+            bitmap = Utils.getBitmap(activity, uriImagenOrPdf);
+            uriImagenOrPdf = Utils.resizeImage(activity, Utils.cambiarPosicionImage(bitmap));
+            imagen = Utils.fileToBase64(activity, uriImagenOrPdf);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        galeriaFotosAdapter.getList().add(imagen);
+        galeriaFotosAdapter.notifyDataSetChanged();
+    }
+
+    public void showAlertDialogEliminarEnvidencia(Activity activity, String titulo, String mensage, String positivoMensage, String negativoMensage, int position) {
+        androidx.appcompat.app.AlertDialog.Builder dialogo1 = new androidx.appcompat.app.AlertDialog.Builder(activity);
+        dialogo1.setTitle(titulo);
+        dialogo1.setMessage(mensage);
+        dialogo1.setCancelable(false);
+        dialogo1.setPositiveButton(positivoMensage, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                if (!listGaleriaFotos.isEmpty()) {
+                    listGaleriaFotos.remove(position);
+                    galeriaFotosAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+        dialogo1.setNegativeButton(negativoMensage, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+
+            }
+        });
+        dialogo1.show();
+    }
+
+
 }

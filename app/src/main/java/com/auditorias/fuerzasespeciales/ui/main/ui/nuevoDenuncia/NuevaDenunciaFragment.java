@@ -163,11 +163,11 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         ocultarElementos();
 
         textViewSubTiutuloCST.setText(getString(R.string.title_nuevas_denuncias));
-        textViewFechaCompromisoTextCFC.setText(getString(R.string.text_label_report_date));
-        textViewTextCSS.setText("Tipo de denuncia");
+        textViewFechaCompromisoTextCFC.setText(getString(R.string.text_label_fecha_reporte_dos_puntos));
+        textViewTextCSS.setText(getString(R.string.text_label_tipo_de_delito_dos_puntos));
 
         servicios(activity, view);
-        cargarRecyclerView(activity, listNombreResponsables );
+        cargarRecyclerView(activity, listNombreResponsables);
 
         textInputEditTextImporteNDF.addTextChangedListener(Utils.amount(activity, textInputEditTextImporteNDF));
         textInputEditTextRecuperadoNDF.addTextChangedListener(Utils.amount(activity, textInputEditTextRecuperadoNDF));
@@ -867,7 +867,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                         Gson gson = new Gson();
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
                         if (respuestaGeneral.getGuardarDenuncia().getExito().equals(Constantes.exitoTrue)) {
-                            showDialogNuevaDenunciaConExito(activity, view, getString(R.string.text_label_guardado), getString(R.string.text_label_se_ha_guardado_con_exito_la_nueva_denuncia)/*.concat(cambiarNegritasString(respuestaGeneral.getGuardarDenuncia().getCasoNombre()))*/, getString(R.string.text_label_aceptar), String.valueOf(respuestaGeneral.getGuardarDenuncia().getIdCaso()));
+                            showDialogNuevaDenunciaConExito(activity, view, getString(R.string.text_label_guardado), getString(R.string.text_label_se_ha_guardado_con_exito_la_nueva_denuncia), respuestaGeneral.getGuardarDenuncia().getCasoNombre()/*cambiarNegritasString(respuestaGeneral.getGuardarDenuncia().getCasoNombre()))*/, getString(R.string.text_label_aceptar), String.valueOf(respuestaGeneral.getGuardarDenuncia().getIdCaso()));
                         } else {
                             Utils.message(context, respuestaGeneral.getGuardarDenuncia().getError());
                         }
@@ -894,11 +894,11 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         //StyleSpan boldSpan1 = new StyleSpan(Typeface.BOLD);
         StyleSpan boldSpan2 = new StyleSpan(Typeface.BOLD);
         //miTexto.setSpan(boldSpan1, 5, 10, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        miTexto.setSpan(boldSpan2, 0, miTexto.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        miTexto.setSpan(boldSpan2, 30, miTexto.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         return miTexto.toString();
     }
 
-    public void showDialogNuevaDenunciaConExito(Activity activity, View view, String titulo, String mensaje, String butonText, String idCaso) {
+    public void showDialogNuevaDenunciaConExito(Activity activity, View view, String titulo, String mensaje, String nombreDenuncia,String butonText, String idCaso) {
         Dialog dialogTipoEmpleado = new Dialog(activity, R.style.CustomDialogTheme);
         dialogTipoEmpleado.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogTipoEmpleado.setCancelable(false);
@@ -906,10 +906,13 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
         Objects.requireNonNull(dialogTipoEmpleado.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         ImageView imageViewLogoDRCI = dialogTipoEmpleado.findViewById(R.id.imageViewLogoDRCI);
+
         TextView textViewTituloDECI = dialogTipoEmpleado.findViewById(R.id.textViewTituloDECI);
         textViewTituloDECI.setText(titulo);
+
         TextView textViewMensageDECI = dialogTipoEmpleado.findViewById(R.id.textViewMensageDECI);
-        textViewMensageDECI.setText(mensaje);
+        textViewMensageDECI.setText(cambiarNegritasString(mensaje.concat(" ").concat(nombreDenuncia)));
+
         Button buttonIntentarDECI = dialogTipoEmpleado.findViewById(R.id.buttonIntentarDECI);
         buttonIntentarDECI.setText(butonText);
 

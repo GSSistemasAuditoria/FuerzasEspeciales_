@@ -17,7 +17,7 @@
             android:id="@+id/textViewListaImputadosTextCLI"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_label_lista_de_responsables"
+            android:text="@string/text_label_lista_de_responsables_dos_puntos"
             android:textColor="@color/dark"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
-            android:text="@string/text_label_total_de_responsables"
+            android:text="@string/text_label_total_responsables_dos_puntos"
             android:textColor="@color/dark"
             android:textStyle="bold" />
 
@@ -65,7 +65,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/text_label_numeros"
+            android:text="@string/text_label_numeros_ejemplo"
             android:textColor="@color/dark"
             android:textSize="16sp" />
 

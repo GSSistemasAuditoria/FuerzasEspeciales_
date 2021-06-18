@@ -1106,8 +1106,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
     }
 
 
-    public void showAlertDialogInicioFase(Activity activity, View view, String titulo, String mensaje, String positivoMensaje, String negativoMensaje,
-                                          String tipoApp, int idCaso, String idFase, int idCasoFase, String idStatusSentencia, String datosDemanda, String datosAgencia, String fechaCompromiso, List<ResponsablesFase> listResponsablesFase, List<Documentos> documentos) {
+    public void showAlertDialogInicioFase(Activity activity, View view, String titulo, String mensaje, String positivoMensaje, String negativoMensaje, String tipoApp, int idCaso, String idFase, int idCasoFase, String idStatusSentencia, String datosDemanda, String datosAgencia, String fechaCompromiso, List<ResponsablesFase> listResponsablesFase, List<Documentos> documentos) {
         AlertDialog.Builder dialogo1 = new AlertDialog.Builder(activity);
         dialogo1.setTitle(titulo);
         dialogo1.setMessage(mensaje);
@@ -1137,7 +1136,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                     //                                                     idCaso  datosDemanda  datosAgencia            idCasoFase  fechaCompromiso   listRespondablesFase
                 } else if (idFase.equals("5")) {
                     params = gsonParams.toJson(new InicioFase(Integer.parseInt(tipoApp), new Denuncia(Integer.parseInt(idStatusSentencia)), new Fase(idCasoFase), listRespondablesFase, documentos));
-                    //                                                                      idStatusSentencia            idCasoFase   listRespondablesFase
+                    //                                                                                                 idStatusSentencia             idCasoFase   listRespondablesFase
                 }
                 new AsyncTaskGral(activity, new Delegate() {
                     @Override
@@ -1467,17 +1466,17 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                                 recyclerViewDocumentosCDI.setVisibility(View.VISIBLE);
                                 documentosInicioSubfaseAdapter.notifyDataSetChanged();
                             } else /*if (idSubFase.equals("2"))*/ {
-                                imageViewVerGaleriaCAE.setVisibility(View.VISIBLE);
+                                imageViewVerGaleriaCAE.setVisibility(View.GONE);
                                 imageViewVerCamaraCAE.setVisibility(View.GONE);
-                                imageViewVerDocumentoCAE.setVisibility(View.GONE);
+                                imageViewVerDocumentoCAE.setVisibility(View.VISIBLE);
                             }
                         } else {
                             if (idFase.equals("2")) {
 
                             } else if (idFase.equals("5")) {
-                                imageViewVerGaleriaCAE.setVisibility(View.VISIBLE);
+                                imageViewVerGaleriaCAE.setVisibility(View.GONE);
                                 imageViewVerCamaraCAE.setVisibility(View.GONE);
-                                imageViewVerDocumentoCAE.setVisibility(View.GONE);
+                                imageViewVerDocumentoCAE.setVisibility(View.VISIBLE);
                             }
                         }
                     } else {

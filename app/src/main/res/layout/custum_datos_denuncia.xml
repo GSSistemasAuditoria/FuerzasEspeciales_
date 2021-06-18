@@ -57,7 +57,7 @@
                         android:id="@+id/textViewNombreDenunciaCDD"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/item_text_label_nombre_del_caso"
+                        android:text="@string/text_label_nombre_de_la_denuncia"
                         android:textColor="@color/green_secondary" />
 
                 </LinearLayout>
@@ -75,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/text_label_porcentaje_caso"
+                        android:text="@string/text_label_porcentaje_ejemplo"
                         android:textColor="@color/dark"
                         android:textSize="22sp"
                         android:textStyle="bold" />
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="@string/item_text_label_business_unit"
+                android:text="@string/text_label_unidad_negocio_dos_puntos"
                 android:textColor="@color/dark" />
 
             <LinearLayout
@@ -123,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:text="@string/text_label_registro"
+                    android:text="@string/text_label_registro_dos_puntos"
                     android:textColor="@color/dark" />
 
                 <TextView
@@ -140,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:text="@string/text_label_compromiso"
+                    android:text="@string/text_label_compromiso_dos_puntos"
                     android:textColor="@color/dark" />
 
                 <TextView
@@ -166,7 +166,7 @@
                     android:id="@+id/textViewZonaCDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/text_lable_zona"
+                    android:text="@string/text_lable_region_ejempo"
                     android:textColor="@color/dark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

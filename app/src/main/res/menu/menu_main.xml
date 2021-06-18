@@ -3,25 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.auditorias.fuerzasespeciales.MainActivity">
 
-    <!--<item
-        android:id="@+id/menu_action_notification"
-        android:actionLayout="@layout/badge_layout"
-        android:title="Notificaciones"
-        app:showAsAction="ifRoom" />-->
-
-    <item
-        android:id="@+id/navigation_notificaciones_fragment"
-        android:icon="@drawable/ic_notifications"
-        android:title="@string/title_notificaciones"
-        app:actionLayout="@layout/badge_layout"
-        app:showAsAction="ifRoom"/>
-
     <item
         android:id="@+id/menu_action_perfil"
         android:icon="@drawable/ic_usuario"
         android:orderInCategory="100"
         android:title="@string/action_perfil"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_action_cerrar_session"

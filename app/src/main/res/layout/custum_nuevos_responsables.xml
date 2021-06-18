@@ -11,7 +11,7 @@
         style="@style/TextviewDark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/text_label_agrega_imputado" />
+        android:text="@string/text_label_agregue_responsables_dos_puntos" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -48,51 +48,59 @@ public class DetalleDenunciaSubfasesViewHolder extends RecyclerView.ViewHolder {
         if (detalleDenunciaSubFase.getNombreFase() != null) {
             textViewNombreSubfaseCDSF.setText(detalleDenunciaSubFase.getNombreFase());
         } else {
-            textViewNombreSubfaseCDSF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewNombreSubfaseCDSF.setText(activity.getString(R.string.text_label_guion));
         }
 
         if (detalleDenunciaSubFase.getEtapaFase() != null) {
             textViewEstatusSubfaseColorCDSF.setText(detalleDenunciaSubFase.getEtapaFase());
         } else {
-            textViewEstatusSubfaseColorCDSF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewEstatusSubfaseColorCDSF.setText(activity.getString(R.string.text_label_guion));
         }
 
         if (detalleDenunciaSubFase.getColorEtapaFase() != null) {
             textViewEstatusSubfaseColorCDSF.setBackground(Utils.cambiarColorTextView(detalleDenunciaSubFase.getColorEtapaFase()));
         } else {
             textViewEstatusSubfaseColorCDSF.setTextColor(activity.getColor(R.color.dark));
-            textViewEstatusSubfaseColorCDSF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewEstatusSubfaseColorCDSF.setText(activity.getString(R.string.text_label_guion));
             textViewEstatusSubfaseColorCDSF.setBackgroundColor(Color.TRANSPARENT);
         }
 
         if (detalleDenunciaSubFase.getPorcentajeAvanceGeneral() != null) {
             textViewPorcentajeSubfaseCDSF.setText(Utils.setFormatoNumeroEnteroPorcentaje(detalleDenunciaSubFase.getPorcentajeAvanceGeneral()));
         } else {
-            textViewPorcentajeSubfaseCDSF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewPorcentajeSubfaseCDSF.setText(activity.getString(R.string.text_label_guion));
         }
 
         if (detalleDenunciaSubFase.getFechaRegistro() != null) {
             textViewFechaRegistroSubfaseCDSF.setText(Utils.SetCambioFormatoFechaDiaMesAnio(detalleDenunciaSubFase.getFechaRegistro()));
         } else {
-            textViewFechaRegistroSubfaseCDSF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewFechaRegistroSubfaseCDSF.setText(activity.getString(R.string.text_label_guion));
         }
 
         if (detalleDenunciaSubFase.getFechaCompromiso() != null) {
             textViewFechaCompromisoSubfaseCDSF.setText(Utils.SetCambioFormatoFechaDiaMesAnio(detalleDenunciaSubFase.getFechaCompromiso()));
         } else {
-            textViewFechaCompromisoSubfaseCDSF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewFechaCompromisoSubfaseCDSF.setText(activity.getString(R.string.text_label_guion));
         }
 
         if (detalleDenunciaSubFase.getFechaInicio() != null) {
             textViewFechaInicioSubfaseCDSF.setText(Utils.SetCambioFormatoFechaDiaMesAnio(detalleDenunciaSubFase.getFechaInicio()));
         } else {
-            textViewFechaInicioSubfaseCDSF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewFechaInicioSubfaseCDSF.setText(activity.getString(R.string.text_label_guion));
         }
 
         if (detalleDenunciaSubFase.getFechaCierre() != null) {
             textViewFechaCierreSubfaseCDSF.setText(Utils.SetCambioFormatoFechaDiaMesAnio(detalleDenunciaSubFase.getFechaCierre()));
         } else {
-            textViewFechaCierreSubfaseCDSF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewFechaCierreSubfaseCDSF.setText(activity.getString(R.string.text_label_guion));
+        }
+
+        if (!detalleDenunciaSubFase.getListReprogramaciones().isEmpty()) {
+            cardViewSubfasesReprogramacionesCDF.setCardBackgroundColor(activity.getColor(R.color.green_secondary));
+            cardViewSubfasesReprogramacionesCDF.setActivated(true);
+        } else {
+            cardViewSubfasesReprogramacionesCDF.setCardBackgroundColor(activity.getColor(R.color.Grey500));
+            cardViewSubfasesReprogramacionesCDF.setActivated(false);
         }
 
         cardViewSubfasesReprogramacionesCDF.setOnClickListener(new View.OnClickListener() {

@@ -12,6 +12,14 @@ public class Notificaciones {
     @SerializedName("idUsuario")
     @Expose
     private int idUsuario;
+    @SerializedName("token")
+    @Expose
+    private String token;
+
+    public Notificaciones(int idUsuario, String token) {
+        this.idUsuario = idUsuario;
+        this.token = token;
+    }
 
     public Notificaciones(Integer idTipoApp, int idUsuario) {
         this.idTipoApp = idTipoApp;
@@ -34,4 +42,11 @@ public class Notificaciones {
         this.idUsuario = idUsuario;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

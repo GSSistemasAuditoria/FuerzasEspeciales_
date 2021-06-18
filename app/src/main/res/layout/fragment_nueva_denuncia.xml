@@ -49,7 +49,7 @@
                         style="@style/TextviewDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/item_text_label_abogado_respondable" />
+                        android:text="@string/text_label_abogado_respondable" />
 
                     <TextView
                         android:id="@+id/textViewNombreAbogadoNDF"
@@ -62,7 +62,7 @@
                         android:paddingTop="10dp"
                         android:paddingEnd="10dp"
                         android:paddingBottom="10dp"
-                        android:text="@string/text_lable_name_example"
+                        android:text="@string/text_label_nombre_ejemplo"
                         android:textColor="@color/dark_gray02"
                         android:textStyle="bold" />
 
@@ -79,7 +79,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
-                            android:text="@string/text_lable_ceco_abogado"
+                            android:text="@string/text_label_ceco_abogado_dos_puntos"
                             android:textColor="@color/dark"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -93,7 +93,7 @@
                             android:paddingTop="3dp"
                             android:paddingEnd="3dp"
                             android:paddingBottom="3dp"
-                            android:text="@string/text_label_numeros"
+                            android:text="@string/text_label_numeros_ejemplo"
                             android:textColor="@color/dark_gray02"
                             android:textStyle="bold" />
 
@@ -112,7 +112,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="5dp"
                             android:layout_weight="1"
-                            android:text="@string/text_label_region_detalle"
+                            android:text="@string/text_label_region_dos_puntos"
                             android:textColor="@color/dark"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -125,7 +125,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
-                            android:text="@string/text_lable_zona"
+                            android:text="@string/text_label_zona_dos_puntos"
                             android:textColor="@color/dark"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -149,7 +149,7 @@
                             android:paddingTop="3dp"
                             android:paddingEnd="3dp"
                             android:paddingBottom="3dp"
-                            android:text="@string/text_label_numeros"
+                            android:text="@string/text_lable_region_ejempo"
                             android:textColor="@color/dark_gray02"
                             android:textStyle="bold" />
 
@@ -165,7 +165,7 @@
                             android:paddingTop="3dp"
                             android:paddingEnd="3dp"
                             android:paddingBottom="3dp"
-                            android:text="@string/text_lable_metro_sur"
+                            android:text="@string/text_lable_zona_ejemplo"
                             android:textColor="@color/dark_gray02"
                             android:textStyle="bold" />
 
@@ -189,7 +189,7 @@
                         style="@style/TextviewDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/item_text_label_business_unit" />
+                        android:text="@string/text_label_unidad_negocio_dos_puntos" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -200,6 +200,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginEnd="10dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -250,7 +251,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="@string/text_lable_ceco_udn"
+                            android:text="@string/text_lable_ceco_unidad_negocio_dos_puntos"
                             android:textColor="@color/dark"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -268,7 +269,7 @@
                             android:paddingTop="5dp"
                             android:paddingEnd="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/text_lable_ceco" />
+                            android:text="@string/text_label_numeros_ejemplo" />
 
                     </LinearLayout>
 
@@ -277,7 +278,7 @@
                         style="@style/TextviewDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/text_label_type_of_fraud" />
+                        android:text="@string/text_label_tipo_de_delito_dos_puntos" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -288,7 +289,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:layout_marginTop="1dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginEnd="10dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -330,7 +331,7 @@
                         style="@style/TextviewDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/text_label_case_name" />
+                        android:text="@string/text_label_nombre_de_la_denuncia_dos_puntos" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayoutNombreDenunciaNDF"
@@ -338,6 +339,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:maxLength="10"
                         app:counterEnabled="true"
@@ -361,7 +363,7 @@
                         style="@style/TextviewDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/text_label_description" />
+                        android:text="@string/text_label_descripcion_dos_puntos" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayoutDescripcionNDF"
@@ -369,6 +371,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:maxLength="10"
                         app:counterEnabled="true"
@@ -400,7 +403,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
                             android:layout_weight="1"
-                            android:text="@string/text_label_amount"
+                            android:text="@string/text_label_importe_dos_puntos"
                             android:textColor="@color/dark"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -411,7 +414,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:layout_weight="1"
-                            android:text="@string/text_label_amount_recovered"
+                            android:text="@string/text_label_importe_recuperado_dos_puntos"
                             android:textColor="@color/dark"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -440,7 +443,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:digits="1234567890."
-                                android:hint="@string/text_lable_ejemplo_precio"
+                                android:hint="@string/text_label_numero_decimal_ejemplo"
                                 android:imeOptions="actionNext"
                                 android:inputType="number|numberDecimal"
                                 android:nextFocusDown="@+id/textInputEditTextRecuperadoNDF"
@@ -461,7 +464,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:digits="1234567890."
-                                android:hint="@string/text_lable_ejemplo_precio"
+                                android:hint="@string/text_label_numero_decimal_ejemplo"
                                 android:imeOptions="actionGo|actionSend"
                                 android:inputType="number|numberDecimal"
                                 android:singleLine="true" />
@@ -482,7 +485,7 @@
                         style="@style/TextviewDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/text_label_lista_de_responsables" />
+                        android:text="@string/text_label_lista_de_responsables_dos_puntos" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerViewListaRespondablesNDF"
@@ -494,7 +497,7 @@
                         style="@style/TextviewDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/text_label_total_imputados" />
+                        android:text="@string/text_label_total_responsables_dos_puntos" />
 
 
                     <TextView
@@ -502,7 +505,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="@string/text_label_numeros" />
+                        android:text="@string/text_label_numeros_ejemplo" />
 
                     <Button
                         android:id="@+id/buttonGuardarDenunciaNDF"
@@ -513,7 +516,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
                         android:backgroundTint="@color/green_secondary"
-                        android:text="@string/text_label_save"
+                        android:text="@string/text_label_guardar"
                         app:icon="@drawable/ic_save"
                         app:iconGravity="textStart" />
 

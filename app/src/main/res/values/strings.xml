@@ -34,12 +34,12 @@
     <!-- Strings used for menu main -->
     <string name="title_activity_menu_main">MainActivity</string>
     <string name="title_beginning">Inicio</string>
-    <string name="title_denuncia">Denuncia</string>
+
     <string name="title_search">Búsqueda</string>
     <string name="title_finished">Terminadas</string>
     <string name="title_notificaciones">Notificaciones</string>
 
-    <string name="title_mis_denuncias">Mis denuncias</string>
+
     <string name="title_general_date">Datos generales</string>
     <string name="title_nuevas_denuncias">Nueva denuncia</string>
     <string name="title_complaints_finished">Denuncias terminadas</string>
@@ -57,16 +57,13 @@
     <string name="item_text_label_id_invoice">ID / Folio</string>
     <string name="title_presentacion_de_denuncia">Presentación de denuncia</string>
     <string name="title_fase_del_caso">Fase del caso</string>
-    <string name="item_text_label_abogado_respondable">Abogado responsable</string>
-    <string name="item_text_label_nombre_del_caso">Nombre de la denuncia</string>
-    <string name="item_text_label_business_unit">Unidad de negocio</string>
-    <string name="item_text_label_date">01 Oct 2020</string>
+
 
     <!-- Strings used for dates general -->
 
 
     <!-- Strings used for item in dates general -->
-    <string name="item_text_label_integrationitem_text_label_integration">Integración</string>
+
     <string name="item_text_label_process_link">Vinculación a proceso</string>
     <string name="item_text_label_arrest_warrant">Orden de aprehensión</string>
     <string name="item_text_label_order_execution">Ejecución de orden</string>
@@ -75,52 +72,51 @@
     <string name="item_text_label_reprogramar">Reprogramar</string>
 
     <!-- Strings used for new complaint fragment -->
-    <string name="text_label_numeros">123456</string>
-    <string name="text_label_report_date">Fecha de reporte</string>
-    <string name="text_label_fecha_ejemplo">06 abr 2021</string>
+
+
+
     <string name="text_label_to_select">Seleccionar</string>
-    <string name="text_label_type_of_fraud">Tipo de delito</string>
-    <string name="text_label_case_name">Nombre de la denuncia</string>
-    <string name="text_label_description">Descripción</string>
+
+
+
     <string name="text_label_motivo_de_solicitud">Motivo de solicitud</string>
-    <string name="text_label_amount">Importe</string>
-    <string name="text_label_amount_recovered">Importe recuperado</string>
+
+
     <string name="text_label_nombre_imputado">Nombre del imputado</string>
     <string name="text_label_imputados">Imputados</string>
     <string name="text_label_total_responsible">Total de responsables</string>
     <string name="text_label_lorem_example">Lorem</string>
-    <string name="text_label_save">Guardar</string>
+
     <string name="text_lable_signo_pesos">$</string>
-    <string name="text_lable_ceco">CECO</string>
-    <string name="text_lable_ceco_abogado">CECO Abogado: </string>
-    <string name="text_lable_ceco_udn">CECO Unidad de negocio: </string>
-    <string name="text_lable_zona">Zona</string>
-    <string name="text_lable_metro_sur">Metro sur</string>
+
+
+
+
+
     <string name="text_lable_nuevo_ceco">Nuevo Centro de costos</string>
-    <string name="text_label_fecha_compromiso">Fecha Compromiso</string>
-    <string name="text_label_datos_de_denuncia">Datos de denuncia</string>
-    <string name="text_label_datos_de_agencia">Datos de agencia</string>
+
+
     <string name="text_label_estatus">Estatus</string>
     <string name="text_label_iniciar">Iniciar</string>
-    <string name="text_label_total_de_responsables">Total de imputados:</string>
 
 
-    <string name="text_lable_name_example">Juan Pérez</string>
-    <string name="text_lable_robo_a_elektra">Robo a elektra</string>
+
+
+
     <string name="text_lable_auditorias">Auditorias</string>
     <string name="text_lable_demandas_laborales">Demandas laborales</string>
-    <string name="text_lable_guadalajara">Guadalajara</string>
+
     <string name="text_lable_long_text_example">Lorem ipsum id simply dummy</string>
     <string name="text_lable_long_text_description">Lorem lpsum id simply dummy text of the printing and lypesetting industry</string>
-    <string name="text_lable_ejemplo_precio">$ 0.00</string>
+
     <string name="text_label_empleado_interno">Empleados imputados</string>
     <string name="text_label_empleado_esternos">Empleados externos</string>
     <string name="text_label_empleado_interno_text">Ingrese numero o nombre del empleado que desee buscar.</string>
     <string name="text_label_empleado_externo_text">Ingrese nombre que desee agregar a la lista de imputados.</string>
-    <string name="text_label_lista_de_responsables">Lista de imputados</string>
+
     <string name="text_label_cargando" tools:ignore="TypographyEllipsis">Cagando...</string>
-    <string name="text_label_region_abogado">Región</string>
-    <string name="text_label_porcentaje_caso">0 %</string>
+
+
     <string name="text_label_tipo_empleado">Interno</string>
     <string name="text_label_cerrar">Cerrar</string>
     <string name="text_label_numero_nombre_empleado">Número/Nombre empleado</string>
@@ -155,30 +151,28 @@
     <string name="text_label_error_no_se_ha_seleccionado_un_tipo_de_denuncia">Selecciona un tipo de denuncia</string>
     <string name="text_label_error_el_nombre_del_empleado_exteno_esta_vacio">El nombre del empleado externo está vacío</string>
     <string name="text_label_error_el_responsable_esta_en_la_lista">Esta persona ya se encuentra agregado en la lista.</string>
-    <string name="text_label_error">Error</string>
-    <string name="text_label_compromiso">Compromiso:</string>
-    <string name="text_label_registro">Registro:</string>
-    <string name="text_label_folio">Folio:</string>
+
+
+
+
     <string name="text_label_x">X</string>
-    <string name="text_label_nombre_de_la_denuncia">Nombre de denuncia:</string>
     <string name="text_label_etapa">Etapa:</string>
     <string name="text_label_en_poceso">En proceso</string>
-    <string name="text_label_fase_dos_puntos">Fase:</string>
-    <string name="text_label_sub_fase_dos_puntos">Sub-faase:</string>
+
+
     <string name="text_label_fase">Fase</string>
-    <string name="text_label_nombre_del_abogado">Nombre del abogado:</string>
-    <string name="text_label_unidad_de_negocio">Unidad de negocio:</string>
-    <string name="text_label_ceco_detalles">Ceco:</string>
-    <string name="text_label_tipo_de_faude_detalle">Tipo de delito:</string>
-    <string name="text_label_importe_detalle">Importe:</string>
-    <string name="text_label_recuperado_detalle">Recuperado:</string>
-    <string name="text_label_zona_detalle">Zona:</string>
-    <string name="text_label_region_detalle">Región:</string>
-    <string name="text_label_datos_demanda_detalle">Datos denuncia:</string>
-    <string name="text_label_demanda_detalle">Demanda</string>
-    <string name="text_label_datos_de_agencia_detalle">Datos agencia:</string>
-    <string name="text_label_departamento_detalle">Departamanto</string>
-    <string name="text_label_descripcion_detalle">Descripción:</string>
+
+
+
+
+
+
+
+
+
+
+
+
     <string name="text_label_selecciona_un_tipo_de_fraude">Selecciona un tipo de fraude</string>
     <string name="text_label_tamanio_excedido">Selecciona un tipo de fraude</string>
     <string name="text_label_nombre_de_la_denuncia_esta_vacia">El nombre de la denuncia está vacía</string>
@@ -201,7 +195,7 @@
     <string name="text_label_especifica_tipo_de_empleado">Específica el tipo.</string>
     <string name="text_label_guardar_denucnai">Guardar denuncia</string>
     <string name="text_label_selecciona_un_tipo_de_delito">Selecciona un tipo de delito</string>
-    <string name="text_label_agrega_imputado">Agrega imputado</string>
+
 
     <!-- Strings usados en interface de login  -->
     <string name="text_label_numero_de_empleado">Número de empleado</string>
@@ -211,7 +205,7 @@
     <string name="text_label_el_numero_empleado_esta_vacio">El número de empleado está vacío</string>
 
     <!-- Strings usados en interface de login  -->
-    <string name="text_label_total_imputados">Total de imputados</string>
+
     <string name="text_label_no_se_encontraron_datos">No se encontraron datos</string>
 
     <string name="item_text_label_autorizacion">Autorización</string>
@@ -230,18 +224,18 @@
     <string name="text_label_evidencia">Evidencia</string>
     <string name="text_label_aceptar">Aceptar</string>
     <string name="text_label_guardado">Guardado</string>
-    <string name="text_label_se_ha_guardado_con_exito_la_nueva_denuncia">Se ha guardado con éxito esta nueva denuncia con el nombre </string>
+    <string name="text_label_se_ha_guardado_con_exito_la_nueva_denuncia">Se ha guardado con éxito esta nueva denuncia con el nombre</string>
     <string name="text_label_no_hay_contacto_valido_para_agregar">No hay un contacto válido para agregar</string>
-    <string name="text_label_porcentaje_ejemplo">10 %</string>
-    <string name="text_label_avance_de_la_denuncia">Avance de la denuncia:</string>
-    <string name="text_label_estatus_dos_puntos">Estatus:</string>
-    <string name="text_label_en_espera_ejemplo">En espera</string>
-    <string name="text_label_se_ha_iniciado_esta_fase_con_exito">Se ha iniciado esta fase con éxito.</string>
+
+
+
+
+    <string name="text_label_se_ha_iniciado_esta_fase_con_exito">Fase iniciada correctamente.</string>
     <string name="text_label_inicio">Inicio</string>
-    <string name="text_label_inicio_dos_puntos">Inicio:</string>
+
     <string name="text_label_adjuntar_evidencia_opcional">Adjuntar evidencia (opcional)</string>
     <string name="text_label_adjuntar_evidencia">Adjuntar evidencia</string>
-    <string name="text_label_documentos">Documentos</string>
+
     <string name="text_label_camara">Cámara</string>
     <string name="text_label_galeria">Galería</string>
     <string name="text_label_tipo_delito">Tipo delito</string>
@@ -252,10 +246,9 @@
     <string name="text_label_se_ha_cerrado_esta_fase_exitosamente">Se ha cerrado esta fase correctamente</string>
     <string name="text_label_se_ha_inciado_esta_subfase_exitosamente">Se ha iniciado esta subfase correctamente</string>
     <string name="text_label_exito">Éxito</string>
-    <string name="text_label_procentaje">Porcentaje:</string>
-    <string name="text_label_cierre_dos_puntos">Cierre:</string>
-    <string name="text_label_reprogramaciones">Reprogramaciones</string>
-    <string name="text_label_sub_fases">Subfases</string>
+
+
+
     <string name="text_label_mostrar">Mostrar</string>
     <string name="text_label_ocultar">Ocultar</string>
     <string name="text_label_tipo_de_documento">Tipo de documento</string>
@@ -263,12 +256,11 @@
     <string name="text_label_seleccione_al_menos_una_sentencia">Seleccione almenos una sentencia</string>
     <string name="text_label_lista_de_documento">Lista de documentos</string>
     <string name="text_label_agrege_al_menos_un_de_documento">Agregue almenos un tipo de documento</string>
-    <string name="text_label_no_aplica">N/A</string>
+
 
 
     <!-- Strings used for  -->
     <string name="que_tipo_de_empledo_al_que_pertenece_el_resposable">¿Que tipo de empledo es al que pertenece el imputado?</string>
-    <string name="todo">TODO</string>
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="fcm_message">FCM Message</string>
@@ -276,6 +268,103 @@
     <string name="msg_token_fmt" translatable="false">FCM registration Token: %s</string>
     <string name="msg_subscribed">Subscribed to weather topic</string>
     <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
+
+
+
+
+    <!-- textos usados en splash activity -->
+    <!-- textos usados en splash activity archivo XML-->
+    <string name="text_label_faltan_permisos_por_aceptar">Faltan Permisos por Aceptar</string>
+
+    <!-- textos usados en splash activity archivo JAVA-->
+
+    <!-- textos usados en la app de forma general -->
+    <string name="todo">TODO</string>
+    <string name="text_label_no_aplica">N/A</string>
+    <string name="text_label_guion">-</string>
+    <string name="text_label_error">Error</string>
+    <string name="text_label_region_dos_puntos">Región:</string>
+    <string name="text_label_zona_dos_puntos">Zona:</string>
+    <string name="text_label_fecha_compromiso_dos_puntos">Fecha Compromiso:</string>
+    <string name="text_label_unidad_negocio_dos_puntos">Unidad de negocio:</string>
+    <string name="text_label_tipo_de_delito_dos_puntos">Tipo de delito:</string>
+    <string name="text_label_nombre_de_la_denuncia_dos_puntos">Nombre de la denuncia:</string>
+    <string name="text_label_nombre_de_la_denuncia">Nombre de la denuncia</string>
+    <string name="text_label_descripcion_dos_puntos">Descripción:</string>
+    <string name="text_label_importe_dos_puntos">Importe:</string>
+    <string name="text_label_numero_decimal_ejemplo">$ 0.00</string>
+    <string name="text_label_lista_de_responsables_dos_puntos">Lista de responsables:</string>
+    <string name="text_label_total_responsables_dos_puntos">Total de responsables:</string>
+    <string name="text_label_datos_demanda_dos_puntos">Datos denuncia:</string>
+    <string name="text_label_datos_de_agencia_dos_puntos">Datos agencia:</string>
+    <string name="text_label_estatus_dos_puntos">Estatus:</string>
+    <string name="text_label_registro_dos_puntos">Registro:</string>
+    <string name="text_label_compromiso_dos_puntos">Compromiso:</string>
+
+    <!-- textos de ejemplos usados en la app -->
+    <string name="text_label_nombre_ejemplo">Juan Pérez</string>
+    <string name="text_label_numeros_ejemplo">123456</string>
+    <string name="text_lable_zona_ejemplo">Metro sur</string>
+    <string name="text_lable_region_ejempo">CDMX</string>
+    <string name="text_lable_nombre_de_denuncia_ejemplo">Robo a elektra</string>
+    <string name="text_lable_acusatoria_ejemplo">Acusatoria</string>
+    <string name="text_lable_region_ejemplo">Guadalajara</string>
+    <string name="text_label_en_espera_ejemplo">En espera</string>
+    <string name="text_label_porcentaje_ejemplo">10 %</string>
+    <string name="text_label_fecha_ejemplo">06 abr 2021</string>
+    <string name="text_label_demanda_ejemplo">Demanda</string>
+    <string name="text_label_departamento_ejemplo">Departamanto</string>
+    <string name="text_label_integracion_ejemplo">Integración</string>
+
+    <!-- textos usados en nueva denuncia fragment -->
+    <!-- textos usados en nueva denuncia fragment XML-->
+    <string name="title_mis_denuncias">Mis denuncias</string>
+    <string name="text_label_tipo_de_denuncia">Tipo de denuncia</string>
+    <string name="text_label_abogado_respondable">Abogado responsable</string>
+    <string name="text_label_ceco_abogado_dos_puntos">CECO Abogado:</string>
+    <string name="text_lable_ceco_unidad_negocio_dos_puntos">CECO Unidad de negocio: </string>
+    <string name="text_label_importe_recuperado_dos_puntos">Importe recuperado:</string>
+    <string name="text_label_agregue_responsables_dos_puntos">Agregue responsables:</string>
+    <string name="text_label_agregue">Agregue</string>
+    <string name="text_label_guardar">Guardar</string>
+
+
+
+    <!-- textos usados en nueva denuncia fragment JAVA-->
+    <string name="text_label_fecha_reporte_dos_puntos">Fecha de reporte:</string>
+
+
+    <!-- textos usados en detalle denuncia fragment -->
+    <!-- textos usados en detalle denuncia fragment XML-->
+    <string name="text_label_denuncia">Denuncia</string>
+    <string name="text_label_folio_dos_puntos">Folio:</string>
+    <string name="text_label_tipo_de_denuncia_dos_puntos">Tipo de denuncia:</string>
+    <string name="text_label_sentencia_dos_puntos">Sentencia:</string>
+    <string name="text_label_unidad_de_negocio_dos_puntos">Unidad de negocio:</string>
+    <string name="text_label_ceco_detalles">Ceco:</string>
+    <string name="text_label_nombre_del_abogado">Nombre del abogado:</string>
+
+    <string name="text_label_avance_de_la_denuncia_dos_puntos">Avance de la denuncia:</string>
+    <string name="text_label_fase_dos_puntos">Fase:</string>
+    <string name="text_label_sub_fase_dos_puntos">Sub-faase:</string>
+    <string name="text_label_estatus_reprogramacion_dos_puntos">Estatus reprogramación:</string>
+
+
+    <string name="text_label_recuperado_dos_puntos">Recuperado:</string>
+
+    <string name="text_label_fases">Fases</string>
+    <string name="text_label_subfases">Subfases</string>
+    <string name="text_label_procentaje_dos_puntos">Porcentaje:</string>
+    <string name="text_label_inicio_dos_puntos">Inicio:</string>
+    <string name="text_label_cierre_dos_puntos">Cierre:</string>
+    <string name="text_label_sub_fases">Subfases</string>
+    <string name="text_label_reprogramaciones">Reprogramaciones</string>
+    <string name="text_label_documentos">Documentos</string>
+
+    <string name="text_label_evidencia_de_denuncia">Evidencia de  denuncia</string>
+    <string name="text_label_eliminar">Eliminar</string>
+
+
 
     <string-array name="websites_array">
         <item>Yahoo</item>

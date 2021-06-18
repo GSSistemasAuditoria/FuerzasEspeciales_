@@ -10,7 +10,7 @@
         android:id="@+id/textViewFechaCompromisoTextCFC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/text_label_fecha_compromiso"
+        android:text="@string/text_label_fecha_compromiso_dos_puntos"
         style="@style/TextviewDark"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout

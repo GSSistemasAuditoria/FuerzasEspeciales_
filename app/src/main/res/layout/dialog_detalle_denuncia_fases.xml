@@ -36,19 +36,6 @@
                 android:textColor="@color/gray20"
                 android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/buttonCerrarDDDF"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@android:color/transparent"
-                android:text="X"
-                android:textColor="@color/gray20"
-                android:textSize="20sp"
-                android:visibility="gone" />
-
             <TextView
                 android:id="@+id/textViewTituloDDDF"
                 android:layout_width="match_parent"
@@ -56,7 +43,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:gravity="center"
-                android:text="Fases"
+                android:text="@string/text_label_fases"
                 android:textColor="@color/green_principal"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -70,7 +57,6 @@
                 android:background="@color/gray1" />
 
         </LinearLayout>
-
 
     </androidx.cardview.widget.CardView>
 

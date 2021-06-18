@@ -69,6 +69,7 @@ public class Constantes {
     public static String nuevaSolicitudCambioFecha = "NuevaSolicitudCambioFecha";
     public static String obtenerNotificacionesUsuario = "ObtenerNotificacionesUsuario";
     public static String actualizarNotificacion = "ActualizarNotificacion";
+    public static String actualizarTokenFirebase = "ActualizarTokenFirebase";
 
     public static String exitoTrue = "true";
     public static String selecionar = "Selecionar";

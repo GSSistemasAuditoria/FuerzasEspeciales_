@@ -1,10 +1,8 @@
 package com.auditorias.fuerzasespeciales.ui.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -17,14 +15,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.SQLite.TableDataUser;
-import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
 import com.auditorias.fuerzasespeciales.ui.main.MainActivity;
-import com.auditorias.fuerzasespeciales.utils.AsyncTaskGral;
-import com.auditorias.fuerzasespeciales.utils.Delegate;
-import com.auditorias.fuerzasespeciales.utils.Functions;
-import com.auditorias.fuerzasespeciales.utils.Utils;
-import com.auditorias.fuerzasespeciales.webServicies.Constantes;
-import com.google.gson.Gson;
 
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.CAMERA;
@@ -36,27 +27,26 @@ public class SplashActivity extends AppCompatActivity {
 
     private static final int MULTIPLE_PERMISSIONS_REQUEST_CODE = 100;
     private final String[] permissions = new String[]{READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, CAMERA, ACCESS_NETWORK_STATE, INTERNET};
-    private Thread splashTreadSF;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        requestPemissionsMulti();
+        solicitudPermisos();
     }
 
     private void startAnimations() {
         Animation anim = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.alpha);
         anim.reset();
-        RelativeLayout RelativeLySplash = findViewById(R.id.relativeLayoutSplash);
-        RelativeLySplash.clearAnimation();
-        RelativeLySplash.startAnimation(anim);
+        RelativeLayout relativeLayoutContainerSA = findViewById(R.id.relativeLayoutContainerSA);
+        relativeLayoutContainerSA.clearAnimation();
+        relativeLayoutContainerSA.startAnimation(anim);
         //anim = AnimationUtils.loadAnimation(contextSF, R.anim.zoom);
         //anim.reset();
-        ImageView ImgSplash = findViewById(R.id.imageViewLogoSplash);
-        ImgSplash.clearAnimation();
-        ImgSplash.startAnimation(anim);
-        splashTreadSF = new Thread() {
+        ImageView imageViewLogoSA = findViewById(R.id.imageViewLogoSA);
+        imageViewLogoSA.clearAnimation();
+        imageViewLogoSA.startAnimation(anim);
+        Thread splashTreadSF = new Thread() {
             @Override
             public void run() {
                 try {
@@ -99,8 +89,9 @@ public class SplashActivity extends AppCompatActivity {
         return allGranted;
     }
 
-    public void requestPemissionsMulti() {
-        if (ActivityCompat.checkSelfPermission(SplashActivity.this, permissions[0]) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(SplashActivity.this, permissions[1]) != PackageManager.PERMISSION_GRANTED) {
+    public void solicitudPermisos() {
+        if (ActivityCompat.checkSelfPermission(SplashActivity.this, permissions[0]) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(SplashActivity.this, permissions[1]) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(SplashActivity.this, permissions, MULTIPLE_PERMISSIONS_REQUEST_CODE);
         } else {
             startAnimations();
@@ -110,15 +101,12 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-
-            case MULTIPLE_PERMISSIONS_REQUEST_CODE:
-                if (validatePermissions(grantResults)) {
-                    startAnimations();
-                } else {
-                    Toast.makeText(this, "Faltan Permisos por Aceptar", Toast.LENGTH_SHORT).show();
-                }
-                break;
+        if (requestCode == MULTIPLE_PERMISSIONS_REQUEST_CODE) {
+            if (validatePermissions(grantResults)) {
+                startAnimations();
+            } else {
+                Toast.makeText(this, getText(R.string.text_label_faltan_permisos_por_aceptar), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

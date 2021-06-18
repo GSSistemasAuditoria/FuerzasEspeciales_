@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/navigation_nueva_denuncia_fragment"
         android:name="com.auditorias.fuerzasespeciales.ui.main.ui.nuevoDenuncia.NuevaDenunciaFragment"
-        android:label="@string/title_denuncia"
+        android:label="@string/text_label_denuncia"
         tools:layout="@layout/fragment_nueva_denuncia" />
 
     <action

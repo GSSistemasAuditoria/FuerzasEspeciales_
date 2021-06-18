@@ -11,7 +11,7 @@
     <item
         android:id="@+id/navigation_nueva_denuncia_fragment"
         android:icon="@drawable/ic_complaint"
-        android:title="@string/title_denuncia" />
+        android:title="@string/text_label_denuncia" />
 
     <item
         android:id="@+id/navigation_busqueda_denuncias"

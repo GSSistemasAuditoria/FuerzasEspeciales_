@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="@string/item_text_label_integrationitem_text_label_integration"
+                    android:text="@string/text_label_integracion_ejemplo"
                     android:textColor="@color/dark"
                     android:textStyle="bold" />
 
@@ -76,7 +76,6 @@
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -89,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
-                        android:text="@string/text_label_procentaje"
+                        android:text="@string/text_label_procentaje_dos_puntos"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -97,10 +96,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
-                        android:text="@string/text_label_porcentaje_caso"
+                        android:text="@string/text_label_porcentaje_ejemplo"
                         android:textColor="@color/dark"
                         android:textSize="16sp"
                         android:textStyle="bold" />
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -120,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:text="@string/text_label_registro"
+                android:text="@string/text_label_registro_dos_puntos"
                 android:textColor="@color/black" />
 
             <TextView
@@ -138,7 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:text="@string/text_label_compromiso"
+                android:text="@string/text_label_compromiso_dos_puntos"
                 android:textColor="@color/black" />
 
             <TextView
@@ -215,7 +215,8 @@
                 android:clickable="true"
                 app:cardBackgroundColor="@color/green_secondary"
                 app:cardCornerRadius="5dp"
-                app:cardElevation="5dp">
+                app:cardElevation="5dp"
+                android:focusable="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"

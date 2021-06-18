@@ -54,51 +54,50 @@ public class DetalleDenunciaFasesViewHolder extends RecyclerView.ViewHolder {
         if (detalleDenunciaFase.getNombreFase() != null) {
             textViewNombreFaseCDF.setText(detalleDenunciaFase.getNombreFase());
         } else {
-            textViewNombreFaseCDF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewNombreFaseCDF.setText(activity.getString(R.string.text_label_guion));
         }
 
         if (detalleDenunciaFase.getEtapaFase() != null) {
             textViewEtapaFaseColorCDF.setText(detalleDenunciaFase.getEtapaFase());
         } else {
-            textViewEtapaFaseColorCDF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewEtapaFaseColorCDF.setText(activity.getString(R.string.text_label_guion));
         }
 
         if (detalleDenunciaFase.getColorEtapaFase() != null) {
             textViewEtapaFaseColorCDF.setBackground(Utils.cambiarColorTextView(detalleDenunciaFase.getColorEtapaFase()));
         } else {
-            textViewEtapaFaseColorCDF.setTextColor(activity.getColor(R.color.dark));
-            textViewEtapaFaseColorCDF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewEtapaFaseColorCDF.setText("");
             textViewEtapaFaseColorCDF.setBackgroundColor(Color.TRANSPARENT);
         }
 
         if (detalleDenunciaFase.getPorcentajeAvanceGeneral() != null) {
             textViewPorcentajeFaseCDF.setText(Utils.setFormatoNumeroEnteroPorcentaje(detalleDenunciaFase.getPorcentajeAvanceGeneral()));
         } else {
-            textViewPorcentajeFaseCDF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewPorcentajeFaseCDF.setText(activity.getString(R.string.text_label_guion));
         }
 
         if (detalleDenunciaFase.getFechaRegistro() != null) {
             textViewFechaRegistroCDF.setText(Utils.SetCambioFormatoFechaDiaMesAnio(detalleDenunciaFase.getFechaRegistro().trim()));
         } else {
-            textViewFechaRegistroCDF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewFechaRegistroCDF.setText(activity.getString(R.string.text_label_guion));
         }
 
         if (detalleDenunciaFase.getFechaCompromiso() != null) {
             textViewFechaCompromisoCDF.setText(Utils.SetCambioFormatoFechaDiaMesAnio(detalleDenunciaFase.getFechaCompromiso().trim()));
         } else {
-            textViewFechaCompromisoCDF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewFechaCompromisoCDF.setText(activity.getString(R.string.text_label_guion));
         }
 
         if (detalleDenunciaFase.getFechaInicio() != null) {
             textViewFechaInicioFaseCDF.setText(Utils.SetCambioFormatoFechaDiaMesAnio(detalleDenunciaFase.getFechaInicio().trim()));
         } else {
-            textViewFechaInicioFaseCDF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewFechaInicioFaseCDF.setText(activity.getString(R.string.text_label_guion));
         }
 
         if (detalleDenunciaFase.getFechaCierre() != null) {
             textViewFechaCierreFaseCDF.setText(Utils.SetCambioFormatoFechaDiaMesAnio(detalleDenunciaFase.getFechaCierre().trim()));
         } else {
-            textViewFechaCierreFaseCDF.setText(activity.getString(R.string.text_label_no_aplica));
+            textViewFechaCierreFaseCDF.setText(activity.getString(R.string.text_label_guion));
         }
 
         if (!detalleDenunciaFase.getSubfases().isEmpty()) {

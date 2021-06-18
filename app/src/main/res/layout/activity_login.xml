@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraint_layout_container_LF"
+    android:id="@+id/constraintLayoutContainerLA"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/BlueGrey800"
@@ -10,7 +10,7 @@
     tools:context=".ui.login.LoginActivity">
 
     <ImageView
-        android:id="@+id/imageViewLogoLF"
+        android:id="@+id/imageViewLogoLA"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -27,7 +27,7 @@
         tools:srcCompat="@drawable/sifra_1" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutNumeroEmpleadoLF"
+        android:id="@+id/textInputLayoutNumeroEmpleadoLA"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,12 +37,12 @@
         android:background="@drawable/drawable_background_white_round_corners_and_border"
         android:hint="@string/text_label_numero_de_empleado"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/buttonIngresarLF"
+        app:layout_constraintBottom_toTopOf="@+id/buttonIngresarLA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditTextNumeroEmpleadoLF"
+            android:id="@+id/textInputEditTextNumeroEmpleadoLA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -73,7 +73,7 @@
       </com.google.android.material.textfield.TextInputLayout>-->
 
     <Button
-        android:id="@+id/buttonIngresarLF"
+        android:id="@+id/buttonIngresarLA"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
