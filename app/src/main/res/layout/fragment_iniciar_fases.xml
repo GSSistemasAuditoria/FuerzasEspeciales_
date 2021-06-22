@@ -76,8 +76,8 @@
                         android:layout_height="wrap_content" />
 
                     <include
-                        android:id="@+id/custumSpinnerSelectIFF"
-                        layout="@layout/custum_spinner_selected"
+                        android:id="@+id/customButtonIFF"
+                        layout="@layout/custom_button_edit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 

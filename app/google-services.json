@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "663594714913-g47uqrc3ghrcvk4mkck917hvo4eo5ft2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.auditorias.fuerzasespeciales",
+            "certificate_hash": "dd900fe423c65145f6736f1b70be31ef7f5e4fb4"
+          }
+        },
+        {
           "client_id": "663594714913-q54n8n8hhf605mqm6b2fjo4rubnpgf99.apps.googleusercontent.com",
           "client_type": 3
         }
