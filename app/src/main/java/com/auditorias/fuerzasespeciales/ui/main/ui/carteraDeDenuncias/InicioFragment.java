@@ -37,25 +37,20 @@ public class InicioFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     private static final String TAG = InicioFragment.class.getName();
 
-    //TODO: listas del fragment
     private List<EtapaCaso> listEtapaCaso = new ArrayList<>();
 
-    //TODO:variables generales de un fragment
     private View view;
-    //TODO: Context del fragment
+
     private Context context;
-    //TODO: Activity del fragment
+
     private Activity activity;
-    //TODO: el fragmentManages del fragment para poder hacer transsactiones
+
     private FragmentManager fragmentManager;
 
-    //TODO: todos los recyclerview
     private RecyclerView recyclerViewDenunciasAbogadoIF;
 
-    //TODO: es el swiperefreshlayout
     private SwipeRefreshLayout swipeRefreshLayoutIF;
 
-    //TODO: todos los linearLayouts
     private LinearLayout linearLayoutEtapaIF;
     private TextView textViewSubTiutuloCST;
 

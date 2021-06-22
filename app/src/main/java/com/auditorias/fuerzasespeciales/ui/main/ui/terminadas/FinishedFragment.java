@@ -31,20 +31,18 @@ import java.util.List;
 
 public class FinishedFragment extends Fragment {
 
-    //TODO:variables generales de un fragment
     private View viewHF;
-    //TODO: Context del fragment
+
     private Context contextHF;
-    //TODO: Activity del fragment
+
     private Activity activityHF;
-    //TODO: el fragmentManages del fragment para poder hacer transsactiones
+
     private FragmentManager fragmentManagerHF;
-    //TODO: clase general para poder hacer funcionalidades por medio de objetos en el fragment
+
     private Functions functions;
-    //TODO: todos los recyclerview
+
     private RecyclerView recyclerViewCasosAbogadoIF;
 
-    //TODO: listas del fragment
     private final List<DataCasosTerminados> listCasoTerminados = new ArrayList<>();
 
     private TextView textViewSubTiutuloCST;

@@ -45,14 +45,40 @@ public class DenunciasViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Activity activity, final CasosAbogado casosAbogado, final DenunciasAdapter.OnClickListener listener) {
-        linearLayoutEtapaDenunciaCAA.setBackgroundColor(Color.parseColor(casosAbogado.getColorEtapaCaso()));
-        Utils.setTextViewLetraYFondoBlue(activity, textViewEtapaFaseCAA);
-        textViewFolioDenunciaCAA.setText(casosAbogado.getFolio());
-        textViewEtapaFaseCAA.setText(casosAbogado.getFase());
-        textViewColorEtapaFaseCAA.setBackground(Utils.cambiarColorTextView(casosAbogado.getColorFase()));
-        Utils.setTextViewLetraYFondoBlue(activity, textViewEtapaFaseCAA);
 
-        if (textViewEtapaSubFaseCAA != null) {
+        if (casosAbogado.getColorEtapaCaso() !=null){
+            linearLayoutEtapaDenunciaCAA.setBackgroundColor(Color.parseColor(casosAbogado.getColorEtapaCaso()));
+        }else {
+            linearLayoutEtapaDenunciaCAA.setVisibility(View.GONE);
+        }
+
+        if (casosAbogado.getFolio() != null){
+            textViewFolioDenunciaCAA.setText(casosAbogado.getFolio());
+        }else {
+            textViewFolioDenunciaCAA.setVisibility(View.GONE);
+        }
+
+        if (casosAbogado.getFase() != null){
+            Utils.setTextViewLetraYFondoBlue(activity, textViewEtapaFaseCAA);
+            Utils.setTextViewLetraYFondoBlue(activity, textViewEtapaFaseCAA);
+            textViewEtapaFaseCAA.setText(casosAbogado.getFase());
+        }else {
+            textViewEtapaFaseCAA.setVisibility(View.GONE);
+        }
+
+        if (casosAbogado.getColorFase() != null){
+            textViewColorEtapaFaseCAA.setBackground(Utils.cambiarColorTextView(casosAbogado.getColorFase()));
+        }else {
+            textViewColorEtapaFaseCAA.setVisibility(View.GONE);
+        }
+
+        if (casosAbogado.getNombre() != null){
+            textViewNombreDenunciaCAA.setText(casosAbogado.getNombre());
+        }else {
+            textViewNombreDenunciaCAA.setVisibility(View.GONE);
+        }
+
+        if (casosAbogado.getSubFase() != null) {
             textViewEtapaSubFaseCAA.setText(casosAbogado.getSubFase());
         } else {
             textViewEtapaSubFaseCAA.setVisibility(View.GONE);
@@ -64,8 +90,11 @@ public class DenunciasViewHolder extends RecyclerView.ViewHolder {
             textViewColorEtapaSubFaseCAA.setVisibility(View.GONE);
         }
 
-        textViewNombreDenunciaCAA.setText(casosAbogado.getNombre());
-        textViewUnidadNegocioCAA.setText(casosAbogado.getUdN());
+        if (casosAbogado.getUdN() != null){
+            textViewUnidadNegocioCAA.setText(casosAbogado.getUdN());
+        }else {
+            textViewUnidadNegocioCAA.setVisibility(View.GONE);
+        }
 
         if (casosAbogado.getFechaCompromiso() != null) {
             try {
