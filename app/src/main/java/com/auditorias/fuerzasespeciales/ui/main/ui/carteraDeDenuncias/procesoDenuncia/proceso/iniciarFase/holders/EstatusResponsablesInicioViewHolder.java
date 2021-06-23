@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.catalogos.EstatusResponsableFase;
 import com.auditorias.fuerzasespeciales.models.denucia.datosDenuncia.DatosDenunciaResponsable;
-import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.adapters.EstatusResponsablesInicioAdapter;
 import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.adapters.EstatusImputadoArrayAdapter;
+import com.auditorias.fuerzasespeciales.ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.iniciarFase.adapters.EstatusResponsablesInicioAdapter;
+import com.auditorias.fuerzasespeciales.webServicies.Constantes;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EstatusResponsablesInicioViewHolder extends RecyclerView.ViewHolder {
@@ -24,7 +26,6 @@ public class EstatusResponsablesInicioViewHolder extends RecyclerView.ViewHolder
     TextView textViewNumeroEmpledoResponsableCIE;
     TextView textViewNombreResponsableCIE;
     TextView textViewTipoEmpleadoResponsableCIE;
-    TextView textViewTipoResponsableCIE;
     Spinner spinnerEstatusResponsableCIE;
 
     public EstatusResponsablesInicioViewHolder(View view) {
@@ -32,22 +33,40 @@ public class EstatusResponsablesInicioViewHolder extends RecyclerView.ViewHolder
         textViewNumeroEmpledoResponsableCIE = view.findViewById(R.id.textViewNumeroEmpledoResponsableCIE);
         textViewNombreResponsableCIE = view.findViewById(R.id.textViewNombreResponsableCIE);
         textViewTipoEmpleadoResponsableCIE = view.findViewById(R.id.textViewTipoEmpleadoResponsableCIE);
-        textViewTipoResponsableCIE = view.findViewById(R.id.textViewTipoResponsableCIE);
         spinnerEstatusResponsableCIE = view.findViewById(R.id.spinnerEstatusResponsableCIE);
     }
 
-    public void bind(Activity activity, @NotNull DatosDenunciaResponsable datosDenunciaResponsable, List<EstatusResponsableFase> listStatusResponsableFase, EstatusResponsablesInicioAdapter.OnItemSelectedListener itemSelectedListener) {
-        if (datosDenunciaResponsable.getIdEmpleado() == null) {
-            textViewNumeroEmpledoResponsableCIE.setVisibility(View.GONE);
-        } else {
-            textViewNumeroEmpledoResponsableCIE.setVisibility(View.VISIBLE);
+    public void bind(Activity activity, int idFase,  @NotNull DatosDenunciaResponsable datosDenunciaResponsable, List<EstatusResponsableFase> listStatusResponsableFase, EstatusResponsablesInicioAdapter.OnItemSelectedListener itemSelectedListener) {
+        if (datosDenunciaResponsable.getIdEmpleado() != null) {
             textViewNumeroEmpledoResponsableCIE.setText(String.valueOf(datosDenunciaResponsable.getIdEmpleado()));
+        } else {
+            textViewNumeroEmpledoResponsableCIE.setVisibility(View.GONE);
         }
 
-        textViewNombreResponsableCIE.setText(datosDenunciaResponsable.getNombre());
-        textViewTipoEmpleadoResponsableCIE.setText(datosDenunciaResponsable.getTipoEmpleado());
-        textViewTipoResponsableCIE.setText(datosDenunciaResponsable.getTipoResponsable());
-        setEstatusImputado(activity, datosDenunciaResponsable, listStatusResponsableFase, spinnerEstatusResponsableCIE, itemSelectedListener);
+        if (datosDenunciaResponsable.getNombre() != null) {
+            textViewNombreResponsableCIE.setText(datosDenunciaResponsable.getNombre());
+        } else {
+            textViewNombreResponsableCIE.setVisibility(View.GONE);
+        }
+
+        if (datosDenunciaResponsable.getTipoEmpleado() != null) {
+            textViewTipoEmpleadoResponsableCIE.setText(datosDenunciaResponsable.getTipoEmpleado());
+        } else {
+            textViewTipoEmpleadoResponsableCIE.setVisibility(View.GONE);
+        }
+
+        List<EstatusResponsableFase> listEstatusDeResposable = new ArrayList<>();
+        if (idFase == 2 ){
+            listEstatusDeResposable.add(new EstatusResponsableFase(Constantes.selecionar, "", 0, 0));
+            listEstatusDeResposable.addAll(listStatusResponsableFase);
+        }else {
+            for (int x = 0; x < listStatusResponsableFase.size(); x++) {
+                if (!datosDenunciaResponsable.getIdStatusResponsable().equals(listStatusResponsableFase.get(x).getId())) {
+                    listEstatusDeResposable.add(listStatusResponsableFase.get(x));
+                }
+            }
+        }
+        setEstatusImputado(activity, datosDenunciaResponsable, listEstatusDeResposable, spinnerEstatusResponsableCIE, itemSelectedListener);
     }
 
     public void setEstatusImputado(Activity activity, DatosDenunciaResponsable datosDenunciaResponsable, List<EstatusResponsableFase> listEstatusImputadoFaseList, @NotNull Spinner spinner, EstatusResponsablesInicioAdapter.OnItemSelectedListener itemSelectedListener) {

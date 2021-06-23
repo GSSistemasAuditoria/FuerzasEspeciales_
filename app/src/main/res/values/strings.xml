@@ -224,7 +224,7 @@
     <string name="text_label_evidencia">Evidencia</string>
     <string name="text_label_aceptar">Aceptar</string>
     <string name="text_label_guardado">Guardado</string>
-    <string name="text_label_se_ha_guardado_con_exito_la_nueva_denuncia">Se ha guardado con éxito esta nueva denuncia con el nombre</string>
+    <string name="text_label_se_ha_guardado_con_exito_la_nueva_denuncia">Se ha guardado con éxito esta nueva denuncia con el folio</string>
     <string name="text_label_no_hay_contacto_valido_para_agregar">No hay un contacto válido para agregar</string>
 
 
@@ -300,6 +300,10 @@
     <string name="text_label_estatus_dos_puntos">Estatus:</string>
     <string name="text_label_registro_dos_puntos">Registro:</string>
     <string name="text_label_compromiso_dos_puntos">Compromiso:</string>
+    <string name="text_label_nombre_dos_puntos">Nombre:</string>
+    <string name="text_label_numero_de_empledo_dos_puntos">Número de empleado:</string>
+    <string name="text_label_ceco_dos_puntos">Ceco:</string>
+    <string name="text_label_tipo_de_involucrado_dos_puntos">Tipo de involucrado:</string>
 
     <!-- textos de ejemplos usados en la app -->
     <string name="text_label_nombre_ejemplo">Juan Pérez</string>
@@ -322,7 +326,7 @@
     <string name="text_label_tipo_de_denuncia">Tipo de denuncia</string>
     <string name="text_label_abogado_respondable">Abogado responsable</string>
     <string name="text_label_ceco_abogado_dos_puntos">CECO Abogado:</string>
-    <string name="text_lable_ceco_unidad_negocio_dos_puntos">CECO Unidad de negocio: </string>
+    <string name="text_lable_ceco_unidad_negocio_dos_puntos">CECO Unidad de negocio:</string>
     <string name="text_label_importe_recuperado_dos_puntos">Importe recuperado:</string>
     <string name="text_label_agregue_responsables_dos_puntos">Agregue responsables:</string>
     <string name="text_label_agregue">Agregue</string>
@@ -341,7 +345,7 @@
     <string name="text_label_tipo_de_denuncia_dos_puntos">Tipo de denuncia:</string>
     <string name="text_label_sentencia_dos_puntos">Sentencia:</string>
     <string name="text_label_unidad_de_negocio_dos_puntos">Unidad de negocio:</string>
-    <string name="text_label_ceco_detalles">Ceco:</string>
+
     <string name="text_label_nombre_del_abogado">Nombre del abogado:</string>
 
     <string name="text_label_avance_de_la_denuncia_dos_puntos">Avance de la denuncia:</string>
@@ -360,6 +364,9 @@
     <string name="text_label_sub_fases">Subfases</string>
     <string name="text_label_reprogramaciones">Reprogramaciones</string>
     <string name="text_label_documentos">Documentos</string>
+    <string name="text_label_modificado_en_dos_puntos">Modificado en:</string>
+
+    <string name="text_label_estataus_sentencia_dos_puntos">Estatus de la sentencia:</string>
 
     <string name="text_label_evidencia_de_denuncia">Evidencia de  denuncia</string>
     <string name="text_label_eliminar">Eliminar</string>

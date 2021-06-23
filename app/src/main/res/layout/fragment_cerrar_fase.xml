@@ -73,6 +73,12 @@
                         android:layout_height="wrap_content" />
 
                     <include
+                        android:id="@+id/custumDocumentosIntegracionIFF"
+                        layout="@layout/custum_documentos_integracion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <include
                         android:id="@+id/costomListaResponsablesIFF"
                         layout="@layout/custum_lista_imputados"
                         android:layout_width="match_parent"

@@ -77,6 +77,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
@@ -210,6 +211,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
     private ImageView imageViewVerGaleriaCAE;
 
     private View custumDocumentosIntegracionIFF;
+    private TextView textViewMostrarOcultarCDI;
     private TextView textViewListaDocumentosCDI;
     private RecyclerView recyclerViewDocumentosCDI;
 
@@ -232,7 +234,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
     private Bundle args;
 
     private int mostrarListaImputados = 0;
-    //private int mostrarImagenBandera = 0;
+    private int mostrarListaDocumentos = 0;
 
     public IniciarFaseFragment() {
 
@@ -249,6 +251,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
 
         textViewSeleccionarDocumentoIFF.setText(getString(R.string.text_label_tipo_de_documento));
         textViewAdjuntarEvidenciaCAE.setText(getString(R.string.text_label_adjuntar_evidencia));
+        textViewTextCSS_2.setText(getString(R.string.text_label_estataus_sentencia_dos_puntos));
 
         args = getArguments();
         if (args != null) {
@@ -327,6 +330,8 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
         imageViewVerGaleriaCAE.setOnClickListener(this);
 
         custumDocumentosIntegracionIFF = view.findViewById(R.id.custumDocumentosIntegracionIFF);
+        textViewMostrarOcultarCDI = view.findViewById(R.id.textViewMostrarOcultarCDI);
+        textViewMostrarOcultarCDI.setOnClickListener(this);
         textViewListaDocumentosCDI = view.findViewById(R.id.textViewListaDocumentosCDI);
         recyclerViewDocumentosCDI = view.findViewById(R.id.recyclerViewDocumentosCDI);
 
@@ -373,14 +378,15 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
 
     public void activaServicios(Activity activity, int idCaso) {
         getEstatusResponsable(activity);
-        getDatosCasos(activity, idCaso);
-        getIntegracionDoc(activity);
-        getStatusSentencia(activity);
         getObtenerConfiguracionFormatImages(activity);
         getObtenerConfiguracionFileMaxSize(activity);
         getObtenerConfiguracionFormatDocuments(activity);
         getObtenerConfiguracionTipoAppMovil(activity);
         getObtenerConfiguracionPhotoNumber(activity);
+        getDatosDenuncia(activity, idCaso);
+        getIntegracionDoc(activity);
+        getStatusSentencia(activity);
+
     }
 
     private void llenadoRecyclerView(Activity activity, ArrayList<Documentos> list, RecyclerView recyclerView) {
@@ -411,7 +417,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
         recyclerView.setAdapter(documentosInicioSubfaseAdapter);
     }
 
-    private void getDatosCasos(Activity activity, int idCaso) {
+    private void getDatosDenuncia(Activity activity, int idCaso) {
         try {
             if (Functions.isNetworkAvailable(activity)) {
                 Gson gsonParams = new Gson();
@@ -424,7 +430,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
 
                         if (respuestaGeneral.getDatosDenuncia().getExito().equals(Constantes.exitoTrue)) {
-                            getDatosDenuncia(respuestaGeneral.getDatosDenuncia());
+                            getDataDatosDenuncia(respuestaGeneral.getDatosDenuncia());
                         } else {
                             Utils.messageShort(activity, respuestaGeneral.getDatosDenuncia().getError());
                         }
@@ -443,7 +449,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    public void getDatosDenuncia(DatosDenuncia datosDenuncia) {
+    public void getDataDatosDenuncia(DatosDenuncia datosDenuncia) {
 
         idCasoFase = String.valueOf(datosDenuncia.getIdCasoFase());
         idFase = String.valueOf(datosDenuncia.getIdFase());
@@ -534,7 +540,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
         textViewTotalResponsablesTextCLI.setText("Total de ".concat(datosDenuncia.getEtiquetaResponsables().toLowerCase()));
         textViewTotalResponsablesCLI.setText(String.valueOf(datosDenuncia.getTotalResponsables()));
 
-        estatusResponsablesInicioAdapter = new EstatusResponsablesInicioAdapter(activity, datosDenuncia.getListResponsables(), listEstatusResponsableFase, new EstatusResponsablesInicioAdapter.OnItemSelectedListener() {
+        estatusResponsablesInicioAdapter = new EstatusResponsablesInicioAdapter(activity, Integer.parseInt(idFase), datosDenuncia.getListResponsables(), listEstatusResponsableFase, new EstatusResponsablesInicioAdapter.OnItemSelectedListener() {
             @Override
             public void onItemSelectedListener(DatosDenunciaResponsable datosDenunciaResponsable, int idCasoFase, int idCasoResponsable, int idStatusResponsable) {
                 if (idStatusResponsable != 0) {
@@ -583,7 +589,8 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                     public void getDelegate(String result) {
                         Gson gson = new Gson();
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
-                        getEstatusImputadosList(respuestaGeneral.getLisEstatusResponsableFase());
+                        listEstatusResponsableFase.addAll(respuestaGeneral.getLisEstatusResponsableFase());
+                        //getEstatusImputadosList(respuestaGeneral.getLisEstatusResponsableFase());
                     }
 
                     @Override
@@ -851,6 +858,18 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                 }
                 break;
 
+            case R.id.textViewMostrarOcultarCDI:
+                if (mostrarListaDocumentos == 0) {
+                    textViewMostrarOcultarCDI.setText(getString(R.string.text_label_ocultar));
+                    recyclerViewDocumentosCDI.setVisibility(View.VISIBLE);
+                    mostrarListaDocumentos = 1;
+                } else {
+                    textViewMostrarOcultarCDI.setText(getString(R.string.text_label_mostrar));
+                    recyclerViewDocumentosCDI.setVisibility(View.GONE);
+                    mostrarListaDocumentos = 0;
+                }
+                break;
+
             case R.id.button:
                 showDialogEvidencia();
                 break;
@@ -870,7 +889,7 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                         if (stringBase64Documento != null) {
                             showAlertDialogSeleccionarEvidencia(activity, getString(R.string.text_label_evidencia), getString(R.string.text_label_se_eleminara_la_evidencia_anterior).concat(getString(R.string.text_label_pregunta_general)), getString(R.string.text_label_si), getString(R.string.text_label_no), 1, v);
                         } else {
-                            cargarImagenGaleria("png");
+                            cargarArchivo();
                         }
                     }
                 }
@@ -1118,9 +1137,9 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
                     Utils.messageShort(activity, "Cargue una evidencia");
                 } else if (stringBase64Documento == null || stringCompressDocumento == null) {
                     Utils.messageShort(activity, "Cargue una evidencia");
-                } else if (mPath == null) {
+                } else /*if (mPath == null) {
                     Utils.messageShort(activity, "Cargue una evidencia");
-                } else {
+                } else*/ {
                     cargarDocumentacionInicial(dialog);
                 }
             }
@@ -1489,8 +1508,13 @@ public class IniciarFaseFragment extends Fragment implements View.OnClickListene
         } else if (extension.equals(".pdf") || extension.equals("pdf")) {
             pdfView.setVisibility(View.VISIBLE);
             imageViewViewImageDZI.setVisibility(View.GONE);
-            File file = new File(pathDocumento);
-            pdfView.fromFile(file).load();
+            try {
+                File file = new File(pathDocumento);
+                pdfView.fromFile(file).load();
+            }catch (RuntimeException e){
+                e.printStackTrace();
+            }
+
         }
 
         buttonCerrarDZI.setOnClickListener(new View.OnClickListener() {

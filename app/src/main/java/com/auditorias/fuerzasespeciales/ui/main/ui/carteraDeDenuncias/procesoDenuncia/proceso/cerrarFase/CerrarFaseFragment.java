@@ -468,8 +468,8 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
         textViewFechaCompromisoCDF.setText(Utils.SetCambioFormatoFechaDiaMesAnio(String.valueOf(datosDenuncia.getFechaCompromiso())));
         textViewFechaCompromisoCDF.setTextColor(activity.getColor(R.color.green_secondary));
 
-        textViewListaImputadosTextCLI.setText("Lista de ".concat(datosDenuncia.getEtiquetaResponsables()));
-        textViewTotalResponsablesTextCLI.setText("Total de ".concat(datosDenuncia.getEtiquetaResponsables()));
+        textViewListaImputadosTextCLI.setText("Lista de ".concat(datosDenuncia.getEtiquetaResponsables().toLowerCase()));
+        textViewTotalResponsablesTextCLI.setText("Total de ".concat(datosDenuncia.getEtiquetaResponsables().toLowerCase()));
 
         textViewTotalImputadosCLI.setText(String.valueOf(datosDenuncia.getTotalResponsables()));
         textViewTipoDelitoCDD.setText(datosDenuncia.getTipoFraude());
@@ -482,7 +482,7 @@ public class CerrarFaseFragment extends Fragment implements View.OnClickListener
             custumDatosDenuciaAndDatosAgenciaIFF.setVisibility(View.GONE);
         }
 
-        estatusResponsablesCerrarAdapter = new EstatusResponsablesCerrarAdapter(activity, datosDenuncia.getListResponsables(), /*fragmentManager, */listEstatusResponsableFase, new EstatusResponsablesCerrarAdapter.OnItemSelectedListener() {
+        estatusResponsablesCerrarAdapter = new EstatusResponsablesCerrarAdapter(activity, datosDenuncia.getListResponsables(), listEstatusResponsableFase, new EstatusResponsablesCerrarAdapter.OnItemSelectedListener() {
             @Override
             public void onItemSelectedListener(DatosDenunciaResponsable datosDenunciaResponsable, int idCasoFase, int idCasoResponsable, int idStatusResponsable) {
                 if (idStatusResponsable != 0) {

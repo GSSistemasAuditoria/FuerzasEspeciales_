@@ -10,6 +10,7 @@ import com.auditorias.fuerzasespeciales.R;
 import com.auditorias.fuerzasespeciales.models.detalleDenuncia.DetalleDenunciaResponsables;
 
 public class DetalleEmpleadosResponsablesViewHolder extends RecyclerView.ViewHolder {
+
     TextView textViewNombreEmpleadoTextCDR;
     TextView textViewNombreEmpleadoCDR;
     TextView textViewNumeroEmpleadoTextCDR;
@@ -19,6 +20,7 @@ public class DetalleEmpleadosResponsablesViewHolder extends RecyclerView.ViewHol
     TextView textViewFaseAgregadoCDR;
     TextView textViewEstatusResponsableCDR;
     TextView textViewTipoEmpleadoCDF;
+    TextView textViewTipoResponsableCDR;
 
     public DetalleEmpleadosResponsablesViewHolder(View view) {
         super(view);
@@ -31,21 +33,22 @@ public class DetalleEmpleadosResponsablesViewHolder extends RecyclerView.ViewHol
         textViewFaseAgregadoCDR = view.findViewById(R.id.textViewFaseAgregadoCDR);
         textViewEstatusResponsableCDR = view.findViewById(R.id.textViewEstatusResponsableCDR);
         textViewTipoEmpleadoCDF = view.findViewById(R.id.textViewTipoEmpleadoCDF);
+        textViewTipoResponsableCDR = view.findViewById(R.id.textViewTipoResponsableCDR);
     }
 
     public void bind(Activity activity, DetalleDenunciaResponsables detalleDenunciaResponsables) {
         textViewNombreEmpleadoCDR.setText(detalleDenunciaResponsables.getNombre());
 
-        if (detalleDenunciaResponsables.getIdEmpleado() != null){
+        if (detalleDenunciaResponsables.getIdEmpleado() != null) {
             textViewNumeroEmpleadoCDR.setText(String.valueOf(detalleDenunciaResponsables.getIdEmpleado()));
-        }else {
+        } else {
             textViewNumeroEmpleadoTextCDR.setVisibility(View.GONE);
             textViewNumeroEmpleadoCDR.setVisibility(View.GONE);
         }
 
-        if (detalleDenunciaResponsables.getCeco() != null){
+        if (detalleDenunciaResponsables.getCeco() != null) {
             textViewCecoEmpleadoCDR.setText(String.valueOf(detalleDenunciaResponsables.getCeco()));
-        }else {
+        } else {
             textViewCecoEmpleadoTextCDR.setVisibility(View.GONE);
             textViewCecoEmpleadoCDR.setVisibility(View.GONE);
         }

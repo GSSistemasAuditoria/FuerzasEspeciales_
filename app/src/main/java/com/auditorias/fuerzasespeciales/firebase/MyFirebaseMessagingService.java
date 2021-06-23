@@ -1,6 +1,5 @@
 package com.auditorias.fuerzasespeciales.firebase;
 
-import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,27 +9,13 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
-import android.view.View;
 
 import androidx.core.app.NotificationCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.auditorias.fuerzasespeciales.R;
-import com.auditorias.fuerzasespeciales.models.RespuestaGeneral;
-import com.auditorias.fuerzasespeciales.models.notificaciones.DataNotificacion;
-import com.auditorias.fuerzasespeciales.request.notificaciones.Notificaciones;
 import com.auditorias.fuerzasespeciales.ui.main.MainActivity;
-import com.auditorias.fuerzasespeciales.ui.main.ui.notificaciones.adapters.DenunciasPorVencerAdapter;
-import com.auditorias.fuerzasespeciales.ui.main.ui.notificaciones.adapters.ReprogramacionesAdapter;
-import com.auditorias.fuerzasespeciales.utils.AsyncTaskGral;
-import com.auditorias.fuerzasespeciales.utils.Delegate;
-import com.auditorias.fuerzasespeciales.utils.Functions;
-import com.auditorias.fuerzasespeciales.utils.Utils;
-import com.auditorias.fuerzasespeciales.webServicies.Constantes;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.google.gson.Gson;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -60,7 +45,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            sendNotification(remoteMessage.getNotification().getBody());
+            sendNotification(remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getTitle());
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
@@ -105,13 +90,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
 
-
     /**
      * Create and show a simple notification containing the received FCM message.
      *
      * @param messageBody FCM message body received.
      */
-    private void sendNotification(String messageBody) {
+    private void sendNotification(String messageBody, String messageTitle) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
@@ -121,7 +105,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(R.drawable.sifra_1)
-                        .setContentTitle(getString(R.string.fcm_message))
+                        .setContentTitle(messageTitle)
                         .setContentText(messageBody)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)

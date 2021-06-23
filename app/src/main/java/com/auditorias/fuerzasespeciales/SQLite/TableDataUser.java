@@ -19,7 +19,7 @@ public class TableDataUser {
             .concat(Constantes.idPerfil).concat(Constantes.string_text_coma).concat(Constantes.idStatus).concat(Constantes.string_text_coma).concat(Constantes.idTipoEmpleado).concat(Constantes.string_text_coma)
             .concat(Constantes.idUsuario).concat(Constantes.string_text_coma).concat(Constantes.nombre).concat(Constantes.string_text_coma).concat(Constantes.telefono).concat(Constantes.string_text_coma)
             .concat(Constantes.estatus).concat(Constantes.string_text_coma).concat(Constantes.idRegion).concat(Constantes.string_text_coma).concat(Constantes.perfil).concat(Constantes.string_text_coma)
-            .concat(Constantes.region).concat(Constantes.string_text_coma).concat(Constantes.tipoEmpleado).concat(Constantes.string_text_coma).concat(Constantes.tipoEmpleado).concat(Constantes.text_parectesis_final);
+            .concat(Constantes.region).concat(Constantes.string_text_coma).concat(Constantes.tipoEmpleado).concat(Constantes.string_text_coma).concat(Constantes.zona).concat(Constantes.text_parectesis_final);
 
     public static void setAgregarDatosDeAbogado(Activity activity, LoginAuthModel loginAuthModel, Usuario usuario) {
         SQLHelper date = new SQLHelper(activity);

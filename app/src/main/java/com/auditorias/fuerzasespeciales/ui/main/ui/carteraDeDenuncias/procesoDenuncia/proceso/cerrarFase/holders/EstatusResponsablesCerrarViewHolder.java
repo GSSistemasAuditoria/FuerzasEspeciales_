@@ -23,7 +23,6 @@ public class EstatusResponsablesCerrarViewHolder extends RecyclerView.ViewHolder
     TextView textViewNumeroEmpledoResponsableCIE;
     TextView textViewNombreResponsableCIE;
     TextView textViewTipoEmpleadoResponsableCIE;
-    TextView textViewTipoResponsableCIE;
     Spinner spinnerEstatusResponsableCIE;
 
     public EstatusResponsablesCerrarViewHolder(View view) {
@@ -31,23 +30,31 @@ public class EstatusResponsablesCerrarViewHolder extends RecyclerView.ViewHolder
         textViewNumeroEmpledoResponsableCIE = view.findViewById(R.id.textViewNumeroEmpledoResponsableCIE);
         textViewNombreResponsableCIE = view.findViewById(R.id.textViewNombreResponsableCIE);
         textViewTipoEmpleadoResponsableCIE = view.findViewById(R.id.textViewTipoEmpleadoResponsableCIE);
-        textViewTipoResponsableCIE = view.findViewById(R.id.textViewTipoResponsableCIE);
         spinnerEstatusResponsableCIE = view.findViewById(R.id.spinnerEstatusResponsableCIE);
     }
 
     public void bind(Activity activity, DatosDenunciaResponsable datosDenunciaResponsable, List<EstatusResponsableFase> listEstatusResponsableCerrar, EstatusResponsablesCerrarAdapter.OnItemSelectedListener itemSelectedListener) {
-        textViewNumeroEmpledoResponsableCIE.setText(String.valueOf(datosDenunciaResponsable.getIdEmpleado()));
-        if (datosDenunciaResponsable.getIdEmpleado() == null) {
-            textViewNumeroEmpledoResponsableCIE.setVisibility(View.GONE);
+
+        if (datosDenunciaResponsable.getIdEmpleado() != null) {
+            textViewNumeroEmpledoResponsableCIE.setText(String.valueOf(datosDenunciaResponsable.getIdEmpleado()));
         } else {
-            textViewNumeroEmpledoResponsableCIE.setVisibility(View.VISIBLE);
+            textViewNumeroEmpledoResponsableCIE.setVisibility(View.GONE);
         }
 
-        textViewNombreResponsableCIE.setText(datosDenunciaResponsable.getNombre());
-        textViewTipoEmpleadoResponsableCIE.setText(datosDenunciaResponsable.getTipoEmpleado());
-        textViewTipoResponsableCIE.setText(datosDenunciaResponsable.getTipoResponsable());
+        if (datosDenunciaResponsable.getNombre() != null){
+            textViewNombreResponsableCIE.setText(datosDenunciaResponsable.getNombre());
+        }else {
+            textViewNombreResponsableCIE.setVisibility(View.GONE);
+        }
+
+        if (datosDenunciaResponsable.getTipoEmpleado() != null){
+            textViewTipoEmpleadoResponsableCIE.setText(datosDenunciaResponsable.getTipoEmpleado());
+        }else {
+            textViewTipoEmpleadoResponsableCIE.setVisibility(View.GONE);
+        }
+
         List<EstatusResponsableFase> listEstatusDeResposable = new ArrayList<>();
-        listEstatusDeResposable.add(new EstatusResponsableFase(datosDenunciaResponsable.getStatusResponsable(), "", datosDenunciaResponsable.getIdStatusResponsable(), 0));
+        //listEstatusDeResposable.add(new EstatusResponsableFase(datosDenunciaResponsable.getStatusResponsable(), "", datosDenunciaResponsable.getIdStatusResponsable(), 0));
         for (int x = 0; x < listEstatusResponsableCerrar.size(); x++) {
             if (!datosDenunciaResponsable.getIdStatusResponsable().equals(listEstatusResponsableCerrar.get(x).getId())) {
                 listEstatusDeResposable.add(listEstatusResponsableCerrar.get(x));

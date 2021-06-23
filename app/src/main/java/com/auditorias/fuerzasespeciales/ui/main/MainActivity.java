@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                         String msg = getString(R.string.msg_token_fmt, token);
 
                         Log.d("token", msg);
-                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                             msg = getString(R.string.msg_subscribe_failed);
                         }
                         Log.d("", msg);
-                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
         //textViewTituloPrincipalMA = findViewById(R.id.textViewSubTiutuloCST);

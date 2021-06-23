@@ -21,6 +21,8 @@ public class CasoRequest {
         this.idRegion = idRegion;
     }
 
+    public CasoRequest() {
+    }
 
     @SerializedName("IdTipoDenuncia")
     @Expose

@@ -17,6 +17,9 @@ public class NuevaDenuncia {
     @Expose
     private List<ResponsablesResquest> responsables = null;
 
+    public NuevaDenuncia() {
+    }
+
     public NuevaDenuncia(CasoRequest caso, List<ResponsablesResquest> responsables) {
         this.caso = caso;
         this.responsables = responsables;

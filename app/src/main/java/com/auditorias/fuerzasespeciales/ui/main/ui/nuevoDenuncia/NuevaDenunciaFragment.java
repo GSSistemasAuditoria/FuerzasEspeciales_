@@ -164,7 +164,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
 
         textViewSubTiutuloCST.setText(getString(R.string.title_nuevas_denuncias));
         textViewFechaCompromisoTextCFC.setText(getString(R.string.text_label_fecha_reporte_dos_puntos));
-        textViewTextCSS.setText(getString(R.string.text_label_tipo_de_delito_dos_puntos));
+        textViewTextCSS.setText(getString(R.string.text_label_tipo_de_denuncia_dos_puntos));
 
         servicios(activity, view);
         cargarRecyclerView(activity, listNombreResponsables);
@@ -315,6 +315,9 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
 
     private void getTipoDenuncia(Activity activity, View view) {
         if (Functions.isNetworkAvailable(activity)) {
+            Gson gsonParams = new Gson();
+            String params = gsonParams.toJson(new NuevaDenuncia());
+
             new AsyncTaskGral(activity, new Delegate() {
                 @Override
                 public void getDelegate(String result) {
@@ -332,7 +335,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                 public void executeInBackground(String result, String header) {
 
                 }
-            }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.obtenerTipoDenuncia, "");
+            }, getString(R.string.text_label_cargando)).execute(Constantes.METHOD_POST, Constantes.obtenerTipoDenuncia, params);
         } else {
             showDialogErrorConeccion(activity, view, getString(R.string.text_label_error_de_conexion), getString(R.string.text_label_intentalo_mas_tarde), getString(R.string.text_label_intentar_de_nuevo), 2);
         }
@@ -867,7 +870,7 @@ public class NuevaDenunciaFragment extends Fragment implements View.OnClickListe
                         Gson gson = new Gson();
                         RespuestaGeneral respuestaGeneral = gson.fromJson(result, RespuestaGeneral.class);
                         if (respuestaGeneral.getGuardarDenuncia().getExito().equals(Constantes.exitoTrue)) {
-                            showDialogNuevaDenunciaConExito(activity, view, getString(R.string.text_label_guardado), getString(R.string.text_label_se_ha_guardado_con_exito_la_nueva_denuncia), respuestaGeneral.getGuardarDenuncia().getCasoNombre()/*cambiarNegritasString(respuestaGeneral.getGuardarDenuncia().getCasoNombre()))*/, getString(R.string.text_label_aceptar), String.valueOf(respuestaGeneral.getGuardarDenuncia().getIdCaso()));
+                            showDialogNuevaDenunciaConExito(activity, view, getString(R.string.text_label_guardado), getString(R.string.text_label_se_ha_guardado_con_exito_la_nueva_denuncia), respuestaGeneral.getGuardarDenuncia().getFolio()/*cambiarNegritasString(respuestaGeneral.getGuardarDenuncia().getCasoNombre()))*/, getString(R.string.text_label_aceptar), String.valueOf(respuestaGeneral.getGuardarDenuncia().getIdCaso()));
                         } else {
                             Utils.message(context, respuestaGeneral.getGuardarDenuncia().getError());
                         }

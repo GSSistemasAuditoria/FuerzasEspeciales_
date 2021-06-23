@@ -22,9 +22,11 @@ public class EstatusResponsablesInicioAdapter extends RecyclerView.Adapter<Estat
     private final LayoutInflater inflater;
     private final OnItemSelectedListener itemSelectedListener;
     private final List<EstatusResponsableFase> listEstatusResponsablesFase;
+    private int idFase;
 
-    public EstatusResponsablesInicioAdapter(Activity activity, List<DatosDenunciaResponsable> listDatosDenunciaResponsables, /*FragmentManager fm,*/ List<EstatusResponsableFase> listEstatusResponsablesFase, OnItemSelectedListener itemSelectedListener) {
+    public EstatusResponsablesInicioAdapter(Activity activity, int idFase, List<DatosDenunciaResponsable> listDatosDenunciaResponsables, List<EstatusResponsableFase> listEstatusResponsablesFase, OnItemSelectedListener itemSelectedListener) {
         this.activity = activity;
+        this.idFase = idFase;
         this.listDatosDenunciaResponsables = listDatosDenunciaResponsables;
         this.listEstatusResponsablesFase = listEstatusResponsablesFase;
         this.itemSelectedListener = itemSelectedListener;
@@ -40,7 +42,7 @@ public class EstatusResponsablesInicioAdapter extends RecyclerView.Adapter<Estat
 
     @Override
     public void onBindViewHolder(@NonNull final EstatusResponsablesInicioViewHolder holder, final int position) {
-        holder.bind(activity, listDatosDenunciaResponsables.get(position), listEstatusResponsablesFase, itemSelectedListener);
+        holder.bind(activity, idFase, listDatosDenunciaResponsables.get(position), listEstatusResponsablesFase, itemSelectedListener);
     }
 
     @Override
