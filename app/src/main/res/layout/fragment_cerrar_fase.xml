@@ -8,6 +8,7 @@
     android:windowSoftInputMode="adjustResize"
     tools:context=".ui.main.ui.carteraDeDenuncias.procesoDenuncia.proceso.cerrarFase.CerrarFaseFragment">
 
+
     <include
         android:id="@+id/toolbar"
         layout="@layout/custum_sub_titulo"
