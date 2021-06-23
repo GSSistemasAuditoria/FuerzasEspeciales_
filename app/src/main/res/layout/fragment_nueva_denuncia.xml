@@ -177,6 +177,30 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <Switch
+                            android:id="@+id/switch1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="En operativo"
+                            android:textColor="@color/dark"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/checkBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="En operativo"
+                            android:textColor="@color/dark"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                     <include
                         android:id="@+id/custumSpinnerSelectTipoDenunciaNDF"
                         layout="@layout/custum_spinner_selected"
